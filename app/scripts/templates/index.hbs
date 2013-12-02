@@ -1,0 +1,68 @@
+<div class="container">
+  <h1>Faktura</h1>
+
+  <p>Numer: <strong>2/11/2013</strong></p>
+  <p>Data wystawienia: <strong>30.11.2013</strong></p>
+  <p>Data sprzedaży: <strong>30.11.2013</strong></p>
+  <p>Termin płatności: <strong>14.12.2013</strong></p>
+
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Sprzedawca:</h2>
+      <p>
+        <strong>Jakub Kuźma</strong><br>
+        Jasna 31B<br>
+        44-122 Gliwice<br>
+        Polska<br>
+        NIP: PL 5492180618
+      </p>
+    </div>
+
+    <div class="col-md-4">
+      <h2>Nabywca:</h2>
+      <p>
+        <strong>App and Roll sp. z o.o.</strong><br>
+        Nowogrodzka 50 lok. 515<br>
+        00-695 Warszawa<br>
+        Polska<br>
+        NIP: PL 7010348607
+      </p>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <tr>
+      <th>Nazwa</th>
+      <th class="text-right">Liczba</th>
+      <th class="text-right">Jednostka miary</th>
+      <th class="text-right">Cena netto</th>
+      <th class="text-right">Kwota netto</th>
+      <th class="text-right">Stawka VAT</th>
+      <th class="text-right">Kwota VAT</th>
+      <th class="text-right">Kwota brutto</th>
+    </tr>
+    {{#each item in items}}
+      <tr>
+        <td>{{item.description}}</td>
+        <td class="text-right">{{item.quantity}}</td>
+        <td class="text-right">{{item.unit}}</td>
+        <td class="text-right">{{item.netPrice}} {{currency}}</td>
+        <td class="text-right">{{item.netAmount}} {{currency}}</td>
+        <td class="text-right">{{item.taxRate}}%</td>
+        <td class="text-right">{{item.taxAmount}} {{currency}}</td>
+        <td class="text-right">{{item.grossAmount}} {{currency}}</td>
+      </tr>
+    {{/each}}
+  </table>
+
+  <p>
+    Słownie: <strong>dwa tysiące trzysta czterdzieści EUR 94/100</strong>
+  </p>
+
+  <p>
+    Płatność:<br>
+    <strong>Alior Bank SA</strong><br>
+    SWIFT: ALBPPLPW<br>
+    PL61249010570000990231150019
+  </p>
+</div>

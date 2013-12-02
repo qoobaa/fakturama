@@ -1,0 +1,18 @@
+{
+  "name": "faktura",
+  "version": "0.0.0",
+  "authors": [
+    "Kuba Kuźma <kuba@jah.pl>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ember": "~1.2.0"
+  }
+}

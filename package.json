@@ -1,0 +1,25 @@
+{
+  "name": "faktura",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "bower": "~1.2.7",
+    "grunt": "~0.4.2",
+    "grunt-cli": "~0.1.11",
+    "express": "~3.4.5",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "lockfile": "~0.4.2",
+    "load-grunt-config": "~0.7.0",
+    "load-grunt-tasks": "~0.2.0",
+    "grunt-ember-handlebars": "~0.7.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-recess": "~0.5.0"
+  }
+}
