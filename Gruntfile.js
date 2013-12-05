@@ -12,7 +12,7 @@ module.exports = function (grunt) {
 
         app.use(function (request, response, next) {
             (function retry() {
-                if (lockFile.checkSync(".tmp/connect.lock")) {
+                if (lockFile.checkSync(".tmp/express.lock")) {
                     setTimeout(retry, 30);
                 } else {
                     next();
@@ -27,14 +27,14 @@ module.exports = function (grunt) {
         app.listen(parseInt(process.env.PORT) || 3000);
     });
 
-    grunt.registerTask("lock", "Set semaphore for connect server to wait on.", function () {
+    grunt.registerTask("lock", "Set semaphore for express server to wait on.", function () {
         grunt.file.mkdir(".tmp");
-        lockFile.lockSync(".tmp/connect.lock");
-        grunt.log.writeln("Locked - Development server won't answer incoming requests until App Kit is done updating.");
+        lockFile.lockSync(".tmp/express.lock");
+        grunt.log.writeln("Locked - Development server won't answer incoming requests until grunt is done updating.");
     });
 
-    grunt.registerTask("unlock", "Release semaphore that connect server waits on.", function () {
-        lockFile.unlockSync(".tmp/connect.lock");
+    grunt.registerTask("unlock", "Release semaphore that express server waits on.", function () {
+        lockFile.unlockSync(".tmp/express.lock");
         grunt.log.writeln("Unlocked - Development server now handles requests.");
     });
 

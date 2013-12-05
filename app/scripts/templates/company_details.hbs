@@ -1,0 +1,12 @@
+{{#if view.isEditing}}
+  {{view Faktura.FocusedTextAreaView valueBinding="view.nameAndAddress" class="form-control" rows="5"}}
+{{else}}
+  <p {{action "edit" target="view"}}>
+    {{#if view.isEmpty}}
+      <span class="text-muted">Kliknij, aby edytować…</span>
+    {{else}}
+      <strong>{{view.name}}</strong><br>
+      {{{view.formattedAddress}}}
+    {{/if}}
+  </p>
+{{/if}}
