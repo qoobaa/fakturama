@@ -38,11 +38,19 @@
   <div class="row">
     <div class="col-md-4">
       <h2>Sprzedawca:</h2>
+      <p class="visible-print">
+        <strong>{{sellerFirstLine}}</strong><br>
+        {{#each line in sellerRest}}{{line}}<br>{{/each}}
+      </p>
       {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="seller"}}
     </div>
 
     <div class="col-md-4">
       <h2>Nabywca:</h2>
+      <p class="visible-print">
+        <strong>{{buyerFirstLine}}</strong><br>
+        {{#each line in buyerRest}}{{line}}<br>{{/each}}
+      </p>
       {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="buyer"}}
     </div>
   </div>
@@ -53,50 +61,58 @@
       <th class="text-right">Liczba</th>
       <th class="text-right col-xs-1">Jednostka miary</th>
       <th class="text-right">Cena netto</th>
-      <th class="text-right">Kwota netto</th>
+      <th class="text-right">Wartość netto</th>
       <th class="text-right col-xs-1">Stawka VAT</th>
-      <th class="text-right">Kwota VAT</th>
-      <th class="text-right">Cena brutto</th>
-      <th class="text-right">Kwota brutto</th>
+      <th class="text-right">Wartość VAT</th>
+      <th class="text-right">Wartość brutto</th>
+      <th class="hidden-print"></th>
     </tr>
     {{#each item in content}}
-      <tr {{action "edit" item}}>
+      <tr>
         <td>
-          {{view Ember.TextField class="form-control" valueBinding="item.description"}}
+          <p class="visible-print">{{item.description}}</p>
+          {{view Ember.TextField class="form-control hidden-print" valueBinding="item.description"}}
         </td>
         <td class="text-right">
-          {{view Ember.TextField type="number" step="0.001" min="0" class="form-control text-right" valueBinding="item.formattedQuantity"}}
+          <p class="visible-print">{{item.formattedQuantity}}</p>
+          {{view Ember.TextField type="number" step="0.001" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedQuantity"}}
         </td>
         <td class="text-right">
-          {{view Ember.Select class="form-control" contentBinding="units" valueBinding="item.unit"}}
+          <p class="visible-print">{{item.unit}}</p>
+          {{view Ember.Select class="form-control hidden-print" contentBinding="units" valueBinding="item.unit"}}
         </td>
         <td class="text-right">
-          {{view Ember.TextField type="number" step="0.01" min="0" class="form-control text-right" valueBinding="item.formattedNetPrice"}}
+          <p class="visible-print">{{integerToCurrency item.netPrice}}</p>
+          {{view Ember.TextField type="number" step="0.01" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedNetPrice"}}
         </td>
         <td class="text-right">
-          {{item.formattedNetAmount}}
+          {{integerToCurrency item.netAmount}}
         </td>
         <td class="text-right">
-          {{view Ember.Select class="form-control" contentBinding="taxRates" valueBinding="item.formattedTaxRate"}}
+          <p class="visible-print">{{item.formattedTaxRate}}</p>
+          {{view Ember.Select class="form-control hidden-print" contentBinding="taxRates" valueBinding="item.formattedTaxRate"}}
         </td>
         <td class="text-right">
-          {{item.formattedTaxAmount}}
+          {{integerToCurrency item.taxAmount}}
         </td>
         <td class="text-right">
-          {{item.formattedGrossPrice}}
+          {{integerToCurrency item.grossAmount}}
         </td>
-        <td class="text-right">
-          {{item.formattedGrossAmount}}
+        <td class="hidden-print">
+          <button class="btn btn-danger">❌</button>
         </td>
       </tr>
     {{/each}}
+    <tr class="hidden-print">
+      <td colspan="9"><button class="btn btn-success btn-block">✚</button></td>
+    </tr>
   </table>
 
-  <p>
-    <strong>Słownie:</strong> dwa tysiące trzysta czterdzieści EUR 94/100
+  <p class="visible-print">
+    {{#each line in commentLines}}{{line}}<br>{{/each}}
   </p>
 
-  <p>
-    {{view Ember.TextArea class="form-control hidden-print" rows="4"}}
+  <p class="hidden-print">
+    {{view Ember.TextArea class="form-control" rows="4" valueBinding="comment"}}
   </p>
 </div>

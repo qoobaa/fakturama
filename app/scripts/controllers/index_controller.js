@@ -1,49 +1,45 @@
 Faktura.IndexController = Ember.ArrayController.extend({
     number: "",
-    isNumberEmpty: function () {
-        return $.trim(this.get("number")) == "";
-    }.property("number"),
-    isEditingNumber: false,
-
     dateOfIssue: undefined,
-    isEditingDateOfIssue: false,
-
     dateOfSale: undefined,
-    isEditingDateOfSale: false,
-
     dueDate: undefined,
-    isEditingDueDate: false,
 
     currency: "CAD",
+
     seller: "",
 
+    sellerFirstLine: function () {
+        return this.get("seller").split("\n")[0];
+    }.property("seller"),
+
+    sellerRest: function () {
+        return this.get("seller").split("\n").slice(1);
+    }.property("seller"),
+
+    buyer: "",
+
+    buyerFirstLine: function () {
+        return this.get("buyer").split("\n")[0];
+    }.property("buyer"),
+
+    buyerRest: function () {
+        return this.get("buyer").split("\n").slice(1);
+    }.property("buyer"),
+
     units: ["godzina", "usługa", "sztuka", "dzień", "rabat", "kg", "ton", "m", "km", "zaliczka", "komplet", "m²", "m³"],
-    taxRates: ["0%", "5%", "8%", "23%", "n.p.", "zw."],
+    taxRates: ["23%", "8%", "5%", "0%", "n.p.", "zw."],
+
+    comment: "",
+    commentLines: function () {
+        return this.get("comment").split("\n");
+    }.property("comment"),
 
     init: function () {
         this._super.apply(this, arguments);
-        this.set("content", [Faktura.Item.create(), Faktura.Item.create()]);
+        this.set("content", [Faktura.Item.create()]);
     },
 
     actions: {
-        editNumber: function () {
-            this.set("isEditingNumber", true);
-        },
 
-        editDateOfIssue: function () {
-            this.set("isEditingDateOfIssue", true);
-        },
-
-        editDateOfSale: function () {
-            this.set("isEditingDateOfSale", true);
-        },
-
-        editDueDate: function () {
-            this.set("isEditingDueDate", true);
-        },
-
-        edit: function (item) {
-            item.set("isEditing", true);
-        }
     }
 });

@@ -1,5 +1,5 @@
 Faktura.Item = Ember.Object.extend({
-    description: "Programowanie w języku Ruby / JavaScript",
+    description: "",
 
     formattedQuantity: "",
 
@@ -21,26 +21,24 @@ Faktura.Item = Ember.Object.extend({
         return this.get("formattedGrossPrice").integerize(2);
     }.property("formattedGrossPrice"),
 
-    formattedNetAmount: function () {
-        return this.get("netAmount");
-    }.property("netAmount"),
-
     netAmount: function (key, value) {
-        return this.get("netPrice") * this.get("quantity") / 1000;
+        return Math.round(this.get("netPrice") * this.get("quantity") / 1000);
     }.property("netPrice", "quantity"),
 
-    formattedTaxRate: "",
+    formattedTaxRate: undefined,
 
-    taxRate: function () {
-        var value = parseInt(this.get("taxRate"), 10);
-        return isNaN(value) ? 0 : value;
-    }.property("formattedTaxRate"),
+    formattedTaxRateDidChange: function () {
+        var value = parseInt(this.get("formattedTaxRate"), 10);
+        this.set("taxRate", isNaN(value) ? 0 : value);
+    }.observes("formattedTaxRate"),
 
-    formattedTaxAmount: "0",
+    formattedTaxAmount: "",
 
     taxAmount: function () {
-        return Math.round(this.get("netAmount") * this.get("taxRateValue") / 100);
-    }.property("netAmount", "taxRateValue"),
+        return Math.round(this.get("netAmount") * this.get("taxRate") / 100);
+    }.property("netAmount", "taxRate"),
 
-    grossAmount: 1100
+    grossAmount: function () {
+        return this.get("netAmount") + this.get("taxAmount");
+    }.property("netAmount", "taxAmount")
 });
