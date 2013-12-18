@@ -2,7 +2,6 @@ var Faktura = Ember.Application.create({
     units: ["godz.", "usł.", "szt.", "dni", "rabat", "kg", "ton", "m", "km", "zaliczka", "komplet", "m²", "m³"],
     englishUnits: ["hrs", "service", "pcs", "days", "discount", "kg", "tons", "m", "km", "advance", "set", "m²", "m³"],
     taxRates: ["23%", "8%", "5%", "0%", "n.p.", "zw."],
-    englishTaxRates: ["23%", "8%", "5%", "0%", "n.a.", "exempted"],
     currencies: ["PLN", "GBP", "USD", "EUR", "CHF", "CZK", "NOK", "SEK", "CAD", "DKK", "HUF"],
     languages: ["polski", "polsko-angielski"]
 });

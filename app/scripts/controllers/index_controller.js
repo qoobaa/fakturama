@@ -71,7 +71,6 @@ Faktura.IndexController = Ember.ArrayController.extend({
 
             return Ember.Object.create({
                 formattedTaxRate: taxRate,
-                englishFormattedTaxRate: Faktura.get("englishTaxRates." + Faktura.get("taxRates").indexOf(taxRate)),
                 netAmount: netAmount,
                 taxAmount: taxAmount,
                 grossAmount: grossAmount

@@ -171,7 +171,7 @@
           {{integerToCurrency item.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
         </td>
         <td class="text-right">
-          <p class="visible-print">{{item.formattedTaxRate}} {{#if isEnglish}}/ {{item.englishFormattedTaxRate}}{{/if}}</p>
+          <p class="visible-print">{{item.formattedTaxRate}}</p>
           {{view Ember.Select class="form-control hidden-print" contentBinding="Faktura.taxRates" valueBinding="item.formattedTaxRate"}}
         </td>
         <td class="text-right">
@@ -197,7 +197,7 @@
       <tr>
         <th class="text-right" colspan="4">W tym {{#if isEnglish}}/ Including{{/if}}</th>
         <td class="text-right">{{integerToCurrency subtotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
-        <td class="text-right">{{subtotal.formattedTaxRate}} {{#if isEnglish}}/ {{subtotal.englishFormattedTaxRate}}{{/if}}</td>
+        <td class="text-right">{{subtotal.formattedTaxRate}}</td>
         <td class="text-right">{{integerToCurrency subtotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
         <td class="text-right">{{integerToCurrency subtotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
         <td></td>
@@ -215,4 +215,22 @@
   <p class="hidden-print">
     {{view Ember.TextArea class="form-control" rows="4" valueBinding="comment"}}
   </p>
+
+  <br>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <p class="form-control-static visible-print text-center">{{buyerSignature}}</p>
+      {{view Ember.TextField class="form-control text-center hidden-print" valueBinding="buyerSignature" id="buyerSignature"}}
+      <hr>
+      <label for="buyerSignature">Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</label>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <p class="form-control-static visible-print text-center">{{issuerSignature}}</p>
+      {{view Ember.TextField class="form-control text-center hidden-print" valueBinding="issuerSignature" id="issuerSignature"}}
+      <hr>
+      <label for="issuerSignature">Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</label>
+    </div>
+  </div>
 </div>
