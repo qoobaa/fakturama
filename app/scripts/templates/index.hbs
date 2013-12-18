@@ -1,50 +1,73 @@
 <div class="container">
-  <h1>Faktura</h1>
+  <h1>
+    Faktura {{#if isEnglish}}/ Invoice{{/if}}
+  </h1>
 
   <div class="form-horizontal">
     <div class="form-group hidden-print">
-      <label class="control-label col-md-2">Waluta:</label>
-      <div class="col-md-2">
-        {{view Ember.Select class="form-control" contentBinding="currencies" valueBinding="currency"}}
+      <label class="control-label col-sm-2" for="currency">
+        Waluta {{#if isEnglish}}/ Currency{{/if}}
+      </label>
+      <div class="col-sm-2">
+        {{view Ember.Select class="form-control" contentBinding="currencies" valueBinding="currency" id="currency"}}
+      </div>
+    </div>
+
+    <div class="form-group hidden-print">
+      <label class="control-label col-sm-2" for="language">
+        Język {{#if isEnglish}}/ Language{{/if}}
+      </label>
+      <div class="col-sm-2">
+        {{view Ember.Select class="form-control" contentBinding="languages" valueBinding="language" id="language"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-md-2">Numer:</label>
-      <div class="col-md-2">
+      <label class="control-label col-sm-2" for="number">
+        Numer {{#if isEnglish}}/ Number{{/if}}
+      </label>
+      <div class="col-sm-2">
         <p class="form-control-static visible-print">{{number}}</p>
-        {{view Ember.TextField class="form-control hidden-print" valueBinding="number"}}
+        {{view Ember.TextField class="form-control hidden-print" valueBinding="number" id="number"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-md-2">Data wystawienia:</label>
-      <div class="col-md-2">
+      <label class="control-label col-sm-2" for="dateOfIssue">
+        Data wystawienia {{#if isEnglish}}/ Date of issue{{/if}}
+      </label>
+      <div class="col-sm-2">
         <p class="form-control-static visible-print">{{dateOfIssue}}</p>
-        {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfIssue"}}
+        {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfIssue" id="dateOfIssue"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-md-2">Data sprzedaży:</label>
-      <div class="col-md-2">
+      <label class="control-label col-sm-2" for="dateOfSale">
+        Data sprzedaży {{#if isEnglish}}/ Date of sale{{/if}}
+      </label>
+      <div class="col-sm-2">
         <p class="form-control-static visible-print">{{dateOfSale}}</p>
-        {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfSale"}}
+        {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfSale" id="dateOfSale"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-md-2">Termin płatności:</label>
-      <div class="col-md-2">
+      <label class="control-label col-sm-2" for="dueDate">
+        Termin płatności {{#if isEnglish}}/ Due date{{/if}}
+      </label>
+      <div class="col-sm-2">
         <p class="form-control-static visible-print">{{dueDate}}</p>
-        {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dueDate"}}
+        {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dueDate" id="dueDate"}}
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-4">
-      <h2>Sprzedawca:</h2>
+    <div class="col-sm-4">
+      <h2>
+        Sprzedawca {{#if isEnglish}}/ Seller{{/if}}
+      </h2>
       <p class="visible-print">
         <strong>{{sellerFirstLine}}</strong><br>
         {{#each line in sellerRest}}{{line}}<br>{{/each}}
@@ -52,8 +75,10 @@
       {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="seller"}}
     </div>
 
-    <div class="col-md-4">
-      <h2>Nabywca:</h2>
+    <div class="col-sm-4">
+      <h2>
+        Nabywca {{#if isEnglish}}/ Buyer{{/if}}
+      </h2>
       <p class="visible-print">
         <strong>{{buyerFirstLine}}</strong><br>
         {{#each line in buyerRest}}{{line}}<br>{{/each}}
@@ -62,18 +87,66 @@
     </div>
   </div>
 
+  <br>
+
   <table class="table table-striped table-condensed">
     <tr>
-      <th class="col-xs-4">Nazwa</th>
-      <th class="text-right">Liczba</th>
-      <th class="text-right col-xs-1">Jednostka miary</th>
-      <th class="text-right">Cena netto</th>
-      <th class="text-right">Wartość netto</th>
-      <th class="text-right col-xs-1">Stawka VAT</th>
-      <th class="text-right">Wartość VAT</th>
-      <th class="text-right">Wartość brutto</th>
+      <th class="col-xs-4">
+        Nazwa
+      </th>
+      <th class="text-right">
+        Liczba
+      </th>
+      <th class="text-right col-xs-1">
+        Jednostka miary
+      </th>
+      <th class="text-right">
+        Cena netto
+      </th>
+      <th class="text-right">
+        Wartość netto
+      </th>
+      <th class="text-right col-xs-1">
+        Stawka VAT
+      </th>
+      <th class="text-right">
+        Wartość VAT
+      </th>
+      <th class="text-right">
+        Wartość brutto
+      </th>
       <th class="hidden-print"></th>
     </tr>
+    {{#if isEnglish}}
+      <tr>
+        <th class="col-xs-4">
+          Name
+        </th>
+        <th class="text-right">
+          Quantity
+        </th>
+        <th class="text-right col-xs-1">
+          Unit
+        </th>
+        <th class="text-right">
+          Net price
+        </th>
+        <th class="text-right">
+          Net amount
+        </th>
+        <th class="text-right col-xs-1">
+          VAT rate
+        </th>
+        <th class="text-right">
+          VAT amount
+        </th>
+        <th class="text-right">
+          Gross amount
+        </th>
+        <th class="hidden-print"></th>
+      </tr>
+    {{/if}}
+
     {{#each item in content}}
       <tr>
         <td>
@@ -113,7 +186,7 @@
       </tr>
     {{/each}}
     <tr>
-      <th class="text-right" colspan="4">Razem</th>
+      <th class="text-right" colspan="4">Razem {{#if isEnglish}}/ Total{{/if}}</th>
       <td class="text-right">{{integerToCurrency totalNetAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
       <td></td>
       <td class="text-right">{{integerToCurrency totalTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
@@ -122,7 +195,7 @@
     </tr>
     {{#each subtotal in subTotals}}
       <tr>
-        <th class="text-right" colspan="4">W tym</th>
+        <th class="text-right" colspan="4">W tym {{#if isEnglish}}/ Including{{/if}}</th>
         <td class="text-right">{{integerToCurrency subtotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
         <td class="text-right">{{subtotal.formattedTaxRate}}</td>
         <td class="text-right">{{integerToCurrency subtotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>

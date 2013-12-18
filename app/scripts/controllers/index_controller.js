@@ -27,6 +27,11 @@ Faktura.IndexController = Ember.ArrayController.extend({
     units: ["godzina", "usługa", "sztuka", "dzień", "rabat", "kg", "ton", "m", "km", "zaliczka", "komplet", "m²", "m³"],
     taxRates: ["23%", "8%", "5%", "0%", "n.p.", "zw."],
     currencies: ["PLN", "GBP", "USD", "EUR", "CHF", "CZK", "NOK", "SEK", "CAD", "DKK", "HUF"],
+    languages: ["polski", "polsko-angielski"],
+
+    isEnglish: function () {
+        return this.get("language") === "polsko-angielski";
+    }.property("language"),
 
     comment: "",
     commentLines: function () {
@@ -75,10 +80,9 @@ Faktura.IndexController = Ember.ArrayController.extend({
         });
     }.property("content.@each.netAmount", "content.@each.taxAmount", "content.@each.grossAmount", "content.@each.formattedTaxRate"),
 
-    init: function () {
-        this._super.apply(this, arguments);
-        this.set("content", [Faktura.Item.create()]);
-    },
+    didInit: function () {
+        this.send("addItem");
+    }.on("init"),
 
     actions: {
         removeItem: function (item) {
