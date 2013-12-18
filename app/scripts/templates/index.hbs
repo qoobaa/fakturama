@@ -2,6 +2,13 @@
   <h1>Faktura</h1>
 
   <div class="form-horizontal">
+    <div class="form-group hidden-print">
+      <label class="control-label col-md-2">Waluta:</label>
+      <div class="col-md-2">
+        {{view Ember.Select class="form-control" contentBinding="currencies" valueBinding="currency"}}
+      </div>
+    </div>
+
     <div class="form-group">
       <label class="control-label col-md-2">Numer:</label>
       <div class="col-md-2">
@@ -82,29 +89,49 @@
           {{view Ember.Select class="form-control hidden-print" contentBinding="units" valueBinding="item.unit"}}
         </td>
         <td class="text-right">
-          <p class="visible-print">{{integerToCurrency item.netPrice}}</p>
+          <p class="visible-print">
+            {{integerToCurrency item.netPrice}}&nbsp;<small class="text-muted">{{currency}}</small>
+          </p>
           {{view Ember.TextField type="number" step="0.01" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedNetPrice"}}
         </td>
         <td class="text-right">
-          {{integerToCurrency item.netAmount}}
+          {{integerToCurrency item.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
         </td>
         <td class="text-right">
           <p class="visible-print">{{item.formattedTaxRate}}</p>
           {{view Ember.Select class="form-control hidden-print" contentBinding="taxRates" valueBinding="item.formattedTaxRate"}}
         </td>
         <td class="text-right">
-          {{integerToCurrency item.taxAmount}}
+          {{integerToCurrency item.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
         </td>
         <td class="text-right">
-          {{integerToCurrency item.grossAmount}}
+          {{integerToCurrency item.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
         </td>
         <td class="hidden-print">
-          <button class="btn btn-danger">❌</button>
+          <button class="btn btn-danger" {{action "removeItem" item}}>❌</button>
         </td>
       </tr>
     {{/each}}
+    <tr>
+      <th class="text-right" colspan="4">Razem</th>
+      <td class="text-right">{{integerToCurrency totalNetAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+      <td></td>
+      <td class="text-right">{{integerToCurrency totalTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+      <td class="text-right">{{integerToCurrency totalGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+      <td></td>
+    </tr>
+    {{#each subtotal in subTotals}}
+      <tr>
+        <th class="text-right" colspan="4">W tym</th>
+        <td class="text-right">{{integerToCurrency subtotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+        <td class="text-right">{{subtotal.formattedTaxRate}}</td>
+        <td class="text-right">{{integerToCurrency subtotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+        <td class="text-right">{{integerToCurrency subtotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+        <td></td>
+      </tr>
+    {{/each}}
     <tr class="hidden-print">
-      <td colspan="9"><button class="btn btn-success btn-block">✚</button></td>
+      <td colspan="9"><button class="btn btn-success btn-block" {{action "addItem"}}>✚</button></td>
     </tr>
   </table>
 
