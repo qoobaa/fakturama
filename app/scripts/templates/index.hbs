@@ -9,7 +9,7 @@
         Waluta {{#if isEnglish}}/ Currency{{/if}}
       </label>
       <div class="col-sm-2">
-        {{view Ember.Select class="form-control" contentBinding="currencies" valueBinding="currency" id="currency"}}
+        {{view Ember.Select class="form-control" contentBinding="Faktura.currencies" valueBinding="currency" id="currency"}}
       </div>
     </div>
 
@@ -18,7 +18,7 @@
         Język {{#if isEnglish}}/ Language{{/if}}
       </label>
       <div class="col-sm-2">
-        {{view Ember.Select class="form-control" contentBinding="languages" valueBinding="language" id="language"}}
+        {{view Ember.Select class="form-control" contentBinding="Faktura.languages" valueBinding="language" id="language"}}
       </div>
     </div>
 
@@ -158,8 +158,8 @@
           {{view Ember.TextField type="number" step="0.001" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedQuantity"}}
         </td>
         <td class="text-right">
-          <p class="visible-print">{{item.unit}}</p>
-          {{view Ember.Select class="form-control hidden-print" contentBinding="units" valueBinding="item.unit"}}
+          <p class="visible-print">{{item.unit}} {{#if isEnglish}}/ {{item.englishUnit}}{{/if}}</p>
+          {{view Ember.Select class="form-control hidden-print" contentBinding="Faktura.units" valueBinding="item.unit"}}
         </td>
         <td class="text-right">
           <p class="visible-print">
@@ -171,8 +171,8 @@
           {{integerToCurrency item.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
         </td>
         <td class="text-right">
-          <p class="visible-print">{{item.formattedTaxRate}}</p>
-          {{view Ember.Select class="form-control hidden-print" contentBinding="taxRates" valueBinding="item.formattedTaxRate"}}
+          <p class="visible-print">{{item.formattedTaxRate}} {{#if isEnglish}}/ {{item.englishFormattedTaxRate}}{{/if}}</p>
+          {{view Ember.Select class="form-control hidden-print" contentBinding="Faktura.taxRates" valueBinding="item.formattedTaxRate"}}
         </td>
         <td class="text-right">
           {{integerToCurrency item.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
@@ -197,7 +197,7 @@
       <tr>
         <th class="text-right" colspan="4">W tym {{#if isEnglish}}/ Including{{/if}}</th>
         <td class="text-right">{{integerToCurrency subtotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
-        <td class="text-right">{{subtotal.formattedTaxRate}}</td>
+        <td class="text-right">{{subtotal.formattedTaxRate}} {{#if isEnglish}}/ {{subtotal.englishFormattedTaxRate}}{{/if}}</td>
         <td class="text-right">{{integerToCurrency subtotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
         <td class="text-right">{{integerToCurrency subtotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
         <td></td>

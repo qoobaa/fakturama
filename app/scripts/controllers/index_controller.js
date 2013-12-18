@@ -24,11 +24,6 @@ Faktura.IndexController = Ember.ArrayController.extend({
         return this.get("buyer").split("\n").slice(1);
     }.property("buyer"),
 
-    units: ["godzina", "usługa", "sztuka", "dzień", "rabat", "kg", "ton", "m", "km", "zaliczka", "komplet", "m²", "m³"],
-    taxRates: ["23%", "8%", "5%", "0%", "n.p.", "zw."],
-    currencies: ["PLN", "GBP", "USD", "EUR", "CHF", "CZK", "NOK", "SEK", "CAD", "DKK", "HUF"],
-    languages: ["polski", "polsko-angielski"],
-
     isEnglish: function () {
         return this.get("language") === "polsko-angielski";
     }.property("language"),
@@ -57,7 +52,7 @@ Faktura.IndexController = Ember.ArrayController.extend({
     }.property("content.@each.grossAmount"),
 
     subTotals: function () {
-        return this.get("taxRates").map(function (taxRate) {
+        return Faktura.get("taxRates").map(function (taxRate) {
             var items, netAmount, taxAmount, grossAmount;
 
             items = this.get("content").filterBy("formattedTaxRate", taxRate);
@@ -74,7 +69,13 @@ Faktura.IndexController = Ember.ArrayController.extend({
                 return previousValue + item.get("grossAmount");
             }, 0);
 
-            return Ember.Object.create({ formattedTaxRate: taxRate, netAmount: netAmount, taxAmount: taxAmount, grossAmount: grossAmount });
+            return Ember.Object.create({
+                formattedTaxRate: taxRate,
+                englishFormattedTaxRate: Faktura.get("englishTaxRates." + Faktura.get("taxRates").indexOf(taxRate)),
+                netAmount: netAmount,
+                taxAmount: taxAmount,
+                grossAmount: grossAmount
+            });
         }.bind(this)).reject(function (item) {
             return item.get("netAmount") === 0 && item.get("taxAmount") === 0 && item.get("grossAmount") === 0;
         });

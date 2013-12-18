@@ -9,6 +9,10 @@ Faktura.Item = Ember.Object.extend({
 
     unit: undefined,
 
+    englishUnit: function () {
+        return Faktura.get("englishUnits." + Faktura.get("units").indexOf(this.get("unit")));
+    }.property("unit"),
+
     formattedNetPrice: "",
 
     netPrice: function () {
@@ -31,6 +35,10 @@ Faktura.Item = Ember.Object.extend({
         var value = parseInt(this.get("formattedTaxRate"), 10);
         this.set("taxRate", isNaN(value) ? 0 : value);
     }.observes("formattedTaxRate"),
+
+    englishFormattedTaxRate: function () {
+        return Faktura.get("englishTaxRates." + Faktura.get("taxRates").indexOf(this.get("formattedTaxRate")));
+    }.property("formattedTaxRate"),
 
     formattedTaxAmount: "",
 
