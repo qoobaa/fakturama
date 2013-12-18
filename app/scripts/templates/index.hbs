@@ -1,27 +1,36 @@
+<nav class="navbar navbar-default hidden-print" role="navigation">
+  <div class="container">
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+          Waluta <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          {{#each currency in Faktura.currencies}}
+            <li><a href="javascript:void(0)" {{action "setCurrency" currency}}>{{currency}}</a></li>
+          {{/each}}
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+          Język <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+          {{#each language in Faktura.languages}}
+            <li><a href="javascript:void(0)" {{action "setLanguage" language}}>{{language}}</a></li>
+          {{/each}}
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <div class="container">
   <h1>
     Faktura {{#if isEnglish}}/ Invoice{{/if}}
   </h1>
 
   <div class="form-horizontal">
-    <div class="form-group hidden-print">
-      <label class="control-label col-sm-2" for="currency">
-        Waluta {{#if isEnglish}}/ Currency{{/if}}
-      </label>
-      <div class="col-sm-2">
-        {{view Ember.Select class="form-control" contentBinding="Faktura.currencies" valueBinding="currency" id="currency"}}
-      </div>
-    </div>
-
-    <div class="form-group hidden-print">
-      <label class="control-label col-sm-2" for="language">
-        Język {{#if isEnglish}}/ Language{{/if}}
-      </label>
-      <div class="col-sm-2">
-        {{view Ember.Select class="form-control" contentBinding="Faktura.languages" valueBinding="language" id="language"}}
-      </div>
-    </div>
-
     <div class="form-group">
       <label class="control-label col-sm-2" for="number">
         Numer {{#if isEnglish}}/ Number{{/if}}

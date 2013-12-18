@@ -5,6 +5,8 @@ Faktura.IndexController = Ember.ArrayController.extend({
     dueDate: undefined,
 
     seller: "",
+    currency: "PLN",
+    language: "polski",
 
     sellerFirstLine: function () {
         return this.get("seller").split("\n")[0];
@@ -90,6 +92,12 @@ Faktura.IndexController = Ember.ArrayController.extend({
         },
         addItem: function () {
             this.get("content").addObject(Faktura.Item.create());
+        },
+        setLanguage: function (language) {
+            this.set("language", language);
+        },
+        setCurrency: function (currency) {
+            this.set("currency", currency);
         }
     }
 });
