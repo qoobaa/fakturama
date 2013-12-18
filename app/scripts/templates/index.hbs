@@ -194,6 +194,9 @@
         </td>
       </tr>
     {{/each}}
+    <tr class="hidden-print">
+      <td colspan="9" class="text-center"><button class="btn btn-success btn-block" {{action "addItem"}}>✚</button></td>
+    </tr>
     <tr>
       <th class="text-right" colspan="4">Razem {{#if isEnglish}}/ Total{{/if}}</th>
       <td class="text-right">{{integerToCurrency totalNetAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
@@ -212,10 +215,16 @@
         <td></td>
       </tr>
     {{/each}}
-    <tr class="hidden-print">
-      <td colspan="9"><button class="btn btn-success btn-block" {{action "addItem"}}>✚</button></td>
-    </tr>
   </table>
+
+  <p>
+    <strong>Słownie:</strong> {{totalGrossAmountInWords}}
+  </p>
+  {{#if isEnglish}}
+    <p>
+      <strong>In words:</strong> {{englishTotalGrossAmountInWords}}
+    </p>
+  {{/if}}
 
   <p class="visible-print">
     {{#each line in commentLines}}{{line}}<br>{{/each}}

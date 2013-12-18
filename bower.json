@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "ember": "~1.2.0",
-    "bootstrap": "~3.0.3"
+    "bootstrap": "~3.0.3",
+    "toword.js": "http://javascript.about.com/library/toword.js"
   }
 }
