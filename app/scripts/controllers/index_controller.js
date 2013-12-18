@@ -53,6 +53,10 @@ Faktura.IndexController = Ember.ArrayController.extend({
         }, 0);
     }.property("content.@each.grossAmount"),
 
+    totalGrossAmountInWords: function () {
+        return "";
+    }.property("totalGrossAmount", "currency"),
+
     englishTotalGrossAmountInWords: function () {
         var dollars, cents,
             amount = String(this.get("totalGrossAmount"));

@@ -41,4 +41,6 @@ module.exports = function (grunt) {
     grunt.registerTask("build", ["copy", "recess", "ember_handlebars"]);
 
     grunt.registerTask("server", ["build", "expressServer", "watch"]);
+
+    grunt.registerTask("dist", ["build", "useminPrepare", "concat", "uglify", "cssmin", "usemin"]);
 };
