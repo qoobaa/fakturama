@@ -27,72 +27,109 @@
 
 <div class="container">
   <h1>
-    Faktura {{#if isEnglish}}/ Invoice{{/if}}
+    <strong>Faktura {{#if isEnglish}}/ Invoice{{/if}}</strong>
   </h1>
 
-  <div class="form-horizontal">
+  <br>
+
+  <div class="visible-print">
+    <p>
+      {{#if isEnglish}}
+        Numer / Number:
+      {{else}}
+        Numer:
+      {{/if}}
+      <strong>{{number}}</strong>
+    </p>
+    <p>
+      {{#if isEnglish}}
+        Data wystawienia / Date of issue:
+      {{else}}
+        Data wystawienia:
+      {{/if}}
+      <strong>{{dateOfIssue}}</strong>
+    </p>
+    <p>
+      {{#if isEnglish}}
+        Data sprzedaży / Date of sale:
+      {{else}}
+        Data sprzedaży:
+      {{/if}}
+      <strong>{{dateOfSale}}</strong>
+    </p>
+    <p>
+      {{#if isEnglish}}
+        Termin płatności / Due date:
+      {{else}}
+        Termin płatności:
+      {{/if}}
+      <strong>{{dueDate}}</strong>
+    </p>
+  </div>
+
+  <div class="form-horizontal hidden-print">
     <div class="form-group">
-      <label class="control-label col-sm-2" for="number">
+      <label class="control-label col-xs-2" for="number">
         Numer {{#if isEnglish}}/ Number{{/if}}
       </label>
-      <div class="col-sm-2">
-        <p class="form-control-static visible-print">{{number}}</p>
+      <div class="col-xs-2">
         {{view Ember.TextField class="form-control hidden-print" valueBinding="number" id="number"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-sm-2" for="dateOfIssue">
+      <label class="control-label col-xs-2" for="dateOfIssue">
         Data wystawienia {{#if isEnglish}}/ Date of issue{{/if}}
       </label>
-      <div class="col-sm-2">
-        <p class="form-control-static visible-print">{{dateOfIssue}}</p>
+      <div class="col-xs-2">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfIssue" id="dateOfIssue"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-sm-2" for="dateOfSale">
+      <label class="control-label col-xs-2" for="dateOfSale">
         Data sprzedaży {{#if isEnglish}}/ Date of sale{{/if}}
       </label>
-      <div class="col-sm-2">
-        <p class="form-control-static visible-print">{{dateOfSale}}</p>
+      <div class="col-xs-2">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfSale" id="dateOfSale"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-sm-2" for="dueDate">
+      <label class="control-label col-xs-2" for="dueDate">
         Termin płatności {{#if isEnglish}}/ Due date{{/if}}
       </label>
-      <div class="col-sm-2">
-        <p class="form-control-static visible-print">{{dueDate}}</p>
+      <div class="col-xs-2">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dueDate" id="dueDate"}}
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-sm-4">
-      <h2>
-        Sprzedawca {{#if isEnglish}}/ Seller{{/if}}
-      </h2>
+    <div class="col-xs-4">
+      <h4>
+        <label for="seller">
+          Sprzedawca {{#if isEnglish}}/ Seller{{/if}}
+        </label>
+      </h4>
       <p class="visible-print">
         <strong>{{sellerFirstLine}}</strong><br>
         {{#each line in sellerRest}}{{line}}<br>{{/each}}
       </p>
-      {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="seller"}}
+      {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="seller" id="seller"}}
     </div>
 
-    <div class="col-sm-4">
-      <h2>
-        Nabywca {{#if isEnglish}}/ Buyer{{/if}}
-      </h2>
+    <div class="col-xs-4">
+      <h4>
+        <label for="buyer">
+          Nabywca {{#if isEnglish}}/ Buyer{{/if}}
+        </label>
+      </h4>
       <p class="visible-print">
         <strong>{{buyerFirstLine}}</strong><br>
         {{#each line in buyerRest}}{{line}}<br>{{/each}}
       </p>
-      {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="buyer"}}
+      {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="buyer" id="buyer"}}
     </div>
   </div>
 
@@ -107,7 +144,7 @@
         Liczba
       </th>
       <th class="text-right col-xs-1">
-        Jednostka miary
+        J.m.
       </th>
       <th class="text-right">
         Cena netto
@@ -159,7 +196,7 @@
     {{#each item in content}}
       <tr>
         <td>
-          <p class="visible-print">{{item.description}}</p>
+          <p class="visible-print"><small>{{item.description}}</small></p>
           {{view Ember.TextField class="form-control hidden-print" valueBinding="item.description"}}
         </td>
         <td class="text-right">
@@ -177,17 +214,26 @@
           {{view Ember.TextField type="number" step="0.01" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedNetPrice"}}
         </td>
         <td class="text-right">
-          {{integerToCurrency item.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          <p class="visible-print">
+            {{item.formattedNetAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          </p>
+          {{view Ember.TextField class="form-control text-right hidden-print" valueBinding="item.formattedNetAmount" disabled="disabled"}}
         </td>
         <td class="text-right">
           <p class="visible-print">{{item.formattedTaxRate}}</p>
           {{view Ember.Select class="form-control hidden-print" contentBinding="Faktura.taxRates" valueBinding="item.formattedTaxRate"}}
         </td>
         <td class="text-right">
-          {{integerToCurrency item.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          <p class="visible-print">
+            {{item.formattedTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          </p>
+          {{view Ember.TextField class="form-control text-right hidden-print" valueBinding="item.formattedTaxAmount" disabled="disabled"}}
         </td>
         <td class="text-right">
-          {{integerToCurrency item.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          <p class="visible-print">
+            {{item.formattedGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          </p>
+          {{view Ember.TextField class="form-control text-right hidden-print" valueBinding="item.formattedGrossAmount" disabled="disabled"}}
         </td>
         <td class="hidden-print">
           <button class="btn btn-danger" {{action "removeItem" item}}>❌</button>
@@ -237,14 +283,14 @@
   <br>
 
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-xs-4">
       <p class="form-control-static visible-print text-center">{{buyerSignature}}</p>
       {{view Ember.TextField class="form-control text-center hidden-print" valueBinding="buyerSignature" id="buyerSignature"}}
       <hr>
       <label for="buyerSignature">Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</label>
     </div>
-    <div class="col-sm-4"></div>
-    <div class="col-sm-4">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-4">
       <p class="form-control-static visible-print text-center">{{issuerSignature}}</p>
       {{view Ember.TextField class="form-control text-center hidden-print" valueBinding="issuerSignature" id="issuerSignature"}}
       <hr>

@@ -29,6 +29,10 @@ Faktura.Item = Ember.Object.extend({
         return Math.round(this.get("netPrice") * this.get("quantity") / 1000);
     }.property("netPrice", "quantity"),
 
+    formattedNetAmount: function () {
+        return String(this.get("netAmount")).monetize();
+    }.property("netAmount"),
+
     formattedTaxRate: undefined,
 
     formattedTaxRateDidChange: function () {
@@ -46,7 +50,15 @@ Faktura.Item = Ember.Object.extend({
         return Math.round(this.get("netAmount") * this.get("taxRate") / 100);
     }.property("netAmount", "taxRate"),
 
+    formattedTaxAmount: function () {
+        return String(this.get("taxAmount")).monetize();
+    }.property("taxAmount"),
+
     grossAmount: function () {
         return this.get("netAmount") + this.get("taxAmount");
-    }.property("netAmount", "taxAmount")
+    }.property("netAmount", "taxAmount"),
+
+    formattedGrossAmount: function () {
+        return String(this.get("grossAmount")).monetize();
+    }.property("grossAmount")
 });
