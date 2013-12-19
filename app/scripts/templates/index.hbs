@@ -236,12 +236,12 @@
           {{view Ember.TextField class="form-control text-right hidden-print" valueBinding="item.formattedGrossAmount" disabled="disabled"}}
         </td>
         <td class="hidden-print">
-          <button class="btn btn-danger" {{action "removeItem" item}}>❌</button>
+          <button class="btn btn-danger" {{action "removeItem" item}}><strong>×</strong></button>
         </td>
       </tr>
     {{/each}}
     <tr class="hidden-print">
-      <td colspan="9" class="text-center"><button class="btn btn-success btn-block" {{action "addItem"}}>✚</button></td>
+      <td colspan="9" class="text-center"><button class="btn btn-success btn-block" {{action "addItem"}}><strong>+</strong></button></td>
     </tr>
     <tr>
       <th class="text-right" colspan="4">Razem {{#if isEnglish}}/ Total{{/if}}</th>
