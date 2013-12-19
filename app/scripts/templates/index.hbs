@@ -263,25 +263,30 @@
     {{/each}}
   </table>
 
-  <p>
-    <strong>Słownie:</strong> {{totalGrossAmountInWords}}
-  </p>
-  {{#if isEnglish}}
-    <p>
-      <strong>In words:</strong> {{englishTotalGrossAmountInWords}}
-    </p>
-  {{/if}}
+  <div class="row">
+    <div class="col-xs-12">
+      <p>
+        <strong>Słownie:</strong> {{totalGrossAmountInWords}}
+      </p>
+      {{#if isEnglish}}
+        <p>
+          <strong>In words:</strong> {{englishTotalGrossAmountInWords}}
+        </p>
+      {{/if}}
+    </div>
+  </div>
 
-  <p class="visible-print">
-    {{#each line in commentLines}}{{line}}<br>{{/each}}
-  </p>
-
-  <p class="hidden-print">
-    <label for="comment">
-      Uwagi{{#if isEnglish}} / Comments{{/if}}
-    </label>
-    {{view Ember.TextArea class="form-control" rows="4" valueBinding="comment" id="comment"}}
-  </p>
+  <div class="row">
+    <div class="col-xs-12">
+      <label for="comment">
+        Uwagi{{#if isEnglish}} / Comments{{/if}}
+      </label>
+      <p class="visible-print">
+        {{#each line in commentLines}}{{line}}<br>{{/each}}
+      </p>
+      {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="comment" id="comment"}}
+    </div>
+  </div>
 
   <br>
 
