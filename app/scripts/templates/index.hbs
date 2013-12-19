@@ -278,11 +278,7 @@
 
   <p class="hidden-print">
     <label for="comment">
-      {{#if isEnglish}}
-        Uwagi / Comments:
-      {{else}}
-        Uwagi:
-      {{/if}}
+      Uwagi{{#if isEnglish}} / Comments{{/if}}
     </label>
     {{view Ember.TextArea class="form-control" rows="4" valueBinding="comment" id="comment"}}
   </p>
@@ -304,4 +300,7 @@
       <label for="issuerSignature">Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</label>
     </div>
   </div>
+
+  <br>
+  <br>
 </div>
