@@ -277,7 +277,14 @@
   </p>
 
   <p class="hidden-print">
-    {{view Ember.TextArea class="form-control" rows="4" valueBinding="comment"}}
+    <label for="comment">
+      {{#if isEnglish}}
+        Uwagi / Comments:
+      {{else}}
+        Uwagi:
+      {{/if}}
+    </label>
+    {{view Ember.TextArea class="form-control" rows="4" valueBinding="comment" id="comment"}}
   </p>
 
   <br>
