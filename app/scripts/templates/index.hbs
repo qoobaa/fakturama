@@ -69,44 +69,44 @@
 
   <div class="form-horizontal hidden-print">
     <div class="form-group">
-      <label class="control-label col-xs-2" for="number">
+      <label class="control-label col-xs-3" for="number">
         Numer {{#if isEnglish}}/ Number{{/if}}
       </label>
-      <div class="col-xs-2">
+      <div class="col-xs-3">
         {{view Ember.TextField class="form-control hidden-print" valueBinding="number" id="number"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-xs-2" for="dateOfIssue">
+      <label class="control-label col-xs-3" for="dateOfIssue">
         Data wystawienia {{#if isEnglish}}/ Date of issue{{/if}}
       </label>
-      <div class="col-xs-2">
+      <div class="col-xs-3">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfIssue" id="dateOfIssue"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-xs-2" for="dateOfSale">
+      <label class="control-label col-xs-3" for="dateOfSale">
         Data sprzedaży {{#if isEnglish}}/ Date of sale{{/if}}
       </label>
-      <div class="col-xs-2">
+      <div class="col-xs-3">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfSale" id="dateOfSale"}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="control-label col-xs-2" for="dueDate">
+      <label class="control-label col-xs-3" for="dueDate">
         Termin płatności {{#if isEnglish}}/ Due date{{/if}}
       </label>
-      <div class="col-xs-2">
+      <div class="col-xs-3">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dueDate" id="dueDate"}}
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-xs-6">
       <h4>
         <label for="seller">
           Sprzedawca {{#if isEnglish}}/ Seller{{/if}}
@@ -119,7 +119,7 @@
       {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="seller" id="seller"}}
     </div>
 
-    <div class="col-xs-4">
+    <div class="col-xs-6">
       <h4>
         <label for="buyer">
           Nabywca {{#if isEnglish}}/ Buyer{{/if}}
@@ -249,7 +249,7 @@
       <td></td>
       <td class="text-right">{{integerToCurrency totalTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
       <td class="text-right">{{integerToCurrency totalGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
-      <td></td>
+      <td class="hidden-print"></td>
     </tr>
     {{#each subtotal in subTotals}}
       <tr>
@@ -258,7 +258,7 @@
         <td class="text-right">{{subtotal.formattedTaxRate}}</td>
         <td class="text-right">{{integerToCurrency subtotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
         <td class="text-right">{{integerToCurrency subtotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
-        <td></td>
+        <td class="hidden-print"></td>
       </tr>
     {{/each}}
   </table>
@@ -266,11 +266,11 @@
   <div class="row">
     <div class="col-xs-12">
       <p>
-        <strong>Słownie:</strong> {{totalGrossAmountInWords}}
+        Słownie: <strong>{{totalGrossAmountInWords}}</strong>
       </p>
       {{#if isEnglish}}
         <p>
-          <strong>In words:</strong> {{englishTotalGrossAmountInWords}}
+          In words: <strong>{{englishTotalGrossAmountInWords}}</strong>
         </p>
       {{/if}}
     </div>
@@ -291,17 +291,14 @@
   <br>
 
   <div class="row">
-    <div class="col-xs-4">
-      <p class="form-control-static visible-print text-center">{{buyerSignature}}</p>
+    <div class="col-xs-6">
       {{view Ember.TextField class="form-control text-center hidden-print" valueBinding="buyerSignature" id="buyerSignature"}}
-      <hr>
+      <p class="visible-print text-center signature">&nbsp;{{buyerSignature}}&nbsp;</p>
       <label for="buyerSignature">Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</label>
     </div>
-    <div class="col-xs-4"></div>
-    <div class="col-xs-4">
-      <p class="form-control-static visible-print text-center">{{issuerSignature}}</p>
+    <div class="col-xs-6">
       {{view Ember.TextField class="form-control text-center hidden-print" valueBinding="issuerSignature" id="issuerSignature"}}
-      <hr>
+      <p class="visible-print text-center signature">&nbsp;{{issuerSignature}}&nbsp;</p>
       <label for="issuerSignature">Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</label>
     </div>
   </div>
