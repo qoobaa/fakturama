@@ -236,7 +236,7 @@
           {{view Ember.TextField class="form-control text-right hidden-print" valueBinding="item.formattedGrossAmount" disabled="disabled"}}
         </td>
         <td class="hidden-print">
-          <button class="btn btn-danger" {{action "removeItem" item}}><strong>×</strong></button>
+          <button class="btn btn-remove" {{action "removeItem" item}}><strong>×</strong></button>
         </td>
       </tr>
     {{/each}}
