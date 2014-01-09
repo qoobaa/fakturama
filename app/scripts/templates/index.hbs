@@ -27,14 +27,14 @@
 
 <div class="container">
   <h1>
-    <strong>Faktura {{#if isEnglish}}/ Invoice{{/if}}</strong>
+    <strong>Faktura {{#if model.isEnglish}}/ Invoice{{/if}}</strong>
   </h1>
 
   <br>
 
   <div class="visible-print">
     <p>
-      {{#if isEnglish}}
+      {{#if model.isEnglish}}
         Numer / Number:
       {{else}}
         Numer:
@@ -42,7 +42,7 @@
       <strong>{{number}}</strong>
     </p>
     <p>
-      {{#if isEnglish}}
+      {{#if model.isEnglish}}
         Data wystawienia / Date of issue:
       {{else}}
         Data wystawienia:
@@ -50,7 +50,7 @@
       <strong>{{dateOfIssue}}</strong>
     </p>
     <p>
-      {{#if isEnglish}}
+      {{#if model.isEnglish}}
         Data sprzedaży / Date of sale:
       {{else}}
         Data sprzedaży:
@@ -58,7 +58,7 @@
       <strong>{{dateOfSale}}</strong>
     </p>
     <p>
-      {{#if isEnglish}}
+      {{#if model.isEnglish}}
         Termin płatności / Due date:
       {{else}}
         Termin płatności:
@@ -70,7 +70,7 @@
   <div class="form-horizontal hidden-print">
     <div class="form-group">
       <label class="control-label col-xs-3" for="number">
-        Numer {{#if isEnglish}}/ Number{{/if}}
+        Numer {{#if model.isEnglish}}/ Number{{/if}}
       </label>
       <div class="col-xs-3">
         {{view Ember.TextField class="form-control hidden-print" valueBinding="number" id="number"}}
@@ -79,7 +79,7 @@
 
     <div class="form-group">
       <label class="control-label col-xs-3" for="dateOfIssue">
-        Data wystawienia {{#if isEnglish}}/ Date of issue{{/if}}
+        Data wystawienia {{#if model.isEnglish}}/ Date of issue{{/if}}
       </label>
       <div class="col-xs-3">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfIssue" id="dateOfIssue"}}
@@ -88,7 +88,7 @@
 
     <div class="form-group">
       <label class="control-label col-xs-3" for="dateOfSale">
-        Data sprzedaży {{#if isEnglish}}/ Date of sale{{/if}}
+        Data sprzedaży {{#if model.isEnglish}}/ Date of sale{{/if}}
       </label>
       <div class="col-xs-3">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dateOfSale" id="dateOfSale"}}
@@ -97,7 +97,7 @@
 
     <div class="form-group">
       <label class="control-label col-xs-3" for="dueDate">
-        Termin płatności {{#if isEnglish}}/ Due date{{/if}}
+        Termin płatności {{#if model.isEnglish}}/ Due date{{/if}}
       </label>
       <div class="col-xs-3">
         {{view Ember.TextField type="date" class="form-control hidden-print" valueBinding="dueDate" id="dueDate"}}
@@ -109,12 +109,12 @@
     <div class="col-xs-6">
       <h4>
         <label for="seller">
-          Sprzedawca {{#if isEnglish}}/ Seller{{/if}}
+          Sprzedawca {{#if model.isEnglish}}/ Seller{{/if}}
         </label>
       </h4>
       <p class="visible-print">
         <strong>{{sellerFirstLine}}</strong><br>
-        {{#each line in sellerRest}}{{line}}<br>{{/each}}
+        {{#each line in model.sellerRest}}{{line}}<br>{{/each}}
       </p>
       {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="seller" id="seller"}}
     </div>
@@ -122,12 +122,12 @@
     <div class="col-xs-6">
       <h4>
         <label for="buyer">
-          Nabywca {{#if isEnglish}}/ Buyer{{/if}}
+          Nabywca {{#if model.isEnglish}}/ Buyer{{/if}}
         </label>
       </h4>
       <p class="visible-print">
         <strong>{{buyerFirstLine}}</strong><br>
-        {{#each line in buyerRest}}{{line}}<br>{{/each}}
+        {{#each line in model.buyerRest}}{{line}}<br>{{/each}}
       </p>
       {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="buyer" id="buyer"}}
     </div>
@@ -163,7 +163,7 @@
       </th>
       <th class="hidden-print"></th>
     </tr>
-    {{#if isEnglish}}
+    {{#if model.isEnglish}}
       <tr>
         <th class="col-xs-4">
           Name
@@ -193,7 +193,7 @@
       </tr>
     {{/if}}
 
-    {{#each item in content}}
+    {{#each item in model.items}}
       <tr>
         <td>
           <p class="visible-print"><small>{{item.description}}</small></p>
@@ -204,7 +204,7 @@
           {{view Ember.TextField type="number" step="0.001" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedQuantity"}}
         </td>
         <td class="text-right">
-          <p class="visible-print">{{item.unit}} {{#if isEnglish}}/ {{item.englishUnit}}{{/if}}</p>
+          <p class="visible-print">{{item.unit}} {{#if model.isEnglish}}/ {{item.englishUnit}}{{/if}}</p>
           {{view Ember.Select class="form-control hidden-print" contentBinding="Faktura.units" valueBinding="item.unit"}}
         </td>
         <td class="text-right">
@@ -244,20 +244,20 @@
       <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
     </tr>
     <tr>
-      <th class="text-right" colspan="4">Razem {{#if isEnglish}}/ Total{{/if}}</th>
-      <td class="text-right">{{integerToCurrency totalNetAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+      <th class="text-right" colspan="4">Razem {{#if model.isEnglish}}/ Total{{/if}}</th>
+      <td class="text-right">{{integerToCurrency model.totalNetAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
       <td></td>
-      <td class="text-right">{{integerToCurrency totalTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
-      <td class="text-right">{{integerToCurrency totalGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+      <td class="text-right">{{integerToCurrency model.totalTaxAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
+      <td class="text-right">{{integerToCurrency model.totalGrossAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
       <td class="hidden-print"></td>
     </tr>
-    {{#each subtotal in subTotals}}
+    {{#each subTotal in model.subTotals}}
       <tr>
-        <th class="text-right" colspan="4">W tym {{#if isEnglish}}/ Including{{/if}}</th>
-        <td class="text-right">{{integerToCurrency subtotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
-        <td class="text-right">{{subtotal.formattedTaxRate}}</td>
-        <td class="text-right">{{integerToCurrency subtotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
-        <td class="text-right">{{integerToCurrency subtotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</td>
+        <th class="text-right" colspan="4">W tym {{#if model.isEnglish}}/ Including{{/if}}</th>
+        <td class="text-right">{{integerToCurrency subTotal.netAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
+        <td class="text-right">{{subTotal.formattedTaxRate}}</td>
+        <td class="text-right">{{integerToCurrency subTotal.taxAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
+        <td class="text-right">{{integerToCurrency subTotal.grossAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
         <td class="hidden-print"></td>
       </tr>
     {{/each}}
@@ -266,11 +266,11 @@
   <div class="row">
     <div class="col-xs-12">
       <p>
-        Słownie: <strong>{{totalGrossAmountInWords}}</strong>
+        Słownie: <strong>{{model.totalGrossAmountInWords}}</strong>
       </p>
-      {{#if isEnglish}}
+      {{#if model.isEnglish}}
         <p>
-          In words: <strong>{{englishTotalGrossAmountInWords}}</strong>
+          In words: <strong>{{model.englishTotalGrossAmountInWords}}</strong>
         </p>
       {{/if}}
     </div>
@@ -279,10 +279,10 @@
   <div class="row">
     <div class="col-xs-12">
       <label for="comment" class="hidden-print">
-        Uwagi{{#if isEnglish}} / Comments{{/if}}
+        Uwagi{{#if model.isEnglish}} / Comments{{/if}}
       </label>
       <p class="visible-print">
-        {{#each line in commentLines}}{{line}}<br>{{/each}}
+        {{#each line in model.commentLines}}{{line}}<br>{{/each}}
       </p>
       {{view Ember.TextArea class="form-control hidden-print" rows="4" valueBinding="comment" id="comment"}}
     </div>
@@ -293,13 +293,13 @@
   <div class="row">
     <div class="col-xs-6">
       {{view Ember.TextField class="form-control text-center hidden-print" valueBinding="buyerSignature" id="buyerSignature"}}
-      <p class="visible-print text-center signature">&nbsp;{{buyerSignature}}&nbsp;</p>
-      <label for="buyerSignature">Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</label>
+      <p class="visible-print text-center signature">&nbsp;{{model.buyerSignature}}&nbsp;</p>
+      <label for="buyerSignature">Podpis nabywcy{{#if model.isEnglish}} / Buyer's signature{{/if}}</label>
     </div>
     <div class="col-xs-6">
       {{view Ember.TextField class="form-control text-center hidden-print" valueBinding="issuerSignature" id="issuerSignature"}}
-      <p class="visible-print text-center signature">&nbsp;{{issuerSignature}}&nbsp;</p>
-      <label for="issuerSignature">Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</label>
+      <p class="visible-print text-center signature">&nbsp;{{model.issuerSignature}}&nbsp;</p>
+      <label for="issuerSignature">Podpis wystawiającego{{#if model.isEnglish}} / Issuer's signature{{/if}}</label>
     </div>
   </div>
 

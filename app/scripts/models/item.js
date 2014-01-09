@@ -60,5 +60,9 @@ Faktura.Item = Ember.Object.extend({
 
     formattedGrossAmount: function () {
         return String(this.get("grossAmount")).monetize();
-    }.property("grossAmount")
+    }.property("grossAmount"),
+
+    toJSON: function () {
+        return this.getProperties("description", "formattedQuantity", "unit", "formattedNetAmount", "formattedTaxRate");
+    }
 });

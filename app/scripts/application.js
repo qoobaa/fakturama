@@ -6,6 +6,14 @@ var Faktura = Ember.Application.create({
     languages: ["polski", "polsko-angielski"]
 });
 
+Faktura.IndexRoute = Ember.Route.extend({
+    model: function () {
+        window.A = Faktura.Invoice.create({ items: [Faktura.Item.create()] });
+        return window.A;
+        return Faktura.Invoice.create({ items: [Faktura.Item.create()] });
+    }
+});
+
 Ember.TextField.reopen({ attributeBindings: ["min", "max", "step"] });
 
 String.prototype.integerize = function (precision) {
@@ -57,4 +65,3 @@ Ember.Handlebars.helper("integerToCurrency", function (value, options) {
 
     return String(value).monetize(precision);
 });
-
