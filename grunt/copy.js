@@ -14,5 +14,13 @@ module.exports = {
             src: ["**/*.js"],
             dest: ".tmp"
         }]
+    },
+    cname: {
+        files: [{
+            expand: true,
+            cwd: "app",
+            src: ["CNAME"],
+            dest: "dist"
+        }]
     }
 };
