@@ -11,6 +11,12 @@ Faktura.IndexController = Ember.Controller.extend({
         },
         setCurrency: function (currency) {
             this.set("model.currency", currency);
+        },
+        print: function () {
+            window.print();
+        },
+        save: function () {
+            this.transitionToRoute("index", this.get("model").toString());
         }
     }
 });

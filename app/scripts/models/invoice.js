@@ -8,9 +8,7 @@ Faktura.Invoice = Ember.Object.extend({
     currency: "PLN",
     language: "polski",
 
-    items: function () {
-        return [];
-    }.property(),
+    items: [],
 
     sellerFirstLine: function () {
         return this.get("seller").split("\n")[0];
@@ -43,19 +41,19 @@ Faktura.Invoice = Ember.Object.extend({
         return this.get("items").reduce(function (previousValue, item) {
             return previousValue + item.get("netAmount");
         }, 0);
-    }.property("items.@each.netAmount"),
+    }.property("items", "items.@each.netAmount"),
 
     totalTaxAmount: function () {
         return this.get("items").reduce(function (previousValue, item) {
             return previousValue + item.get("taxAmount");
         }, 0);
-    }.property("items.@each.taxAmount"),
+    }.property("items", "items.@each.taxAmount"),
 
     totalGrossAmount: function () {
         return this.get("items").reduce(function (previousValue, item) {
             return previousValue + item.get("grossAmount");
         }, 0);
-    }.property("items.@each.grossAmount"),
+    }.property("items", "items.@each.grossAmount"),
 
     totalGrossAmountInWords: function () {
         var dollars, cents,
@@ -112,11 +110,32 @@ Faktura.Invoice = Ember.Object.extend({
         }.bind(this)).reject(function (item) {
             return item.get("netAmount") === 0 && item.get("taxAmount") === 0 && item.get("grossAmount") === 0;
         });
-    }.property("items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.formattedTaxRate"),
+    }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.formattedTaxRate"),
 
     toJSON: function () {
         var result = this.getProperties("number", "dateOfIssue", "dateOfSale", "dueDate", "seller", "buyer", "currency", "language", "comment", "issuerSignature", "buyerSignature");
         result.items = this.get("items").invoke("toJSON");
         return result;
+    },
+
+    toString: function () {
+        var string = JSON.stringify(this.toJSON());
+        return btoa(unescape(encodeURIComponent(string)));
+    }
+});
+
+Faktura.Invoice.reopenClass({
+    fromJSON: function (attributes) {
+        var result = this.create(attributes);
+
+        result.set("items", attributes.items.map(function (itemAttributes) {
+            return Faktura.Item.create(itemAttributes);
+        }));
+
+        return result;
+    },
+
+    fromString: function (string) {
+        return this.fromJSON(JSON.parse(decodeURIComponent(escape(atob(string)))));
     }
 });

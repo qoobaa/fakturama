@@ -6,11 +6,18 @@ var Faktura = Ember.Application.create({
     languages: ["polski", "polsko-angielski"]
 });
 
+Faktura.Router.map(function () {
+    this.resource("index", { path: "/" });
+    this.resource("index", { path: "/:invoice" });
+});
+
 Faktura.IndexRoute = Ember.Route.extend({
-    model: function () {
-        window.A = Faktura.Invoice.create({ items: [Faktura.Item.create()] });
-        return window.A;
-        return Faktura.Invoice.create({ items: [Faktura.Item.create()] });
+    model: function (params) {
+        if (params.invoice) {
+            return Faktura.Invoice.fromString(params.invoice);
+        } else {
+            return Faktura.Invoice.fromJSON({ items: [{}] });
+        }
     }
 });
 
@@ -20,7 +27,7 @@ String.prototype.integerize = function (precision) {
     var integerPart, fractionalPart,
         parts = this.replace(",", ".").split(".");
 
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
         precision = 2;
     }
 
@@ -37,7 +44,7 @@ String.prototype.integerize = function (precision) {
 String.prototype.monetize = function (precision) {
     var value, integerPart, fractionalPart;
 
-    if (arguments.length == 0) {
+    if (arguments.length === 0) {
         precision = 2;
     }
 

@@ -28,6 +28,8 @@
 <div class="container">
   <h1>
     <strong>Faktura {{#if model.isEnglish}}/ Invoice{{/if}}</strong>
+    <button class="btn btn-default hidden-print" {{action "save"}}>Save</button>
+    <button class="btn btn-default hidden-print" {{action "print"}}>Print</button>
   </h1>
 
   <br>
