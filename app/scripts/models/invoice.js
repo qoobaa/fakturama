@@ -126,13 +126,15 @@ Faktura.Invoice = Ember.Object.extend({
 
 Faktura.Invoice.reopenClass({
     fromJSON: function (attributes) {
-        var result = this.create(attributes);
+        var items;
 
-        result.set("items", attributes.items.map(function (itemAttributes) {
+        items = attributes.items.map(function (itemAttributes) {
             return Faktura.Item.create(itemAttributes);
-        }));
+        });
 
-        return result;
+        window.A = items;
+
+        return this.create($.extend({}, attributes, { items: items }));
     },
 
     fromString: function (string) {

@@ -38,7 +38,7 @@ Faktura.Item = Ember.Object.extend({
     formattedTaxRateDidChange: function () {
         var value = parseInt(this.get("formattedTaxRate"), 10);
         this.set("taxRate", isNaN(value) ? 0 : value);
-    }.observes("formattedTaxRate"),
+    }.observes("formattedTaxRate").on("init"),
 
     englishFormattedTaxRate: function () {
         return Faktura.get("englishTaxRates." + Faktura.get("taxRates").indexOf(this.get("formattedTaxRate")));
@@ -63,6 +63,6 @@ Faktura.Item = Ember.Object.extend({
     }.property("grossAmount"),
 
     toJSON: function () {
-        return this.getProperties("description", "formattedQuantity", "unit", "formattedNetAmount", "formattedTaxRate");
+        return this.getProperties("description", "formattedQuantity", "unit", "formattedNetPrice", "formattedTaxRate");
     }
 });
