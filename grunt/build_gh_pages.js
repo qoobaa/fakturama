@@ -1,3 +1,7 @@
 module.exports = {
-    gh_pages: {}
+    gh_pages: {
+        options: {
+            exclude: ["bower_components"]
+        }
+    }
 };
