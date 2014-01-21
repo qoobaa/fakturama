@@ -43,4 +43,6 @@ module.exports = function (grunt) {
     grunt.registerTask("server", ["build", "expressServer", "watch"]);
 
     grunt.registerTask("dist", ["build", "useminPrepare", "concat", "uglify", "cssmin", "usemin"]);
+
+    grunt.registerTask("deploy", ["dist", "build_gh_pages"]);
 };
