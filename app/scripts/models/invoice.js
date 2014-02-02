@@ -132,8 +132,6 @@ Faktura.Invoice.reopenClass({
             return Faktura.Item.create(itemAttributes);
         });
 
-        window.A = items;
-
         return this.create($.extend({}, attributes, { items: items }));
     },
 
