@@ -72,16 +72,16 @@ Faktura.IndexController = Ember.ObjectController.extend({
 
     actions: {
         removeItem: function (item) {
-            this.get("model.items").removeObject(item);
+            this.get("items").removeObject(item);
         },
         addItem: function () {
-            this.get("model.items").pushObject(Faktura.Item.create());
+            this.get("items").pushObject(Faktura.Item.create());
         },
         setLanguage: function (language) {
-            this.set("model.language", language);
+            this.set("language", language);
         },
         setCurrency: function (currency) {
-            this.set("model.currency", currency);
+            this.set("currency", currency);
         },
         print: function () {
             window.print();
