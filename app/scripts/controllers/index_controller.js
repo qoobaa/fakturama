@@ -66,6 +66,10 @@ Faktura.IndexController = Ember.ObjectController.extend({
         }.bind(this));
     }.property("subTotals", "exchangeAverage", "exchangeDivisor"),
 
+    totalTaxAmountPLN: function () {
+        return Math.round(this.get("totalTaxAmount") * this.get("exchangeAverage") / (this.get("exchangeDivisor") * 10000));
+    }.property("totalTaxAmount"),
+
     actions: {
         removeItem: function (item) {
             this.get("model.items").removeObject(item);

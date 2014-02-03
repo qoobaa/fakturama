@@ -249,6 +249,9 @@
       <td></td>
       <td class="text-right">
         {{integerToCurrency totalTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+        {{#if isUsingExchangeRate}}
+          {{integerToCurrency totalTaxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>
+        {{/if}}
       </td>
       <td class="text-right">
         {{integerToCurrency totalGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
