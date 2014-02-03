@@ -4,7 +4,7 @@ Faktura.IndexController = Ember.ObjectController.extend({
 
         if (dateOfIssue) {
             this.set("isLoadingExchangeRate", true);
-            nbpDaily({ date: new Date(Date.parse(dateOfIssue)) })
+            nbpDaily({ date: new Date(Date.parse(dateOfIssue) - 24 * 60 * 60 * 1000) })
                 .done(function (result) {
                     this.set("exchangeRates", result);
                 }.bind(this))
