@@ -27,7 +27,7 @@
 
 <div class="container">
   <h1>
-    <strong>Faktura {{#if model.isEnglish}}/ Invoice{{/if}}</strong>
+    <strong>Faktura {{#if isEnglish}}/ Invoice{{/if}}</strong>
     <button class="btn btn-default hidden-print" {{action "save"}}>Zapisz</button>
     <button class="btn btn-default hidden-print" {{action "print"}}>Drukuj</button>
   </h1>
@@ -36,73 +36,63 @@
 
   <div class="visible-print">
     <p>
-      {{#if model.isEnglish}}
+      {{#if isEnglish}}
         Numer / Number:
       {{else}}
         Numer:
       {{/if}}
-      <strong>{{model.number}}</strong>
+      <strong>{{number}}</strong>
     </p>
     <p>
-      {{#if model.isEnglish}}
+      {{#if isEnglish}}
         Data wystawienia / Date of issue:
       {{else}}
         Data wystawienia:
       {{/if}}
-      <strong>{{model.dateOfIssue}}</strong>
+      <strong>{{dateOfIssue}}</strong>
     </p>
     <p>
-      {{#if model.isEnglish}}
-        Data sprzedaży / Date of sale:
-      {{else}}
-        Data sprzedaży:
-      {{/if}}
-      <strong>{{model.dateOfSale}}</strong>
-    </p>
-    <p>
-      {{#if model.isEnglish}}
+      {{#if isEnglish}}
         Termin płatności / Due date:
       {{else}}
         Termin płatności:
       {{/if}}
-      <strong>{{model.dueDate}}</strong>
+      <strong>{{dueDate}}</strong>
     </p>
   </div>
 
   <div class="form-horizontal hidden-print">
     <div class="form-group">
       <label class="control-label col-xs-3" for="number">
-        Numer {{#if model.isEnglish}}/ Number{{/if}}
+        Numer {{#if isEnglish}}/ Number{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input class="form-control hidden-print" valueBinding="model.number" id="number"}}
+        {{input class="form-control hidden-print" valueBinding="number" id="number"}}
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-xs-3" for="dateOfIssue">
-        Data wystawienia {{#if model.isEnglish}}/ Date of issue{{/if}}
+        Data wystawienia {{#if isEnglish}}/ Date of issue{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input type="date" class="form-control hidden-print" valueBinding="model.dateOfIssue" id="dateOfIssue"}}
+        {{input type="date" class="form-control hidden-print" valueBinding="dateOfIssue" id="dateOfIssue" disabledBinding="isLoadingExchangeRate"}}
       </div>
-    </div>
-
-    <div class="form-group">
-      <label class="control-label col-xs-3" for="dateOfSale">
-        Data sprzedaży {{#if model.isEnglish}}/ Date of sale{{/if}}
-      </label>
-      <div class="col-xs-3">
-        {{input type="date" class="form-control hidden-print" valueBinding="model.dateOfSale" id="dateOfSale"}}
+      <div class="col-xs-6">
+        <p class="help-block text-muted">
+          {{#if isLoadingExchangeRate}}
+            Trwa ładowanie kursów walut, proszę czekać…
+          {{/if}}
+        </p>
       </div>
     </div>
 
     <div class="form-group">
       <label class="control-label col-xs-3" for="dueDate">
-        Termin płatności {{#if model.isEnglish}}/ Due date{{/if}}
+        Termin płatności {{#if isEnglish}}/ Due date{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input type="date" class="form-control hidden-print" valueBinding="model.dueDate" id="dueDate"}}
+        {{input type="date" class="form-control hidden-print" valueBinding="dueDate" id="dueDate"}}
       </div>
     </div>
   </div>
@@ -111,31 +101,35 @@
     <div class="col-xs-6">
       <h4>
         <label for="seller">
-          Sprzedawca {{#if model.isEnglish}}/ Seller{{/if}}
+          Sprzedawca {{#if isEnglish}}/ Seller{{/if}}
         </label>
       </h4>
       <p class="visible-print">
-        <strong>{{model.sellerFirstLine}}</strong><br>
-        {{#each line in model.sellerRest}}{{line}}<br>{{/each}}
+        <strong>{{sellerFirstLine}}</strong><br>
+        {{#each line in sellerRest}}{{line}}<br>{{/each}}
       </p>
-      {{textarea class="form-control hidden-print" rows="4" valueBinding="model.seller" id="seller"}}
+      {{textarea class="form-control hidden-print" rows="4" valueBinding="seller" id="seller"}}
     </div>
 
     <div class="col-xs-6">
       <h4>
         <label for="buyer">
-          Nabywca {{#if model.isEnglish}}/ Buyer{{/if}}
+          Nabywca {{#if isEnglish}}/ Buyer{{/if}}
         </label>
       </h4>
       <p class="visible-print">
-        <strong>{{model.buyerFirstLine}}</strong><br>
-        {{#each line in model.buyerRest}}{{line}}<br>{{/each}}
+        <strong>{{buyerFirstLine}}</strong><br>
+        {{#each line in buyerRest}}{{line}}<br>{{/each}}
       </p>
-      {{textarea class="form-control hidden-print" rows="4" valueBinding="model.buyer" id="buyer"}}
+      {{textarea class="form-control hidden-print" rows="4" valueBinding="buyer" id="buyer"}}
     </div>
   </div>
 
   <br>
+
+  {{#if isUsingExchangeRate}}
+    <p>Kwoty podatku VAT zostały przeliczone po kursie średnim Narodowego Banku Polskiego z dnia {{exchangeDate}}</p>
+  {{/if}}
 
   <table class="table table-striped table-condensed">
     <tr>
@@ -165,7 +159,7 @@
       </th>
       <th class="hidden-print"></th>
     </tr>
-    {{#if model.isEnglish}}
+    {{#if isEnglish}}
       <tr>
         <th class="col-xs-4">
           Name
@@ -195,7 +189,7 @@
       </tr>
     {{/if}}
 
-    {{#each item in model.items}}
+    {{#each item in items}}
       <tr>
         <td>
           <p class="visible-print"><small>{{item.description}}</small></p>
@@ -206,18 +200,18 @@
           {{input type="number" step="0.001" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedQuantity"}}
         </td>
         <td class="text-right">
-          <p class="visible-print">{{item.unit}} {{#if model.isEnglish}}/ {{item.englishUnit}}{{/if}}</p>
+          <p class="visible-print">{{item.unit}} {{#if isEnglish}}/ {{item.englishUnit}}{{/if}}</p>
           {{view Ember.Select class="form-control hidden-print" contentBinding="Faktura.units" valueBinding="item.unit"}}
         </td>
         <td class="text-right">
           <p class="visible-print">
-            {{integerToCurrency item.netPrice}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+            {{integerToCurrency item.netPrice}}&nbsp;<small class="text-muted">{{currency}}</small>
           </p>
           {{input type="number" step="0.01" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedNetPrice"}}
         </td>
         <td class="text-right">
           <p class="visible-print">
-            {{item.formattedNetAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+            {{item.formattedNetAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
           </p>
           {{input class="form-control text-right hidden-print" valueBinding="item.formattedNetAmount" disabled="disabled"}}
         </td>
@@ -227,13 +221,13 @@
         </td>
         <td class="text-right">
           <p class="visible-print">
-            {{item.formattedTaxAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+            {{item.formattedTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
           </p>
           {{input class="form-control text-right hidden-print" valueBinding="item.formattedTaxAmount" disabled="disabled"}}
         </td>
         <td class="text-right">
           <p class="visible-print">
-            {{item.formattedGrossAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+            {{item.formattedGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
           </p>
           {{input class="form-control text-right hidden-print" valueBinding="item.formattedGrossAmount" disabled="disabled"}}
         </td>
@@ -246,29 +240,41 @@
       <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
     </tr>
     <tr>
-      <th class="text-right" colspan="4">Razem {{#if model.isEnglish}}/ Total{{/if}}</th>
-      <td class="text-right">{{integerToCurrency model.totalNetAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
+      <th class="text-right" colspan="4">
+        Razem {{#if isEnglish}}/ Total{{/if}}
+      </th>
+      <td class="text-right">
+        {{integerToCurrency totalNetAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
       <td></td>
-      <td class="text-right">{{integerToCurrency model.totalTaxAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
-      <td class="text-right">{{integerToCurrency model.totalGrossAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
+      <td class="text-right">
+        {{integerToCurrency totalTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
+      <td class="text-right">
+        {{integerToCurrency totalGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
       <td class="hidden-print"></td>
     </tr>
-    {{#each subTotal in model.subTotals}}
+    {{#each subTotal in subTotalsPLN}}
       <tr>
         <th class="text-right" colspan="4">
-          W tym {{#if model.isEnglish}}/ Including{{/if}}
+          W tym {{#if isEnglish}}/ Including{{/if}}
         </th>
         <td class="text-right">
-          {{integerToCurrency subTotal.netAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+          {{integerToCurrency subTotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
         </td>
         <td class="text-right">
           {{subTotal.formattedTaxRate}}
         </td>
         <td class="text-right">
-          {{integerToCurrency subTotal.taxAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+          {{integerToCurrency subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          <br>
+          {{#if isUsingExchangeRate}}
+            {{integerToCurrency subTotal.taxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>
+          {{/if}}
         </td>
         <td class="text-right">
-          {{integerToCurrency subTotal.grossAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+          {{integerToCurrency subTotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
         </td>
         <td class="hidden-print"></td>
       </tr>
@@ -278,11 +284,11 @@
   <div class="row">
     <div class="col-xs-12">
       <p>
-        Słownie: <strong>{{model.totalGrossAmountInWords}}</strong>
+        Słownie: <strong>{{totalGrossAmountInWords}}</strong>
       </p>
-      {{#if model.isEnglish}}
+      {{#if isEnglish}}
         <p>
-          In words: <strong>{{model.englishTotalGrossAmountInWords}}</strong>
+          In words: <strong>{{englishTotalGrossAmountInWords}}</strong>
         </p>
       {{/if}}
     </div>
@@ -291,12 +297,12 @@
   <div class="row">
     <div class="col-xs-12">
       <label for="comment" class="hidden-print">
-        Uwagi{{#if model.isEnglish}} / Comments{{/if}}
+        Uwagi{{#if isEnglish}} / Comments{{/if}}
       </label>
       <p class="visible-print">
-        {{#each line in model.commentLines}}{{line}}<br>{{/each}}
+        {{#each line in commentLines}}{{line}}<br>{{/each}}
       </p>
-      {{textarea class="form-control hidden-print" rows="4" valueBinding="model.comment" id="comment"}}
+      {{textarea class="form-control hidden-print" rows="4" valueBinding="comment" id="comment"}}
     </div>
   </div>
 
@@ -304,14 +310,14 @@
 
   <div class="row">
     <div class="col-xs-6">
-      {{input class="form-control text-center hidden-print" valueBinding="model.buyerSignature" id="buyerSignature"}}
-      <p class="visible-print text-center signature">&nbsp;{{model.buyerSignature}}&nbsp;</p>
-      <label for="buyerSignature">Podpis nabywcy{{#if model.isEnglish}} / Buyer's signature{{/if}}</label>
+      {{input class="form-control text-center hidden-print" valueBinding="buyerSignature" id="buyerSignature"}}
+      <p class="visible-print text-center signature">&nbsp;{{buyerSignature}}&nbsp;</p>
+      <label for="buyerSignature">Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</label>
     </div>
     <div class="col-xs-6">
-      {{input class="form-control text-center hidden-print" valueBinding="model.issuerSignature" id="issuerSignature"}}
-      <p class="visible-print text-center signature">&nbsp;{{model.issuerSignature}}&nbsp;</p>
-      <label for="issuerSignature">Podpis wystawiającego{{#if model.isEnglish}} / Issuer's signature{{/if}}</label>
+      {{input class="form-control text-center hidden-print" valueBinding="issuerSignature" id="issuerSignature"}}
+      <p class="visible-print text-center signature">&nbsp;{{issuerSignature}}&nbsp;</p>
+      <label for="issuerSignature">Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</label>
     </div>
   </div>
 
