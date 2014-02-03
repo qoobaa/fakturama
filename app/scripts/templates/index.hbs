@@ -255,11 +255,21 @@
     </tr>
     {{#each subTotal in model.subTotals}}
       <tr>
-        <th class="text-right" colspan="4">W tym {{#if model.isEnglish}}/ Including{{/if}}</th>
-        <td class="text-right">{{integerToCurrency subTotal.netAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
-        <td class="text-right">{{subTotal.formattedTaxRate}}</td>
-        <td class="text-right">{{integerToCurrency subTotal.taxAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
-        <td class="text-right">{{integerToCurrency subTotal.grossAmount}}&nbsp;<small class="text-muted">{{model.currency}}</td>
+        <th class="text-right" colspan="4">
+          W tym {{#if model.isEnglish}}/ Including{{/if}}
+        </th>
+        <td class="text-right">
+          {{integerToCurrency subTotal.netAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+        </td>
+        <td class="text-right">
+          {{subTotal.formattedTaxRate}}
+        </td>
+        <td class="text-right">
+          {{integerToCurrency subTotal.taxAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+        </td>
+        <td class="text-right">
+          {{integerToCurrency subTotal.grossAmount}}&nbsp;<small class="text-muted">{{model.currency}}</small>
+        </td>
         <td class="hidden-print"></td>
       </tr>
     {{/each}}
