@@ -53,6 +53,14 @@
     </p>
     <p>
       {{#if isEnglish}}
+        Data sprzedaży / Date of sale:
+      {{else}}
+        Data sprzedaży:
+      {{/if}}
+      <strong>{{dateOfSale}}</strong>
+    </p>
+    <p>
+      {{#if isEnglish}}
         Termin płatności / Due date:
       {{else}}
         Termin płatności:
@@ -87,7 +95,16 @@
       </div>
     </div>
 
-    <div class="form-group">
+   <div class="form-group">
+      <label class="control-label col-xs-3" for="dateOfSale">
+        Data sprzedaży {{#if isEnglish}}/ Date of sale{{/if}}
+      </label>
+      <div class="col-xs-3">
+        {{input type="date" class="form-control hidden-print" valueBinding="dateOfSale" id="dateOfSale"}}
+      </div>
+   </div>
+
+   <div class="form-group">
       <label class="control-label col-xs-3" for="dueDate">
         Termin płatności {{#if isEnglish}}/ Due date{{/if}}
       </label>
