@@ -13,7 +13,7 @@
       </li>
       <li class="dropdown">
         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-          Język <b class="caret"></b>
+          Wersja językowa <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">
           {{#each language in Faktura.languages}}
@@ -28,7 +28,6 @@
 <div class="container">
   <h1>
     <strong>Faktura {{#if isEnglish}}/ Invoice{{/if}}</strong>
-    <button class="btn btn-default hidden-print" {{action "save"}}>Zapisz</button>
     <button class="btn btn-default hidden-print" {{action "print"}}>Drukuj</button>
   </h1>
 
@@ -145,7 +144,7 @@
   <br>
 
   {{#if isUsingExchangeRate}}
-    <p>Kwoty podatku VAT zostały przeliczone po kursie średnim Narodowego Banku Polskiego z dnia {{exchangeDate}}</p>
+    <p>Kwoty podatku VAT zostały przeliczone po kursie średnim Narodowego Banku Polskiego z dnia <strong>{{exchangeDate}}</strong></p>
   {{/if}}
 
   <table class="table table-striped table-condensed">
@@ -303,11 +302,11 @@
   <div class="row">
     <div class="col-xs-12">
       <p>
-        Słownie: <strong>{{totalGrossAmountInWords}}</strong>
+        Słownie: {{totalGrossAmountInWords}}
       </p>
       {{#if isEnglish}}
         <p>
-          In words: <strong>{{englishTotalGrossAmountInWords}}</strong>
+          In words: {{englishTotalGrossAmountInWords}}
         </p>
       {{/if}}
     </div>

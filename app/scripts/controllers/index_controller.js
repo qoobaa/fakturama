@@ -85,9 +85,6 @@ Faktura.IndexController = Ember.ObjectController.extend({
         },
         print: function () {
             window.print();
-        },
-        save: function () {
-            this.transitionToRoute("index", this.get("model").toString());
         }
     }
 });

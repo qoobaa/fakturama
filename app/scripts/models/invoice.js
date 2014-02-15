@@ -29,7 +29,7 @@ Faktura.Invoice = Ember.Object.extend({
     }.property("buyer"),
 
     isEnglish: function () {
-        return this.get("language") === "polsko-angielski";
+        return this.get("language") === "polsko-angielska";
     }.property("language"),
 
     comment: "",
@@ -116,11 +116,6 @@ Faktura.Invoice = Ember.Object.extend({
         var result = this.getProperties("number", "dateOfIssue", "dateOfDelivery", "dueDate", "seller", "buyer", "currency", "language", "comment", "issuerSignature", "buyerSignature");
         result.items = this.get("items").invoke("toJSON");
         return result;
-    },
-
-    toString: function () {
-        var string = JSON.stringify(this.toJSON());
-        return btoa(unescape(encodeURIComponent(string)));
     }
 });
 
@@ -133,9 +128,5 @@ Faktura.Invoice.reopenClass({
         });
 
         return this.create($.extend({}, attributes, { items: items }));
-    },
-
-    fromString: function (string) {
-        return this.fromJSON(JSON.parse(decodeURIComponent(escape(atob(string)))));
     }
 });
