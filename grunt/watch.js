@@ -7,9 +7,9 @@ module.exports = {
         files: ["app/**/*.hbs"],
         tasks: ["lock", "ember_handlebars", "unlock"]
     },
-    recess: {
+    less: {
         files: ["app/**/*.less"],
-        tasks: ["lock", "recess", "unlock"]
+        tasks: ["lock", "less", "unlock"]
     },
     javascript: {
         files: ["app/**/*.js"],

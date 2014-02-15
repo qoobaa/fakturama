@@ -6,11 +6,6 @@ var Faktura = Ember.Application.create({
     languages: ["polska", "polsko-angielska"]
 });
 
-Faktura.Router.map(function () {
-    this.resource("index", { path: "/" });
-    this.resource("index", { path: "/:invoice" });
-});
-
 Faktura.IndexRoute = Ember.Route.extend({
     model: function (params) {
         if (params.invoice) {

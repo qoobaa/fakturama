@@ -38,7 +38,7 @@ module.exports = function (grunt) {
         grunt.log.writeln("Unlocked - Development server now handles requests.");
     });
 
-    grunt.registerTask("build", ["copy", "recess", "ember_handlebars"]);
+    grunt.registerTask("build", ["copy", "less", "ember_handlebars"]);
 
     grunt.registerTask("server", ["build", "expressServer", "watch"]);
 

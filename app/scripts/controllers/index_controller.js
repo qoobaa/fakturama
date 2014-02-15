@@ -57,7 +57,7 @@ Faktura.IndexController = Ember.ObjectController.extend({
     subTotalsPLN: function () {
         return this.get("subTotals").map(function (subTotal) {
             return Ember.Object.create({
-                formattedTaxRate: subTotal.taxRate,
+                formattedTaxRate: subTotal.formattedTaxRate,
                 netAmount: subTotal.netAmount,
                 taxAmount: subTotal.taxAmount,
                 grossAmount: subTotal.grossAmount,
