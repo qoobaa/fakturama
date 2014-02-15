@@ -99,7 +99,15 @@
         Data dostawy towarów/wykonania usługi {{#if isEnglish}}/ Delivery date of goods/services{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input type="date" class="form-control hidden-print" valueBinding="dateOfDelivery" id="dateOfDelivery"}}
+        {{input type="date" class="form-control hidden-print" valueBinding="dateOfDelivery" id="dateOfDelivery" disabledBinding="isIssueDelivery"}}
+      </div>
+      <div class="col-xs-6">
+        <div class="checkbox">
+          <label>
+            {{input type="checkbox" checkedBinding="isIssueDelivery"}}
+            Taka sama jak data wystawienia
+          </label>
+        </div>
       </div>
    </div>
 

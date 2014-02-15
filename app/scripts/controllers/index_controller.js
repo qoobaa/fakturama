@@ -1,4 +1,6 @@
 Faktura.IndexController = Ember.ObjectController.extend({
+    isIssueDelivery: true,
+
     dateOfIssueDidChange: function () {
         var dateOfIssue = this.get("dateOfIssue");
 
@@ -13,6 +15,16 @@ Faktura.IndexController = Ember.ObjectController.extend({
                 }.bind(this));
         }
     }.observes("dateOfIssue"),
+
+    dateOfIssueOrIsIssueDeliveryDidChange: function () {
+        if (this.get("isIssueDelivery")) {
+            this.set("dateOfDelivery", this.get("dateOfIssue"));
+        }
+    }.observes("dateOfIssue", "isIssueDelivery"),
+
+    dateOfDeliveryDidChange: function () {
+        this.set("isIssueDelivery", this.get("dateOfDelivery") === this.get("dateOfIssue"));
+    }.observes("dateOfDelivery"),
 
     isUsingExchangeRate: function () {
         return this.get("currency") !== "PLN" && this.get("totalTaxAmount") !== 0;
