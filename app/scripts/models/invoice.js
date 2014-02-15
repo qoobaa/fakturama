@@ -1,7 +1,7 @@
 Faktura.Invoice = Ember.Object.extend({
     number: "",
     dateOfIssue: undefined,
-    dateOfSale: undefined,
+    dateOfDelivery: undefined,
     dueDate: undefined,
 
     seller: "",
@@ -113,7 +113,7 @@ Faktura.Invoice = Ember.Object.extend({
     }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.formattedTaxRate"),
 
     toJSON: function () {
-        var result = this.getProperties("number", "dateOfIssue", "dateOfSale", "dueDate", "seller", "buyer", "currency", "language", "comment", "issuerSignature", "buyerSignature");
+        var result = this.getProperties("number", "dateOfIssue", "dateOfDelivery", "dueDate", "seller", "buyer", "currency", "language", "comment", "issuerSignature", "buyerSignature");
         result.items = this.get("items").invoke("toJSON");
         return result;
     },

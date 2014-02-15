@@ -53,11 +53,11 @@
     </p>
     <p>
       {{#if isEnglish}}
-        Data sprzedaży / Date of sale:
+        Data dostawy towarów/wykonania usługi / Delivery date of goods/services:
       {{else}}
-        Data sprzedaży:
+        Data dostawy towarów/wykonania usługi:
       {{/if}}
-      <strong>{{dateOfSale}}</strong>
+      <strong>{{dateOfDelivery}}</strong>
     </p>
     <p>
       {{#if isEnglish}}
@@ -96,11 +96,11 @@
     </div>
 
    <div class="form-group">
-      <label class="control-label col-xs-3" for="dateOfSale">
-        Data sprzedaży {{#if isEnglish}}/ Date of sale{{/if}}
+      <label class="control-label col-xs-3" for="dateOfDelivery">
+        Data dostawy towarów/wykonania usługi {{#if isEnglish}}/ Delivery date of goods/services{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input type="date" class="form-control hidden-print" valueBinding="dateOfSale" id="dateOfSale"}}
+        {{input type="date" class="form-control hidden-print" valueBinding="dateOfDelivery" id="dateOfDelivery"}}
       </div>
    </div>
 
