@@ -1,5 +1,30 @@
 Faktura.IndexController = Ember.ObjectController.extend({
     isIssueDelivery: true,
+    dueDays: 14,
+
+    dueDaysOrDateOfIssueDidChange: function () {
+        var date,
+            dueDays = this.get("dueDays"),
+            dateOfIssue = this.get("dateOfIssue");
+
+        date = Date.parse(dateOfIssue) + 1000 * 60 * 60 * 24 * dueDays;
+
+        if (!isNaN(date)) {
+            this.set("dueDate", new Date(date).toISOString().substr(0, 10));
+        }
+    }.observes("dueDays", "dateOfIssue"),
+
+    dueDateDidChange: function () {
+        var interval,
+            dateOfIssue = this.get("dateOfIssue"),
+            dueDate = this.get("dueDate");
+
+        interval = Date.parse(dueDate) - Date.parse(dateOfIssue);
+
+        if (!isNaN(interval)) {
+            this.set("dueDays", Math.floor(interval / (1000 * 60 * 60 * 24)));
+        }
+    }.observes("dueDate"),
 
     dateOfIssueDidChange: function () {
         var dateOfIssue = this.get("dateOfIssue");

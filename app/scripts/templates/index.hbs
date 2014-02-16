@@ -74,7 +74,7 @@
         Numer {{#if isEnglish}}/ Number{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input class="form-control hidden-print" valueBinding="number" id="number"}}
+        {{input class="form-control" valueBinding="number" id="number"}}
       </div>
     </div>
 
@@ -83,7 +83,7 @@
         Data wystawienia {{#if isEnglish}}/ Date of issue{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input type="date" class="form-control hidden-print" valueBinding="dateOfIssue" id="dateOfIssue" disabledBinding="isLoadingExchangeRate"}}
+        {{input type="date" class="form-control" valueBinding="dateOfIssue" id="dateOfIssue" disabledBinding="isLoadingExchangeRate"}}
       </div>
       <div class="col-xs-6">
         <p class="help-block text-muted">
@@ -99,9 +99,9 @@
         Data dostawy towarów/wykonania usługi {{#if isEnglish}}/ Delivery date of goods/services{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input type="date" class="form-control hidden-print" valueBinding="dateOfDelivery" id="dateOfDelivery" disabledBinding="isIssueDelivery"}}
+        {{input type="date" class="form-control" valueBinding="dateOfDelivery" id="dateOfDelivery" disabledBinding="isIssueDelivery"}}
       </div>
-      <div class="col-xs-6">
+      <div class="col-xs-3">
         <div class="checkbox">
           <label>
             {{input type="checkbox" checkedBinding="isIssueDelivery"}}
@@ -112,11 +112,14 @@
    </div>
 
    <div class="form-group">
-      <label class="control-label col-xs-3" for="dueDate">
+      <label class="control-label col-xs-3" for="dueDays">
         Termin płatności {{#if isEnglish}}/ Due date{{/if}}
       </label>
       <div class="col-xs-3">
-        {{input type="date" class="form-control hidden-print" valueBinding="dueDate" id="dueDate"}}
+        <div class="input-group">
+          {{input type="number" class="form-control text-right" valueBinding="dueDays" id="dueDays"}}
+          <span class="input-group-addon">dni</span>
+        </div>
       </div>
     </div>
   </div>
@@ -336,14 +339,20 @@
 
   <div class="row">
     <div class="col-xs-6">
-      {{input class="form-control text-center hidden-print" valueBinding="buyerSignature" id="buyerSignature"}}
-      <p class="visible-print text-center signature">&nbsp;{{buyerSignature}}&nbsp;</p>
-      <label for="buyerSignature">Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</label>
+      {{input class="form-control text-center hidden-print" valueBinding="issuerSignature" id="issuerSignature"}}
+      <label for="issuerSignature" class="hidden-print">Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</label>
+      {{#if issuerSignature}}
+        <p class="visible-print text-center signature">&nbsp;{{issuerSignature}}&nbsp;</p>
+        <p class="visible-print">Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</p>
+      {{/if}}
     </div>
     <div class="col-xs-6">
-      {{input class="form-control text-center hidden-print" valueBinding="issuerSignature" id="issuerSignature"}}
-      <p class="visible-print text-center signature">&nbsp;{{issuerSignature}}&nbsp;</p>
-      <label for="issuerSignature">Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</label>
+      {{input class="form-control text-center hidden-print" valueBinding="buyerSignature" id="buyerSignature"}}
+      <label for="buyerSignature" class="hidden-print">Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</label>
+      {{#if buyerSignature}}
+        <p class="visible-print text-center signature">&nbsp;{{buyerSignature}}&nbsp;</p>
+        <p class="visible-print">Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</p>
+      {{/if}}
     </div>
   </div>
 
