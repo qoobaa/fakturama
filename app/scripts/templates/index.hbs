@@ -21,6 +21,9 @@
           {{/each}}
         </ul>
       </li>
+      <li>
+        <a href="javascript:void(0)" {{action "login"}}>Zaloguj</a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -223,8 +226,8 @@
           {{input class="form-control hidden-print" valueBinding="item.description"}}
         </td>
         <td class="text-right">
-          <p class="visible-print">{{item.formattedQuantity}}</p>
-          {{input type="number" step="0.001" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedQuantity"}}
+          <p class="visible-print">{{item.quantity}}</p>
+          {{input valueBinding="item.quantity" class="form-control text-right hidden-print"}}
         </td>
         <td class="text-right">
           <p class="visible-print">{{item.unit}} {{#if isEnglish}}/ {{item.englishUnit}}{{/if}}</p>
@@ -234,13 +237,13 @@
           <p class="visible-print">
             {{integerToCurrency item.netPrice}}&nbsp;<small class="text-muted">{{currency}}</small>
           </p>
-          {{input type="number" step="0.01" min="0" class="form-control text-right hidden-print" valueBinding="item.formattedNetPrice"}}
+          {{view Faktura.CentsView centsBinding="item.netPrice" class="form-control text-right hidden-print"}}
         </td>
         <td class="text-right">
           <p class="visible-print">
-            {{item.formattedNetAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+            {{integerToCurrency item.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
           </p>
-          {{input class="form-control text-right hidden-print" valueBinding="item.formattedNetAmount" disabled="disabled"}}
+          {{view Faktura.CentsView centsBinding="item.netAmount" class="form-control text-right hidden-print" disabled="disabled"}}
         </td>
         <td class="text-right">
           <p class="visible-print">{{item.formattedTaxRate}}</p>
@@ -248,15 +251,15 @@
         </td>
         <td class="text-right">
           <p class="visible-print">
-            {{item.formattedTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+            {{integerToCurrency item.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
           </p>
-          {{input class="form-control text-right hidden-print" valueBinding="item.formattedTaxAmount" disabled="disabled"}}
+          {{view Faktura.CentsView centsBinding="item.taxAmount" class="form-control text-right hidden-print" disabled="disabled"}}
         </td>
         <td class="text-right">
           <p class="visible-print">
-            {{item.formattedGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+            {{integerToCurrency item.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
           </p>
-          {{input class="form-control text-right hidden-print" valueBinding="item.formattedGrossAmount" disabled="disabled"}}
+          {{view Faktura.CentsView centsBinding="item.grossAmount" class="form-control text-right hidden-print" disabled="disabled"}}
         </td>
         <td class="hidden-print">
           <button class="btn btn-remove" {{action "removeItem" item}}><strong>×</strong></button>

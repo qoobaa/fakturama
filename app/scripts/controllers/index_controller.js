@@ -122,6 +122,8 @@ Faktura.IndexController = Ember.ObjectController.extend({
         },
         print: function () {
             window.print();
+        },
+        login: function () {
         }
     }
 });
