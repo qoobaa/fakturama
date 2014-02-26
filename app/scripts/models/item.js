@@ -1,4 +1,6 @@
 Faktura.Item = Ember.Object.extend({
+    quantity: 0,
+
     englishUnit: function () {
         return Faktura.get("englishUnits." + Faktura.get("units").indexOf(this.get("unit")));
     }.property("unit"),

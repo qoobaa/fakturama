@@ -57,30 +57,22 @@ Faktura.Invoice = Ember.Object.extend({
 
     totalGrossAmountInWords: function () {
         var dollars, cents,
-            amount = String(this.get("totalGrossAmount"));
+            amount = new Array(3).join("0") + String(this.get("totalGrossAmount") || "0");
 
-        dollars = amount.substr(0, amount.length - 2);
-        cents = amount.substr(amount.length - 2, amount.length);
+        dollars = amount.slice(0, -2) || "0";
+        cents = amount.slice(-2) || "0";
 
-        if (dollars.length > 0) {
-            return polishToWords(dollars) + " " + this.get("currency") + " " + cents + "/100";
-        } else {
-            return "";
-        }
+        return polishToWords(dollars) + " " + this.get("currency") + " " + cents + "/100";
     }.property("totalGrossAmount", "currency"),
 
     englishTotalGrossAmountInWords: function () {
         var dollars, cents,
-            amount = String(this.get("totalGrossAmount"));
+            amount = new Array(3).join("0") + String(this.get("totalGrossAmount") || "0");
 
-        dollars = amount.substr(0, amount.length - 2);
-        cents = amount.substr(amount.length - 2, amount.length);
+        dollars = amount.slice(0, -2) || "0";
+        cents = amount.slice(-2) || "0";
 
-        if (dollars.length > 0) {
-            return toWords(dollars) + " " + this.get("currency") + " " + cents + "/100";
-        } else {
-            return "";
-        }
+        return toWords(dollars) + " " + this.get("currency") + " " + cents + "/100";
     }.property("totalGrossAmount", "currency"),
 
     subTotals: function () {
