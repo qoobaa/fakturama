@@ -1,6 +1,7 @@
 Faktura.Client = Ember.Model.extend({
-
+    id: Ember.attr(),
+    name: Ember.attr()
 });
 
-Faktura.Client.url = Faktura.config.firebaseURL + "/clients";
-Faktura.Client.adapter = Ember.RESTAdapter.create();
+Faktura.Client.url = "clients";
+Faktura.Client.adapter = Faktura.FirebaseAdapter.create();

@@ -24,7 +24,6 @@ Faktura.Auth = Ember.Object.extend({
 
         return new Ember.RSVP.Promise(function (resolve, reject) {
             new FirebaseSimpleLogin(firebase, function (error, user) {
-                console.log(arguments);
                 if (error) {
                     reject(error);
                 } else if (user) {
