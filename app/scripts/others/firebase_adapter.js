@@ -10,13 +10,9 @@ Faktura.FirebaseAdapter = Ember.RESTAdapter.extend({
     },
 
     ajaxSettings: function (url, method) {
-        var auth = Faktura.__container__.lookup("controller:currentUser").get("firebaseAuthToken"),
-            id = Faktura.__container__.lookup("controller:currentUser").get("id");
-
         return {
-            url: Faktura.config.firebaseURL + id + "/" + url + "?auth=" + auth,
-            type: method,
-            dataType: "json"
+            url: Faktura.config.firebaseURL + Faktura.config.userId + "/" + url + "?auth=" + Faktura.config.firebaseAuthToken,
+            type: method
         };
     }
 });
