@@ -1,0 +1,27 @@
+<div class="modal-backdrop fade in"></div>
+<div class="modal fade in" tabindex="-1" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <form class="modal-content">
+      <div class="modal-header">
+        {{link-to "&times;" "clients" class="close" activeClass=null}}
+        <h4 class="modal-title">Nowy klient</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label for="client-name" class="col-xs-2 control-label">
+              Nazwa
+            </label>
+            <div class="col-xs-10">
+              {{input valueBinding="name" class="form-control" id="client-name"}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        {{link-to "Close" "clients" class="btn btn-default" activeClass=null}}
+        <button type="submit" class="btn btn-primary" {{action "save"}}>Save changes</button>
+      </div>
+    </form>
+  </div>
+</div>

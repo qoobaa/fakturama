@@ -1,1 +1,11 @@
-Klienci
+<ul>
+  {{#each model}}
+    <li>
+      {{name}}
+    </li>
+  {{/each}}
+</ul>
+
+{{link-to "Nowy klient" "clients.new"}}
+
+{{outlet}}

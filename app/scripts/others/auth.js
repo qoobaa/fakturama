@@ -2,8 +2,8 @@ Faktura.Auth = Ember.Object.extend({
     didAuthenticate: function (user) {
         var model = Faktura.User.create(user);
 
-        Faktura.config.firebaseAuthToken = user.firebaseAuthToken;
-        Faktura.config.userId = user.id;
+        Faktura.config.firebaseAuthToken = user && user.firebaseAuthToken;
+        Faktura.config.userId = user && user.id;
 
         this.container.lookup("controller:currentUser").set("content", model);
     },
