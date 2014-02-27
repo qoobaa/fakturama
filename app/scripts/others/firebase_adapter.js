@@ -1,28 +1,12 @@
 Faktura.FirebaseAdapter = Ember.RESTAdapter.extend({
-    findAll: function(klass, records) {
-        var url = this.buildURL(klass),
-            self = this;
-
-        return this.ajax(url).then(function (data) {
-            return Object.keys(data).map(function (id) {
-                return $.extend({}, data[id], { id: id });
-            });
-        }).then(function(data) {
-            self.didFindAll(klass, records, data);
-            return records;
-        });
+    didFindAll: function (klass, records, data) {
+        this._super(klass, records, Object.keys(data || {}).map(function (id) {
+            return $.extend({}, data[id], { id: id });
+        }));
     },
 
-    createRecord: function(record) {
-        var url = this.buildURL(record.constructor),
-            self = this;
-
-        return this.ajax(url, record.toJSON(), "POST").then(function (data) {
-            return $.extend({}, record.toJSON(), { id: data.name });
-        }).then(function (data) {
-            self.didCreateRecord(record, data);
-            return record;
-        });
+    didCreateRecord: function (record, data) {
+        this._super(record, $.extend({}, record.toJSON(), { id: data.name }));
     },
 
     ajaxSettings: function (url, method) {
