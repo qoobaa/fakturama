@@ -39,3 +39,12 @@ Faktura.formatCents = function (value, precision) {
         return minus + integerPart;
     }
 };
+
+Ember.Handlebars.helper("formatCents", function (value, options) {
+    var integerPart, fractionalPart, precision;
+
+    options || (options = {});
+    precision = options.hash.hasOwnProperty("precision") ? options.hash.precision : 2;
+
+    return Faktura.formatCents(value, precision);
+});

@@ -17,6 +17,7 @@
     "bootstrap": "~3.1.1",
     "toword.js": "http://javascript.about.com/library/toword.js",
     "polish-to-words": "https://github.com/cowbell/polish-to-words.git",
-    "nbp-yql": "https://github.com/cowbell/nbp-yql.git"
+    "nbp-yql": "https://github.com/cowbell/nbp-yql.git",
+    "ember-model": "~0.0.11"
   }
 }

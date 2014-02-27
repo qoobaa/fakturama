@@ -1,0 +1,39 @@
+<nav class="navbar navbar-default hidden-print" role="navigation">
+  {{#with controllers.currentUser}}
+    <div class="container">
+      {{link-to "Faktura" "index" class="navbar-brand"}}
+      <ul class="nav navbar-nav">
+        {{#if isSignedIn}}
+          {{#link-to "clients" tagName="li"}}
+            <a href="javascript:void(0)">Klienci</a>
+          {{/link-to}}
+        {{/if}}
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {{#unless isSignedIn}}
+          <li>
+            <a href="javascript:void(0)" {{action "signIn" "persona"}}>Zaloguj</a>
+          </li>
+        {{/unless}}
+        {{#if isSignedIn}}
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+              <img height="40" class="gravatar img-circle" {{bind-attr src="gravatarURL"}}>
+              {{name}}
+              <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="javascript:void(0)" {{action "signOut"}}>Wyloguj</a>
+              </li>
+            </ul>
+          </li>
+        {{/if}}
+      </ul>
+    </div>
+  {{/with}}
+</nav>
+
+<div class="container">
+  {{outlet}}
+</div>

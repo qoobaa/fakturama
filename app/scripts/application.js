@@ -9,19 +9,10 @@ var Faktura = Ember.Application.create({
     }
 });
 
-// Faktura.InvoiceRoute = Ember.Route.extend({
-//     model: function (params) {
-//         return Faktura.Invoice.fromJSON({ items: [{}] });
-//     }
-// });
-
-Ember.Handlebars.helper("integerToCurrency", function (value, options) {
-    var integerPart, fractionalPart, precision;
-
-    options || (options = {});
-    precision = options.hash.hasOwnProperty("precision") ? options.hash.precision : 2;
-
-    return Faktura.formatCents(value, precision);
+Faktura.Router.map(function() {
+    this.resource("clients", { path: "/clients" }, function () {
+        this.route("new");
+    });
 });
 
 Faktura.initializer({
@@ -40,4 +31,4 @@ Faktura.initializer({
         application.inject("controller", "auth", "auth:main");
         application.inject("route", "auth", "auth:main");
     }
- });
+});
