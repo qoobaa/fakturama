@@ -16,12 +16,6 @@ Faktura.Router.map(function () {
     });
 });
 
-Faktura.ClientRoute = Ember.Route.extend({
-    model: function () {
-        console.log(arguments);
-    }
-});
-
 Faktura.initializer({
     name: "auth",
 
