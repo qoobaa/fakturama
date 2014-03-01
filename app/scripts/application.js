@@ -9,10 +9,17 @@ var Faktura = Ember.Application.create({
     }
 });
 
-Faktura.Router.map(function() {
-    this.resource("clients", { path: "/clients" }, function () {
+Faktura.Router.map(function () {
+    this.resource("clients", function () {
         this.route("new");
+        this.resource("client", { path: ":client_id" });
     });
+});
+
+Faktura.ClientRoute = Ember.Route.extend({
+    model: function () {
+        console.log(arguments);
+    }
 });
 
 Faktura.initializer({

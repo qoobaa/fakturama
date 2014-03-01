@@ -1,0 +1,9 @@
+<ul>
+  {{#each client in model}}
+    <li>
+      {{link-to client.name "client" client}}
+    </li>
+  {{/each}}
+</ul>
+
+{{link-to "Dodaj nowego klienta" "clients.new"}}

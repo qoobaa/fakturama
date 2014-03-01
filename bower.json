@@ -18,6 +18,7 @@
     "toword.js": "http://javascript.about.com/library/toword.js",
     "polish-to-words": "https://github.com/cowbell/polish-to-words.git",
     "nbp-yql": "https://github.com/cowbell/nbp-yql.git",
-    "ember-model": "~0.0.11"
+    "ember-model": "~0.0.11",
+    "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/stable/ember-validations.js"
   }
 }
