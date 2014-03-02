@@ -14,6 +14,9 @@ Faktura.Router.map(function () {
         this.route("new");
         this.resource("client", { path: ":client_id" });
     });
+    this.resource("invoices", function () {
+        this.route("new");
+    });
 });
 
 Faktura.initializer({

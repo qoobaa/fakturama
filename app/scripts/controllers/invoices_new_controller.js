@@ -1,6 +1,6 @@
-Faktura.ClientsNewController = Ember.ObjectController.extend({
+Faktura.InvoicesNewController = Ember.ObjectController.extend({
     form: function () {
-        return Faktura.ClientForm.fromModel(this.get("model"));
+        return Faktura.InvoiceForm.fromModel(this.get("model"));
     }.property("model"),
 
     actions: {
@@ -12,7 +12,7 @@ Faktura.ClientsNewController = Ember.ObjectController.extend({
             form.set("isSubmitted", true).validate().then(function () {
                 model.setProperties(form.toModel());
                 model.save().then(function () {
-                    controller.transitionToRoute("clients");
+                    controller.transitionToRoute("invoices");
                 });
             });
         }

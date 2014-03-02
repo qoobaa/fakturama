@@ -1,9 +1,6 @@
-Faktura.ClientForm = Ember.Object.extend(Ember.Validations.Mixin, {
+Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
     validations: {
-        name: {
-            presence: { if: "isSubmitted" }
-        },
-        address: {
+        number: {
             presence: { if: "isSubmitted" }
         }
     },
@@ -13,8 +10,8 @@ Faktura.ClientForm = Ember.Object.extend(Ember.Validations.Mixin, {
     }
 });
 
-Faktura.ClientForm.reopenClass({
-    fields: ["name", "address", "vatin"],
+Faktura.InvoiceForm.reopenClass({
+    fields: ["number"],
 
     fromModel: function (model) {
         return this.create(model.getProperties(this.fields));

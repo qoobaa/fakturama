@@ -4,27 +4,30 @@
       {{link-to "Faktura" "index" class="navbar-brand"}}
       <ul class="nav navbar-nav">
         {{#if isSignedIn}}
+          {{#link-to "invoices" tagName="li"}}
+            <a href="javascript:;">Faktury</a>
+          {{/link-to}}
           {{#link-to "clients" tagName="li"}}
-            <a href="javascript:void(0)">Klienci</a>
+            <a href="javascript:;">Klienci</a>
           {{/link-to}}
         {{/if}}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {{#unless isSignedIn}}
           <li>
-            <a href="javascript:void(0)" {{action "signIn" "persona"}}>Zaloguj</a>
+            <a href="javascript:;" {{action "signIn" "persona"}}>Zaloguj</a>
           </li>
         {{/unless}}
         {{#if isSignedIn}}
           <li class="dropdown">
-            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
               <img height="30" class="gravatar img-circle" {{bind-attr src="gravatarURL"}}>
               {{name}}
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="javascript:void(0)" {{action "signOut"}}>Wyloguj</a>
+                <a href="javascript:;" {{action "signOut"}}>Wyloguj</a>
               </li>
             </ul>
           </li>
