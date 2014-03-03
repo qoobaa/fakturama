@@ -1,7 +1,7 @@
 <ul>
   {{#each invoice in model}}
     <li>
-      {{invoice.number}}
+      {{link-to invoice.number "invoice" invoice}}
     </li>
   {{/each}}
 </ul>

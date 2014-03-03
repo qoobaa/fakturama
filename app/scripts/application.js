@@ -16,6 +16,7 @@ Faktura.Router.map(function () {
     });
     this.resource("invoices", function () {
         this.route("new");
+        this.resource("invoice", { path: ":invoice_id" });
     });
 });
 
