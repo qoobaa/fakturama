@@ -2,7 +2,7 @@
   {{partial "invoice_form"}}
 
   <div class="form-group">
-    <div class="col-xs-10 col-xs-offset-2">
+    <div class="col-xs-10 col-xs-offset-4">
       <button type="submit" class="btn btn-primary" {{action "save"}} {{bind-attr disabled="model.isSaving"}}>Utwórz</button>
       {{link-to "Anuluj" "invoices" class="btn btn-default" activeClass=null}}
     </div>

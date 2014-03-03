@@ -1,6 +1,14 @@
 Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
+    isIssueDelivery: true,
+
     validations: {
         number: {
+            presence: { if: "isSubmitted" }
+        },
+        issueDate: {
+            presence: { if: "isSubmitted" }
+        },
+        deliveryDate: {
             presence: { if: "isSubmitted" }
         }
     },
@@ -11,7 +19,7 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
 });
 
 Faktura.InvoiceForm.reopenClass({
-    fields: ["number"],
+    fields: ["number", "issueDate", "deliveryDate"],
 
     fromModel: function (model) {
         return this.create(model.getProperties(this.fields));
