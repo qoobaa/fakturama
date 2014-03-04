@@ -21,9 +21,9 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
         }
     },
 
+    isSubmitted: false,
     isIssueDelivery: true,
     dueDays: 14,
-    items: [{}],
 
     isIssueDeliveryOrIssueDateDidChange: function () {
         if (this.get("isIssueDelivery")) {
@@ -43,15 +43,37 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
         }
     }.observes("dueDays", "issueDate"),
 
+    validate: function () {
+        return Ember.RSVP.Promise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));
+    },
+
     toModel: function () {
-        return this.getProperties(this.constructor.fields);
+        var properties = this.getProperties(this.constructor.fields);
+
+        properties.items = properties.items.invoke("toModel");
+
+        return properties;
     }
 });
 
 Faktura.InvoiceForm.reopenClass({
-    fields: ["number", "issueDate", "deliveryDate", "dueDate", "seller", "buyer"],
+    fields: ["number", "issueDate", "deliveryDate", "dueDate", "seller", "buyer", "items"],
 
     fromModel: function (model) {
-        return this.create(model.getProperties(this.fields));
+        var invoiceForm = this.create(),
+            items = model.get("items");
+
+        if (!items || !items.length) {
+            items = [{}];
+        }
+
+        items = items.map(function (item) {
+            return Faktura.ItemForm.create(Ember.merge({ invoiceForm: invoiceForm }, item));
+        });
+
+        invoiceForm.setProperties(model.getProperties(this.fields));
+        invoiceForm.set("items", items);
+
+        return invoiceForm;
     }
 });

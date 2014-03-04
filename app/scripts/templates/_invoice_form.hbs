@@ -115,28 +115,28 @@
     </tr>
     {{#each item in items}}
       <tr>
-        <td>
+        <td {{bind-attr class=":form-group item.errors.description.firstObject:has-error"}}>
           {{input class="form-control" valueBinding="item.description"}}
         </td>
-        <td class="text-right">
+        <td {{bind-attr class=":form-group :text-right item.errors.quantity.firstObject:has-error"}}>
           {{input valueBinding="item.quantity" class="form-control text-right"}}
         </td>
-        <td class="text-right">
+        <td {{bind-attr class=":form-group :text-right item.errors.unit.firstObject:has-error"}}>
           {{view Ember.Select class="form-control" contentBinding="Faktura.units" valueBinding="item.unit"}}
         </td>
-        <td class="text-right">
+        <td {{bind-attr class=":form-group :text-right item.errors.netPrice.firstObject:has-error"}}>
           {{view Faktura.CentsView centsBinding="item.netPrice" class="form-control text-right"}}
         </td>
-        <td class="text-right">
+        <td {{bind-attr class=":form-group :text-right item.errors.netAmount.firstObject:has-error"}}>
           {{view Faktura.CentsView centsBinding="item.netAmount" class="form-control text-right" disabled="disabled"}}
         </td>
-        <td class="text-right">
+        <td {{bind-attr class=":form-group :text-right item.errors.formattedTaxRate.firstObject:has-error"}}>
           {{view Ember.Select class="form-control" contentBinding="Faktura.taxRates" valueBinding="item.formattedTaxRate"}}
         </td>
-        <td class="text-right">
+        <td {{bind-attr class=":form-group :text-right item.errors.taxAmount.firstObject:has-error"}}>
           {{view Faktura.CentsView centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled"}}
         </td>
-        <td class="text-right">
+        <td {{bind-attr class=":form-group :text-right item.errors.grossAmount.firstObject:has-error"}}>
           {{view Faktura.CentsView centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled"}}
         </td>
         <td>

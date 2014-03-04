@@ -5,7 +5,8 @@ Faktura.Invoice = Ember.Model.extend({
     deliveryDate: Ember.attr(),
     dueDate: Ember.attr(),
     seller: Ember.attr(),
-    buyer: Ember.attr()
+    buyer: Ember.attr(),
+    items: Ember.attr()
 });
 
 Faktura.Invoice.reopenClass({
