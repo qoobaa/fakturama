@@ -61,29 +61,29 @@
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.seller.firstObject:has-error"}}>
-    <label class="control-label col-xs-4" for="invoice-seller">
-      Sprzedawca
-    </label>
-    <div class="col-xs-4">
-      {{textarea class="form-control" rows="4" valueBinding="seller" id="invoice-seller"}}
+  <div class="row">
+    <div class="col-xs-6">
+      <div {{bind-attr class="errors.seller.firstObject:has-error"}}>
+        <label class="control-label" for="invoice-seller">
+          Sprzedawca
+        </label>
+        <span class="help-block" style="display: inline;">{{errors.seller.firstObject}}</span>
+        {{textarea class="form-control" rows="4" valueBinding="seller" id="invoice-seller"}}
+      </div>
     </div>
-    <div class="col-xs-2">
-      <span class="help-block">{{errors.seller.firstObject}}</span>
+
+    <div class="col-xs-6">
+      <div {{bind-attr class="errors.seller.firstObject:has-error"}}>
+        <label class="control-label" for="invoice-buyer">
+          Nabywca
+        </label>
+        <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
+        {{textarea class="form-control" rows="4" valueBinding="buyer" id="invoice-buyer"}}
+      </div>
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.seller.firstObject:has-error"}}>
-    <label class="control-label col-xs-4" for="invoice-buyer">
-      Nabywca
-    </label>
-    <div class="col-xs-4">
-      {{textarea class="form-control" rows="4" valueBinding="buyer" id="invoice-buyer"}}
-    </div>
-    <div class="col-xs-2">
-      <span class="help-block">{{errors.buyer.firstObject}}</span>
-    </div>
-  </div>
+  <br>
 
   <table class="table table-striped table-condensed">
     <tr>
@@ -113,7 +113,7 @@
       </th>
       <th></th>
     </tr>
-    {{#each item in items}}
+    {{#each item in itemForms}}
       <tr>
         <td {{bind-attr class=":form-group item.errors.description.firstObject:has-error"}}>
           {{input class="form-control" valueBinding="item.description"}}
@@ -140,12 +140,57 @@
           {{view Faktura.CentsView centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled"}}
         </td>
         <td>
-          <button class="btn btn-remove" {{action "removeItem" item}}><strong>×</strong></button>
+          <button class="btn btn-remove" {{action "removeItem" item}} {{bind-attr disabled="isRemoveItemDisabled"}}><strong>×</strong></button>
         </td>
       </tr>
     {{/each}}
     <tr>
       <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
     </tr>
+    <tr>
+      <th class="text-right" colspan="4">
+        Razem
+      </th>
+      <td class="text-right">
+        {{formatCents totalNetAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
+      <td></td>
+      <td class="text-right">
+        {{formatCents totalTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
+      <td class="text-right">
+        {{formatCents totalGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
+      <td></td>
+    </tr>
+    {{#each subTotal in subTotals}}
+      <tr>
+        <th class="text-right" colspan="4">
+          W tym
+        </th>
+        <td class="text-right">
+          {{formatCents subTotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+        </td>
+        <td class="text-right">
+          {{subTotal.formattedTaxRate}}
+        </td>
+        <td class="text-right">
+          {{formatCents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+        </td>
+        <td class="text-right">
+          {{formatCents subTotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+        </td>
+        <td></td>
+      </tr>
+    {{/each}}
   </table>
+
+  <div class="form-group">
+    <div class="col-xs-12">
+      <label for="invoice-comment">
+        Uwagi
+      </label>
+      {{textarea class="form-control" rows="4" valueBinding="comment" id="invoice-comment"}}
+    </div>
+  </div>
 {{/with}}

@@ -1,6 +1,6 @@
 Faktura.InvoicesNewRoute = Ember.Route.extend({
     model: function () {
-        return Faktura.Invoice.create();
+        return Faktura.Invoice.create({ items: [{}] });
     },
 
     setupController: function (controller, model) {

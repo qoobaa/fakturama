@@ -25,6 +25,10 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
     isIssueDelivery: true,
     dueDays: 14,
 
+    itemForms: Ember.computed.map("items", function (item) {
+        return Faktura.ItemForm.create(Ember.merge({ invoiceForm: this }, item));
+    }),
+
     isIssueDeliveryOrIssueDateDidChange: function () {
         if (this.get("isIssueDelivery")) {
             this.set("deliveryDate", this.get("issueDate"));
@@ -43,37 +47,52 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
         }
     }.observes("dueDays", "issueDate"),
 
+    netAmounts: Ember.computed.mapBy("itemForms", "netAmount"),
+    totalNetAmount: Ember.computed.sum("netAmounts"),
+
+    taxAmounts: Ember.computed.mapBy("itemForms", "taxAmount"),
+    totalTaxAmount: Ember.computed.sum("taxAmounts"),
+
+    grossAmounts: Ember.computed.mapBy("itemForms", "grossAmount"),
+    totalGrossAmount: Ember.computed.sum("grossAmounts"),
+
+    subTotals: function () {
+        return this.get("itemForms").mapBy("formattedTaxRate").uniq().map(function (taxRate) {
+            var itemForms,
+                result = Ember.Object.create({ formattedTaxRate: taxRate });
+
+            itemForms = this.get("itemForms").filterBy("formattedTaxRate", taxRate);
+
+            result.netAmount = itemForms.reduce(function (previousValue, itemForm) {
+                return previousValue + itemForm.get("netAmount");
+            }, 0);
+
+            result.taxAmount = itemForms.reduce(function (previousValue, itemForm) {
+                return previousValue + itemForm.get("taxAmount");
+            }, 0);
+
+            result.grossAmount = itemForms.reduce(function (previousValue, itemForm) {
+                return previousValue + itemForm.get("grossAmount");
+            }, 0);
+
+            return result;
+        }.bind(this));
+    }.property("itemForms", "itemForms.@each.netAmount", "itemForms.@each.taxAmount", "itemForms.@each.grossAmount", "itemForms.@each.formattedTaxRate"),
+
     validate: function () {
-        return Ember.RSVP.Promise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));
+        return Ember.RSVP.Promise.all([this._super.apply(this, arguments)].concat(this.get("itemForms").invoke("validate")));
     },
 
     toModel: function () {
-        var properties = this.getProperties(this.constructor.fields);
-
-        properties.items = properties.items.invoke("toModel");
-
-        return properties;
+        this.set("items", this.get("itemForms").invoke("toModel"));
+        return this.getProperties(this.constructor.fields);
     }
 });
 
 Faktura.InvoiceForm.reopenClass({
-    fields: ["number", "issueDate", "deliveryDate", "dueDate", "seller", "buyer", "items"],
+    fields: ["number", "issueDate", "deliveryDate", "dueDate", "seller", "buyer", "items", "comment"],
 
     fromModel: function (model) {
-        var invoiceForm = this.create(),
-            items = model.get("items");
-
-        if (!items || !items.length) {
-            items = [{}];
-        }
-
-        items = items.map(function (item) {
-            return Faktura.ItemForm.create(Ember.merge({ invoiceForm: invoiceForm }, item));
-        });
-
-        invoiceForm.setProperties(model.getProperties(this.fields));
-        invoiceForm.set("items", items);
-
-        return invoiceForm;
+        return this.create(model.getProperties(this.fields));
     }
 });
