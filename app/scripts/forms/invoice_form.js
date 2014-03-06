@@ -18,6 +18,12 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
         },
         buyer: {
             presence: { if: "isSubmitted" }
+        },
+        currency: {
+            presence: { if: "isSubmitted" }
+        },
+        language: {
+            presence: { if: "isSubmitted" }
         }
     },
 
@@ -57,11 +63,11 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
     totalGrossAmount: Ember.computed.sum("grossAmounts"),
 
     subTotals: function () {
-        return this.get("itemForms").mapBy("formattedTaxRate").uniq().map(function (taxRate) {
+        return this.get("itemForms").mapBy("formattedTaxRate").uniq().map(function (formattedTaxRate) {
             var itemForms,
-                result = Ember.Object.create({ formattedTaxRate: taxRate });
+                result = Ember.Object.create({ formattedTaxRate: formattedTaxRate });
 
-            itemForms = this.get("itemForms").filterBy("formattedTaxRate", taxRate);
+            itemForms = this.get("itemForms").filterBy("formattedTaxRate", formattedTaxRate);
 
             result.netAmount = itemForms.reduce(function (previousValue, itemForm) {
                 return previousValue + itemForm.get("netAmount");
@@ -84,13 +90,12 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
     },
 
     toModel: function () {
-        this.set("items", this.get("itemForms").invoke("toModel"));
-        return this.getProperties(this.constructor.fields);
+        return Ember.merge(this.getProperties(this.constructor.fields), { items: this.get("itemForms").invoke("toModel") });
     }
 });
 
 Faktura.InvoiceForm.reopenClass({
-    fields: ["number", "issueDate", "deliveryDate", "dueDate", "seller", "buyer", "items", "comment"],
+    fields: ["number", "issueDate", "deliveryDate", "dueDate", "seller", "buyer", "items", "comment", "currency", "language"],
 
     fromModel: function (model) {
         return this.create(model.getProperties(this.fields));

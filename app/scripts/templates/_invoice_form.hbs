@@ -61,25 +61,45 @@
     </div>
   </div>
 
-  <div class="row">
+  <div {{bind-attr class=":form-group errors.currency.firstObject:has-error"}}>
+    <label class="control-label col-xs-4" for="invoice-currency">
+      Waluta
+    </label>
+    <div class="col-xs-2">
+      {{view Ember.Select class="form-control" contentBinding="Faktura.currencies" valueBinding="currency" id="invoice-currency"}}
+    </div>
     <div class="col-xs-6">
-      <div {{bind-attr class="errors.seller.firstObject:has-error"}}>
-        <label class="control-label" for="invoice-seller">
-          Sprzedawca
-        </label>
-        <span class="help-block" style="display: inline;">{{errors.seller.firstObject}}</span>
-        {{textarea class="form-control" rows="4" valueBinding="seller" id="invoice-seller"}}
-      </div>
+      <span class="help-block">{{errors.currency.firstObject}}</span>
+    </div>
+  </div>
+
+  <div {{bind-attr class=":form-group errors.language.firstObject:has-error"}}>
+    <label class="control-label col-xs-4" for="invoice-language">
+      Wersja językowa
+    </label>
+    <div class="col-xs-2">
+      {{view Ember.Select class="form-control" contentBinding="Faktura.languages" valueBinding="language" id="invoice-language"}}
+    </div>
+    <div class="col-xs-6">
+      <span class="help-block">{{errors.language.firstObject}}</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div {{bind-attr class=":col-xs-6 errors.seller.firstObject:has-error"}}>
+      <label class="control-label" for="invoice-seller">
+        Sprzedawca
+      </label>
+      <span class="help-block" style="display: inline;">{{errors.seller.firstObject}}</span>
+      {{textarea class="form-control" rows="4" valueBinding="seller" id="invoice-seller"}}
     </div>
 
-    <div class="col-xs-6">
-      <div {{bind-attr class="errors.seller.firstObject:has-error"}}>
-        <label class="control-label" for="invoice-buyer">
-          Nabywca
-        </label>
-        <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
-        {{textarea class="form-control" rows="4" valueBinding="buyer" id="invoice-buyer"}}
-      </div>
+    <div {{bind-attr class=":col-xs-6 errors.buyer.firstObject:has-error"}}>
+      <label class="control-label" for="invoice-buyer">
+        Nabywca
+      </label>
+      <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
+      {{textarea class="form-control" rows="4" valueBinding="buyer" id="invoice-buyer"}}
     </div>
   </div>
 
@@ -169,16 +189,16 @@
           W tym
         </th>
         <td class="text-right">
-          {{formatCents subTotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          {{formatCents subTotal.netAmount}}&nbsp;<small class="text-muted">{{../currency}}</small>
         </td>
         <td class="text-right">
           {{subTotal.formattedTaxRate}}
         </td>
         <td class="text-right">
-          {{formatCents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          {{formatCents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{../currency}}</small>
         </td>
         <td class="text-right">
-          {{formatCents subTotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+          {{formatCents subTotal.grossAmount}}&nbsp;<small class="text-muted">{{../currency}}</small>
         </td>
         <td></td>
       </tr>

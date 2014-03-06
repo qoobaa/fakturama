@@ -18,22 +18,5 @@ Faktura.Router.map(function () {
         this.route("new");
         this.resource("invoice", { path: ":invoice_id" });
     });
-});
-
-Faktura.initializer({
-    name: "auth",
-
-    initialize: function (container, application) {
-        application.register("auth:main", application.Auth);
-    }
-});
-
-Faktura.initializer({
-    name: "injectAuth",
-    before: "auth",
-
-    initialize: function (container, application) {
-        application.inject("controller", "auth", "auth:main");
-        application.inject("route", "auth", "auth:main");
-    }
+    this.resource("settings");
 });
