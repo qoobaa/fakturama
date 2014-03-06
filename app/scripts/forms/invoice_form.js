@@ -91,6 +91,14 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
 
     toModel: function () {
         return Ember.merge(this.getProperties(this.constructor.fields), { items: this.get("itemForms").invoke("toModel") });
+    },
+
+    setDefaults: function (settings) {
+        this.setProperties({
+            issueDate: new Date().toISOString().substr(0, 10),
+            seller: settings.get("seller")
+        });
+        return this;
     }
 });
 
@@ -98,6 +106,6 @@ Faktura.InvoiceForm.reopenClass({
     fields: ["number", "issueDate", "deliveryDate", "dueDate", "seller", "buyer", "items", "comment", "currency", "language"],
 
     fromModel: function (model) {
-        return this.create(model.getProperties(this.fields));
+        return this.create(Ember.copy(model.getProperties(this.fields)));
     }
 });

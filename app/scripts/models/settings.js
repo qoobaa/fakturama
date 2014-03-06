@@ -2,7 +2,11 @@ Faktura.Settings = Ember.Model.extend({
     id: Ember.attr(),
     companyName: Ember.attr(),
     address: Ember.attr(),
-    vatin: Ember.attr()
+    vatin: Ember.attr(),
+
+    seller: function () {
+        return [this.get("companyName"), this.get("address"), "NIP / VATIN: " + this.get("vatin")].join("\n");
+    }.property("companyName", "address", "vatin")
 });
 
 Faktura.Settings.reopenClass({

@@ -1,10 +1,13 @@
 Faktura.InvoicesNewRoute = Ember.Route.extend({
     model: function () {
-        return Faktura.Invoice.create({ items: [{}] });
+        return Ember.RSVP.hash({
+            settings: Faktura.Settings.fetch(),
+            invoice: Faktura.Invoice.create({ items: [{}] })
+        });
     },
 
-    setupController: function (controller, model) {
-        this._super.apply(this, arguments);
-        controller.set("form", Faktura.InvoiceForm.fromModel(model));
+    setupController: function (controller, models) {
+        controller.set("model", models.invoice);
+        controller.set("form", Faktura.InvoiceForm.fromModel(models.invoice).setDefaults(models.settings));
     }
 });

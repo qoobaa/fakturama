@@ -17,6 +17,6 @@ Faktura.ClientForm.reopenClass({
     fields: ["name", "address", "vatin"],
 
     fromModel: function (model) {
-        return this.create(model.getProperties(this.fields));
+        return this.create(Ember.copy(model.getProperties(this.fields)));
     }
 });

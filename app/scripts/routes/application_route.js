@@ -5,9 +5,6 @@ Faktura.ApplicationRoute = Ember.Route.extend({
 
         return Faktura.User.fetch().then(function (user) {
             currentUserController.set("content", user);
-            return Faktura.Settings.fetch();
-        }).then(function (settings) {
-            settingsController.set("content", settings);
         });
     }
 });
