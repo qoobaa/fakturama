@@ -1,0 +1,44 @@
+<form class="form-horizontal">
+  <div class="form-group" {{bind-attr class="form.errors.companyName.firstObject:has-error"}}>
+    <label for="settings-company-name" class="col-xs-2 control-label">
+      Nazwa Firmy
+    </label>
+    <div class="col-xs-5">
+      {{input valueBinding="form.companyName" class="form-control" id="settings-company-name"}}
+    </div>
+    <div class="col-xs-5">
+      <span class="help-block">{{form.errors.companyName.firstObject}}</span>
+    </div>
+  </div>
+
+  <div class="form-group" {{bind-attr class="form.errors.address.firstObject:has-error"}}>
+    <label for="settings-address" class="col-xs-2 control-label">
+      Adres
+    </label>
+    <div class="col-xs-5">
+      {{textarea valueBinding="form.address" class="form-control" id="settings-address" rows=3}}
+    </div>
+    <div class="col-xs-5">
+      <span class="help-block">{{form.errors.address.firstObject}}</span>
+    </div>
+  </div>
+
+  <div class="form-group" {{bind-attr class="form.errors.vatin.firstObject:has-error"}}>
+    <label for="settings-vatin" class="col-xs-2 control-label">
+      NIP
+    </label>
+    <div class="col-xs-5">
+      {{input valueBinding="form.vatin" class="form-control" id="settings-vatin"}}
+    </div>
+    <div class="col-xs-5">
+      <span class="help-block">{{form.errors.vatin.firstObject}}</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-xs-10 col-xs-offset-2">
+      <button type="submit" class="btn btn-primary" {{action "save"}} {{bind-attr disabled="model.isSaving"}}>Zapisz</button>
+      {{link-to "Anuluj" "index" class="btn btn-default" activeClass=null}}
+    </div>
+  </div>
+</form>

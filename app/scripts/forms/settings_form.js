@@ -1,6 +1,12 @@
 Faktura.SettingsForm = Ember.Object.extend(Ember.Validations.Mixin, {
     validations: {
-        name: {
+        companyName: {
+            presence: { if: "isSubmitted" }
+        },
+        address: {
+            presence: { if: "isSubmitted" }
+        },
+        vatin: {
             presence: { if: "isSubmitted" }
         }
     },
@@ -11,7 +17,7 @@ Faktura.SettingsForm = Ember.Object.extend(Ember.Validations.Mixin, {
 });
 
 Faktura.SettingsForm.reopenClass({
-    fields: ["name", "address", "vatin"],
+    fields: ["companyName", "address", "vatin"],
 
     fromModel: function (model) {
         return this.create(model.getProperties(this.fields));

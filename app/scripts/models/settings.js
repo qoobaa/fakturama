@@ -1,6 +1,8 @@
 Faktura.Settings = Ember.Model.extend({
     id: Ember.attr(),
-    name: Ember.attr()
+    companyName: Ember.attr(),
+    address: Ember.attr(),
+    vatin: Ember.attr()
 });
 
 Faktura.Settings.reopenClass({
