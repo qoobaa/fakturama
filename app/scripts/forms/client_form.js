@@ -8,15 +8,17 @@ Faktura.ClientForm = Ember.Object.extend(Ember.Validations.Mixin, {
         }
     },
 
-    toModel: function () {
-        return this.getProperties(this.constructor.fields);
-    }
-});
+    modelDidChange: function () {
+        this.setProperties(this.get("model").toJSON());
+    }.observes("model").on("init"),
 
-Faktura.ClientForm.reopenClass({
-    fields: ["name", "address", "vatin"],
+    save: function () {
+        var form = this,
+            model = this.get("model");
 
-    fromModel: function (model) {
-        return this.create(Ember.copy(model.getProperties(this.fields)));
+        return this.validate().then(function () {
+            model.setProperties(form.getProperties(model.constructor.getAttributes()));
+            return model.save();
+        });
     }
 });

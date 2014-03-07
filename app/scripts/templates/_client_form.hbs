@@ -1,35 +1,35 @@
-<div class="form-group" {{bind-attr class="form.errors.name.firstObject:has-error"}}>
+<div class="form-group" {{bind-attr class="errors.name.firstObject:has-error"}}>
   <label for="client-name" class="col-xs-2 control-label">
     Nazwa
   </label>
   <div class="col-xs-5">
-    {{input valueBinding="form.name" class="form-control" id="client-name"}}
+    {{input valueBinding="name" class="form-control" id="client-name"}}
   </div>
   <div class="col-xs-5">
-    <span class="help-block">{{form.errors.name.firstObject}}</span>
+    <span class="help-block">{{errors.name.firstObject}}</span>
   </div>
 </div>
 
-<div class="form-group" {{bind-attr class="form.errors.address.firstObject:has-error"}}>
+<div class="form-group" {{bind-attr class="errors.address.firstObject:has-error"}}>
   <label for="client-address" class="col-xs-2 control-label">
     Adres
   </label>
   <div class="col-xs-5">
-    {{textarea valueBinding="form.address" class="form-control" id="client-address" rows=3}}
+    {{textarea valueBinding="address" class="form-control" id="client-address" rows=3}}
   </div>
   <div class="col-xs-5">
-    <span class="help-block">{{form.errors.address.firstObject}}</span>
+    <span class="help-block">{{errors.address.firstObject}}</span>
   </div>
 </div>
 
-<div class="form-group" {{bind-attr class="form.errors.vatin.firstObject:has-error"}}>
+<div class="form-group" {{bind-attr class="errors.vatin.firstObject:has-error"}}>
   <label for="client-vatin" class="col-xs-2 control-label">
     NIP
   </label>
   <div class="col-xs-5">
-    {{input valueBinding="form.vatin" class="form-control" id="client-vatin"}}
+    {{input valueBinding="vatin" class="form-control" id="client-vatin"}}
   </div>
   <div class="col-xs-5">
-    <span class="help-block">{{form.errors.vatin.firstObject}}</span>
+    <span class="help-block">{{errors.vatin.firstObject}}</span>
   </div>
 </div>

@@ -4,7 +4,6 @@ Faktura.ClientsNewRoute = Ember.Route.extend({
     },
 
     setupController: function (controller, model) {
-        this._super.apply(this, arguments);
-        controller.set("form", Faktura.ClientForm.fromModel(model));
+        controller.set("model", Faktura.ClientForm.create({ model: model }));
     }
 });
