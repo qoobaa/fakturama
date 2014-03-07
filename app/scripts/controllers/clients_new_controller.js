@@ -1,6 +1,6 @@
 Faktura.ClientsNewController = Ember.ObjectController.extend({
     actions: {
-        save: function () {
+        saveRecord: function () {
             var controller = this,
                 form = this.get("form"),
                 model = this.get("model");

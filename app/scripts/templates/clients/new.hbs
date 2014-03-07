@@ -3,7 +3,7 @@
 
   <div class="form-group">
     <div class="col-xs-10 col-xs-offset-2">
-      <button type="submit" class="btn btn-primary" {{action "save"}} {{bind-attr disabled="model.isSaving"}}>Utwórz</button>
+      <button type="submit" class="btn btn-primary" {{action "saveRecord"}} {{bind-attr disabled="model.isSaving"}}>Utwórz</button>
       {{link-to "Anuluj" "clients" class="btn btn-default" activeClass=null}}
     </div>
   </div>

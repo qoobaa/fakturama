@@ -1,6 +1,6 @@
 Faktura.ClientController = Ember.ObjectController.extend({
     actions: {
-        save: function () {
+        saveRecord: function () {
             var controller = this,
                 form = this.get("form"),
                 model = this.get("model");
@@ -12,7 +12,8 @@ Faktura.ClientController = Ember.ObjectController.extend({
                 });
             });
         },
-        destroy: function () {
+
+        deleteRecord: function () {
             var controller = this,
                 model = this.get("model");
 

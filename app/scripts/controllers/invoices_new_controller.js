@@ -4,13 +4,13 @@ Faktura.InvoicesNewController = Ember.ObjectController.extend({
     }.property("form.items.@each"),
 
     actions: {
-        save: function () {
+        saveRecord: function () {
             var controller = this,
                 form = this.get("form"),
                 model = this.get("model");
 
             form.set("isSubmitted", true);
-            Ember.run.sync();
+
             form.validate().then(function () {
                 model.setProperties(form.toModel());
                 model.save().then(function () {
