@@ -40,5 +40,9 @@ Faktura.ItemForm = Ember.Object.extend(Ember.Validations.Mixin, {
 
     grossAmount: function () {
         return this.get("netAmount") + this.get("taxAmount");
-    }.property("netAmount", "taxAmount")
+    }.property("netAmount", "taxAmount"),
+
+    toJSON: function () {
+        return this.getProperties(this.get("model").constructor.getAttributes());
+    }
 });

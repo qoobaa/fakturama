@@ -24,7 +24,7 @@ Faktura.InvoiceController = Ember.ObjectController.extend({
         },
 
         addItem: function () {
-            this.get("items").pushObject(Faktura.ItemForm.create({ invoiceForm: this.get("form") }));
+            this.get("items").pushObject(Faktura.ItemForm.create({ invoiceForm: this.get("form"), model: Faktura.Item.create() }));
         },
 
         removeItem: function (item) {

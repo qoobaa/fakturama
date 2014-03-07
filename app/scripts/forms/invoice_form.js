@@ -36,7 +36,7 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
     currency: Ember.computed.oneWay("model.currency"),
     language: Ember.computed.oneWay("model.language"),
     items: Ember.computed.map("model.items", function (item) {
-        return Faktura.ItemForm.create({ model: item });
+        return Faktura.ItemForm.create({ model: item, invoiceForm: this });
     }),
 
     isSubmitted: false,
@@ -103,6 +103,12 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
 
         return this.validate().then(function () {
             model.setProperties(form.toJSON());
+            model.get("items").clear();
+            form.get("items").forEach(function (item) {
+                item.get("model").setProperties(item.toJSON());
+                model.get("items").pushObject(item.get("model"));
+            });
+            // model.set("items.content", form.get("items").mapBy("model"));
             return model.save();
         });
     },
