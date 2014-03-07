@@ -1,23 +1,21 @@
 Faktura.ItemForm = Ember.Object.extend(Ember.Validations.Mixin, {
-    isSubmittedBinding: "invoiceForm.isSubmitted",
-
     validations: {
         description: {
-            presence: { if: "isSubmitted" }
+            presence: { if: "invoiceForm.isSubmitted" }
         },
         quantity: {
-            presence: { if: "isSubmitted" },
-            numericality: { if: "isSubmitted" }
+            presence: { if: "invoiceForm.isSubmitted" },
+            numericality: { if: "invoiceForm.isSubmitted" }
         },
         netPrice: {
-            presence: { if: "isSubmitted" },
-            numericality: { if: "isSubmitted" }
+            presence: { if: "invoiceForm.isSubmitted" },
+            numericality: { if: "invoiceForm.isSubmitted" }
         },
         unit: {
-            presence: { if: "isSubmitted" }
+            presence: { if: "invoiceForm.isSubmitted" }
         },
         formattedTaxRate: {
-            presence: { if: "isSubmitted" }
+            presence: { if: "invoiceForm.isSubmitted" }
         }
     },
 
