@@ -4,7 +4,6 @@ Faktura.InvoiceRoute = Ember.Route.extend({
     },
 
     setupController: function (controller, model) {
-        this._super.apply(this, arguments);
-        controller.set("form", Faktura.InvoiceForm.fromModel(model));
+        controller.set("model", Faktura.InvoiceForm.create({ model: model }));
     }
 });

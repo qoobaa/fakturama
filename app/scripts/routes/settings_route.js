@@ -4,7 +4,6 @@ Faktura.SettingsRoute = Ember.Route.extend({
     },
 
     setupController: function (controller, model) {
-        this._super.apply(this, arguments);
-        controller.set("form", Faktura.SettingsForm.fromModel(model));
+        controller.set("model", Faktura.SettingsForm.create({ model: model }));
     }
 });

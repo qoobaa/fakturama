@@ -19,8 +19,11 @@ Faktura.ItemForm = Ember.Object.extend(Ember.Validations.Mixin, {
         }
     },
 
-    quantity: 0,
-    netPrice: 0,
+    description: Ember.computed.oneWay("model.description"),
+    quantity: Ember.computed.oneWay("model.quantity"),
+    netPrice: Ember.computed.oneWay("model.netPrice"),
+    unit: Ember.computed.oneWay("model.unit"),
+    formattedTaxRate: Ember.computed.oneWay("model.formattedTaxRate"),
 
     netAmount: function (key, value) {
         return Math.round(this.get("netPrice") * this.get("quantity"));
@@ -37,13 +40,5 @@ Faktura.ItemForm = Ember.Object.extend(Ember.Validations.Mixin, {
 
     grossAmount: function () {
         return this.get("netAmount") + this.get("taxAmount");
-    }.property("netAmount", "taxAmount"),
-
-    toModel: function () {
-        return this.getProperties(this.constructor.fields);
-    }
-});
-
-Faktura.ItemForm.reopenClass({
-    fields: ["description", "quantity", "unit", "netPrice", "formattedTaxRate"]
+    }.property("netAmount", "taxAmount")
 });

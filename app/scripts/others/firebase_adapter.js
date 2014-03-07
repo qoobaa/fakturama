@@ -6,7 +6,7 @@ Faktura.FirebaseAdapter = Ember.RESTAdapter.extend({
     },
 
     didCreateRecord: function (record, data) {
-        this._super(record, $.extend({}, record.toJSON(), { id: data.name }));
+        this._super(record, $.extend({}, record.getProperties(record.constructor.getAttributes()), { id: data.name }));
     },
 
     ajaxSettings: function (url, method) {

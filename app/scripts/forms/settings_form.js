@@ -11,15 +11,22 @@ Faktura.SettingsForm = Ember.Object.extend(Ember.Validations.Mixin, {
         }
     },
 
-    toModel: function () {
-        return this.getProperties(this.constructor.fields);
-    }
-});
+    id: Ember.computed.oneWay("model.id"),
+    companyName: Ember.computed.oneWay("model.companyName"),
+    address: Ember.computed.oneWay("model.address"),
+    vatin: Ember.computed.oneWay("model.vatin"),
 
-Faktura.SettingsForm.reopenClass({
-    fields: ["companyName", "address", "vatin"],
+    save: function () {
+        var form = this,
+            model = this.get("model");
 
-    fromModel: function (model) {
-        return this.create(Ember.copy(model.getProperties(this.fields)));
+        return this.validate().then(function () {
+            model.setProperties(form.toJSON());
+            return model.save();
+        });
+    },
+
+    toJSON: function () {
+        return this.getProperties(this.get("model").constructor.getAttributes());
     }
 });
