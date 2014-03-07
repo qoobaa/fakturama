@@ -91,14 +91,6 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
 
     toModel: function () {
         return Ember.merge(this.getProperties(this.constructor.fields), { items: this.get("itemForms").invoke("toModel") });
-    },
-
-    setDefaults: function (settings) {
-        this.setProperties({
-            issueDate: new Date().toISOString().substr(0, 10),
-            seller: settings.get("seller")
-        });
-        return this;
     }
 });
 

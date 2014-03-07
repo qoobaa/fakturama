@@ -8,6 +8,6 @@ Faktura.InvoicesNewRoute = Ember.Route.extend({
 
     setupController: function (controller, models) {
         controller.set("model", models.invoice);
-        controller.set("form", Faktura.InvoiceForm.fromModel(models.invoice).setDefaults(models.settings));
+        controller.set("form", Faktura.InvoiceForm.fromModel(models.invoice));
     }
 });
