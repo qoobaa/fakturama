@@ -32,7 +32,7 @@ Faktura.InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
     dueDays: 14,
 
     itemForms: Ember.computed.map("items", function (item) {
-        return Faktura.ItemForm.create(Ember.merge({ invoiceForm: this }, item));
+        return Faktura.ItemForm.create(Ember.merge({ invoiceForm: this }));
     }),
 
     isIssueDeliveryOrIssueDateDidChange: function () {

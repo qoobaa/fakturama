@@ -1,7 +1,7 @@
 Faktura.InvoicesNewController = Ember.ObjectController.extend({
     isRemoveItemDisabled: function () {
-        return this.get("form.items.length") <= 1;
-    }.property("form.items.@each"),
+        return this.get("form.itemForms.length") <= 1;
+    }.property("form.itemForms.@each"),
 
     actions: {
         saveRecord: function () {
@@ -20,11 +20,11 @@ Faktura.InvoicesNewController = Ember.ObjectController.extend({
         },
 
         addItem: function () {
-            this.get("form.items").pushObject({});
+            this.get("form.itemForms").pushObject(Faktura.ItemForm.create({ invoiceForm: this.get("form") }));
         },
 
         removeItem: function (itemForm) {
-            this.get("form.items").removeAt(this.get("form.itemForms").indexOf(itemForm));
+            this.get("form.itemForms").removeObject(itemForm);
         }
     }
 });
