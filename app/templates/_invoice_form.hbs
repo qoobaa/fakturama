@@ -144,19 +144,19 @@
         {{view Ember.Select class="form-control" contentBinding="Faktura.units" valueBinding="item.unit"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.netPrice.firstObject:has-error"}}>
-        {{view Faktura.CentsView centsBinding="item.netPrice" class="form-control text-right"}}
+        {{view "cents" centsBinding="item.netPrice" class="form-control text-right"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.netAmount.firstObject:has-error"}}>
-        {{view Faktura.CentsView centsBinding="item.netAmount" class="form-control text-right" disabled="disabled"}}
+        {{view "cents" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.formattedTaxRate.firstObject:has-error"}}>
         {{view Ember.Select class="form-control" contentBinding="Faktura.taxRates" valueBinding="item.formattedTaxRate"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.taxAmount.firstObject:has-error"}}>
-        {{view Faktura.CentsView centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled"}}
+        {{view "cents" centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.grossAmount.firstObject:has-error"}}>
-        {{view Faktura.CentsView centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled"}}
+        {{view "cents" centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled"}}
       </td>
       <td>
         <button class="btn btn-remove" {{action "removeItem" item}} {{bind-attr disabled="isRemoveItemDisabled"}}><strong>×</strong></button>

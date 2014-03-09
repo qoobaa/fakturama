@@ -1,7 +1,7 @@
 import formatCents from "faktura/lib/format_cents";
 import parseCents from "faktura/lib/parse_cents";
 
-var CentsView = Ember.TextField.extend({
+var Cents = Ember.TextField.extend({
     attributeBindings: ["min", "max", "step"],
     type: "number",
 
@@ -32,4 +32,4 @@ var CentsView = Ember.TextField.extend({
     }.property("value", "precision")
 });
 
-export default CentsView;
+export default Cents;
