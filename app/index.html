@@ -1,66 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Faktura</title>
-<meta charset="utf-8">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Faktura</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- build:css(.) styles/application.css -->
-<link rel="stylesheet" href=".tmp/less/styles/application.css">
-<!-- endbuild -->
+  <!-- build:css(tmp/result) /assets/app.min.css -->
+  <link rel="stylesheet" href="/assets/app.css">
+  <!-- endbuild -->
 
-<script src="https://login.persona.org/include.js"></script>
+  <script src="https://login.persona.org/include.js"></script>
 
-<!-- build:js(.) scripts/application.js -->
-<script src="bower_components/firebase/firebase.js"></script>
-<script src="bower_components/firebase-simple-login/firebase-simple-login.js"></script>
+  <!-- for more details visit: https://github.com/yeoman/grunt-usemin -->
 
-<script src="bower_components/jquery/jquery.js"></script>
-<script src="bower_components/handlebars/handlebars.js"></script>
-<script src="bower_components/ember/ember.js"></script>
-<script src="bower_components/ember-model/ember-model.js"></script>
-<script src="bower_components/ember-validations/index.js"></script>
+  <!-- build:js(tmp/result) /assets/config.min.js -->
 
-<script src="bower_components/bootstrap/js/modal.js"></script>
-<script src="bower_components/bootstrap/js/button.js"></script>
-<script src="bower_components/bootstrap/js/dropdown.js"></script>
-<script src="bower_components/bootstrap/js/transition.js"></script>
+    <script src="/config/environment.js"></script>
+    <!-- @if tests=false -->
 
-<script src="bower_components/polish-to-words/index.js"></script>
-<script src="bower_components/toword.js/index.js"></script>
-<script src="bower_components/nbp-yql/nbp-yql.js"></script>
+      <!-- @if dist=false -->
+      <script src="/config/environments/development.js"></script>
+      <!-- @endif --><!-- @if dist=true -->
+      <script src="/config/environments/production.js"></script>
+      <!-- @endif -->
 
-<script src=".tmp/scripts/application.js"></script>
-<script src=".tmp/scripts/others/cents.js"></script>
-<script src=".tmp/scripts/others/auth.js"></script>
-<script src=".tmp/scripts/others/firebase_adapter.js"></script>
-<script src=".tmp/scripts/forms/client_form.js"></script>
-<script src=".tmp/scripts/forms/item_form.js"></script>
-<script src=".tmp/scripts/forms/invoice_form.js"></script>
-<script src=".tmp/scripts/forms/settings_form.js"></script>
-<script src=".tmp/scripts/models/invoice.js"></script>
-<script src=".tmp/scripts/models/item.js"></script>
-<script src=".tmp/scripts/models/user.js"></script>
-<script src=".tmp/scripts/models/client.js"></script>
-<script src=".tmp/scripts/models/settings.js"></script>
-<script src=".tmp/scripts/views/cents_view.js"></script>
-<script src=".tmp/scripts/controllers/application_controller.js"></script>
-<script src=".tmp/scripts/controllers/current_user_controller.js"></script>
-<script src=".tmp/scripts/controllers/clients_new_controller.js"></script>
-<script src=".tmp/scripts/controllers/invoices_new_controller.js"></script>
-<script src=".tmp/scripts/controllers/client_controller.js"></script>
-<script src=".tmp/scripts/controllers/invoice_controller.js"></script>
-<script src=".tmp/scripts/controllers/settings_controller.js"></script>
-<script src=".tmp/scripts/routes/application_route.js"></script>
-<script src=".tmp/scripts/routes/clients_index_route.js"></script>
-<script src=".tmp/scripts/routes/invoices_index_route.js"></script>
-<script src=".tmp/scripts/routes/clients_new_route.js"></script>
-<script src=".tmp/scripts/routes/invoices_new_route.js"></script>
-<script src=".tmp/scripts/routes/client_route.js"></script>
-<script src=".tmp/scripts/routes/invoice_route.js"></script>
-<script src=".tmp/scripts/routes/settings_route.js"></script>
-<script src=".tmp/ember_handlebars/scripts/templates.js"></script>
-<!-- endbuild -->
+    <!-- @endif --><!-- @if tests=true -->
+      <script src="/config/environments/test.js"></script>
+    <!-- @endif -->
+
+  <!-- endbuild -->
+
+  <!-- build:js(tmp/result) /assets/vendor.min.js -->
+    <script src="/vendor/firebase/firebase.js"></script>
+    <script src="/vendor/firebase-simple-login/firebase-simple-login.js"></script>
+
+    <script src="/vendor/jquery/jquery.js"></script>
+
+    <script src="/vendor/bootstrap/js/dropdown.js"></script>
+
+    <!-- @if dist=false -->
+    <script src="/vendor/handlebars/handlebars.js"></script>
+    <script src="/vendor/ember/ember.js"></script>
+    <!-- @endif --><!-- @if dist=true -->
+    <script src="/vendor/handlebars/handlebars.runtime.js"></script>
+    <script src="/vendor/ember/ember.prod.js"></script>
+    <!-- @endif -->
+
+    <script src="/vendor/ember-model/ember-model.js"></script>
+    <script src="/vendor/ember-validations/index.js"></script>
+
+    <script src="/vendor/loader.js"></script>
+    <script src="/vendor/ember-resolver/dist/ember-resolver.js"></script>
+    <script src="/vendor/ic-ajax/main.js"></script>
+
+  <!-- endbuild -->
+
+  <!-- build:js(tmp/result) /assets/app.min.js -->
+
+    <script src="/assets/app.js"></script>
+    <script src="/assets/templates.js"></script>
+
+  <!-- endbuild -->
+
+  <!-- @if tests=true -->
+  <link rel="stylesheet" href="/vendor/qunit/qunit/qunit.css">
+  <script src="/vendor/qunit/qunit/qunit.js"></script>
+
+  <style>
+    #ember-testing-container {
+      position: absolute;
+      background: white;
+      bottom: 0;
+      right: 0;
+      width: 640px;
+      height: 384px;
+      overflow: auto;
+      z-index: 9999;
+      border: 1px solid #ccc;
+    }
+    #ember-testing {
+      zoom: 50%;
+    }
+  </style>
+  <!-- @endif -->
+
 </head>
 <body>
+  <!--[if lt IE 8]>
+    <p class="browsehappy">
+      You are using an <strong>outdated</strong> browser. Please
+      <a href="http://browsehappy.com/">upgrade your browser</a>
+      to improve your experience.
+    </p>
+  <![endif]-->
+
+  <!-- @if tests=true -->
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="/tests/tests.js"></script>
+  <script src="/tests/test-helper.js"></script>
+  <script src="/tests/test-loader.js"></script>
+  <script src="/testem.js"></script>
+  <!-- @endif -->
+
+  <!-- @if tests=false -->
+  <script>
+    window.Faktura = require("faktura/app")["default"].create();
+  </script>
+  <!-- @endif -->
+
 </body>
 </html>

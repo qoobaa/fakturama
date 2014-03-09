@@ -1,31 +1,56 @@
 {
   "name": "faktura",
+  "namespace": "faktura",
+  "APIMethod": "proxy",
+  "proxyURL": "http://localhost:8000",
+  "proxyPath": "/api",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "private": true,
+  "directories": {
+    "doc": "doc",
+    "test": "test"
   },
-  "author": "",
-  "license": "BSD-2-Clause",
-  "dependencies": {
+  "scripts": {
+    "start": "grunt server",
+    "build": "grunt build:debug",
+    "test": "grunt test:ci",
+    "postinstall": "bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cowbell/faktura.git"
+  },
+  "author": "Kuba Kuźma",
+  "license": "MIT",
+  "devDependencies": {
+    "express": "~3.4.8",
+    "lockfile": "~0.4.2",
     "bower": "~1.2.7",
     "grunt": "~0.4.2",
-    "grunt-cli": "~0.1.11",
-    "express": "~3.4.5",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-watch": "~0.5.3",
-    "lockfile": "~0.4.2",
+    "grunt-cli": "~0.1.9",
     "load-grunt-config": "~0.7.0",
-    "load-grunt-tasks": "~0.2.1",
-    "grunt-ember-handlebars": "~0.7.0",
+    "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-copy": "~0.4.1",
-    "grunt-usemin": "~2.0.2",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-concat": "~0.3.0",
-    "grunt-shell": "~0.2.2",
-    "grunt-build-gh-pages": "~0.1.2",
-    "grunt-contrib-less": "~0.9.0"
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-cssmin": "~0.6.2",
+    "grunt-preprocess": "~3.0.1",
+    "grunt-es6-module-transpiler": "~0.6.0",
+    "grunt-concat-sourcemap": "~0.4.0",
+    "grunt-concurrent": "~0.4.3",
+    "grunt-usemin": "~0.1.13",
+    "grunt-rev": "~0.1.0",
+    "grunt-ember-templates": "~0.4.18",
+    "grunt-contrib-testem": "~0.5.14",
+    "express-namespace": "~0.1.1",
+    "request": "~2.33.0",
+    "loom-generators-ember-appkit": "~1.0.5",
+    "originate": "~0.1.5",
+    "loom": "~3.1.2",
+    "connect-livereload": "~0.3.1",
+    "grunt-es6-import-validate": "0.0.6",
+    "grunt-contrib-less": "^0.10.0"
   }
 }

@@ -1,27 +1,18 @@
 {
-  "name": "faktura",
-  "version": "0.0.0",
-  "authors": [
-    "Kuba Kuźma <kuba@jah.pl>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
+  "name": "ember-app-kit",
   "dependencies": {
+    "handlebars": "~1.1.2",
+    "jquery": "~1.9.1",
+    "qunit": "~1.12.0",
     "ember": "~1.4.0",
-    "bootstrap": "~3.1.1",
-    "toword.js": "http://javascript.about.com/library/toword.js",
-    "polish-to-words": "https://github.com/cowbell/polish-to-words.git",
-    "nbp-yql": "https://github.com/cowbell/nbp-yql.git",
-    "ember-model": "~0.0.11",
-    "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/stable/ember-validations.js",
+    "ember-resolver": "git://github.com/stefanpenner/ember-jj-abrams-resolver.git#master",
+    "ic-ajax": "~0.3.0",
+    "ember-testing-httpRespond": "~0.1.1",
     "firebase": "~1.0.10",
-    "firebase-simple-login": "~1.3.0"
+    "firebase-simple-login": "~1.3.0",
+    "ember-model": "~0.0.11",
+    "bootstrap": "~3.1.1",
+    "ember-validations": "http://builds.dockyard.com.s3.amazonaws.com/ember-validations/stable/ember-validations.js"
   },
   "resolutions": {
     "ember": "~1.4.0"
