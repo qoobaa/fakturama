@@ -3,7 +3,7 @@ import InvoiceForm from "faktura/forms/invoice";
 
 var InvoiceEditRoute = Ember.Route.extend({
     model: function (params) {
-        return Invoice.fetch(params.invoice_id);
+        return this.modelFor("invoice");
     },
 
     setupController: function (controller, model) {

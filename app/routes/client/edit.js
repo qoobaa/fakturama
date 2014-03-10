@@ -2,11 +2,12 @@ import Client from "faktura/models/client";
 import ClientForm from "faktura/forms/client";
 
 var ClientEditRoute = Ember.Route.extend({
-    model: function (params) {
-        return Client.fetch(params.client_id);
+    model: function () {
+        return this.modelFor("client");
     },
 
     setupController: function (controller, model) {
+        console.log(model);
         controller.set("model", ClientForm.create({ model: model }));
     }
 });
