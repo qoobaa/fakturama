@@ -7,7 +7,6 @@ var ClientEditRoute = Ember.Route.extend({
     },
 
     setupController: function (controller, model) {
-        console.log(model);
         controller.set("model", ClientForm.create({ model: model }));
     }
 });
