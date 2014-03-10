@@ -1,4 +1,3 @@
-import Item from "faktura/models/item";
 import ItemForm from "faktura/forms/item";
 
 var InvoicesNewController = Ember.ObjectController.extend({
@@ -18,7 +17,7 @@ var InvoicesNewController = Ember.ObjectController.extend({
         },
 
         addItem: function () {
-            this.get("items").pushObject(ItemForm.create({ invoiceForm: this.get("form"), model: Item.create() }));
+            this.get("items").pushObject(ItemForm.create({ invoiceForm: this.get("form"), model: {} }));
         },
 
         removeItem: function (item) {

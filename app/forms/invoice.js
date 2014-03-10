@@ -1,6 +1,7 @@
+import InvoicePresenter from "faktura/presenters/invoice";
 import ItemForm from "faktura/forms/item";
 
-var InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
+var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     validations: {
         number: {
             presence: { if: "isSubmitted" }
@@ -63,38 +64,6 @@ var InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
         }
     }.observes("dueDays", "issueDate"),
 
-    netAmounts: Ember.computed.mapBy("items", "netAmount"),
-    totalNetAmount: Ember.computed.sum("netAmounts"),
-
-    taxAmounts: Ember.computed.mapBy("items", "taxAmount"),
-    totalTaxAmount: Ember.computed.sum("taxAmounts"),
-
-    grossAmounts: Ember.computed.mapBy("items", "grossAmount"),
-    totalGrossAmount: Ember.computed.sum("grossAmounts"),
-
-    subTotals: function () {
-        return this.get("items").mapBy("formattedTaxRate").uniq().map(function (formattedTaxRate) {
-            var items,
-                result = Ember.Object.create({ formattedTaxRate: formattedTaxRate });
-
-            items = this.get("items").filterBy("formattedTaxRate", formattedTaxRate);
-
-            result.netAmount = items.reduce(function (previousValue, item) {
-                return previousValue + item.get("netAmount");
-            }, 0);
-
-            result.taxAmount = items.reduce(function (previousValue, item) {
-                return previousValue + item.get("taxAmount");
-            }, 0);
-
-            result.grossAmount = items.reduce(function (previousValue, item) {
-                return previousValue + item.get("grossAmount");
-            }, 0);
-
-            return result;
-        }.bind(this));
-    }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.formattedTaxRate"),
-
     validate: function () {
         return Ember.RSVP.Promise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));
     },
@@ -105,12 +74,7 @@ var InvoiceForm = Ember.Object.extend(Ember.Validations.Mixin, {
 
         return this.validate().then(function () {
             model.setProperties(form.toJSON());
-            model.get("items").clear();
-            form.get("items").forEach(function (item) {
-                item.get("model").setProperties(item.toJSON());
-                model.get("items").pushObject(item.get("model"));
-            });
-            // model.set("items.content", form.get("items").mapBy("model"));
+            model.set("items", form.get("items").invoke("toJSON"));
             return model.save();
         });
     },

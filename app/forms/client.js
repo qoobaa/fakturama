@@ -1,4 +1,6 @@
-var ClientForm = Ember.Object.extend(Ember.Validations.Mixin, {
+import ClientPresenter from "faktura/presenters/client";
+
+var ClientForm = ClientPresenter.extend(Ember.Validations.Mixin, {
     validations: {
         name: {
             presence: { if: "isSubmitted" }

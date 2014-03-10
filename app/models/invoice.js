@@ -1,9 +1,8 @@
-import Item from "faktura/models/item";
 import FirebaseAdapter from "faktura/adapters/firebase";
 
 var Invoice = Ember.Model.extend({
     id: Ember.attr(),
-    items: Ember.hasMany(Item, { key: "items", embedded: true }),
+    items: Ember.attr(),
     number: Ember.attr(),
     issueDate: Ember.attr(),
     deliveryDate: Ember.attr(),
