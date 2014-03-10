@@ -1,9 +1,9 @@
 import Client from "faktura/models/client";
 
-var ClientsIndexRoute = Ember.Route.extend({
+var ClientsRoute = Ember.Route.extend({
     model: function () {
         return Client.fetch();
     }
 });
 
-export default ClientsIndexRoute;
+export default ClientsRoute;

@@ -1,4 +1,5 @@
 import InvoicePresenter from "faktura/presenters/invoice";
+import ItemPresenter from "faktura/presenters/item";
 import ItemForm from "faktura/forms/item";
 
 var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
@@ -63,6 +64,20 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
             this.set("dueDate", new Date(date).toISOString().substr(0, 10));
         }
     }.observes("dueDays", "issueDate"),
+
+    addItem: function (item) {
+        if (!item) {
+            item = {};
+        }
+
+        this.get("items").pushObject(ItemForm.create({ invoiceForm: this, model: ItemPresenter.create({model: item}) }));
+    },
+
+    modelDidChange: function () {
+        if (this.get("items.length") === 0) {
+            this.addItem();
+        }
+    }.observes("model").on("init"),
 
     validate: function () {
         return Ember.RSVP.Promise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));

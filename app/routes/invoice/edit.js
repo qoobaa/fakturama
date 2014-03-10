@@ -1,9 +1,9 @@
 import Invoice from "faktura/models/invoice";
 import InvoiceForm from "faktura/forms/invoice";
 
-var InvoicesNewRoute = Ember.Route.extend({
-    model: function () {
-        return Invoice.create();
+var InvoiceEditRoute = Ember.Route.extend({
+    model: function (params) {
+        return Invoice.fetch(params.invoice_id);
     },
 
     setupController: function (controller, model) {
@@ -11,4 +11,4 @@ var InvoicesNewRoute = Ember.Route.extend({
     }
 });
 
-export default InvoicesNewRoute;
+export default InvoiceEditRoute;

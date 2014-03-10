@@ -1,4 +1,6 @@
-var SettingsForm = Ember.Object.extend(Ember.Validations.Mixin, {
+import SettingsPresenter from "faktura/presenters/settings";
+
+var SettingsForm = SettingsPresenter.extend(Ember.Validations.Mixin, {
     validations: {
         companyName: {
             presence: { if: "isSubmitted" }

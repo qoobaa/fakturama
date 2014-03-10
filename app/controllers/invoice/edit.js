@@ -1,6 +1,6 @@
 import ItemForm from "faktura/forms/item";
 
-var InvoiceController = Ember.ObjectController.extend({
+var InvoiceEditController = Ember.ObjectController.extend({
     isRemoveItemDisabled: function () {
         return this.get("items.length") <= 1;
     }.property("items.@each"),
@@ -26,7 +26,7 @@ var InvoiceController = Ember.ObjectController.extend({
         },
 
         addItem: function () {
-            this.get("items").pushObject(ItemForm.create({ invoiceForm: this.get("form"), model: {} }));
+            this.get("content").addItem();
         },
 
         removeItem: function (item) {
@@ -35,4 +35,4 @@ var InvoiceController = Ember.ObjectController.extend({
     }
 });
 
-export default InvoiceController;
+export default InvoiceEditController;

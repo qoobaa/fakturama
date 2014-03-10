@@ -1,9 +1,9 @@
 import Client from "faktura/models/client";
 import ClientForm from "faktura/forms/client";
 
-var ClientsNewRoute = Ember.Route.extend({
-    model: function () {
-        return Client.create();
+var ClientEditRoute = Ember.Route.extend({
+    model: function (params) {
+        return Client.fetch(params.client_id);
     },
 
     setupController: function (controller, model) {
@@ -11,4 +11,4 @@ var ClientsNewRoute = Ember.Route.extend({
     }
 });
 
-export default ClientsNewRoute;
+export default ClientEditRoute;
