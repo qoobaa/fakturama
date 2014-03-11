@@ -53,52 +53,44 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
     }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.taxRate"),
 
     sellerFirstLine: function () {
-        return this.get("seller").split("\n")[0];
+        return this.getWithDefault("seller", "").split("\n")[0];
     }.property("seller"),
 
     sellerRest: function () {
-        return this.get("seller").split("\n").slice(1);
+        return this.getWithDefault("seller", "").split("\n").slice(1);
     }.property("seller"),
 
     buyerFirstLine: function () {
-        return this.get("buyer").split("\n")[0];
+        return this.getWithDefault("buyer", "").split("\n")[0];
     }.property("buyer"),
 
     buyerRest: function () {
-        return this.get("buyer").split("\n").slice(1);
+        return this.getWithDefault("buyer", "").split("\n").slice(1);
     }.property("buyer"),
 
     commentLines: function () {
-        return this.get("comment").split("\n");
+        return this.getWithDefault("comment", "").split("\n");
     }.property("comment"),
 
     totalGrossAmountInWords: function () {
         var dollars, cents,
             amount = String(this.get("totalGrossAmount"));
 
-        dollars = amount.substr(0, amount.length - 2);
-        cents = amount.substr(amount.length - 2, amount.length);
+        dollars = amount.substr(0, amount.length - 2) || "0";
+        cents = amount.substr(amount.length - 2, amount.length) || "0";
 
-        if (dollars.length > 0) {
-            return window.polishToWords(dollars) + " " + this.get("currency.code") + " " + cents + "/100";
-        } else {
-            return "";
-        }
+        return window.polishToWords(dollars) + " " + this.get("currency.code") + " " + cents + "/100";
     }.property("totalGrossAmount", "currency.code"),
 
     englishTotalGrossAmountInWords: function () {
         var dollars, cents,
             amount = String(this.get("totalGrossAmount"));
 
-        dollars = amount.substr(0, amount.length - 2);
-        cents = amount.substr(amount.length - 2, amount.length);
+        dollars = amount.substr(0, amount.length - 2) || "0";
+        cents = amount.substr(amount.length - 2, amount.length) || "0";
 
-        if (dollars.length > 0) {
-            return window.toWords(dollars) + " " + this.get("currency") + " " + cents + "/100";
-        } else {
-            return "";
-        }
-    }.property("totalGrossAmount", "currency"),
+        return window.toWords(dollars) + " " + this.get("currency.code") + " " + cents + "/100";
+    }.property("totalGrossAmount", "currency.code"),
 
     isEnglish: function () {
         return this.get("languageCode") === "plen";

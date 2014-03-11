@@ -74,8 +74,8 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
         }
     }.observes("dueDays", "issueDate"),
 
-    addItem: function (item) {
-        this.get("items").pushObject(ItemForm.create({ invoiceForm: this, model: item || Item.create() }));
+    addItem: function () {
+        this.get("items").pushObject(ItemForm.create({ invoiceForm: this, model: Item.create({ quantity: 0, netPrice: 0 }) }));
     },
 
     modelDidChange: function () {

@@ -138,25 +138,25 @@
         {{input class="form-control" valueBinding="item.description"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.quantity.firstObject:has-error"}}>
-        {{input valueBinding="item.quantity" class="form-control text-right"}}
+        {{view "number-field" numberBinding="item.quantity" class="form-control text-right"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.unit.firstObject:has-error"}}>
         {{view Ember.Select class="form-control" contentBinding="units" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.unitCode"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.netPrice.firstObject:has-error"}}>
-        {{view "cents" centsBinding="item.netPrice" class="form-control text-right"}}
+        {{view "cents-field" centsBinding="item.netPrice" class="form-control text-right"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.netAmount.firstObject:has-error"}}>
-        {{view "cents" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled"}}
+        {{view "cents-field" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.taxRateCode.firstObject:has-error"}}>
         {{view Ember.Select class="form-control" contentBinding="taxRates" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.taxRateCode"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.taxAmount.firstObject:has-error"}}>
-        {{view "cents" centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled"}}
+        {{view "cents-field" centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.grossAmount.firstObject:has-error"}}>
-        {{view "cents" centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled"}}
+        {{view "cents-field" centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled"}}
       </td>
       <td>
         <button class="btn btn-remove" {{action "removeItem" item}} {{bind-attr disabled="isRemoveItemDisabled"}}><strong>×</strong></button>
