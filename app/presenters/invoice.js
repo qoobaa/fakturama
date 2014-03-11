@@ -57,7 +57,21 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
 
     commentLines: function () {
         return this.get("comment").split("\n");
-    }.property("comment")
+    }.property("comment"),
+
+    totalGrossAmountInWords: function () {
+        var dollars, cents,
+            amount = String(this.get("totalGrossAmount"));
+
+        dollars = amount.substr(0, amount.length - 2);
+        cents = amount.substr(amount.length - 2, amount.length);
+
+        if (dollars.length > 0) {
+            return window.polishToWords(dollars) + " " + this.get("currency") + " " + cents + "/100";
+        } else {
+            return "";
+        }
+    }.property("totalGrossAmount", "currency")
 });
 
 export default InvoicePresenter;
