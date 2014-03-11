@@ -2,6 +2,7 @@ import InvoicePresenter from "faktura/presenters/invoice";
 import ItemPresenter from "faktura/presenters/item";
 import ItemForm from "faktura/forms/item";
 import Currency from "faktura/models/currency";
+import Language from "faktura/models/language";
 
 var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     validations: {
@@ -24,10 +25,10 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
         buyer: {
             presence: { if: "isSubmitted" }
         },
-        currency: {
+        currencyCode: {
             presence: { if: "isSubmitted" }
         },
-        language: {
+        languageCode: {
             presence: { if: "isSubmitted" }
         }
     },
@@ -38,8 +39,8 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     deliveryDate: Ember.computed.oneWay("model.deliveryDate"),
     seller: Ember.computed.oneWay("model.seller"),
     buyer: Ember.computed.oneWay("model.buyer"),
-    currency: Ember.computed.oneWay("model.currency.code"),
-    language: Ember.computed.oneWay("model.language"),
+    currencyCode: Ember.computed.oneWay("model.currencyCode"),
+    languageCode: Ember.computed.oneWay("model.languageCode"),
     items: Ember.computed.map("model.items", function (item) {
         return ItemForm.create({ model: item, invoiceForm: this });
     }),
@@ -93,11 +94,20 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
 
         return this.validate().then(function () {
             model.setProperties(form.toJSON());
-            model.set("currency", Currency.find(form.get("currency")));
+            // model.set("currencyCode", form.get("currencyCode"));
+            // model.set("languageCode", form.get("languageCode"));
             model.set("items", form.get("items").invoke("toJSON"));
             return model.save();
         });
     },
+
+    currency: function () {
+        return Currency.find(this.get("currencyCode"));
+    }.property("currencyCode"),
+
+    language: function () {
+        return Language.find(this.get("languageCode"));
+    }.property("languageCode"),
 
     toJSON: function () {
         return this.getProperties(this.get("model").constructor.getAttributes());

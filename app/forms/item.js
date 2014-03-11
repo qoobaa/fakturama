@@ -13,10 +13,10 @@ var ItemForm = ItemPresenter.extend(Ember.Validations.Mixin, {
             presence: { if: "invoiceForm.isSubmitted" },
             numericality: { if: "invoiceForm.isSubmitted" }
         },
-        unit: {
+        unitCode: {
             presence: { if: "invoiceForm.isSubmitted" }
         },
-        formattedTaxRate: {
+        taxRateCode: {
             presence: { if: "invoiceForm.isSubmitted" }
         }
     },
@@ -24,11 +24,11 @@ var ItemForm = ItemPresenter.extend(Ember.Validations.Mixin, {
     description: Ember.computed.oneWay("model.description"),
     quantity: Ember.computed.oneWay("model.quantity"),
     netPrice: Ember.computed.oneWay("model.netPrice"),
-    unit: Ember.computed.oneWay("model.unit"),
-    formattedTaxRate: Ember.computed.oneWay("model.formattedTaxRate"),
+    unitCode: Ember.computed.oneWay("model.unitCode"),
+    taxRateCode: Ember.computed.oneWay("model.taxRateCode"),
 
     toJSON: function () {
-        return this.getProperties("description", "quantity", "netPrice", "unit", "formattedTaxRate");
+        return this.getProperties("description", "quantity", "netPrice", "unitCode", "taxRateCode");
     }
 });
 

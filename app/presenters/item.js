@@ -1,3 +1,5 @@
+import TaxRate from "faktura/models/tax_rate";
+
 var ItemPresenter = Ember.ObjectProxy.extend({
     model: Ember.computed.alias("content"),
 
@@ -6,13 +8,12 @@ var ItemPresenter = Ember.ObjectProxy.extend({
     }.property("netPrice", "quantity"),
 
     taxRate: function () {
-        var value = parseInt(this.get("formattedTaxRate"), 10);
-        return isNaN(value) ? 0 : value;
-    }.property("formattedTaxRate"),
+        return TaxRate.find(this.get("taxRateCode"));
+    }.property("taxRateCode"),
 
     taxAmount: function () {
-        return Math.round(this.get("netAmount") * this.get("taxRate") / 100);
-    }.property("netAmount", "taxRate"),
+        return Math.round(this.get("netAmount") * this.get("taxRate.value") / 100);
+    }.property("netAmount", "taxRate.value"),
 
     grossAmount: function () {
         return this.get("netAmount") + this.get("taxAmount");

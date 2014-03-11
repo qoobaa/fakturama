@@ -1,4 +1,5 @@
 import Currency from "faktura/models/currency";
+import Language from "faktura/models/language";
 import FirebaseAdapter from "faktura/adapters/firebase";
 
 var Invoice = Ember.Model.extend({
@@ -10,8 +11,9 @@ var Invoice = Ember.Model.extend({
     dueDate: Ember.attr(),
     seller: Ember.attr(),
     buyer: Ember.attr(),
-    currency: Ember.belongsTo(Currency, { key: "currency" }),
-    language: Ember.attr(),
+    currencyCode: Ember.attr(),
+    currency: Ember.belongsTo(Currency, { key: "currencyCode" }),
+    language: Ember.belongsTo(Language, { key: "languageCode" }),
     comment: Ember.attr(),
     sellerSignature: Ember.attr(),
     buyerSignature: Ember.attr()
