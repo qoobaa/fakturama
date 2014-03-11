@@ -1,4 +1,5 @@
 import InvoicePresenter from "faktura/presenters/invoice";
+import Item from "faktura/models/item";
 import ItemPresenter from "faktura/presenters/item";
 import ItemForm from "faktura/forms/item";
 import Currency from "faktura/models/currency";
@@ -44,6 +45,9 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     items: Ember.computed.map("model.items", function (item) {
         return ItemForm.create({ model: item, invoiceForm: this });
     }),
+    itemsAttributes: function () {
+        return this.get("items").invoke("toJSON");
+    }.property("items", "items.@each"),
     comment: Ember.computed.oneWay("model.comment"),
     sellerSignature: Ember.computed.oneWay("model.sellerSignature"),
     buyerSignature: Ember.computed.oneWay("model.buyerSignature"),
@@ -71,11 +75,7 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     }.observes("dueDays", "issueDate"),
 
     addItem: function (item) {
-        if (!item) {
-            item = {};
-        }
-
-        this.get("items").pushObject(ItemForm.create({ invoiceForm: this, model: ItemPresenter.create({model: item}) }));
+        this.get("items").pushObject(ItemForm.create({ invoiceForm: this, model: item || Item.create() }));
     },
 
     modelDidChange: function () {
@@ -94,19 +94,24 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
 
         return this.validate().then(function () {
             model.setProperties(form.toJSON());
-            // model.set("currencyCode", form.get("currencyCode"));
-            // model.set("languageCode", form.get("languageCode"));
-            model.set("items", form.get("items").invoke("toJSON"));
             return model.save();
         });
     },
 
     currency: function () {
-        return Currency.find(this.get("currencyCode"));
+        var code = this.get("currencyCode");
+
+        if (code) {
+            return Currency.find(code);
+        }
     }.property("currencyCode"),
 
     language: function () {
-        return Language.find(this.get("languageCode"));
+        var code = this.get("languageCode");
+
+        if (code) {
+            return Language.find(code);
+        }
     }.property("languageCode"),
 
     toJSON: function () {

@@ -28,7 +28,7 @@ var ItemForm = ItemPresenter.extend(Ember.Validations.Mixin, {
     taxRateCode: Ember.computed.oneWay("model.taxRateCode"),
 
     toJSON: function () {
-        return this.getProperties("description", "quantity", "netPrice", "unitCode", "taxRateCode");
+        return this.getProperties(this.get("model").constructor.getAttributes());
     }
 });
 
