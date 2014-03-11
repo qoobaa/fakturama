@@ -129,7 +129,7 @@
         <p>{{item.quantity}}</p>
       </td>
       <td class="text-right">
-        <p>{{item.unit}}
+        <p>{{item.unit.name}}
       </td>
       <td class="text-right">
         <p>
@@ -142,7 +142,7 @@
         </p>
       </td>
       <td class="text-right">
-        <p>{{item.formattedTaxRate}}</p>
+        <p>{{item.taxRate.name}}</p>
       </td>
       <td class="text-right">
         <p>
@@ -180,7 +180,7 @@
         {{format-cents subTotal.netAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
       </td>
       <td class="text-right">
-        {{subTotal.formattedTaxRate}}
+        {{subTotal.taxRate.name}}
       </td>
       <td class="text-right">
         {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>

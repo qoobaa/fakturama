@@ -42,8 +42,8 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     buyer: Ember.computed.oneWay("model.buyer"),
     currencyCode: Ember.computed.oneWay("model.currencyCode"),
     languageCode: Ember.computed.oneWay("model.languageCode"),
-    items: Ember.computed.map("model.items", function (item) {
-        return ItemForm.create({ model: item, invoiceForm: this });
+    items: Ember.computed.map("model.itemsAttributes", function (itemAttributes) {
+        return ItemForm.create({ model: Item.create(itemAttributes), invoiceForm: this });
     }),
     itemsAttributes: function () {
         return this.get("items").invoke("toJSON");

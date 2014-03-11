@@ -149,7 +149,7 @@
       <td {{bind-attr class=":form-group :text-right item.errors.netAmount.firstObject:has-error"}}>
         {{view "cents" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled"}}
       </td>
-      <td {{bind-attr class=":form-group :text-right item.errors.formattedTaxRate.firstObject:has-error"}}>
+      <td {{bind-attr class=":form-group :text-right item.errors.taxRateCode.firstObject:has-error"}}>
         {{view Ember.Select class="form-control" contentBinding="taxRates" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.taxRateCode"}}
       </td>
       <td {{bind-attr class=":form-group :text-right item.errors.taxAmount.firstObject:has-error"}}>
@@ -191,7 +191,7 @@
         {{format-cents subTotal.netAmount}}&nbsp;<small class="text-muted">{{../currency.code}}</small>
       </td>
       <td class="text-right">
-        {{subTotal.formattedTaxRate}}
+        {{subTotal.taxRate.name}}
       </td>
       <td class="text-right">
         {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{../currency.code}}</small>

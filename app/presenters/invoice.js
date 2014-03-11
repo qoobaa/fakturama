@@ -1,11 +1,26 @@
+import Item from "faktura/models/item";
 import ItemPresenter from "faktura/presenters/item";
+import Currency from "faktura/models/currency";
+import Language from "faktura/models/language";
 
 var InvoicePresenter = Ember.ObjectProxy.extend({
     model: Ember.computed.alias("content"),
 
-    items: Ember.computed.map("model.items", function (item) {
-        return ItemPresenter.create({ model: item });
+    items: Ember.computed.map("model.itemsAttributes", function (itemAttributes) {
+        console.log(itemAttributes);
+        console.log(ItemPresenter.create({ model: Item.create(itemAttributes) }));
+        return ItemPresenter.create({ model: Item.create(itemAttributes) });
     }),
+
+    currency: function () {
+        var code = this.get("currencyCode");
+        return code && Currency.find(code);
+    }.property("currencyCode"),
+
+    language: function () {
+        var code = this.get("languageCode");
+        return code && Language.find(code);
+    }.property("languageCode"),
 
     netAmounts: Ember.computed.mapBy("items", "netAmount"),
     totalNetAmount: Ember.computed.sum("netAmounts"),
@@ -17,11 +32,11 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
     totalGrossAmount: Ember.computed.sum("grossAmounts"),
 
     subTotals: function () {
-        return this.get("items").mapBy("formattedTaxRate").uniq().map(function (formattedTaxRate) {
+        return this.get("items").mapBy("taxRate").uniq().map(function (taxRate) {
             var items,
-                result = Ember.Object.create({ formattedTaxRate: formattedTaxRate });
+                result = Ember.Object.create({ taxRate: taxRate });
 
-            items = this.get("items").filterBy("formattedTaxRate", formattedTaxRate);
+            items = this.get("items").filterBy("taxRate", taxRate);
 
             result.netAmount = items.reduce(function (previousValue, item) {
                 return previousValue + item.get("netAmount");
@@ -37,7 +52,7 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
 
             return result;
         }.bind(this));
-    }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.formattedTaxRate"),
+    }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.taxRate"),
 
     sellerFirstLine: function () {
         return this.get("seller").split("\n")[0];
