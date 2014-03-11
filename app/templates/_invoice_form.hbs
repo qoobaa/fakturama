@@ -65,7 +65,7 @@
     Waluta
   </label>
   <div class="col-xs-2">
-    {{view Ember.Select class="form-control" contentBinding="Faktura.currencies" valueBinding="currency" id="invoice-currency"}}
+    {{view Ember.Select class="form-control" contentBinding="currencies.content" optionValuePath="content.code" optionLabelPath="content.nameWithCode" valueBinding="currency" prompt="Wybierz walutę" id="invoice-currency"}}
   </div>
   <div class="col-xs-6">
     <span class="help-block">{{errors.currency.firstObject}}</span>
