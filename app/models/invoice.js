@@ -11,7 +11,9 @@ var Invoice = Ember.Model.extend({
     buyer: Ember.attr(),
     currency: Ember.attr(),
     language: Ember.attr(),
-    comment: Ember.attr()
+    comment: Ember.attr(),
+    sellerSignature: Ember.attr(),
+    buyerSignature: Ember.attr()
 });
 
 Invoice.reopenClass({

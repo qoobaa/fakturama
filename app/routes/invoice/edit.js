@@ -1,4 +1,3 @@
-import Invoice from "faktura/models/invoice";
 import InvoiceForm from "faktura/forms/invoice";
 
 var InvoiceEditRoute = Ember.Route.extend({

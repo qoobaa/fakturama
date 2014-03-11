@@ -10,6 +10,7 @@ Router.map(function () {
     this.resource("invoices");
     this.route("invoice.new", { path: "/invoice/new" });
     this.resource("invoice", { path: "/invoice/:invoice_id" }, function () {
+        this.route("show", { path: "/" });
         this.route("edit");
     });
 

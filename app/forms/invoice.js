@@ -42,6 +42,9 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     items: Ember.computed.map("model.items", function (item) {
         return ItemForm.create({ model: item, invoiceForm: this });
     }),
+    comment: Ember.computed.oneWay("model.comment"),
+    sellerSignature: Ember.computed.oneWay("model.sellerSignature"),
+    buyerSignature: Ember.computed.oneWay("model.buyerSignature"),
 
     isSubmitted: false,
     isIssueDelivery: true,

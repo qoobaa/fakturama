@@ -1,0 +1,175 @@
+<h1>
+  <strong>Faktura</strong>
+</h1>
+
+<br>
+
+<div>
+  <p>
+    Numer:
+    <strong>{{number}}</strong>
+  </p>
+  <p>
+    Data wystawienia:
+    <strong>{{issueDate}}</strong>
+  </p>
+  <p>
+    Data dostawy towarów/wykonania usługi:
+    <strong>{{deliveryDate}}</strong>
+  </p>
+  <p>
+    Termin płatności / Due date:
+    <strong>{{dueDate}}</strong>
+  </p>
+</div>
+
+<div class="row">
+  <div class="col-xs-6">
+    <h4>
+      <strong>Sprzedawca</strong>
+    </h4>
+    <p>
+      <strong>{{sellerFirstLine}}</strong><br>
+      {{#each line in sellerRest}}{{line}}<br>{{/each}}
+    </p>
+  </div>
+
+  <div class="col-xs-6">
+    <h4>
+      <strong>Nabywca</strong>
+    </h4>
+    <p>
+      <strong>{{buyerFirstLine}}</strong><br>
+      {{#each line in buyerRest}}{{line}}<br>{{/each}}
+    </p>
+  </div>
+</div>
+
+<br>
+
+<table class="table table-condensed">
+  <tr>
+    <th class="col-xs-4">
+      Nazwa
+    </th>
+    <th class="text-right">
+      Liczba
+    </th>
+    <th class="text-right col-xs-1">
+      J.m.
+    </th>
+    <th class="text-right">
+      Cena netto
+    </th>
+    <th class="text-right">
+      Wartość netto
+    </th>
+    <th class="text-right col-xs-1">
+      Stawka VAT
+    </th>
+    <th class="text-right">
+      Wartość VAT
+    </th>
+    <th class="text-right">
+      Wartość brutto
+    </th>
+  </tr>
+
+  {{#each item in items}}
+    <tr>
+      <td>
+        <p><small>{{item.description}}</small></p>
+      </td>
+      <td class="text-right">
+        <p>{{item.quantity}}</p>
+      </td>
+      <td class="text-right">
+        <p>{{item.unit}}
+      </td>
+      <td class="text-right">
+        <p>
+          {{format-cents item.netPrice}}&nbsp;<small class="text-muted">{{currency}}</small>
+        </p>
+      </td>
+      <td class="text-right">
+        <p>
+          {{format-cents item.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+        </p>
+      </td>
+      <td class="text-right">
+        <p>{{item.formattedTaxRate}}</p>
+      </td>
+      <td class="text-right">
+        <p>
+          {{format-cents item.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+        </p>
+      </td>
+      <td class="text-right">
+        <p>
+          {{format-cents item.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+        </p>
+      </td>
+    </tr>
+  {{/each}}
+  <tr>
+    <th class="text-right" colspan="4">
+      Razem
+    </th>
+    <td class="text-right">
+      {{format-cents totalNetAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+    </td>
+    <td></td>
+    <td class="text-right">
+      {{format-cents totalTaxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+    </td>
+    <td class="text-right">
+      {{format-cents totalGrossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+    </td>
+  </tr>
+  {{#each subTotal in subTotals}}
+    <tr>
+      <th class="text-right" colspan="4">
+        W tym
+      </th>
+      <td class="text-right">
+        {{format-cents subTotal.netAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
+      <td class="text-right">
+        {{subTotal.formattedTaxRate}}
+      </td>
+      <td class="text-right">
+        {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
+      <td class="text-right">
+        {{format-cents subTotal.grossAmount}}&nbsp;<small class="text-muted">{{currency}}</small>
+      </td>
+    </tr>
+  {{/each}}
+</table>
+
+<div class="row">
+  <div class="col-xs-12">
+    <h4>
+      <strong>Uwagi</strong>
+    </h4>
+    <p>
+      {{#each line in commentLines}}{{line}}<br>{{/each}}
+    </p>
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-xs-6">
+    {{#if issuerSignature}}
+      <p class="text-center signature">{{issuerSignature}}</p>
+      <p>Podpis wystawiającego</p>
+    {{/if}}
+  </div>
+  <div class="col-xs-6">
+    {{#if buyerSignature}}
+      <p class="text-center signature">{{buyerSignature}}</p>
+      <p>Podpis nabywcy</p>
+    {{/if}}
+  </div>
+</div>

@@ -38,6 +38,26 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
             return result;
         }.bind(this));
     }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.formattedTaxRate"),
+
+    sellerFirstLine: function () {
+        return this.get("seller").split("\n")[0];
+    }.property("seller"),
+
+    sellerRest: function () {
+        return this.get("seller").split("\n").slice(1);
+    }.property("seller"),
+
+    buyerFirstLine: function () {
+        return this.get("buyer").split("\n")[0];
+    }.property("buyer"),
+
+    buyerRest: function () {
+        return this.get("buyer").split("\n").slice(1);
+    }.property("buyer"),
+
+    commentLines: function () {
+        return this.get("comment").split("\n");
+    }.property("comment")
 });
 
 export default InvoicePresenter;
