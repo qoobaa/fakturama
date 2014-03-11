@@ -71,7 +71,25 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
         } else {
             return "";
         }
-    }.property("totalGrossAmount", "currency")
+    }.property("totalGrossAmount", "currency"),
+
+    englishTotalGrossAmountInWords: function () {
+        var dollars, cents,
+            amount = String(this.get("totalGrossAmount"));
+
+        dollars = amount.substr(0, amount.length - 2);
+        cents = amount.substr(amount.length - 2, amount.length);
+
+        if (dollars.length > 0) {
+            return window.toWords(dollars) + " " + this.get("currency") + " " + cents + "/100";
+        } else {
+            return "";
+        }
+    }.property("totalGrossAmount", "currency"),
+
+    isEnglish: function () {
+        return this.get("language") === "polsko-angielska";
+    }.property("language")
 });
 
 export default InvoicePresenter;
