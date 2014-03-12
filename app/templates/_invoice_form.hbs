@@ -72,6 +72,24 @@
   </div>
 </div>
 
+{{#if isExchanging}}
+  <div {{bind-attr class=":form-group errors.exchangeDate.firstObject:has-error"}}>
+    <label for="invoice-exchange-date" class="col-xs-4 control-label">
+      Data publikacji tabeli kursów walut obcych
+    </label>
+    <div class="col-xs-2">
+      {{input type="date" valueBinding="exchangeDate" class="form-control" id="invoice-exchange-date" disabled="disabled"}}
+    </div>
+    <div class="col-xs-6">
+      {{#if exchangeRatesTable.isLoading}}
+        <span class="help-block text-muted">
+          Trwa ładowanie tabeli kursów walut obcych, proszę czekać…
+        </span>
+      {{/if}}
+    </div>
+  </div>
+{{/if}}
+
 <div {{bind-attr class=":form-group errors.language.firstObject:has-error"}}>
   <label class="control-label col-xs-4" for="invoice-language">
     Wersja językowa
@@ -175,7 +193,7 @@
     </td>
     <td></td>
     <td class="text-right">
-      {{format-cents totalTaxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+      {{format-cents totalTaxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
     </td>
     <td class="text-right">
       {{format-cents totalGrossAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
@@ -194,7 +212,7 @@
         {{subTotal.taxRate.name}}
       </td>
       <td class="text-right">
-        {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{../currency.code}}</small>
+        {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{../currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
       </td>
       <td class="text-right">
         {{format-cents subTotal.grossAmount}}&nbsp;<small class="text-muted">{{../currency.code}}</small>

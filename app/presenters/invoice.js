@@ -26,6 +26,12 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
     taxAmounts: Ember.computed.mapBy("items", "taxAmount"),
     totalTaxAmount: Ember.computed.sum("taxAmounts"),
 
+    totalTaxAmountPLN: function () {
+        if (this.get("isExchanging")) {
+            return Math.round(this.get("totalTaxAmount") * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000));
+        }
+    }.property("totalTaxAmount", "exchangeRate", "exchangeDivisor", "isExchanging"),
+
     grossAmounts: Ember.computed.mapBy("items", "grossAmount"),
     totalGrossAmount: Ember.computed.sum("grossAmounts"),
 
@@ -48,9 +54,13 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
                 return previousValue + item.get("grossAmount");
             }, 0);
 
+            if (this.get("isExchanging")) {
+                result.taxAmountPLN = Math.round(result.taxAmount * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000));
+            }
+
             return result;
         }.bind(this));
-    }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.taxRate"),
+    }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.taxRate", "isExchanging", "exchangeRate", "exchangeDivisor"),
 
     sellerFirstLine: function () {
         return this.getWithDefault("seller", "").split("\n")[0];
@@ -94,7 +104,14 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
 
     isEnglish: function () {
         return this.get("languageCode") === "plen";
-    }.property("languageCode")
+    }.property("languageCode"),
+
+    isExchanging: function () {
+        return !!this.get("currencyCode") &&
+            !!this.get("issueDate") &&
+            !!this.get("totalTaxAmount") &&
+            this.get("currencyCode") !== "PLN";
+    }.property("currencyCode", "issueDate", "totalTaxAmount")
 });
 
 export default InvoicePresenter;

@@ -31,6 +31,13 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
         },
         languageCode: {
             presence: { if: "isSubmitted" }
+        },
+        exchangeDate: {
+            presence: {
+                if: function (invoice) {
+                    return invoice.get("isSubmitted") && invoice.get("isExchanging");
+                }
+            }
         }
     },
 
