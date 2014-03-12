@@ -156,7 +156,7 @@
         </p>
       </td>
       <td class="text-right">
-        <p>{{item.taxRate.name}}</p>
+        <p>{{item.taxRate.name}}{{#if isEnglish}}<br>{{item.taxRate.nameEN}}{{/if}}</p>
       </td>
       <td class="text-right">
         <p>
@@ -186,7 +186,7 @@
     </td>
   </tr>
   {{#each subTotal in subTotals}}
-    <tr>
+    <tr class="subtotal">
       <th class="text-right" colspan="4">
         W tym{{#if isEnglish}} / Including{{/if}}
       </th>
@@ -194,7 +194,7 @@
         {{format-cents subTotal.netAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
       </td>
       <td class="text-right">
-        {{subTotal.taxRate.name}}
+        {{subTotal.taxRate.name}}{{#if isEnglish}}<br>{{subTotal.taxRate.nameEN}}{{/if}}
       </td>
       <td class="text-right">
         {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
