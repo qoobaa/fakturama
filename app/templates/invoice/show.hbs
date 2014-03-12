@@ -37,6 +37,20 @@
     {{/if}}
     <strong>{{dueDate}}</strong>
   </p>
+
+  {{#if isExchanging}}
+    <p>
+      Kwoty podatku VAT zostały przeliczone po kursie średnim ogłoszonym przez Narodowy Bank Polski dnia
+      <strong>{{exchangeDate}}</strong>
+    </p>
+    {{#if isEnglish}}
+      <p>
+        VAT amounts are converted using average exchange rates published by the National Bank of Poland on
+        <strong>{{exchangeDate}}</strong>
+      </p>
+    {{/if}}
+  {{/if}}
+
 </div>
 
 <div class="row">
@@ -129,7 +143,7 @@
         <p>{{item.quantity}}</p>
       </td>
       <td class="text-right">
-        <p>{{item.unit.name}}
+        <p>{{item.unit.name}}{{#if isEnglish}}<br>{{item.unit.nameEN}}{{/if}}</p>
       </td>
       <td class="text-right">
         <p>
