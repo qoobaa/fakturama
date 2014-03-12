@@ -63,6 +63,25 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     isIssueDelivery: true,
     dueDays: 14,
 
+    initIssueDate: function () {
+        if (!this.get("issueDate")) {
+            this.set("issueDate", new Date().toISOString().substr(0, 10));
+        }
+    }.on("init"),
+
+    initIsIssueDelivery: function () {
+        this.set("isIssueDelivery", this.get("issueDate") === this.get("deliveryDate"));
+    }.on("init"),
+
+    initDueDays: function () {
+        var issueDate = Date.parse(this.get("issueDate")),
+            dueDate = Date.parse(this.get("dueDate"));
+
+        if (!isNaN(issueDate) && !isNaN(dueDate)) {
+            this.set("dueDays", (dueDate - issueDate) / (1000 * 60 * 60 * 24));
+        }
+    }.on("init"),
+
     isIssueDeliveryOrIssueDateDidChange: function () {
         if (this.get("isIssueDelivery")) {
             this.set("deliveryDate", this.get("issueDate"));
