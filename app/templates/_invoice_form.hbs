@@ -1,8 +1,8 @@
 <div {{bind-attr class=":form-group errors.number.firstObject:has-error"}}>
-  <label for="invoice-number" class="col-xs-4 control-label">
+  <label for="invoice-number" class="col-xs-3 control-label">
     Numer
   </label>
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     {{input valueBinding="number" class="form-control" id="invoice-number"}}
   </div>
   <div class="col-xs-6">
@@ -11,10 +11,10 @@
 </div>
 
 <div {{bind-attr class=":form-group errors.issueDate.firstObject:has-error"}}>
-  <label for="invoice-issue-date" class="col-xs-4 control-label">
+  <label for="invoice-issue-date" class="col-xs-3 control-label">
     Data wystawienia
   </label>
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     {{input type="date" valueBinding="issueDate" class="form-control" id="invoice-issue-date"}}
   </div>
   <div class="col-xs-6">
@@ -23,7 +23,7 @@
 </div>
 
 <div class="form-group">
-  <div class="col-xs-8 col-xs-offset-4">
+  <div class="col-xs-9 col-xs-offset-3">
     <div class="checkbox">
       <label>
         {{input type="checkbox" checkedBinding="isIssueDelivery"}}
@@ -34,10 +34,10 @@
 </div>
 
 <div {{bind-attr class=":form-group errors.deliveryDate.firstObject:has-error isIssueDelivery:hide"}}>
-  <label for="invoice-delivery-date" class="col-xs-4 control-label">
+  <label for="invoice-delivery-date" class="col-xs-3 control-label">
     Data dostawy towarów lub wykonania usługi
   </label>
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     {{input type="date" valueBinding="deliveryDate" class="form-control" id="invoice-delivery-date"}}
   </div>
   <div class="col-xs-6">
@@ -46,10 +46,10 @@
 </div>
 
 <div {{bind-attr class=":form-group errors.dueDays.firstObject:has-error"}}>
-  <label class="control-label col-xs-4" for="invoice-due-days">
+  <label class="control-label col-xs-3" for="invoice-due-days">
     Termin płatności
   </label>
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     <div class="input-group">
       {{input type="number" class="form-control text-right" valueBinding="dueDays" id="invoice-due-days" min="0"}}
       <span class="input-group-addon">dni</span>
@@ -61,10 +61,10 @@
 </div>
 
 <div {{bind-attr class=":form-group errors.currency.firstObject:has-error"}}>
-  <label class="control-label col-xs-4" for="invoice-currency">
+  <label class="control-label col-xs-3" for="invoice-currency">
     Waluta
   </label>
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     {{view Ember.Select class="form-control" contentBinding="currencies.content" optionValuePath="content.code" optionLabelPath="content.nameWithCode" valueBinding="currencyCode" id="invoice-currency"}}
   </div>
   <div class="col-xs-6">
@@ -74,10 +74,10 @@
 
 {{#if isExchanging}}
   <div {{bind-attr class=":form-group errors.exchangeDate.firstObject:has-error"}}>
-    <label for="invoice-exchange-date" class="col-xs-4 control-label">
+    <label for="invoice-exchange-date" class="col-xs-3 control-label">
       Data publikacji tabeli kursów walut obcych
     </label>
-    <div class="col-xs-2">
+    <div class="col-xs-3">
       {{input type="date" valueBinding="exchangeDate" class="form-control" id="invoice-exchange-date" disabled="disabled"}}
     </div>
     <div class="col-xs-6">
@@ -91,10 +91,10 @@
 {{/if}}
 
 <div {{bind-attr class=":form-group errors.language.firstObject:has-error"}}>
-  <label class="control-label col-xs-4" for="invoice-language">
+  <label class="control-label col-xs-3" for="invoice-language">
     Wersja językowa
   </label>
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     {{view Ember.Select class="form-control" contentBinding="languages.content" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="languageCode" id="invoice-language"}}
   </div>
   <div class="col-xs-6">
