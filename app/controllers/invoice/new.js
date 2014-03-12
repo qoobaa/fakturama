@@ -2,34 +2,32 @@ import ItemForm from "faktura/forms/item";
 import ExchangeRatesTable from "faktura/models/exchange_rates_table";
 
 var InvoiceNewController = Ember.ObjectController.extend({
+    needs: ["exchangeRate"],
+
     isRemoveItemDisabled: function () {
         return this.get("items.length") <= 1;
     }.property("items.@each"),
 
     issueDateDidChange: function () {
-        if (this.get("issueDate")) {
-            this.set("exchangeRatesTable", ExchangeRatesTable.find(this.get("issueDate")));
-        }
+        this.set("controllers.exchangeRate.issueDate", this.get("issueDate"));
     }.observes("issueDate"),
 
-    exchangeRatesTablePozycjaOrIsExchangeRequiredDidChange: function () {
-        var pozycja,
-            currencyCode = this.get("currencyCode"),
-            exchangeRatesTable = this.get("exchangeRatesTable");
+    currencyCodeDidChange: function () {
+        this.set("controllers.exchangeRate.currencyCode", this.get("currencyCode"));
+    }.observes("currencyCode"),
 
-        if (this.get("isExchanging") && exchangeRatesTable && exchangeRatesTable.get("pozycja")) {
-            pozycja = exchangeRatesTable.get("pozycja").findBy("kod_waluty", currencyCode);
-            if (pozycja) {
-                this.setProperties({
-                    exchangeDate: exchangeRatesTable.get("data_publikacji"),
-                    exchangeRate: parseInt(pozycja.kurs_sredni.replace(",", ""), 10),
-                    exchangeDivisor: parseInt(pozycja.przelicznik, 10)
-                });
-            }
-        } else {
-            this.setProperties({ exchangeDate: null, exchangeRate: null, exchangeDivisor: null });
-        }
-    }.observes("exchangeRatesTable.pozycja", "isExchanging"),
+    exchangeDateBinding: "controllers.exchangeRate.exchangeDate",
+    exchangeDateDidChange: function () {
+        this.set("model.exchangeDate", this.get("exchangeDate"));
+    }.observes("exchangeDate"),
+    exchangeRateBinding: "controllers.exchangeRate.exchangeRate",
+    exchangeRateDidChange: function () {
+        this.set("model.exchangeRate", this.get("exchangeRate"));
+    }.observes("exchangeRate"),
+    exchangeDivisorBinding: "controllers.exchangeRate.exchangeDivisor",
+    exchangeDivisorrDidChange: function () {
+        this.set("model.exchangeDivisor", this.get("exchangeDivisor"));
+    }.observes("exchangeDivisor"),
 
     actions: {
         saveRecord: function () {

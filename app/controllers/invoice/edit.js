@@ -1,6 +1,8 @@
 import ItemForm from "faktura/forms/item";
 
 var InvoiceEditController = Ember.ObjectController.extend({
+    needs: ["exchangeRate"],
+
     isRemoveItemDisabled: function () {
         return this.get("items.length") <= 1;
     }.property("items.@each"),
