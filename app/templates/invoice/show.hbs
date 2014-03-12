@@ -165,7 +165,7 @@
     </td>
     <td></td>
     <td class="text-right">
-      {{format-cents totalTaxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+      {{format-cents totalTaxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
     </td>
     <td class="text-right">
       {{format-cents totalGrossAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
@@ -183,7 +183,7 @@
         {{subTotal.taxRate.name}}
       </td>
       <td class="text-right">
-        {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+        {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
       </td>
       <td class="text-right">
         {{format-cents subTotal.grossAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
@@ -205,16 +205,19 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col-xs-12">
-    <h4>
-      <strong>Uwagi{{#if isEnglish}} / Comments{{/if}}</strong>
-    </h4>
-    <p>
-      {{#each line in commentLines}}{{line}}<br>{{/each}}
-    </p>
+{{#if comment}}
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>
+        <strong>Uwagi{{#if isEnglish}} / Comments{{/if}}</strong>
+      </h4>
+      <p>
+        {{#each line in commentLines}}{{line}}<br>{{/each}}
+      </p>
+    </div>
   </div>
-</div>
+{{/if}}
+
 <br>
 
 <div class="row">
