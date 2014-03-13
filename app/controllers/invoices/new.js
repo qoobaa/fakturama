@@ -7,6 +7,7 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
     taxRates: null,
     languages: null,
     units: null,
+    clients: null,
 
     isRemoveItemDisabled: function () {
         return this.get("items.length") <= 1;
@@ -34,6 +35,11 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
 
         removeItem: function (item) {
             this.get("items").removeObject(item);
+        },
+
+        chooseClient: function (client) {
+            this.set("buyer", client.get("buyer"));
+            this.set("buyerSignature", client.get("contactName"));
         }
     }
 });

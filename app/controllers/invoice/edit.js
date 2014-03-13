@@ -2,6 +2,13 @@ import ItemForm from "faktura/forms/item";
 import ExchangeRateMixin from "faktura/lib/exchange_rate_mixin";
 
 var InvoiceEditController = Ember.ObjectController.extend(ExchangeRateMixin, {
+    settings: null,
+    currencies: null,
+    taxRates: null,
+    languages: null,
+    units: null,
+    clients: null,
+
     isRemoveItemDisabled: function () {
         return this.get("items.length") <= 1;
     }.property("items.@each"),
@@ -32,6 +39,11 @@ var InvoiceEditController = Ember.ObjectController.extend(ExchangeRateMixin, {
 
         removeItem: function (item) {
             this.get("items").removeObject(item);
+        },
+
+        chooseClient: function (client) {
+            this.set("buyer", client.get("buyer"));
+            this.set("buyerSignature", client.get("contactName"));
         }
     }
 });

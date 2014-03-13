@@ -115,13 +115,23 @@
     </div>
 
     <div {{bind-attr class=":col-xs-6 errors.buyer.firstObject:has-error"}}>
-      <label class="control-label" for="invoice-buyer">
-        Nabywca
-      </label>
+      <div class="dropdown" style="display: inline;">
+        <a data-toggle="dropdown" href="javascript:;">
+          <label class="control-label" for="invoice-buyer">
+            Nabywca <span class="caret"></span>
+          </label>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+          {{#each client in clients}}
+            <li><a href="javascript:;" {{action "chooseClient" client}}>{{client.companyName}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
       <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
       {{textarea class="form-control" rows="5" valueBinding="buyer" id="invoice-buyer"}}
     </div>
   </div>
+
 
   <br>
 

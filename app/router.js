@@ -5,9 +5,6 @@ Router.map(function () {
         this.route("new");
         this.resource("client", { path: "/:client_id" }, function () {
             this.route("edit");
-            this.resource("invoices", function () {
-                this.route("new");
-            });
         });
     });
 

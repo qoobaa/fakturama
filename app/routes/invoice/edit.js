@@ -3,24 +3,23 @@ import Currency from "faktura/models/currency";
 import TaxRate from "faktura/models/tax_rate";
 import Language from "faktura/models/language";
 import Unit from "faktura/models/unit";
+import Client from "faktura/models/client";
 
 var InvoiceEditRoute = Ember.Route.extend({
     model: function (params) {
         return Ember.RSVP.hash({
-            invoice: this.modelFor("invoice"),
+            model: this.modelFor("invoice"),
             currencies: Currency.fetch(),
             taxRates: TaxRate.fetch(),
             languages: Language.fetch(),
-            units: Unit.fetch()
+            units: Unit.fetch(),
+            clients: Client.fetch()
         });
     },
 
     setupController: function (controller, models) {
-        controller.set("model", InvoiceForm.create({ model: models.invoice }));
-        controller.set("currencies", models.currencies);
-        controller.set("taxRates", models.taxRates);
-        controller.set("languages", models.languages);
-        controller.set("units", models.units);
+        models.model = InvoiceForm.create({ model: models.model });
+        controller.setProperties(models);
     }
 });
 

@@ -5,6 +5,7 @@ import TaxRate from "faktura/models/tax_rate";
 import Language from "faktura/models/language";
 import Unit from "faktura/models/unit";
 import Settings from "faktura/models/settings";
+import Client from "faktura/models/client";
 
 var InvoicesNewRoute = Ember.Route.extend({
     model: function () {
@@ -14,7 +15,8 @@ var InvoicesNewRoute = Ember.Route.extend({
             taxRates: TaxRate.fetch(),
             languages: Language.fetch(),
             units: Unit.fetch(),
-            settings: Settings.fetch()
+            settings: Settings.fetch(),
+            clients: Client.fetch()
         });
     },
 
