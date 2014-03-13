@@ -1,7 +1,7 @@
 import ItemForm from "faktura/forms/item";
 import ExchangeRateMixin from "faktura/lib/exchange_rate_mixin";
 
-var InvoiceNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
+var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
     settings: null,
     currencies: null,
     taxRates: null,
@@ -38,4 +38,4 @@ var InvoiceNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
     }
 });
 
-export default InvoiceNewController;
+export default InvoicesNewController;

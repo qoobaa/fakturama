@@ -6,7 +6,7 @@ import Language from "faktura/models/language";
 import Unit from "faktura/models/unit";
 import Settings from "faktura/models/settings";
 
-var InvoiceNewRoute = Ember.Route.extend({
+var InvoicesNewRoute = Ember.Route.extend({
     model: function () {
         return Ember.RSVP.hash({
             model: Invoice.create(),
@@ -24,4 +24,4 @@ var InvoiceNewRoute = Ember.Route.extend({
     }
 });
 
-export default InvoiceNewRoute;
+export default InvoicesNewRoute;
