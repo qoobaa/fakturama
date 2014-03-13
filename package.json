@@ -51,6 +51,7 @@
     "loom": "~3.1.2",
     "connect-livereload": "~0.3.1",
     "grunt-es6-import-validate": "0.0.6",
-    "grunt-contrib-less": "^0.10.0"
+    "grunt-contrib-less": "^0.10.0",
+    "grunt-gh-pages": "^0.9.1"
   }
 }

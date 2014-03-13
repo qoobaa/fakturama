@@ -230,5 +230,11 @@ module.exports = function(grunt) {
     grunt.file.mkdir('tmp/result');
   });
 
+
+  grunt.registerTask('deploy', [
+                     'dist',
+                     'gh-pages'
+                     ]);
+
   grunt.initConfig(config);
 };
