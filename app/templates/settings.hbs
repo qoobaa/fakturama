@@ -1,39 +1,59 @@
 <form class="form-horizontal">
-  <div class="form-group" {{bind-attr class="errors.companyName.firstObject:has-error"}}>
-    <label for="settings-company-name" class="col-xs-2 control-label">
-      Nazwa Firmy
-    </label>
-    <div class="col-xs-5">
-      {{input valueBinding="companyName" class="form-control" id="settings-company-name"}}
-    </div>
-    <div class="col-xs-5">
-      <span class="help-block">{{errors.companyName.firstObject}}</span>
-    </div>
-  </div>
+  <fieldset>
+    <legend>Dane osobiste</legend>
 
-  <div class="form-group" {{bind-attr class="errors.address.firstObject:has-error"}}>
-    <label for="settings-address" class="col-xs-2 control-label">
-      Adres
-    </label>
-    <div class="col-xs-5">
-      {{textarea valueBinding="address" class="form-control" id="settings-address" rows=3}}
+    <div class="form-group" {{bind-attr class="errors.contactName.firstObject:has-error"}}>
+      <label for="settings-contact-name" class="col-xs-2 control-label">
+        Imię i nazwisko
+      </label>
+      <div class="col-xs-5">
+        {{input valueBinding="contactName" class="form-control" id="settings-contact-name"}}
+      </div>
+      <div class="col-xs-5">
+        <span class="help-block">{{errors.contactName.firstObject}}</span>
+      </div>
     </div>
-    <div class="col-xs-5">
-      <span class="help-block">{{errors.address.firstObject}}</span>
-    </div>
-  </div>
+  </fieldset>
 
-  <div class="form-group" {{bind-attr class="errors.vatin.firstObject:has-error"}}>
-    <label for="settings-vatin" class="col-xs-2 control-label">
-      NIP
-    </label>
-    <div class="col-xs-5">
-      {{input valueBinding="vatin" class="form-control" id="settings-vatin"}}
+  <fieldset>
+    <legend>Firma</legend>
+
+    <div class="form-group" {{bind-attr class="errors.companyName.firstObject:has-error"}}>
+      <label for="settings-company-name" class="col-xs-2 control-label">
+        Nazwa
+      </label>
+      <div class="col-xs-5">
+        {{input valueBinding="companyName" class="form-control" id="settings-company-name"}}
+      </div>
+      <div class="col-xs-5">
+        <span class="help-block">{{errors.companyName.firstObject}}</span>
+      </div>
     </div>
-    <div class="col-xs-5">
-      <span class="help-block">{{errors.vatin.firstObject}}</span>
+
+    <div class="form-group" {{bind-attr class="errors.address.firstObject:has-error"}}>
+      <label for="settings-address" class="col-xs-2 control-label">
+        Adres
+      </label>
+      <div class="col-xs-5">
+        {{textarea valueBinding="address" class="form-control" id="settings-address" rows=3}}
+      </div>
+      <div class="col-xs-5">
+        <span class="help-block">{{errors.address.firstObject}}</span>
+      </div>
     </div>
-  </div>
+
+    <div class="form-group" {{bind-attr class="errors.vatin.firstObject:has-error"}}>
+      <label for="settings-vatin" class="col-xs-2 control-label">
+        NIP
+      </label>
+      <div class="col-xs-5">
+        {{input valueBinding="vatin" class="form-control" id="settings-vatin"}}
+      </div>
+      <div class="col-xs-5">
+        <span class="help-block">{{errors.vatin.firstObject}}</span>
+      </div>
+    </div>
+  </fieldset>
 
   <div class="form-group">
     <div class="col-xs-10 col-xs-offset-2">

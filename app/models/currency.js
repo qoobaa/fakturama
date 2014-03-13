@@ -1,6 +1,7 @@
 var Currency = Ember.Model.extend({
     code: Ember.attr(),
     name: Ember.attr(),
+    precision: Ember.attr(),
 
     nameWithCode: function () {
         return "%@ (%@)".fmt(this.get("name"), this.get("code"));
@@ -20,8 +21,8 @@ Currency.reopenClass({
         { code: "NOK", name: "korona norweska", precision: 2 },
         { code: "SEK", name: "korona szwedzka", precision: 2 },
         { code: "CAD", name: "dolar kanadyjski", precision: 2 },
-        { code: "DKK", name: "korona duńska", precision: 2 },
-        { code: "HUF", name: "forint", precision: 0 }
+        { code: "DKK", name: "korona duńska", precision: 2 }
+        // { code: "HUF", name: "forint", precision: 0 }
     ]
 });
 

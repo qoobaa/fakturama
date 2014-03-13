@@ -2,7 +2,7 @@ function parseCents(value, precision) {
     var integerPart, fractionalPart,
         parts = String(value).split(".");
 
-    if (arguments.length < 2) {
+    if (!isFinite(precision)) {
         precision = 2;
     }
 

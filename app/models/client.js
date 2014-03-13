@@ -2,9 +2,11 @@ import FirebaseAdapter from "faktura/adapters/firebase";
 
 var Client = Ember.Model.extend({
     id: Ember.attr(),
-    name: Ember.attr(),
+    companyName: Ember.attr(),
     address: Ember.attr(),
-    vatin: Ember.attr()
+    vatin: Ember.attr(),
+    contactName: Ember.attr(),
+    contactEmail: Ember.attr()
 });
 
 Client.reopenClass({

@@ -2,7 +2,7 @@ function formatCents(value, precision) {
     var integerPart, fractionalPart,
         minus = "";
 
-    if (arguments.length < 2) {
+    if (!isFinite(precision)) {
         precision = 2;
     }
 

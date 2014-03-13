@@ -2,7 +2,7 @@ import ClientPresenter from "faktura/presenters/client";
 
 var ClientForm = ClientPresenter.extend(Ember.Validations.Mixin, {
     validations: {
-        name: {
+        companyName: {
             presence: { if: "isSubmitted" }
         },
         address: {
@@ -11,7 +11,7 @@ var ClientForm = ClientPresenter.extend(Ember.Validations.Mixin, {
     },
 
     id: Ember.computed.oneWay("model.id"),
-    name: Ember.computed.oneWay("model.name"),
+    companyName: Ember.computed.oneWay("model.companyName"),
     address: Ember.computed.oneWay("model.address"),
     vatin: Ember.computed.oneWay("model.vatin"),
 

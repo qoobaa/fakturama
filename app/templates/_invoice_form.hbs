@@ -1,251 +1,255 @@
-<div {{bind-attr class=":form-group errors.number.firstObject:has-error"}}>
-  <label for="invoice-number" class="col-xs-3 control-label">
-    Numer
-  </label>
-  <div class="col-xs-3">
-    {{input valueBinding="number" class="form-control" id="invoice-number"}}
-  </div>
-  <div class="col-xs-6">
-    <span class="help-block">{{errors.number.firstObject}}</span>
-  </div>
-</div>
+<fieldset>
+  <legend>Faktura</legend>
 
-<div {{bind-attr class=":form-group errors.issueDate.firstObject:has-error"}}>
-  <label for="invoice-issue-date" class="col-xs-3 control-label">
-    Data wystawienia
-  </label>
-  <div class="col-xs-3">
-    {{input type="date" valueBinding="issueDate" class="form-control" id="invoice-issue-date"}}
-  </div>
-  <div class="col-xs-6">
-    <span class="help-block">{{errors.issueDate.firstObject}}</span>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="col-xs-9 col-xs-offset-3">
-    <div class="checkbox">
-      <label>
-        {{input type="checkbox" checkedBinding="isIssueDelivery"}}
-        Data dostawy towarów lub wykonania usługi jest taka sama jak data wystawienia
-      </label>
-    </div>
-  </div>
-</div>
-
-<div {{bind-attr class=":form-group errors.deliveryDate.firstObject:has-error isIssueDelivery:hide"}}>
-  <label for="invoice-delivery-date" class="col-xs-3 control-label">
-    Data dostawy towarów lub wykonania usługi
-  </label>
-  <div class="col-xs-3">
-    {{input type="date" valueBinding="deliveryDate" class="form-control" id="invoice-delivery-date"}}
-  </div>
-  <div class="col-xs-6">
-    <span class="help-block">{{errors.deliveryDate.firstObject}}</span>
-  </div>
-</div>
-
-<div {{bind-attr class=":form-group errors.dueDays.firstObject:has-error"}}>
-  <label class="control-label col-xs-3" for="invoice-due-days">
-    Termin płatności
-  </label>
-  <div class="col-xs-3">
-    <div class="input-group">
-      {{input type="number" class="form-control text-right" valueBinding="dueDays" id="invoice-due-days" min="0"}}
-      <span class="input-group-addon">dni</span>
-    </div>
-  </div>
-  <div class="col-xs-6">
-    <span class="help-block">{{errors.dueDays.firstObject}}</span>
-  </div>
-</div>
-
-<div {{bind-attr class=":form-group errors.currency.firstObject:has-error"}}>
-  <label class="control-label col-xs-3" for="invoice-currency">
-    Waluta
-  </label>
-  <div class="col-xs-3">
-    {{view Ember.Select class="form-control" contentBinding="currencies.content" optionValuePath="content.code" optionLabelPath="content.nameWithCode" valueBinding="currencyCode" id="invoice-currency"}}
-  </div>
-  <div class="col-xs-6">
-    <span class="help-block">{{errors.currency.firstObject}}</span>
-  </div>
-</div>
-
-{{#if isExchanging}}
-  <div {{bind-attr class=":form-group errors.exchangeDate.firstObject:has-error"}}>
-    <label for="invoice-exchange-date" class="col-xs-3 control-label">
-      Data publikacji tabeli kursów walut obcych
+  <div {{bind-attr class=":form-group errors.number.firstObject:has-error"}}>
+    <label for="invoice-number" class="col-xs-3 control-label">
+      Numer
     </label>
     <div class="col-xs-3">
-      {{input type="date" valueBinding="exchangeDate" class="form-control" id="invoice-exchange-date" disabled="disabled"}}
+      {{input valueBinding="number" class="form-control" id="invoice-number"}}
     </div>
     <div class="col-xs-6">
-      {{#if exchangeRate.isLoading}}
-        <span class="help-block text-muted">
-          Trwa ładowanie tabeli kursów walut obcych, proszę czekać…
-        </span>
-      {{/if}}
+      <span class="help-block">{{errors.number.firstObject}}</span>
     </div>
   </div>
-{{/if}}
 
-<div {{bind-attr class=":form-group errors.language.firstObject:has-error"}}>
-  <label class="control-label col-xs-3" for="invoice-language">
-    Wersja językowa
-  </label>
-  <div class="col-xs-3">
-    {{view Ember.Select class="form-control" contentBinding="languages.content" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="languageCode" id="invoice-language"}}
-  </div>
-  <div class="col-xs-6">
-    <span class="help-block">{{errors.language.firstObject}}</span>
-  </div>
-</div>
-
-<div class="row">
-  <div {{bind-attr class=":col-xs-6 errors.seller.firstObject:has-error"}}>
-    <label class="control-label" for="invoice-seller">
-      Sprzedawca
+  <div {{bind-attr class=":form-group errors.issueDate.firstObject:has-error"}}>
+    <label for="invoice-issue-date" class="col-xs-3 control-label">
+      Data wystawienia
     </label>
-    <span class="help-block" style="display: inline;">{{errors.seller.firstObject}}</span>
-    {{textarea class="form-control" rows="4" valueBinding="seller" id="invoice-seller"}}
+    <div class="col-xs-3">
+      {{input type="date" valueBinding="issueDate" class="form-control" id="invoice-issue-date"}}
+    </div>
+    <div class="col-xs-6">
+      <span class="help-block">{{errors.issueDate.firstObject}}</span>
+    </div>
   </div>
 
-  <div {{bind-attr class=":col-xs-6 errors.buyer.firstObject:has-error"}}>
-    <label class="control-label" for="invoice-buyer">
-      Nabywca
+  <div class="form-group">
+    <div class="col-xs-9 col-xs-offset-3">
+      <div class="checkbox">
+        <label>
+          {{input type="checkbox" checkedBinding="isIssueDelivery"}}
+          Data dostawy towarów lub wykonania usługi jest taka sama jak data wystawienia
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div {{bind-attr class=":form-group errors.deliveryDate.firstObject:has-error isIssueDelivery:hide"}}>
+    <label for="invoice-delivery-date" class="col-xs-3 control-label">
+      Data dostawy towarów lub wykonania usługi
     </label>
-    <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
-    {{textarea class="form-control" rows="4" valueBinding="buyer" id="invoice-buyer"}}
+    <div class="col-xs-3">
+      {{input type="date" valueBinding="deliveryDate" class="form-control" id="invoice-delivery-date"}}
+    </div>
+    <div class="col-xs-6">
+      <span class="help-block">{{errors.deliveryDate.firstObject}}</span>
+    </div>
   </div>
-</div>
 
-<br>
+  <div {{bind-attr class=":form-group errors.dueDays.firstObject:has-error"}}>
+    <label class="control-label col-xs-3" for="invoice-due-days">
+      Termin płatności
+    </label>
+    <div class="col-xs-3">
+      <div class="input-group">
+        {{input type="number" class="form-control text-right" valueBinding="dueDays" id="invoice-due-days" min="0"}}
+        <span class="input-group-addon">dni</span>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <span class="help-block">{{errors.dueDays.firstObject}}</span>
+    </div>
+  </div>
 
-<table class="table table-striped table-condensed">
-  <tr>
-    <th class="col-xs-4">
-      Nazwa
-    </th>
-    <th class="text-right">
-      Liczba
-    </th>
-    <th class="text-right col-xs-1">
-      J.m.
-    </th>
-    <th class="text-right">
-      Cena netto
-    </th>
-    <th class="text-right">
-      Wartość netto
-    </th>
-    <th class="text-right col-xs-1">
-      Stawka VAT
-    </th>
-    <th class="text-right">
-      Wartość VAT
-    </th>
-    <th class="text-right">
-      Wartość brutto
-    </th>
-    <th></th>
-  </tr>
-  {{#each item in items}}
+  <div {{bind-attr class=":form-group errors.currency.firstObject:has-error"}}>
+    <label class="control-label col-xs-3" for="invoice-currency">
+      Waluta
+    </label>
+    <div class="col-xs-3">
+      {{view Ember.Select class="form-control" contentBinding="currencies.content" optionValuePath="content.code" optionLabelPath="content.nameWithCode" valueBinding="currencyCode" id="invoice-currency"}}
+    </div>
+    <div class="col-xs-6">
+      <span class="help-block">{{errors.currency.firstObject}}</span>
+    </div>
+  </div>
+
+  {{#if isExchanging}}
+    <div {{bind-attr class=":form-group errors.exchangeDate.firstObject:has-error"}}>
+      <label for="invoice-exchange-date" class="col-xs-3 control-label">
+        Data publikacji tabeli kursów walut obcych
+      </label>
+      <div class="col-xs-3">
+        {{input type="date" valueBinding="exchangeDate" class="form-control" id="invoice-exchange-date" disabled="disabled"}}
+      </div>
+      <div class="col-xs-6">
+        {{#if exchangeRate.isLoading}}
+          <span class="help-block text-muted">
+            Trwa ładowanie tabeli kursów walut obcych, proszę czekać…
+          </span>
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+
+  <div {{bind-attr class=":form-group errors.language.firstObject:has-error"}}>
+    <label class="control-label col-xs-3" for="invoice-language">
+      Wersja językowa
+    </label>
+    <div class="col-xs-3">
+      {{view Ember.Select class="form-control" contentBinding="languages.content" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="languageCode" id="invoice-language"}}
+    </div>
+    <div class="col-xs-6">
+      <span class="help-block">{{errors.language.firstObject}}</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div {{bind-attr class=":col-xs-6 errors.seller.firstObject:has-error"}}>
+      <label class="control-label" for="invoice-seller">
+        Sprzedawca
+      </label>
+      <span class="help-block" style="display: inline;">{{errors.seller.firstObject}}</span>
+      {{textarea class="form-control" rows="5" valueBinding="seller" id="invoice-seller"}}
+    </div>
+
+    <div {{bind-attr class=":col-xs-6 errors.buyer.firstObject:has-error"}}>
+      <label class="control-label" for="invoice-buyer">
+        Nabywca
+      </label>
+      <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
+      {{textarea class="form-control" rows="5" valueBinding="buyer" id="invoice-buyer"}}
+    </div>
+  </div>
+
+  <br>
+
+  <table class="table table-striped table-condensed">
     <tr>
-      <td {{bind-attr class=":form-group item.errors.description.firstObject:has-error"}}>
-        {{input class="form-control" valueBinding="item.description"}}
-      </td>
-      <td {{bind-attr class=":form-group :text-right item.errors.quantity.firstObject:has-error"}}>
-        {{view "number-field" numberBinding="item.quantity" class="form-control text-right"}}
-      </td>
-      <td {{bind-attr class=":form-group :text-right item.errors.unit.firstObject:has-error"}}>
-        {{view Ember.Select class="form-control" contentBinding="units" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.unitCode"}}
-      </td>
-      <td {{bind-attr class=":form-group :text-right item.errors.netPrice.firstObject:has-error"}}>
-        {{view "cents-field" centsBinding="item.netPrice" class="form-control text-right"}}
-      </td>
-      <td {{bind-attr class=":form-group :text-right item.errors.netAmount.firstObject:has-error"}}>
-        {{view "cents-field" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled"}}
-      </td>
-      <td {{bind-attr class=":form-group :text-right item.errors.taxRateCode.firstObject:has-error"}}>
-        {{view Ember.Select class="form-control" contentBinding="taxRates" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.taxRateCode"}}
-      </td>
-      <td {{bind-attr class=":form-group :text-right item.errors.taxAmount.firstObject:has-error"}}>
-        {{view "cents-field" centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled"}}
-      </td>
-      <td {{bind-attr class=":form-group :text-right item.errors.grossAmount.firstObject:has-error"}}>
-        {{view "cents-field" centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled"}}
-      </td>
-      <td>
-        <button class="btn btn-remove" {{action "removeItem" item}} {{bind-attr disabled="isRemoveItemDisabled"}}><strong>×</strong></button>
-      </td>
+      <th class="col-xs-4">
+        Nazwa
+      </th>
+      <th class="text-right">
+        Liczba
+      </th>
+      <th class="text-right col-xs-1">
+        J.m.
+      </th>
+      <th class="text-right">
+        Cena netto
+      </th>
+      <th class="text-right">
+        Wartość netto
+      </th>
+      <th class="text-right col-xs-1">
+        Stawka VAT
+      </th>
+      <th class="text-right">
+        Wartość VAT
+      </th>
+      <th class="text-right">
+        Wartość brutto
+      </th>
+      <th></th>
     </tr>
-  {{/each}}
-  <tr>
-    <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
-  </tr>
-  <tr>
-    <th class="text-right" colspan="4">
-      Razem
-    </th>
-    <td class="text-right">
-      {{format-cents totalNetAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
-    </td>
-    <td></td>
-    <td class="text-right">
-      {{format-cents totalTaxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
-    </td>
-    <td class="text-right">
-      {{format-cents totalGrossAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
-    </td>
-    <td></td>
-  </tr>
-  {{#each subTotal in subTotals}}
+    {{#each item in items}}
+      <tr>
+        <td {{bind-attr class=":form-group item.errors.description.firstObject:has-error"}}>
+          {{input class="form-control" valueBinding="item.description"}}
+        </td>
+        <td {{bind-attr class=":form-group :text-right item.errors.quantity.firstObject:has-error"}}>
+          {{view "number-field" numberBinding="item.quantity" class="form-control text-right"}}
+        </td>
+        <td {{bind-attr class=":form-group :text-right item.errors.unit.firstObject:has-error"}}>
+          {{view Ember.Select class="form-control" contentBinding="units" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.unitCode"}}
+        </td>
+        <td {{bind-attr class=":form-group :text-right item.errors.netPrice.firstObject:has-error"}}>
+          {{view "cents-field" centsBinding="item.netPrice" class="form-control text-right" precisionBinding="currency.precision"}}
+        </td>
+        <td {{bind-attr class=":form-group :text-right item.errors.netAmount.firstObject:has-error"}}>
+          {{view "cents-field" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+        </td>
+        <td {{bind-attr class=":form-group :text-right item.errors.taxRateCode.firstObject:has-error"}}>
+          {{view Ember.Select class="form-control" contentBinding="taxRates" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.taxRateCode"}}
+        </td>
+        <td {{bind-attr class=":form-group :text-right item.errors.taxAmount.firstObject:has-error"}}>
+          {{view "cents-field" centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+        </td>
+        <td {{bind-attr class=":form-group :text-right item.errors.grossAmount.firstObject:has-error"}}>
+          {{view "cents-field" centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+        </td>
+        <td>
+          <button class="btn btn-remove" {{action "removeItem" item}} {{bind-attr disabled="isRemoveItemDisabled"}}><strong>×</strong></button>
+        </td>
+      </tr>
+    {{/each}}
+    <tr>
+      <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
+    </tr>
     <tr>
       <th class="text-right" colspan="4">
-        W tym
+        Razem
       </th>
       <td class="text-right">
-        {{format-cents subTotal.netAmount}}&nbsp;<small class="text-muted">{{../currency.code}}</small>
+        {{format-cents totalNetAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+      </td>
+      <td></td>
+      <td class="text-right">
+        {{format-cents totalTaxAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
       </td>
       <td class="text-right">
-        {{subTotal.taxRate.name}}
-      </td>
-      <td class="text-right">
-        {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{../currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
-      </td>
-      <td class="text-right">
-        {{format-cents subTotal.grossAmount}}&nbsp;<small class="text-muted">{{../currency.code}}</small>
+        {{format-cents totalGrossAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{currency.code}}</small>
       </td>
       <td></td>
     </tr>
-  {{/each}}
-</table>
+    {{#each subTotal in subTotals}}
+      <tr class="subtotal">
+        <th class="text-right" colspan="4">
+          W tym
+        </th>
+        <td class="text-right">
+          {{format-cents subTotal.netAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{../currency.code}}</small>
+        </td>
+        <td class="text-right">
+          {{subTotal.taxRate.name}}
+        </td>
+        <td class="text-right">
+          {{format-cents subTotal.taxAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{../currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
+        </td>
+        <td class="text-right">
+          {{format-cents subTotal.grossAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{../currency.code}}</small>
+        </td>
+        <td></td>
+      </tr>
+    {{/each}}
+  </table>
 
-<div class="row">
-  <div class="col-xs-12">
-    <p>
-      Słownie: {{totalGrossAmountInWords}}
-    </p>
+  <div class="row">
+    <div class="col-xs-12">
+      <p>
+        Słownie: {{totalGrossAmountInWords}}
+      </p>
+    </div>
   </div>
-</div>
 
-<div class="form-group">
-  <div class="col-xs-12">
-    <label for="invoice-comment">
-      Uwagi
-    </label>
-    {{textarea class="form-control" rows="4" valueBinding="comment" id="invoice-comment"}}
+  <div class="form-group">
+    <div class="col-xs-12">
+      <label for="invoice-comment">
+        Uwagi
+      </label>
+      {{textarea class="form-control" rows="4" valueBinding="comment" id="invoice-comment"}}
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-xs-6">
-    {{input class="form-control text-center" valueBinding="sellerSignature" id="sellerSignature"}}
-    <label for="sellerSignature">Podpis wystawiającego</label>
+  <div class="row">
+    <div class="col-xs-6">
+      {{input class="form-control text-center" valueBinding="sellerSignature" id="sellerSignature"}}
+      <label for="sellerSignature">Podpis wystawiającego</label>
+    </div>
+    <div class="col-xs-6">
+      {{input class="form-control text-center" valueBinding="buyerSignature" id="buyerSignature"}}
+      <label for="buyerSignature">Podpis nabywcy</label>
+    </div>
   </div>
-  <div class="col-xs-6">
-    {{input class="form-control text-center" valueBinding="buyerSignature" id="buyerSignature"}}
-    <label for="buyerSignature">Podpis nabywcy</label>
-  </div>
-</div>
+</fieldset>

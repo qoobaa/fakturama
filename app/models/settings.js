@@ -5,6 +5,7 @@ var Settings = Ember.Model.extend({
     companyName: Ember.attr(),
     address: Ember.attr(),
     vatin: Ember.attr(),
+    contactName: Ember.attr(),
 
     seller: function () {
         return [this.get("companyName"), this.get("address"), "NIP / VATIN: " + this.get("vatin")].join("\n");
