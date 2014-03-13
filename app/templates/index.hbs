@@ -1,3 +1,5 @@
 <p>
-  Nothing to see here <strong>yet</strong>. Move along.
+  {{#unless controllers.currentUser.isSignedIn}}
+    Aby skorzystać z aplikacji <strong>musisz się zalogować</strong>.
+  {{/if}}
 </p>
