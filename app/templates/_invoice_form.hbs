@@ -81,7 +81,7 @@
       {{input type="date" valueBinding="exchangeDate" class="form-control" id="invoice-exchange-date" disabled="disabled"}}
     </div>
     <div class="col-xs-6">
-      {{#if controllers.exchangeRate.isLoading}}
+      {{#if exchangeRate.isLoading}}
         <span class="help-block text-muted">
           Trwa ładowanie tabeli kursów walut obcych, proszę czekać…
         </span>
