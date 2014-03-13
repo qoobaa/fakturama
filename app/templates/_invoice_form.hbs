@@ -116,11 +116,9 @@
 
     <div {{bind-attr class=":col-xs-6 errors.buyer.firstObject:has-error"}}>
       <div class="dropdown" style="display: inline;">
-        <a data-toggle="dropdown" href="javascript:;">
-          <label class="control-label" for="invoice-buyer">
-            Nabywca <span class="caret"></span>
-          </label>
-        </a>
+        <label data-toggle="dropdown" class="control-label" for="invoice-buyer">
+          Nabywca <span class="caret"></span>
+        </label>
         <ul class="dropdown-menu" role="menu">
           {{#each client in clients}}
             <li><a href="javascript:;" {{action "chooseClient" client}}>{{client.companyName}}</a></li>
