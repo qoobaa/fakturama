@@ -1,5 +1,7 @@
 <h1>
-  <strong>Faktura {{#if isEnglish}}/ Invoice{{/if}}</strong>
+  <strong>
+    Faktura {{#if isEnglish}}/ Invoice{{/if}}
+  </strong>
 </h1>
 
 <br>
@@ -246,5 +248,12 @@
       <p class="text-center signature">{{buyerSignature}}</p>
       <p>Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</p>
     {{/if}}
+  </div>
+</div>
+
+<div class="row hidden-print">
+  <div class="col-xs-12 text-right">
+    {{link-to "Edytuj" "invoice.edit" model.model class="btn btn-warning"}}
+    <a href="javascript:window.print()" class="btn btn-default">Drukuj</a>
   </div>
 </div>

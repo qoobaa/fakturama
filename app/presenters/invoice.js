@@ -73,26 +73,6 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
         }.bind(this));
     }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.taxRate", "isExchanging", "exchangeRate", "exchangeDivisor"),
 
-    sellerFirstLine: function () {
-        return this.getWithDefault("seller", "").split("\n")[0];
-    }.property("seller"),
-
-    sellerRest: function () {
-        return this.getWithDefault("seller", "").split("\n").slice(1);
-    }.property("seller"),
-
-    buyerFirstLine: function () {
-        return this.getWithDefault("buyer", "").split("\n")[0];
-    }.property("buyer"),
-
-    buyerRest: function () {
-        return this.getWithDefault("buyer", "").split("\n").slice(1);
-    }.property("buyer"),
-
-    commentLines: function () {
-        return this.getWithDefault("comment", "").split("\n");
-    }.property("comment"),
-
     totalGrossAmountInWords: function () {
         var dollars, cents,
             amount = String(this.get("totalGrossAmount"));

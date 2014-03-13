@@ -16,7 +16,27 @@ var Invoice = Ember.Model.extend({
     buyerSignature: Ember.attr(String),
     exchangeRate: Ember.attr(Number),
     exchangeDate: Ember.attr(String),
-    exchangeDivisor: Ember.attr(Number)
+    exchangeDivisor: Ember.attr(Number),
+
+    sellerFirstLine: function () {
+        return this.getWithDefault("seller", "").split("\n")[0];
+    }.property("seller"),
+
+    sellerRest: function () {
+        return this.getWithDefault("seller", "").split("\n").slice(1);
+    }.property("seller"),
+
+    buyerFirstLine: function () {
+        return this.getWithDefault("buyer", "").split("\n")[0];
+    }.property("buyer"),
+
+    buyerRest: function () {
+        return this.getWithDefault("buyer", "").split("\n").slice(1);
+    }.property("buyer"),
+
+    commentLines: function () {
+        return this.getWithDefault("comment", "").split("\n");
+    }.property("comment")
 });
 
 Invoice.reopenClass({

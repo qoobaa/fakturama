@@ -26,7 +26,7 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
             this.set("isSubmitted", true);
 
             this.get("content").save().then(function () {
-                controller.transitionToRoute("invoices");
+                controller.transitionToRoute("invoice.show", controller.get("model.model"));
             });
         },
 
