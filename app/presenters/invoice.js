@@ -7,7 +7,7 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
     model: Ember.computed.alias("content"),
 
     items: function () {
-        return this.getWithDefault("model.itemAttributes", []).map(function (itemAttributes) {
+        return this.getWithDefault("model.itemsAttributes", []).map(function (itemAttributes) {
             return ItemPresenter.create({ model: Item.create(itemAttributes) });
         });
     }.property("model.itemsAttributes", "model.itemsAttributes.@each"),
