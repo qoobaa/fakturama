@@ -2,7 +2,7 @@
   {{#each invoice in model}}
     <li>
       {{#link-to "invoice.show" invoice}}
-        Faktura nr {{invoice.number}} z dnia {{invoice.issueDate}} dla {{invoice.buyerFirstLine}}
+        {{invoice.number}} z dnia {{invoice.issueDate}} dla {{invoice.buyerFirstLine}}
       {{/link-to}}
     </li>
   {{/each}}
