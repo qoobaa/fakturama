@@ -49,12 +49,19 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     buyer: Ember.computed.oneWay("model.buyer"),
     currencyCode: Ember.computed.oneWay("model.currencyCode"),
     languageCode: Ember.computed.oneWay("model.languageCode"),
-    items: Ember.computed.map("model.itemsAttributes", function (itemAttributes) {
-        return ItemForm.create({ model: Item.create(itemAttributes), invoiceForm: this });
-    }),
+
+    items: function () {
+        var invoiceForm = this;
+
+        return this.getWithDefault("model.itemsAttributes", []).map(function (itemAttributes) {
+            return ItemForm.create({ model: Item.create(itemAttributes), invoiceForm: invoiceForm });
+        });
+    }.property("model.itemsAttributes", "model.itemsAttributes.@each"),
+
     itemsAttributes: function () {
         return this.get("items").invoke("toJSON");
     }.property("items", "items.@each"),
+
     comment: Ember.computed.oneWay("model.comment"),
     sellerSignature: Ember.computed.oneWay("model.sellerSignature"),
     buyerSignature: Ember.computed.oneWay("model.buyerSignature"),
@@ -103,12 +110,6 @@ var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
     addItem: function () {
         this.get("items").pushObject(ItemForm.create({ invoiceForm: this, model: Item.create({ quantity: 0, netPrice: 0 }) }));
     },
-
-    modelDidChange: function () {
-        if (this.get("items.length") === 0) {
-            this.addItem();
-        }
-    }.observes("model").on("init"),
 
     validate: function () {
         return Ember.RSVP.Promise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));

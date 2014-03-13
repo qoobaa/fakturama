@@ -14,6 +14,7 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
     }.property("items.@each"),
 
     modelDidChange: function () {
+        this.get("model").addItem();
         this.set("seller", this.get("settings.seller"));
         this.set("sellerSignature", this.get("settings.contactName"));
     }.observes("model"),

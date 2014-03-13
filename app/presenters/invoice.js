@@ -6,9 +6,11 @@ import Language from "faktura/models/language";
 var InvoicePresenter = Ember.ObjectProxy.extend({
     model: Ember.computed.alias("content"),
 
-    items: Ember.computed.map("model.itemsAttributes", function (itemAttributes) {
-        return ItemPresenter.create({ model: Item.create(itemAttributes) });
-    }),
+    items: function () {
+        return this.getWithDefault("model.itemAttributes", []).map(function (itemAttributes) {
+            return ItemPresenter.create({ model: Item.create(itemAttributes) });
+        });
+    }.property("model.itemsAttributes", "model.itemsAttributes.@each"),
 
     currency: function () {
         var code = this.get("currencyCode");
@@ -20,20 +22,29 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
         return code && Language.find(code);
     }.property("languageCode"),
 
-    netAmounts: Ember.computed.mapBy("items", "netAmount"),
-    totalNetAmount: Ember.computed.sum("netAmounts"),
+    totalNetAmount: function () {
+        return this.get("items").reduce(function (previousValue, item) {
+            return previousValue + item.get("netAmount");
+        }, 0);
+    }.property("items", "items.@each.netAmount"),
 
-    taxAmounts: Ember.computed.mapBy("items", "taxAmount"),
-    totalTaxAmount: Ember.computed.sum("taxAmounts"),
+    totalTaxAmount: function () {
+        return this.get("items").reduce(function (previousValue, item) {
+            return previousValue + item.get("taxAmount");
+        }, 0);
+    }.property("items", "items.@each.taxAmount"),
+
+    totalGrossAmount: function () {
+        return this.get("items").reduce(function (previousValue, item) {
+            return previousValue + item.get("grossAmount");
+        }, 0);
+    }.property("items", "items.@each.grossAmount"),
 
     totalTaxAmountPLN: function () {
         if (this.get("isExchanging")) {
             return Math.round(this.get("totalTaxAmount") * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000));
         }
     }.property("totalTaxAmount", "exchangeRate", "exchangeDivisor", "isExchanging"),
-
-    grossAmounts: Ember.computed.mapBy("items", "grossAmount"),
-    totalGrossAmount: Ember.computed.sum("grossAmounts"),
 
     subTotals: function () {
         return this.get("items").mapBy("taxRate").uniq().map(function (taxRate) {
