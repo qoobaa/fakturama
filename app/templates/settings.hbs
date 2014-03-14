@@ -55,6 +55,22 @@
     </div>
   </fieldset>
 
+  <fieldset>
+    <legend>Inne</legend>
+
+    <div class="form-group" {{bind-attr class="errors.numerationType.firstObject:has-error"}}>
+      <label for="settings-numeration-type" class="col-sm-2 control-label">
+        Typ numeracji
+      </label>
+      <div class="col-sm-5">
+        {{view Ember.Select class="form-control" contentBinding="numerationTypes.content" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="numerationTypeCode" id="settings-numeration-type"}}
+      </div>
+      <div class="col-sm-5">
+        <span class="help-block">{{errors.numerationType.firstObject}}</span>
+      </div>
+    </div>
+  </fieldset>
+
   <div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
       <button type="submit" class="btn btn-primary" {{action "save"}} {{bind-attr disabled="model.isSaving"}}>Zapisz</button>

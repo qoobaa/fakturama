@@ -1,4 +1,6 @@
 var SettingsController = Ember.ObjectController.extend({
+    numerationTypes: null,
+
     actions: {
         save: function () {
             var controller = this;

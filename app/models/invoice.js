@@ -36,7 +36,15 @@ var Invoice = Ember.Model.extend({
 
     commentLines: function () {
         return this.getWithDefault("comment", "").split("\n");
-    }.property("comment")
+    }.property("comment"),
+
+    periodNumber: function () {
+        return this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[2];
+    }.property("number"),
+
+    periodicalNumber: function () {
+        return parseInt(this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[1], 10) || 0;
+    }.property("number")
 });
 
 Invoice.reopenClass({

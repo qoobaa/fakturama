@@ -16,7 +16,8 @@ var InvoicesNewRoute = Ember.Route.extend({
             languages: Language.fetch(),
             units: Unit.fetch(),
             settings: Settings.fetch(),
-            clients: Client.fetch()
+            clients: Client.fetch(),
+            invoices: Invoice.fetch()
         });
     },
 

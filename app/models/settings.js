@@ -6,6 +6,7 @@ var Settings = Ember.Model.extend({
     address: Ember.attr(),
     vatin: Ember.attr(),
     contactName: Ember.attr(),
+    numerationTypeCode: Ember.attr(),
 
     seller: function () {
         var parts = [this.get("companyName"), this.get("address")];
