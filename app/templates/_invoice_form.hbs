@@ -147,16 +147,16 @@
       <th class="text-right">
         Cena netto
       </th>
-      <th class="text-right">
+      <th class="text-right hidden-xs">
         Wartość netto
       </th>
       <th class="text-right col-sm-1">
         Stawka VAT
       </th>
-      <th class="text-right">
+      <th class="text-right hidden-xs">
         Wartość VAT
       </th>
-      <th class="text-right">
+      <th class="text-right hidden-xs">
         Wartość brutto
       </th>
       <th></th>
@@ -175,16 +175,16 @@
         <td {{bind-attr class=":form-group :text-right item.errors.netPrice.firstObject:has-error"}}>
           {{view "cents-field" centsBinding="item.netPrice" class="form-control text-right" precisionBinding="currency.precision"}}
         </td>
-        <td {{bind-attr class=":form-group :text-right item.errors.netAmount.firstObject:has-error"}}>
+        <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.netAmount.firstObject:has-error"}}>
           {{view "cents-field" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
         </td>
         <td {{bind-attr class=":form-group :text-right item.errors.taxRateCode.firstObject:has-error"}}>
           {{view Ember.Select class="form-control" contentBinding="taxRates" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.taxRateCode"}}
         </td>
-        <td {{bind-attr class=":form-group :text-right item.errors.taxAmount.firstObject:has-error"}}>
+        <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.taxAmount.firstObject:has-error"}}>
           {{view "cents-field" centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
         </td>
-        <td {{bind-attr class=":form-group :text-right item.errors.grossAmount.firstObject:has-error"}}>
+        <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.grossAmount.firstObject:has-error"}}>
           {{view "cents-field" centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
         </td>
         <td>
@@ -195,7 +195,7 @@
     <tr>
       <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
     </tr>
-    <tr>
+    <tr class="hidden-xs">
       <th class="text-right" colspan="4">
         Razem
       </th>
@@ -212,7 +212,7 @@
       <td></td>
     </tr>
     {{#each subTotal in subTotals}}
-      <tr class="subtotal">
+      <tr class="subtotal hidden-xs">
         <th class="text-right" colspan="4">
           W tym
         </th>
