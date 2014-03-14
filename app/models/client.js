@@ -15,7 +15,7 @@ var Client = Ember.Model.extend({
             parts.push("NIP / VATIN: " + this.get("vatin"));
         }
 
-        return parts.join("\n");
+        return parts.join("\n").trim();
     }.property("companyName", "address", "vatin")
 });
 

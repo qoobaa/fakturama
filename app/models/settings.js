@@ -8,7 +8,13 @@ var Settings = Ember.Model.extend({
     contactName: Ember.attr(),
 
     seller: function () {
-        return [this.get("companyName"), this.get("address"), "NIP / VATIN: " + this.get("vatin")].join("\n");
+        var parts = [this.get("companyName"), this.get("address")];
+
+        if (this.get("vatin")) {
+            parts.push("NIP / VATIN: " + this.get("vatin"));
+        }
+
+        return parts.join("\n").trim();
     }.property("companyName", "address", "vatin")
 });
 

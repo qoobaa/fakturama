@@ -2,31 +2,31 @@
   <legend>Faktura</legend>
 
   <div {{bind-attr class=":form-group errors.number.firstObject:has-error"}}>
-    <label for="invoice-number" class="col-xs-3 control-label">
+    <label for="invoice-number" class="col-sm-3 control-label">
       Numer
     </label>
-    <div class="col-xs-3">
+    <div class="col-sm-3">
       {{input valueBinding="number" class="form-control" id="invoice-number"}}
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <span class="help-block">{{errors.number.firstObject}}</span>
     </div>
   </div>
 
   <div {{bind-attr class=":form-group errors.issueDate.firstObject:has-error"}}>
-    <label for="invoice-issue-date" class="col-xs-3 control-label">
+    <label for="invoice-issue-date" class="col-sm-3 control-label">
       Data wystawienia
     </label>
-    <div class="col-xs-3">
+    <div class="col-sm-3">
       {{input type="date" valueBinding="issueDate" class="form-control" id="invoice-issue-date"}}
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <span class="help-block">{{errors.issueDate.firstObject}}</span>
     </div>
   </div>
 
   <div class="form-group">
-    <div class="col-xs-9 col-xs-offset-3">
+    <div class="col-sm-9 col-sm-offset-3">
       <div class="checkbox">
         <label>
           {{input type="checkbox" checkedBinding="isIssueDelivery"}}
@@ -37,53 +37,53 @@
   </div>
 
   <div {{bind-attr class=":form-group errors.deliveryDate.firstObject:has-error isIssueDelivery:hide"}}>
-    <label for="invoice-delivery-date" class="col-xs-3 control-label">
+    <label for="invoice-delivery-date" class="col-sm-3 control-label">
       Data dostawy towarów lub wykonania usługi
     </label>
-    <div class="col-xs-3">
+    <div class="col-sm-3">
       {{input type="date" valueBinding="deliveryDate" class="form-control" id="invoice-delivery-date"}}
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <span class="help-block">{{errors.deliveryDate.firstObject}}</span>
     </div>
   </div>
 
   <div {{bind-attr class=":form-group errors.dueDays.firstObject:has-error"}}>
-    <label class="control-label col-xs-3" for="invoice-due-days">
+    <label class="control-label col-sm-3" for="invoice-due-days">
       Termin płatności
     </label>
-    <div class="col-xs-3">
+    <div class="col-sm-3">
       <div class="input-group">
         {{input type="number" class="form-control text-right" valueBinding="dueDays" id="invoice-due-days" min="0"}}
         <span class="input-group-addon">dni</span>
       </div>
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <span class="help-block">{{errors.dueDays.firstObject}}</span>
     </div>
   </div>
 
   <div {{bind-attr class=":form-group errors.currency.firstObject:has-error"}}>
-    <label class="control-label col-xs-3" for="invoice-currency">
+    <label class="control-label col-sm-3" for="invoice-currency">
       Waluta
     </label>
-    <div class="col-xs-3">
+    <div class="col-sm-3">
       {{view Ember.Select class="form-control" contentBinding="currencies.content" optionValuePath="content.code" optionLabelPath="content.nameWithCode" valueBinding="currencyCode" id="invoice-currency"}}
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <span class="help-block">{{errors.currency.firstObject}}</span>
     </div>
   </div>
 
   {{#if isExchanging}}
     <div {{bind-attr class=":form-group errors.exchangeDate.firstObject:has-error"}}>
-      <label for="invoice-exchange-date" class="col-xs-3 control-label">
+      <label for="invoice-exchange-date" class="col-sm-3 control-label">
         Data publikacji tabeli kursów walut obcych
       </label>
-      <div class="col-xs-3">
+      <div class="col-sm-3">
         {{input type="date" valueBinding="exchangeDate" class="form-control" id="invoice-exchange-date" disabled="disabled"}}
       </div>
-      <div class="col-xs-6">
+      <div class="col-sm-6">
         {{#if exchangeRate.isLoading}}
           <span class="help-block text-muted">
             Trwa ładowanie tabeli kursów walut obcych, proszę czekać…
@@ -94,19 +94,19 @@
   {{/if}}
 
   <div {{bind-attr class=":form-group errors.language.firstObject:has-error"}}>
-    <label class="control-label col-xs-3" for="invoice-language">
+    <label class="control-label col-sm-3" for="invoice-language">
       Wersja językowa
     </label>
-    <div class="col-xs-3">
+    <div class="col-sm-3">
       {{view Ember.Select class="form-control" contentBinding="languages.content" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="languageCode" id="invoice-language"}}
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <span class="help-block">{{errors.language.firstObject}}</span>
     </div>
   </div>
 
   <div class="row">
-    <div {{bind-attr class=":col-xs-6 errors.seller.firstObject:has-error"}}>
+    <div {{bind-attr class=":col-sm-6 errors.seller.firstObject:has-error"}}>
       <label class="control-label" for="invoice-seller">
         Sprzedawca
       </label>
@@ -114,7 +114,7 @@
       {{textarea class="form-control" rows="5" valueBinding="seller" id="invoice-seller"}}
     </div>
 
-    <div {{bind-attr class=":col-xs-6 errors.buyer.firstObject:has-error"}}>
+    <div {{bind-attr class=":col-sm-6 errors.buyer.firstObject:has-error"}}>
       <div class="dropdown" style="display: inline;">
         <label data-toggle="dropdown" class="control-label" for="invoice-buyer">
           Nabywca <span class="caret"></span>
@@ -135,13 +135,13 @@
 
   <table class="table table-striped table-condensed">
     <tr>
-      <th class="col-xs-4">
+      <th class="col-sm-4">
         Nazwa
       </th>
       <th class="text-right">
         Liczba
       </th>
-      <th class="text-right col-xs-1">
+      <th class="text-right col-sm-1">
         J.m.
       </th>
       <th class="text-right">
@@ -150,7 +150,7 @@
       <th class="text-right">
         Wartość netto
       </th>
-      <th class="text-right col-xs-1">
+      <th class="text-right col-sm-1">
         Stawka VAT
       </th>
       <th class="text-right">
@@ -234,7 +234,7 @@
   </table>
 
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <p>
         Słownie: {{totalGrossAmountInWords}}
       </p>
@@ -242,7 +242,7 @@
   </div>
 
   <div class="form-group">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
       <label for="invoice-comment">
         Uwagi
       </label>
@@ -251,11 +251,11 @@
   </div>
 
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       {{input class="form-control text-center" valueBinding="sellerSignature" id="sellerSignature"}}
       <label for="sellerSignature">Podpis wystawiającego</label>
     </div>
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       {{input class="form-control text-center" valueBinding="buyerSignature" id="buyerSignature"}}
       <label for="buyerSignature">Podpis nabywcy</label>
     </div>
