@@ -9,7 +9,7 @@ var Client = Ember.Model.extend({
     contactEmail: Ember.attr(),
 
     gravatarURL: function () {
-        return "//www.gravatar.com/avatar/" + md5(this.getWithDefault("contactEmail", "")) + "?d=mm";
+        return "//www.gravatar.com/avatar/" + window.md5(this.getWithDefault("contactEmail", "")) + "?d=mm";
     }.property("md5_hash"),
 
     buyer: function () {

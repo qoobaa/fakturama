@@ -19,11 +19,17 @@ var User = Ember.Object.extend({
         var model = this,
             firebase = new window.Firebase(window.ENV.FIREBASE_URL);
 
+        window.Firebase.goOnline();
+
         return new Ember.RSVP.Promise(function (resolve, reject) {
             new window.FirebaseSimpleLogin(firebase, function (error, user) {
                 if (error) {
+                    window.Firebase.goOffline();
+
                     reject(error);
                 } else if (user) {
+                    window.Firebase.goOffline();
+
                     model.setProperties(model.constructor.blankProperties);
                     model.setProperties(user);
                     resolve(model);
@@ -36,8 +42,12 @@ var User = Ember.Object.extend({
         var model = this,
             firebase = new window.Firebase(window.ENV.FIREBASE_URL);
 
+        window.Firebase.goOnline();
+
         return new Ember.RSVP.Promise(function (resolve, reject) {
             new window.FirebaseSimpleLogin(firebase, function (error, user) {
+                window.Firebase.goOffline();
+
                 if (error) {
                     reject(error);
                 } else {
@@ -64,8 +74,12 @@ User.reopenClass({
         var userClass = this,
             firebase = new window.Firebase(window.ENV.FIREBASE_URL);
 
+        window.Firebase.goOnline();
+
         return new Ember.RSVP.Promise(function (resolve, reject) {
             new window.FirebaseSimpleLogin(firebase, function (error, user) {
+                window.Firebase.goOffline();
+
                 if (error) {
                     reject(error);
                 } else {
