@@ -8,6 +8,10 @@ var Client = Ember.Model.extend({
     contactName: Ember.attr(),
     contactEmail: Ember.attr(),
 
+    gravatarURL: function () {
+        return "//www.gravatar.com/avatar/" + md5(this.getWithDefault("contactEmail", "")) + "?d=mm";
+    }.property("md5_hash"),
+
     buyer: function () {
         var parts = [this.get("companyName"), this.get("address")];
 

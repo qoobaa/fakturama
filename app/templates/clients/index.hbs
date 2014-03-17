@@ -1,7 +1,15 @@
-<ul>
+<ul class="media-list">
   {{#each client in controller}}
-    <li>
-      {{link-to client.companyName "client.edit" client}}
+    <li class="media">
+      {{#link-to "client.edit" client class="pull-left"}}
+        <img height="36" class="img-circle pull-left" {{bind-attr src="client.gravatarURL"}}>
+      {{/link-to}}
+      <div class="media-body">
+        <h4 class="media-heading">
+          {{link-to client.contactName "client.edit" client}}
+        </h4>
+        <p>{{client.companyName}}</p>
+      </div>
     </li>
   {{/each}}
 </ul>
