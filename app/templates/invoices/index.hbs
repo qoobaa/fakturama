@@ -1,5 +1,5 @@
 <ul>
-  {{#each invoice in model}}
+  {{#each invoice in controller}}
     <li>
       {{#link-to "invoice.show" invoice}}
         {{invoice.number}} z dnia {{invoice.issueDate}} dla {{invoice.buyerFirstLine}}
