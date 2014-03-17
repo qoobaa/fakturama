@@ -17,7 +17,10 @@ var Invoice = Ember.Model.extend(InvoicePropertiesMixin, {
     buyerSignature: Ember.attr(String),
     exchangeRate: Ember.attr(Number),
     exchangeDate: Ember.attr(String),
-    exchangeDivisor: Ember.attr(Number)
+    exchangeDivisor: Ember.attr(Number),
+    accountBankName: Ember.attr(String),
+    accountSwift: Ember.attr(String),
+    accountNumber: Ember.attr(String)
 });
 
 Invoice.reopenClass({

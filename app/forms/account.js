@@ -1,20 +1,8 @@
-var SettingsForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
+var AccountForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
     model: Ember.computed.alias("content"),
 
     validations: {
-        companyName: {
-            presence: {
-                if: "isSubmitted",
-                message: "nie może być pusta"
-            }
-        },
-        address: {
-            presence: {
-                if: "isSubmitted",
-                message: "nie może być pusty"
-            }
-        },
-        vatin: {
+        number: {
             presence: {
                 if: "isSubmitted",
                 message: "nie może być pusty"
@@ -23,9 +11,10 @@ var SettingsForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
     },
 
     id: Ember.computed.oneWay("model.id"),
-    companyName: Ember.computed.oneWay("model.companyName"),
-    address: Ember.computed.oneWay("model.address"),
-    vatin: Ember.computed.oneWay("model.vatin"),
+    bankName: Ember.computed.oneWay("model.bankName"),
+    swift: Ember.computed.oneWay("model.swift"),
+    number: Ember.computed.oneWay("model.number"),
+    description: Ember.computed.oneWay("model.description"),
 
     save: function () {
         var form = this,
@@ -42,4 +31,4 @@ var SettingsForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
     }
 });
 
-export default SettingsForm;
+export default AccountForm;

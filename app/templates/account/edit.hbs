@@ -1,0 +1,12 @@
+<form class="form-horizontal">
+  {{partial "account_form"}}
+
+  <div class="form-group">
+    <div class="col-sm-10 col-sm-offset-2">
+      <button type="submit" class="btn btn-primary" {{action "saveRecord"}} {{bind-attr disabled="model.isSaving"}}>Zapisz rachunek bankowy</button>
+      <button type="button" class="btn btn-danger" {{action "deleteRecord"}} {{bind-attr disabled="model.isSaving"}}>Usuń rachunek bankowy</button>
+      {{link-to "Anuluj" "accounts" class="btn btn-default" activeClass=null}}
+    </div>
+  </div>
+</form>
+

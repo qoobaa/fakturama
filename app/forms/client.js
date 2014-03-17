@@ -3,10 +3,16 @@ var ClientForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
 
     validations: {
         companyName: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusta"
+            }
         },
         address: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusty"
+            }
         }
     },
 

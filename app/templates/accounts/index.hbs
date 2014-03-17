@@ -1,0 +1,9 @@
+<ul>
+  {{#each account in model}}
+    <li>
+      {{link-to account.name "account.edit" account}}
+    </li>
+  {{/each}}
+</ul>
+
+{{link-to "Dodaj nowy rachunek bankowy" "accounts.new" class="btn btn-success" active=null}}

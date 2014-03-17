@@ -221,6 +221,29 @@
   </div>
 </div>
 
+{{#if accountNumber}}
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>
+        <strong>Płatność{{#if isEnglish}} / Payment{{/if}}</strong>
+      </h4>
+      {{#if accountBankName}}
+        <p>
+          <strong>{{accountBankName}}</strong>
+        </p>
+      {{/if}}
+      {{#if accountSwift}}
+        <p>
+          SWIFT: <strong>{{accountSwift}}</strong>
+        </p>
+      {{/if}}
+      <p>
+        IBAN: <strong>{{accountNumber}}</strong>
+      </p>
+    </div>
+  </div>
+{{/if}}
+
 {{#if comment}}
   <div class="row">
     <div class="col-xs-12">
@@ -253,8 +276,8 @@
 
 <div class="row hidden-print">
   <div class="col-xs-12 text-right">
-    <a href="javascript:window.print()" class="btn btn-primary">Drukuj</a>
-    {{link-to "Edytuj" "invoice.edit" model class="btn btn-warning"}}
+    <a href="javascript:window.print()" class="btn btn-primary">Drukuj fakturę</a>
+    {{link-to "Edytuj fakturę" "invoice.edit" model class="btn btn-warning"}}
     {{link-to "Anuluj" "invoices" class="btn btn-default" active=null}}
   </div>
 </div>

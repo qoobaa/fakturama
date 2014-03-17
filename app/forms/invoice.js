@@ -9,35 +9,64 @@ var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePrope
 
     validations: {
         number: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusty"
+            }
         },
         issueDate: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusta"
+            }
         },
         deliveryDate: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusta"
+            }
         },
         dueDays: {
-            presence: { if: "isSubmitted" },
-            numericality: { if: "isSubmitted", greaterThanOrEqualTo: 0 }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusta"
+            },
+            numericality: {
+                if: "isSubmitted",
+                greaterThanOrEqualTo: 0,
+                message: "nie może być ujemny"
+            }
         },
         seller: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusty"
+            }
         },
         buyer: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusty"
+            }
         },
         currencyCode: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusta"
+            }
         },
         languageCode: {
-            presence: { if: "isSubmitted" }
+            presence: {
+                if: "isSubmitted",
+                message: "nie może być pusta"
+            }
         },
         exchangeDate: {
             presence: {
                 if: function (invoice) {
                     return invoice.get("isSubmitted") && invoice.get("isExchanging");
-                }
+                },
+                message: "nie może być pusta"
             }
         }
     },
@@ -50,6 +79,9 @@ var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePrope
     buyer: Ember.computed.oneWay("model.buyer"),
     currencyCode: Ember.computed.oneWay("model.currencyCode"),
     languageCode: Ember.computed.oneWay("model.languageCode"),
+    accountBankName: Ember.computed.oneWay("model.accountBankName"),
+    accountSwift: Ember.computed.oneWay("model.accountSwift"),
+    accountNumber: Ember.computed.oneWay("model.accountNumber"),
 
     items: function () {
         var invoiceForm = this;

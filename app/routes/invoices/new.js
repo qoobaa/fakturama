@@ -6,6 +6,7 @@ import Language from "faktura/models/language";
 import Unit from "faktura/models/unit";
 import Settings from "faktura/models/settings";
 import Client from "faktura/models/client";
+import Account from "faktura/models/account";
 
 var InvoicesNewRoute = Ember.Route.extend({
     model: function () {
@@ -17,6 +18,7 @@ var InvoicesNewRoute = Ember.Route.extend({
             units: Unit.fetch(),
             settings: Settings.fetch(),
             clients: Client.fetch(),
+            accounts: Account.fetch(),
             invoices: Invoice.fetch()
         });
     },

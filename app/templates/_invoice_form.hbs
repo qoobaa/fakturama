@@ -241,6 +241,58 @@
     </div>
   </div>
 
+
+  <div class="form-group">
+    <div class="col-sm-12">
+      <div class="dropdown" style="display: inline;">
+        <label data-toggle="dropdown" class="control-label">
+          Płatność <span class="caret"></span>
+        </label>
+        <ul class="dropdown-menu" role="menu">
+          {{#each account in accounts}}
+            <li><a href="javascript:;" {{action "chooseAccount" account}}>{{account.name}}</a></li>
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div {{bind-attr class=":form-group errors.accountBankName.firstObject:has-error"}}>
+    <label for="invoice-account-bank-name" class="col-sm-3 control-label">
+      Nazwa banku
+    </label>
+    <div class="col-sm-3">
+      {{input class="form-control" valueBinding="accountBankName" id="invoice-account-bank-name"}}
+    </div>
+    <div class="col-sm-6">
+      <span class="help-block">{{errors.accountBankName.firstObject}}</span>
+    </div>
+  </div>
+
+  <div {{bind-attr class=":form-group errors.accountSwift.firstObject:has-error"}}>
+    <label for="invoice-account-swift" class="col-sm-3 control-label">
+      SWIFT
+    </label>
+    <div class="col-sm-3">
+      {{input class="form-control" valueBinding="accountSwift" id="invoice-account-swift"}}
+    </div>
+    <div class="col-sm-6">
+      <span class="help-block">{{errors.accountSwift.firstObject}}</span>
+    </div>
+  </div>
+
+  <div {{bind-attr class=":form-group errors.accountNumber.firstObject:has-error"}}>
+    <label for="invoice-account-number" class="col-sm-3 control-label">
+      Numer rachunku
+    </label>
+    <div class="col-sm-3">
+      {{input class="form-control" valueBinding="accountNumber" id="invoice-account-number"}}
+    </div>
+    <div class="col-sm-6">
+      <span class="help-block">{{errors.accountNumber.firstObject}}</span>
+    </div>
+  </div>
+
   <div class="form-group">
     <div class="col-sm-12">
       <label for="invoice-comment">

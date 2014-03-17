@@ -8,6 +8,13 @@ Router.map(function () {
         });
     });
 
+    this.resource("accounts", function () {
+        this.route("new");
+        this.resource("account", { path: "/:account_id" }, function () {
+            this.route("edit");
+        });
+    });
+
     this.resource("invoices", function () {
         this.route("new");
         this.resource("invoice", { path: "/:invoice_id" }, function () {
