@@ -1,6 +1,8 @@
-import ItemPresenter from "faktura/presenters/item";
+import ItemPropertiesMixin from "faktura/lib/item_properties_mixin";
 
-var ItemForm = ItemPresenter.extend(Ember.Validations.Mixin, {
+var ItemForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, ItemPropertiesMixin, {
+    model: Ember.computed.alias("content"),
+
     validations: {
         description: {
             presence: { if: "invoiceForm.isSubmitted" }

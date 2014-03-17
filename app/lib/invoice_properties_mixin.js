@@ -1,16 +1,41 @@
 import Item from "faktura/models/item";
-import ItemPresenter from "faktura/presenters/item";
 import Currency from "faktura/models/currency";
 import Language from "faktura/models/language";
 
-var InvoicePresenter = Ember.ObjectProxy.extend({
-    model: Ember.computed.alias("content"),
+var InvoicePropertiesMixin = Ember.Mixin.create({
+    sellerFirstLine: function () {
+        return this.getWithDefault("seller", "").split("\n")[0];
+    }.property("seller"),
+
+    sellerRest: function () {
+        return this.getWithDefault("seller", "").split("\n").slice(1);
+    }.property("seller"),
+
+    buyerFirstLine: function () {
+        return this.getWithDefault("buyer", "").split("\n")[0];
+    }.property("buyer"),
+
+    buyerRest: function () {
+        return this.getWithDefault("buyer", "").split("\n").slice(1);
+    }.property("buyer"),
+
+    commentLines: function () {
+        return this.getWithDefault("comment", "").split("\n");
+    }.property("comment"),
+
+    periodNumber: function () {
+        return this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[2];
+    }.property("number"),
+
+    periodicalNumber: function () {
+        return parseInt(this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[1], 10) || 0;
+    }.property("number"),
 
     items: function () {
-        return this.getWithDefault("model.itemsAttributes", []).map(function (itemAttributes) {
-            return ItemPresenter.create({ model: Item.create(itemAttributes) });
+        return this.getWithDefault("itemsAttributes", []).map(function (itemAttributes) {
+            return Item.create(itemAttributes);
         });
-    }.property("model.itemsAttributes", "model.itemsAttributes.@each"),
+    }.property("itemsAttributes", "itemsAttributes.@each"),
 
     currency: function () {
         var code = this.get("currencyCode");
@@ -105,4 +130,4 @@ var InvoicePresenter = Ember.ObjectProxy.extend({
     }.property("currencyCode", "issueDate", "totalTaxAmount")
 });
 
-export default InvoicePresenter;
+export default InvoicePropertiesMixin;

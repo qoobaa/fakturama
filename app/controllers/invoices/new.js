@@ -2,6 +2,8 @@ import ItemForm from "faktura/forms/item";
 import ExchangeRateMixin from "faktura/lib/exchange_rate_mixin";
 
 var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
+    form: Ember.computed.alias("content"),
+
     settings: null,
     currencies: null,
     taxRates: null,
@@ -43,7 +45,7 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
             this.set("isSubmitted", true);
 
             this.get("content").save().then(function () {
-                controller.transitionToRoute("invoice.show", controller.get("model.model"));
+                controller.transitionToRoute("invoice.show", controller.get("form.model"));
             });
         },
 

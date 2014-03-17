@@ -1,6 +1,6 @@
-import ClientPresenter from "faktura/presenters/client";
+var ClientForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
+    model: Ember.computed.alias("content"),
 
-var ClientForm = ClientPresenter.extend(Ember.Validations.Mixin, {
     validations: {
         companyName: {
             presence: { if: "isSubmitted" }

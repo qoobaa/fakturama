@@ -1,9 +1,7 @@
 import Unit from "faktura/models/unit";
 import TaxRate from "faktura/models/tax_rate";
 
-var ItemPresenter = Ember.ObjectProxy.extend({
-    model: Ember.computed.alias("content"),
-
+var ItemPropertiesMixin = Ember.Mixin.create({
     netAmount: function (key, value) {
         return Math.round(this.get("netPrice") * this.get("quantity"));
     }.property("netPrice", "quantity"),
@@ -29,4 +27,4 @@ var ItemPresenter = Ember.ObjectProxy.extend({
     }.property("taxRateCode")
 });
 
-export default ItemPresenter;
+export default ItemPropertiesMixin;

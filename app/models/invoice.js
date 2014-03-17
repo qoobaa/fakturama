@@ -1,6 +1,7 @@
 import FirebaseAdapter from "faktura/adapters/firebase";
+import InvoicePropertiesMixin from "faktura/lib/invoice_properties_mixin";
 
-var Invoice = Ember.Model.extend({
+var Invoice = Ember.Model.extend(InvoicePropertiesMixin, {
     id: Ember.attr(String),
     itemsAttributes: Ember.attr(Array),
     number: Ember.attr(String),
@@ -16,35 +17,7 @@ var Invoice = Ember.Model.extend({
     buyerSignature: Ember.attr(String),
     exchangeRate: Ember.attr(Number),
     exchangeDate: Ember.attr(String),
-    exchangeDivisor: Ember.attr(Number),
-
-    sellerFirstLine: function () {
-        return this.getWithDefault("seller", "").split("\n")[0];
-    }.property("seller"),
-
-    sellerRest: function () {
-        return this.getWithDefault("seller", "").split("\n").slice(1);
-    }.property("seller"),
-
-    buyerFirstLine: function () {
-        return this.getWithDefault("buyer", "").split("\n")[0];
-    }.property("buyer"),
-
-    buyerRest: function () {
-        return this.getWithDefault("buyer", "").split("\n").slice(1);
-    }.property("buyer"),
-
-    commentLines: function () {
-        return this.getWithDefault("comment", "").split("\n");
-    }.property("comment"),
-
-    periodNumber: function () {
-        return this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[2];
-    }.property("number"),
-
-    periodicalNumber: function () {
-        return parseInt(this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[1], 10) || 0;
-    }.property("number")
+    exchangeDivisor: Ember.attr(Number)
 });
 
 Invoice.reopenClass({

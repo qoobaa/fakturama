@@ -1,11 +1,12 @@
-import InvoicePresenter from "faktura/presenters/invoice";
+import InvoicePropertiesMixin from "faktura/lib/invoice_properties_mixin";
 import Item from "faktura/models/item";
-import ItemPresenter from "faktura/presenters/item";
 import ItemForm from "faktura/forms/item";
 import Currency from "faktura/models/currency";
 import Language from "faktura/models/language";
 
-var InvoiceForm = InvoicePresenter.extend(Ember.Validations.Mixin, {
+var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePropertiesMixin, {
+    model: Ember.computed.alias("content"),
+
     validations: {
         number: {
             presence: { if: "isSubmitted" }

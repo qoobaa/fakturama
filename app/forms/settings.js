@@ -1,6 +1,6 @@
-import SettingsPresenter from "faktura/presenters/settings";
+var SettingsForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
+    model: Ember.computed.alias("content"),
 
-var SettingsForm = SettingsPresenter.extend(Ember.Validations.Mixin, {
     validations: {
         companyName: {
             presence: { if: "isSubmitted" }

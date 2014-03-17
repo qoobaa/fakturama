@@ -1,4 +1,6 @@
-var Item = Ember.Model.extend({
+import ItemPropertiesMixin from "faktura/lib/item_properties_mixin";
+
+var Item = Ember.Model.extend(ItemPropertiesMixin, {
     description: Ember.attr(String),
     quantity: Ember.attr(Number),
     netPrice: Ember.attr(Number),
