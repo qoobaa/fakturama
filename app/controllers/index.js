@@ -1,5 +1,5 @@
 var IndexController = Ember.Controller.extend({
-    needs: ["currentUser"]
+    needs: ["application"]
 });
 
 export default IndexController;

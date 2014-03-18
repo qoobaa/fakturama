@@ -2,6 +2,8 @@ import ItemForm from "faktura/forms/item";
 import ExchangeRateMixin from "faktura/lib/exchange_rate_mixin";
 
 var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
+    needs: ["application"],
+
     form: Ember.computed.alias("content"),
 
     settings: null,

@@ -1,10 +1,14 @@
 var User = Ember.Object.extend({
+    isAnonymous: function () {
+        return this.get("provider") === "anonymous";
+    }.property("email"),
+
     gravatarURL: function () {
         return "//www.gravatar.com/avatar/" + this.getWithDefault("md5_hash", "") + "?d=mm";
     }.property("md5_hash"),
 
     name: function () {
-        return this.get("displayName") || this.get("email");
+        return this.get("displayName") || this.get("email") || "gość";
     }.property("displayName", "email"),
 
     firebaseAuthTokenDidChange: function () {
@@ -19,22 +23,17 @@ var User = Ember.Object.extend({
         var model = this,
             firebase = new window.Firebase(window.ENV.FIREBASE_URL);
 
-        window.Firebase.goOnline();
-
         return new Ember.RSVP.Promise(function (resolve, reject) {
             new window.FirebaseSimpleLogin(firebase, function (error, user) {
                 if (error) {
-                    window.Firebase.goOffline();
-
                     reject(error);
-                } else if (user) {
-                    window.Firebase.goOffline();
-
-                    model.setProperties(model.constructor.blankProperties);
-                    model.setProperties(user);
-                    resolve(model);
+                } else if (user && user.provider === method) {
+                    resolve(user);
                 }
             }).login(method);
+        }).then(function (user) {
+            model.setProperties($.extend({}, model.constructor.blankProperties, user));
+            return model;
         });
     },
 
@@ -42,19 +41,16 @@ var User = Ember.Object.extend({
         var model = this,
             firebase = new window.Firebase(window.ENV.FIREBASE_URL);
 
-        window.Firebase.goOnline();
-
         return new Ember.RSVP.Promise(function (resolve, reject) {
             new window.FirebaseSimpleLogin(firebase, function (error, user) {
-                window.Firebase.goOffline();
-
                 if (error) {
                     reject(error);
                 } else {
-                    model.setProperties(model.constructor.blankProperties);
-                    resolve(model);
+                    resolve(user);
                 }
             }).logout();
+        }).then(function (user) {
+            return model.login("anonymous");
         });
     }
 });
@@ -71,21 +67,23 @@ User.reopenClass({
     },
 
     fetch: function () {
-        var userClass = this,
+        var model = this.create(),
             firebase = new window.Firebase(window.ENV.FIREBASE_URL);
-
-        window.Firebase.goOnline();
 
         return new Ember.RSVP.Promise(function (resolve, reject) {
             new window.FirebaseSimpleLogin(firebase, function (error, user) {
-                window.Firebase.goOffline();
-
                 if (error) {
                     reject(error);
                 } else {
-                    resolve(userClass.create(user));
+                    resolve(user);
                 }
             });
+        }).then(function (user) {
+            if (!user.email) {
+                return model.login("anonymous");
+            } else {
+                return model.setProperties(user);
+            }
         });
     }
 });

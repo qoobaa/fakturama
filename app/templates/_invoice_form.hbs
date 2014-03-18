@@ -120,9 +120,18 @@
           Nabywca <span class="caret"></span>
         </label>
         <ul class="dropdown-menu" role="menu">
-          {{#each client in clients}}
-            <li><a href="javascript:;" {{action "chooseClient" client}}>{{client.companyName}}</a></li>
-          {{/each}}
+          {{#if clients.firstObject}}
+            {{#each client in clients}}
+              <li><a href="javascript:;" {{action "chooseClient" client}}>{{client.companyName}}</a></li>
+            {{/each}}
+          {{else}}
+            <li class="text-center text-muted">
+              {{#if controllers.application.user.isAnonymous}}
+                zaloguj się i
+              {{/if}}
+              dodaj nowego klienta w zakładce <em>klienci</em>, aby skorzystać z autouzupełniania
+            </li>
+          {{/if}}
         </ul>
       </div>
       <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
@@ -249,9 +258,18 @@
           Płatność <span class="caret"></span>
         </label>
         <ul class="dropdown-menu" role="menu">
-          {{#each account in accounts}}
-            <li><a href="javascript:;" {{action "chooseAccount" account}}>{{account.name}}</a></li>
-          {{/each}}
+          {{#if accounts.firstObject}}
+            {{#each account in accounts}}
+              <li><a href="javascript:;" {{action "chooseAccount" account}}>{{account.name}}</a></li>
+            {{/each}}
+          {{else}}
+            <li class="text-center text-muted">
+              {{#if controllers.application.user.isAnonymous}}
+                zaloguj się i
+              {{/if}}
+              dodaj nowy rachunek w zakładce <em>rachunki bankowe</em>, aby&nbsp;skorzystać z autouzupełniania
+            </li>
+          {{/if}}
         </ul>
       </div>
     </div>

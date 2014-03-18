@@ -1,5 +1,10 @@
-<p>
-  {{#unless controllers.currentUser.isSignedIn}}
-    Aby skorzystać z aplikacji <strong>musisz się zalogować</strong>.
-  {{/unless}}
-</p>
+{{#if controllers.application.user.isAnonymous}}
+  <p>
+    Korzystasz z aplikacji jako <strong>gość</strong>. Dostęp do
+    wprowadzonych danych zostanie utracony po zamknięciu okna
+    przeglądarki lub <strong>zalogowaniu się</strong>. <br>
+
+    Niektóre funkcje aplikacji dostępne są wyłącznie po
+    <strong>zalogowaniu się</strong>.
+  </p>
+{{/if}}

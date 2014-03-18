@@ -1,11 +1,11 @@
 var ApplicationController = Ember.Controller.extend({
-    needs: ["currentUser"],
+    user: Ember.computed.alias("model"),
 
     actions: {
         signIn: function (method) {
             var controller = this;
 
-            this.get("controllers.currentUser.content").login(method).then(function () {
+            this.get("user").login(method).then(function () {
                 controller.transitionToRoute("index");
             });
         },
@@ -13,7 +13,7 @@ var ApplicationController = Ember.Controller.extend({
         signOut: function () {
             var controller = this;
 
-            this.get("controllers.currentUser.content").logout().then(function () {
+            this.get("user").logout().then(function () {
                 controller.transitionToRoute("index");
             });
         }
