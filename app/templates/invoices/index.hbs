@@ -1,11 +1,30 @@
-<ul>
+<table class="table table-striped">
+  <tr>
+    <th>Numer</th>
+    <th class="text-center">Data wystawienia</th>
+    <th>Nabywca</th>
+    <th class="text-right">Kwota brutto</th>
+    <th></th>
+  </tr>
   {{#each invoice in controller}}
-    <li>
-      {{#link-to "invoice.show" invoice}}
-        {{invoice.number}} z dnia {{invoice.issueDate}} dla {{invoice.buyerFirstLine}}
-      {{/link-to}}
-    </li>
+    <tr>
+      <td>
+        {{invoice.number}}
+      </td>
+      <td class="text-center">
+        {{invoice.issueDate}}
+      </td>
+      <td>
+        {{invoice.buyerFirstLine}}
+      </td>
+      <td class="text-right">
+        {{format-cents invoice.totalGrossAmount}}&nbsp;<small class="text-muted">{{invoice.currencyCode}}</small>{{#if invoice.isForeignCurrency}}<br>{{format-cents invoice.totalGrossAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
+      </td>
+      <td class="text-right">
+        {{link-to "Podgląd" "invoice.show" invoice}}
+      </td>
+    </tr>
   {{/each}}
-</ul>
+</table>
 
 {{link-to "Utwórz nową fakturę" "invoices.new" class="btn btn-success" active=null}}

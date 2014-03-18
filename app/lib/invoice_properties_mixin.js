@@ -31,6 +31,31 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
         return parseInt(this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[1], 10) || 0;
     }.property("number"),
 
+    monthName: function () {
+        var issueDate = Date.parse(this.get("issueDate"));
+
+        if (!isNaN(issueDate)) {
+            return [
+                "styczeń", "luty", "marzec",
+                "kwiecień", "maj", "czerwiec",
+                "lipiec", "sierpień", "wrzesień",
+                "październik", "listopad", "grudzień"
+            ][new Date(issueDate).getMonth()];
+        }
+    }.property("issueDate"),
+
+    year: function () {
+        var issueDate = Date.parse(this.get("issueDate"));
+
+        if (!isNaN(issueDate)) {
+            return new Date(issueDate).getFullYear().toString();
+        }
+    }.property("issueDate"),
+
+    monthNameAndYear: function () {
+        return [this.get("monthName"), this.get("year")].join(" ");
+    }.property("monthName", "year"),
+
     items: function () {
         return this.getWithDefault("itemsAttributes", []).map(function (itemAttributes) {
             return Item.create(itemAttributes);
@@ -70,6 +95,14 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
             return Math.round(this.get("totalTaxAmount") * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000));
         }
     }.property("totalTaxAmount", "exchangeRate", "exchangeDivisor", "isExchanging"),
+
+    totalGrossAmountPLN: function () {
+        if (this.get("isForeignCurrency")) {
+            return Math.round(this.get("totalGrossAmount") * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000));
+        } else {
+            return this.get("totalGrossAmount");
+        }
+    }.property("totalGrossAmount", "exchangeRate", "exchangeDivisor", "isForeignCurrency"),
 
     subTotals: function () {
         return this.get("items").mapBy("taxRate").uniq().map(function (taxRate) {
@@ -122,12 +155,16 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
         return this.get("languageCode") === "plen";
     }.property("languageCode"),
 
+    isForeignCurrency: function () {
+        return this.get("currencyCode") !== "PLN";
+    }.property("currencyCode"),
+
     isExchanging: function () {
         return !!this.get("currencyCode") &&
             !!this.get("issueDate") &&
             !!this.get("totalTaxAmount") &&
-            this.get("currencyCode") !== "PLN";
-    }.property("currencyCode", "issueDate", "totalTaxAmount")
+            this.get("isForeignCurrency");
+    }.property("isForeignCurrency", "issueDate", "totalTaxAmount")
 });
 
 export default InvoicePropertiesMixin;
