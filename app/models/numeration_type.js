@@ -7,8 +7,8 @@ NumerationType.reopenClass({
     adapter: Ember.FixtureAdapter.create(),
     primaryKey: "code",
     FIXTURES: [
-        {code: "month", name: "miesięczny"},
-        {code: "year", name: "roczny"}
+        { code: "month", name: "miesięczny" },
+        { code: "year", name: "roczny" }
     ]
 });
 

@@ -36,6 +36,11 @@ Settings.reopenClass({
         }
 
         return this._super.call(this, id);
+    },
+
+    clearCache: function () {
+        this._super.apply(this, arguments);
+        this._findAllRecordArray = undefined;
     }
 });
 

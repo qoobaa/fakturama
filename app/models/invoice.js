@@ -25,7 +25,12 @@ var Invoice = Ember.Model.extend(InvoicePropertiesMixin, {
 
 Invoice.reopenClass({
     url: "invoices",
-    adapter: FirebaseAdapter.create()
+    adapter: FirebaseAdapter.create(),
+
+    clearCache: function () {
+        this._super.apply(this, arguments);
+        this._findAllRecordArray = undefined;
+    }
 });
 
 export default Invoice;

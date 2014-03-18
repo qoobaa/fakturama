@@ -25,7 +25,12 @@ var Client = Ember.Model.extend({
 
 Client.reopenClass({
     url: "clients",
-    adapter: FirebaseAdapter.create()
+    adapter: FirebaseAdapter.create(),
+
+    clearCache: function () {
+        this._super.apply(this, arguments);
+        this._findAllRecordArray = undefined;
+    }
 });
 
 export default Client;

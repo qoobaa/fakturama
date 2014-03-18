@@ -18,7 +18,12 @@ var Account = Ember.Model.extend({
 
 Account.reopenClass({
     url: "accounts",
-    adapter: FirebaseAdapter.create()
+    adapter: FirebaseAdapter.create(),
+
+    clearCache: function () {
+        this._super.apply(this, arguments);
+        this._findAllRecordArray = undefined;
+    }
 });
 
 export default Account;
