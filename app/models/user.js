@@ -82,7 +82,8 @@ User.reopenClass({
             if (!user.email) {
                 return model.login("anonymous");
             } else {
-                return model.setProperties(user);
+                model.setProperties(user);
+                return model;
             }
         });
     }
