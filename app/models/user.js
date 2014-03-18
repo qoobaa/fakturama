@@ -79,11 +79,11 @@ User.reopenClass({
                 }
             });
         }).then(function (user) {
-            if (!user) {
-                return model.login("anonymous");
-            } else {
+            if (user) {
                 model.setProperties(user);
                 return model;
+            } else {
+                return model.login("anonymous");
             }
         });
     }
