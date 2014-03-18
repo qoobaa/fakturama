@@ -60,7 +60,7 @@
 
     <div class="form-group" {{bind-attr class="errors.numerationType.firstObject:has-error"}}>
       <label for="settings-numeration-type" class="col-sm-2 control-label">
-        Typ numeracji
+        Typ numeracji faktur
       </label>
       <div class="col-sm-5">
         {{view Ember.Select class="form-control" contentBinding="numerationTypes.content" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="numerationTypeCode" id="settings-numeration-type"}}
