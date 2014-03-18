@@ -47,6 +47,19 @@
   </div>
 </nav>
 
+{{#if user.isAnonymous}}
+  <div class="container">
+    <div class="alert alert-warning">
+      Korzystasz z aplikacji jako <strong>gość</strong>. Dostęp do
+      wprowadzonych danych zostanie utracony po zamknięciu okna
+      przeglądarki lub <strong>zalogowaniu się</strong>. <br>
+
+      Niektóre funkcje aplikacji dostępne są wyłącznie po
+      <strong>zalogowaniu się</strong>.
+    </div>
+  </div>
+{{/if}}
+
 <div class="container">
   {{outlet}}
 </div>

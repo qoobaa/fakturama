@@ -8,7 +8,7 @@ var User = Ember.Object.extend({
     }.property("md5_hash"),
 
     name: function () {
-        return this.get("displayName") || this.get("email") || "gość";
+        return this.get("displayName") || this.get("email") || "Gość";
     }.property("displayName", "email"),
 
     firebaseAuthTokenDidChange: function () {

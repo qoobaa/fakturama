@@ -5,6 +5,7 @@ import Settings from "faktura/models/settings";
 
 var ApplicationController = Ember.Controller.extend({
     user: Ember.computed.alias("model"),
+    hideWarning: true,
 
     clearCache: function () {
         [Account, Client, Invoice, Settings].invoke("clearCache");
