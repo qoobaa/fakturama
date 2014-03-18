@@ -82,6 +82,7 @@ var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePrope
     accountBankName: Ember.computed.oneWay("model.accountBankName"),
     accountSwift: Ember.computed.oneWay("model.accountSwift"),
     accountNumber: Ember.computed.oneWay("model.accountNumber"),
+    isPaid: Ember.computed.oneWay("model.isPaid"),
 
     items: function () {
         var invoiceForm = this;

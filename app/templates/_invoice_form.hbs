@@ -209,14 +209,14 @@
         Razem
       </th>
       <td class="text-right">
-        {{format-cents totalNetAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+        {{format-cents totalNetAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>
       </td>
       <td></td>
       <td class="text-right">
-        {{format-cents totalTaxAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
+        {{format-cents totalTaxAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
       </td>
       <td class="text-right">
-        {{format-cents totalGrossAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+        {{format-cents totalGrossAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>
       </td>
       <td></td>
     </tr>
@@ -226,16 +226,16 @@
           W tym
         </th>
         <td class="text-right">
-          {{format-cents subTotal.netAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{../currency.code}}</small>
+          {{format-cents subTotal.netAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>
         </td>
         <td class="text-right">
           {{subTotal.taxRate.name}}
         </td>
         <td class="text-right">
-          {{format-cents subTotal.taxAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{../currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
+          {{format-cents subTotal.taxAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
         </td>
         <td class="text-right">
-          {{format-cents subTotal.grossAmount precisionBinding="currency.precision"}}&nbsp;<small class="text-muted">{{../currency.code}}</small>
+          {{format-cents subTotal.grossAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>
         </td>
         <td></td>
       </tr>

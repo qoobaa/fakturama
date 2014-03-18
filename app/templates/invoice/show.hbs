@@ -149,12 +149,12 @@
       </td>
       <td class="text-right">
         <p>
-          {{format-cents item.netPrice}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+          {{format-cents item.netPrice}}&nbsp;<small>{{currency.code}}</small>
         </p>
       </td>
       <td class="text-right">
         <p>
-          {{format-cents item.netAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+          {{format-cents item.netAmount}}&nbsp;<small>{{currency.code}}</small>
         </p>
       </td>
       <td class="text-right">
@@ -162,12 +162,12 @@
       </td>
       <td class="text-right">
         <p>
-          {{format-cents item.taxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+          {{format-cents item.taxAmount}}&nbsp;<small>{{currency.code}}</small>
         </p>
       </td>
       <td class="text-right">
         <p>
-          {{format-cents item.grossAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+          {{format-cents item.grossAmount}}&nbsp;<small>{{currency.code}}</small>
         </p>
       </td>
     </tr>
@@ -177,14 +177,14 @@
       Razem{{#if isEnglish}} / Total{{/if}}
     </th>
     <td class="text-right">
-      {{format-cents totalNetAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+      {{format-cents totalNetAmount}}&nbsp;<small>{{currency.code}}</small>
     </td>
     <td></td>
     <td class="text-right">
-      {{format-cents totalTaxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
+      {{format-cents totalTaxAmount}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
     </td>
     <td class="text-right">
-      {{format-cents totalGrossAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+      {{format-cents totalGrossAmount}}&nbsp;<small>{{currency.code}}</small>
     </td>
   </tr>
   {{#each subTotal in subTotals}}
@@ -193,16 +193,16 @@
         W tym{{#if isEnglish}} / Including{{/if}}
       </th>
       <td class="text-right">
-        {{format-cents subTotal.netAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+        {{format-cents subTotal.netAmount}}&nbsp;<small>{{currency.code}}</small>
       </td>
       <td class="text-right">
         {{subTotal.taxRate.name}}{{#if isEnglish}}<br>{{subTotal.taxRate.nameEN}}{{/if}}
       </td>
       <td class="text-right">
-        {{format-cents subTotal.taxAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small class="text-muted">PLN</small>{{/if}}
+        {{format-cents subTotal.taxAmount}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
       </td>
       <td class="text-right">
-        {{format-cents subTotal.grossAmount}}&nbsp;<small class="text-muted">{{currency.code}}</small>
+        {{format-cents subTotal.grossAmount}}&nbsp;<small>{{currency.code}}</small>
       </td>
     </tr>
   {{/each}}

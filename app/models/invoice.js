@@ -20,7 +20,8 @@ var Invoice = Ember.Model.extend(InvoicePropertiesMixin, {
     exchangeDivisor: Ember.attr(Number),
     accountBankName: Ember.attr(String),
     accountSwift: Ember.attr(String),
-    accountNumber: Ember.attr(String)
+    accountNumber: Ember.attr(String),
+    isPaid: Ember.attr(Boolean)
 });
 
 Invoice.reopenClass({

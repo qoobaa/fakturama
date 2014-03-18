@@ -31,31 +31,6 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
         return parseInt(this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[1], 10) || 0;
     }.property("number"),
 
-    monthName: function () {
-        var issueDate = Date.parse(this.get("issueDate"));
-
-        if (!isNaN(issueDate)) {
-            return [
-                "styczeń", "luty", "marzec",
-                "kwiecień", "maj", "czerwiec",
-                "lipiec", "sierpień", "wrzesień",
-                "październik", "listopad", "grudzień"
-            ][new Date(issueDate).getMonth()];
-        }
-    }.property("issueDate"),
-
-    year: function () {
-        var issueDate = Date.parse(this.get("issueDate"));
-
-        if (!isNaN(issueDate)) {
-            return new Date(issueDate).getFullYear().toString();
-        }
-    }.property("issueDate"),
-
-    monthNameAndYear: function () {
-        return [this.get("monthName"), this.get("year")].join(" ");
-    }.property("monthName", "year"),
-
     items: function () {
         return this.getWithDefault("itemsAttributes", []).map(function (itemAttributes) {
             return Item.create(itemAttributes);
@@ -164,7 +139,15 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
             !!this.get("issueDate") &&
             !!this.get("totalTaxAmount") &&
             this.get("isForeignCurrency");
-    }.property("isForeignCurrency", "issueDate", "totalTaxAmount")
+    }.property("isForeignCurrency", "issueDate", "totalTaxAmount"),
+
+    isExpired: function () {
+        return Date.parse(this.get("dueDate")) < new Date().getTime();
+    }.property("dueDate"),
+
+    isOverdue: function () {
+        return this.get("isExpired") && !this.get("isPaid");
+    }.property("isExpired", "isPaid")
 });
 
 export default InvoicePropertiesMixin;
