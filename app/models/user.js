@@ -79,7 +79,7 @@ User.reopenClass({
                 }
             });
         }).then(function (user) {
-            if (!user.email) {
+            if (!user) {
                 return model.login("anonymous");
             } else {
                 model.setProperties(user);
