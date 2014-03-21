@@ -3,6 +3,7 @@
     <tr>
       <th>Numer</th>
       <th class="text-center">Data wystawienia</th>
+      <th class="text-center">Termin płatności</th>
       <th>Nabywca</th>
       <th class="text-right">Kwota brutto</th>
       <th class="text-center">Opłacona?</th>
@@ -15,6 +16,9 @@
         </td>
         <td class="text-center">
           {{invoice.issueDate}}
+        </td>
+        <td class="text-center">
+          {{invoice.dueDate}}
         </td>
         <td>
           {{invoice.buyerFirstLine}}
