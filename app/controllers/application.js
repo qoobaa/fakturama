@@ -3,7 +3,7 @@ import Client from "faktura/models/client";
 import Invoice from "faktura/models/invoice";
 import Settings from "faktura/models/settings";
 
-var ApplicationController = Ember.Controller.extend({
+var ApplicationController = Ember.ObjectController.extend({
     user: Ember.computed.alias("model"),
     isAlertDismissed: false,
 

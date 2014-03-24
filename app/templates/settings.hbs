@@ -75,6 +75,8 @@
     <div class="col-sm-10 col-sm-offset-2">
       <button type="submit" class="btn btn-primary" {{action "save"}} {{bind-attr disabled="model.isSaving"}}>Zapisz ustawienia</button>
       {{link-to "Anuluj" "index" class="btn btn-default" activeClass=null}}
+      {{#view "export-button" class="btn btn-default"}}Eksportuj dane{{/view}}
+      {{#view "import-button" class="btn btn-default btn-upload"}}Importuj dane{{/view}}
     </div>
   </div>
 </form>
