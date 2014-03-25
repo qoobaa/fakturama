@@ -43,7 +43,7 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
 
         this.setProperties(properties);
 
-        // bindings somehow don't work without Ember.run.next
+        // bindings somehow don't work in minified version without Ember.run.next
         Ember.run.next(function () {
             controller.get("content").addItem();
         });
