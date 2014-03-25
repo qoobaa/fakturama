@@ -1,5 +1,8 @@
 var SettingsController = Ember.ObjectController.extend({
+    needs: ["application"],
+
     numerationTypes: null,
+    isDeleteModalVisible: false,
 
     actions: {
         save: function () {
@@ -10,6 +13,14 @@ var SettingsController = Ember.ObjectController.extend({
             this.get("content").save().then(function () {
                 controller.transitionToRoute("index");
             });
+        },
+
+        showDeleteModal: function () {
+            this.set("isDeleteModalVisible", true);
+        },
+
+        dismissDeleteModal: function () {
+            this.set("isDeleteModalVisible", false);
         }
     }
 });

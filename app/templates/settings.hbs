@@ -75,8 +75,40 @@
     <div class="col-sm-10 col-sm-offset-2">
       <button type="submit" class="btn btn-primary" {{action "save"}} {{bind-attr disabled="model.isSaving"}}>Zapisz ustawienia</button>
       {{link-to "Anuluj" "index" class="btn btn-default" activeClass=null}}
-      {{#view "export-button" class="btn btn-default"}}Eksportuj dane{{/view}}
-      {{#view "import-button" class="btn btn-default btn-upload"}}Importuj dane{{/view}}
     </div>
   </div>
+
+  <br>
+
+  <fieldset>
+    <legend>Baza danych</legend>
+    <div class="form-group">
+      <div class="col-sm-10 col-sm-offset-2">
+        {{#view "export-button" class="btn btn-default"}}Eksportuj dane{{/view}}
+        {{#view "import-button" class="btn btn-default btn-upload" action="importDatabase" targetBinding="controllers.application"}}Importuj dane{{/view}}
+        <button class="btn btn-danger" {{action "showDeleteModal"}}>Usuń dane</button>
+      </div>
+    </div>
+  </fieldset>
 </form>
+
+{{#if isDeleteModalVisible}}
+  <div class="modal-backdrop in"></div>
+  <div class="modal in" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-hidden="true" {{action "dismissDeleteModal"}}>&times;</button>
+          <h4 class="modal-title">Usuwanie danych</h4>
+        </div>
+        <div class="modal-body">
+          <p>Wszyskie dane zostaną bezpowrotnie usunięte z bazy danych. Czy chcesz kontynuować?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" {{action "dismissDeleteModal"}}>Anuluj</button>
+          <button type="button" class="btn btn-danger" {{action "deleteDatabase" target="controllers.application"}}>Tak, usuń dane</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}

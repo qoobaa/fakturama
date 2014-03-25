@@ -32,6 +32,28 @@ var ApplicationController = Ember.ObjectController.extend({
 
         dismissAlert: function () {
             this.set("isAlertDismissed", true);
+        },
+
+        importDatabase: function (data) {
+            var url = "%@%@/.json?auth=%@".fmt(window.ENV.FIREBASE_URL, window.ENV.FIREBASE_USER_ID, window.ENV.FIREBASE_AUTH_TOKEN),
+                controller = this;
+
+            $.ajax(url, { type: "PUT", data: data })
+                .done(function () {
+                    controller.clearCache();
+                    controller.transitionToRoute("invoices");
+                });
+        },
+
+        deleteDatabase: function () {
+            var url = "%@%@/.json?auth=%@".fmt(window.ENV.FIREBASE_URL, window.ENV.FIREBASE_USER_ID, window.ENV.FIREBASE_AUTH_TOKEN),
+                controller = this;
+
+            $.ajax(url, { type: "DELETE" })
+                .done(function () {
+                    controller.clearCache();
+                    controller.transitionToRoute("invoices");
+                });
         }
     }
 });

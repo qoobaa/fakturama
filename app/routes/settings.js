@@ -12,6 +12,7 @@ var SettingsRoute = Ember.Route.extend({
 
     setupController: function (controller, models) {
         models.model = SettingsForm.create({ model: models.model });
+        models.isDeleteModalVisible = false;
         controller.setProperties(models);
     }
 });

@@ -1,21 +1,28 @@
-var ImportButton = Ember.View.extend({
+var ImportButton = Ember.View.extend(Ember.ViewTargetActionSupport, {
     tagName: "a",
 
     didInsertElement: function () {
         $("<input>").attr("type", "file").appendTo(this.$());
     },
 
+    reset: function () {
+        this.$().wrap("<form>");
+        this.$().get(0).parentNode.reset();
+        this.$().unwrap("<form>");
+    },
+
     change: function (event) {
-        var fileReader = new FileReader();
+        var view = this,
+            fileReader = new window.FileReader();
 
-        fileReader.onload = function (event) {
-            $.ajax("%@%@/.json?auth=%@".fmt(window.ENV.FIREBASE_URL, window.ENV.FIREBASE_USER_ID, window.ENV.FIREBASE_AUTH_TOKEN), {
-                type: "PUT",
-                data: event.target.result
-            });
-        };
+        if (event.target.files.length) {
+            fileReader.onload = function (event) {
+                view.triggerAction({ actionContext: event.target.result });
+                view.reset();
+            };
 
-        fileReader.readAsText(event.target.files[0]);
+            fileReader.readAsText(event.target.files[0]);
+        }
     }
 });
 
