@@ -19,8 +19,10 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
         return this.get("items.length") <= 1;
     }.property("items.@each"),
 
-    modelDidChange: function () {
-        var periodNumber, lastNumber, invoices;
+    contentDidChange: function () {
+        var periodNumber, lastNumber, invoices,
+            properties = {},
+            controller = this;
 
         if (this.get("settings.numerationTypeCode") === "year") {
             periodNumber = new Date().getFullYear().toString();
@@ -33,13 +35,19 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
         lastNumber = this.get("invoices").filterBy("periodNumber", periodNumber).sortBy("periodicalNumber").get("lastObject.periodicalNumber") || 0;
 
         if (periodNumber) {
-            this.set("model.number", (lastNumber + 1) + "/" + periodNumber);
+            properties.number = (lastNumber + 1) + "/" + periodNumber;
         }
 
-        this.get("model").addItem();
-        this.set("seller", this.get("settings.seller"));
-        this.set("sellerSignature", this.get("settings.contactName"));
-    }.observes("model"),
+        properties.seller = this.get("settings.seller");
+        properties.sellerSignature = this.get("settings.contactName");
+
+        this.setProperties(properties);
+
+        // bindings somehow don't work without Ember.run.next
+        Ember.run.next(function () {
+            controller.get("content").addItem();
+        });
+    }.observes("content"),
 
     actions: {
         saveRecord: function () {
