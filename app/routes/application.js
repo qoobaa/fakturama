@@ -1,4 +1,4 @@
-import User from "faktura/models/user";
+import User from "fakturama/models/user";
 
 var ApplicationRoute = Ember.Route.extend({
     model: function () {

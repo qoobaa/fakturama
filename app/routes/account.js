@@ -1,4 +1,4 @@
-import Account from "faktura/models/account";
+import Account from "fakturama/models/account";
 
 var AccountRoute = Ember.Route.extend({
     model: function (params) {

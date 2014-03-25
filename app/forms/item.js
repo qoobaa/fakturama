@@ -1,4 +1,4 @@
-import ItemPropertiesMixin from "faktura/lib/item_properties_mixin";
+import ItemPropertiesMixin from "fakturama/lib/item_properties_mixin";
 
 var ItemForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, ItemPropertiesMixin, {
     model: Ember.computed.alias("content"),

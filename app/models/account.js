@@ -1,4 +1,4 @@
-import FirebaseAdapter from "faktura/adapters/firebase";
+import FirebaseAdapter from "fakturama/adapters/firebase";
 
 var Account = Ember.Model.extend({
     id: Ember.attr(),

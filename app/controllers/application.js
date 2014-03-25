@@ -1,7 +1,7 @@
-import Account from "faktura/models/account";
-import Client from "faktura/models/client";
-import Invoice from "faktura/models/invoice";
-import Settings from "faktura/models/settings";
+import Account from "fakturama/models/account";
+import Client from "fakturama/models/client";
+import Invoice from "fakturama/models/invoice";
+import Settings from "fakturama/models/settings";
 
 var ApplicationController = Ember.ObjectController.extend({
     user: Ember.computed.alias("model"),

@@ -1,4 +1,4 @@
-import Invoice from "faktura/models/invoice";
+import Invoice from "fakturama/models/invoice";
 
 var InvoicesIndexRoute = Ember.Route.extend({
     model: function () {

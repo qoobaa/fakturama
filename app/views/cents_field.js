@@ -1,6 +1,6 @@
-import NumberField from "faktura/views/number_field";
-import formatCents from "faktura/lib/format_cents";
-import parseCents from "faktura/lib/parse_cents";
+import NumberField from "fakturama/views/number_field";
+import formatCents from "fakturama/lib/format_cents";
+import parseCents from "fakturama/lib/parse_cents";
 
 var CentsField = NumberField.extend({
     precision: 2,

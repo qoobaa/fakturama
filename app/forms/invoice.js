@@ -1,8 +1,8 @@
-import InvoicePropertiesMixin from "faktura/lib/invoice_properties_mixin";
-import Item from "faktura/models/item";
-import ItemForm from "faktura/forms/item";
-import Currency from "faktura/models/currency";
-import Language from "faktura/models/language";
+import InvoicePropertiesMixin from "fakturama/lib/invoice_properties_mixin";
+import Item from "fakturama/models/item";
+import ItemForm from "fakturama/forms/item";
+import Currency from "fakturama/models/currency";
+import Language from "fakturama/models/language";
 
 var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePropertiesMixin, {
     model: Ember.computed.alias("content"),

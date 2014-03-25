@@ -1,5 +1,5 @@
-import Account from "faktura/models/account";
-import AccountForm from "faktura/forms/account";
+import Account from "fakturama/models/account";
+import AccountForm from "fakturama/forms/account";
 
 var AccountEditRoute = Ember.Route.extend({
     model: function () {

@@ -1,4 +1,4 @@
-import Client from "faktura/models/client";
+import Client from "fakturama/models/client";
 
 var ClientRoute = Ember.Route.extend({
     model: function (params) {

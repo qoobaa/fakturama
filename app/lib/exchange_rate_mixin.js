@@ -1,4 +1,4 @@
-import ExchangeRatesTable from "faktura/models/exchange_rates_table";
+import ExchangeRatesTable from "fakturama/models/exchange_rates_table";
 
 var ExchangeRateMixin = Ember.Mixin.create({
     issueDateDidChange: function () {

@@ -1,6 +1,6 @@
 var __testing_context__;
 
-import resolver from 'faktura/tests/helpers/resolver';
+import resolver from 'fakturama/tests/helpers/resolver';
 
 function defaultSubject(factory, options) {
   return factory.create(options);

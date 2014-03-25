@@ -1,4 +1,4 @@
-import formatCents from "faktura/lib/format_cents";
+import formatCents from "fakturama/lib/format_cents";
 
 export default Ember.Handlebars.makeBoundHelper(function (value, options) {
     var integerPart, fractionalPart, precision;

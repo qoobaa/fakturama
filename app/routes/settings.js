@@ -1,6 +1,6 @@
-import Settings from "faktura/models/settings";
-import SettingsForm from "faktura/forms/settings";
-import NumerationType from "faktura/models/numeration_type";
+import Settings from "fakturama/models/settings";
+import SettingsForm from "fakturama/forms/settings";
+import NumerationType from "fakturama/models/numeration_type";
 
 var SettingsRoute = Ember.Route.extend({
     model: function () {

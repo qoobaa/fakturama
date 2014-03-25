@@ -1,10 +1,10 @@
-import InvoiceForm from "faktura/forms/invoice";
-import Currency from "faktura/models/currency";
-import TaxRate from "faktura/models/tax_rate";
-import Language from "faktura/models/language";
-import Unit from "faktura/models/unit";
-import Client from "faktura/models/client";
-import Account from "faktura/models/account";
+import InvoiceForm from "fakturama/forms/invoice";
+import Currency from "fakturama/models/currency";
+import TaxRate from "fakturama/models/tax_rate";
+import Language from "fakturama/models/language";
+import Unit from "fakturama/models/unit";
+import Client from "fakturama/models/client";
+import Account from "fakturama/models/account";
 
 var InvoiceEditRoute = Ember.Route.extend({
     model: function (params) {

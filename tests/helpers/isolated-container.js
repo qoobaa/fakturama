@@ -1,4 +1,4 @@
-import resolver from 'faktura/tests/helpers/resolver';
+import resolver from 'fakturama/tests/helpers/resolver';
 
 function isolatedContainer(fullNames) {
   var container = new Ember.Container();

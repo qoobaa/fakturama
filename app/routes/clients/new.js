@@ -1,5 +1,5 @@
-import Client from "faktura/models/client";
-import ClientForm from "faktura/forms/client";
+import Client from "fakturama/models/client";
+import ClientForm from "fakturama/forms/client";
 
 var ClientsNewRoute = Ember.Route.extend({
     model: function () {

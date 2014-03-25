@@ -5,7 +5,7 @@ var ExportButton = Ember.View.extend({
     click: function () {
         this.setProperties({
             href: "%@%@.json?auth=%@".fmt(window.ENV.FIREBASE_URL, window.ENV.FIREBASE_USER_ID, window.ENV.FIREBASE_AUTH_TOKEN),
-            download: "faktura-eksport-%@.json".fmt(new Date().toISOString().substr(0, 16).replace("T", "_"))
+            download: "fakturama-eksport-%@.json".fmt(new Date().toISOString().substr(0, 16).replace("T", "_"))
         });
     }
 });

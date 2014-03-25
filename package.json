@@ -1,6 +1,6 @@
 {
-  "name": "faktura",
-  "namespace": "faktura",
+  "name": "fakturama",
+  "namespace": "fakturama",
   "APIMethod": "proxy",
   "proxyURL": "http://localhost:8000",
   "proxyPath": "/api",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/cowbell/faktura.git"
+    "url": "git://github.com/cowbell/fakturama.git"
   },
   "author": "Kuba Kuźma",
   "license": "MIT",

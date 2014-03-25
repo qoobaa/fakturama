@@ -1,5 +1,5 @@
-import Unit from "faktura/models/unit";
-import TaxRate from "faktura/models/tax_rate";
+import Unit from "fakturama/models/unit";
+import TaxRate from "fakturama/models/tax_rate";
 
 var ItemPropertiesMixin = Ember.Mixin.create({
     netAmount: function (key, value) {

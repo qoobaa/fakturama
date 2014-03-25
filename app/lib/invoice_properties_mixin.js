@@ -1,6 +1,6 @@
-import Item from "faktura/models/item";
-import Currency from "faktura/models/currency";
-import Language from "faktura/models/language";
+import Item from "fakturama/models/item";
+import Currency from "fakturama/models/currency";
+import Language from "fakturama/models/language";
 
 var InvoicePropertiesMixin = Ember.Mixin.create({
     sellerFirstLine: function () {

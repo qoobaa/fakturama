@@ -7,8 +7,8 @@ Language.reopenClass({
     adapter: Ember.FixtureAdapter.create(),
     primaryKey: "code",
     FIXTURES: [
-        {code: "pl", name: "polska"},
-        {code: "plen", name: "polsko-angielska"}
+        { code: "pl", name: "polska" },
+        { code: "plen", name: "polsko-angielska" }
     ]
 });
 

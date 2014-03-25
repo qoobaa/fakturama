@@ -1,5 +1,5 @@
-import Invoice from "faktura/models/invoice";
-import InvoiceForm from "faktura/forms/invoice";
+import Invoice from "fakturama/models/invoice";
+import InvoiceForm from "fakturama/forms/invoice";
 
 var InvoiceRoute = Ember.Route.extend({
     model: function (params) {
