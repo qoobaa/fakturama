@@ -1,13 +1,15 @@
 <table class="table table-striped">
   <tr>
-    <th>Nazwa banku</th>
+    <th>Opis</th>
+    <th class="text-center">Nazwa banku</th>
     <th class="text-center">Numer rachunku</th>
     <th class="text-center">SWIFT</th>
     <th></th>
   </tr>
   {{#each account in controller}}
     <tr>
-      <td>{{account.bankName}}</td>
+      <td>{{account.description}}</td>
+      <td class="text-center">{{account.bankName}}</td>
       <td class="text-center">{{account.number}}</td>
       <td class="text-center">{{account.swift}}</td>
       <td class="text-right">{{link-to "Edytuj" "account.edit" account}}</td>
