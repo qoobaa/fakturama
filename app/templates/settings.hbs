@@ -2,7 +2,7 @@
   <fieldset>
     <legend>Dane osobiste</legend>
 
-    <div class="form-group" {{bind-attr class="errors.contactName.firstObject:has-error"}}>
+    <div {{bind-attr class=":form-group errors.contactName.firstObject:has-error"}}>
       <label for="settings-contact-name" class="col-sm-2 control-label">
         Imię i nazwisko
       </label>
@@ -18,7 +18,7 @@
   <fieldset>
     <legend>Firma</legend>
 
-    <div class="form-group" {{bind-attr class="errors.companyName.firstObject:has-error"}}>
+    <div {{bind-attr class=":form-group errors.companyName.firstObject:has-error"}}>
       <label for="settings-company-name" class="col-sm-2 control-label">
         Nazwa
       </label>
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="form-group" {{bind-attr class="errors.address.firstObject:has-error"}}>
+    <div {{bind-attr class=":form-group errors.address.firstObject:has-error"}}>
       <label for="settings-address" class="col-sm-2 control-label">
         Adres
       </label>
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="form-group" {{bind-attr class="errors.vatin.firstObject:has-error"}}>
+    <div {{bind-attr class=":form-group errors.vatin.firstObject:has-error"}}>
       <label for="settings-vatin" class="col-sm-2 control-label">
         NIP
       </label>
@@ -58,7 +58,7 @@
   <fieldset>
     <legend>Inne</legend>
 
-    <div class="form-group" {{bind-attr class="errors.numerationType.firstObject:has-error"}}>
+    <div {{bind-attr class=":form-group errors.numerationType.firstObject:has-error"}}>
       <label for="settings-numeration-type" class="col-sm-2 control-label">
         Typ numeracji faktur
       </label>
@@ -67,6 +67,21 @@
       </div>
       <div class="col-sm-5">
         <span class="help-block">{{errors.numerationType.firstObject}}</span>
+      </div>
+    </div>
+
+    <div {{bind-attr class=":form-group errors.dueDays.firstObject:has-error"}}>
+      <label class="control-label col-sm-2" for="settings-due-days">
+        Domyślny termin płatności
+      </label>
+      <div class="col-sm-2">
+        <div class="input-group">
+          {{input type="number" class="form-control text-right" valueBinding="dueDays" id="settings-due-days" min="0"}}
+          <span class="input-group-addon">dni</span>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <span class="help-block">{{errors.dueDays.firstObject}}</span>
       </div>
     </div>
   </fieldset>

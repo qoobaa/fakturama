@@ -4,6 +4,10 @@ var SettingsController = Ember.ObjectController.extend({
     numerationTypes: null,
     isDeleteModalVisible: false,
 
+    contentDidChange: function () {
+
+    }.observes("content"),
+
     actions: {
         save: function () {
             var controller = this;

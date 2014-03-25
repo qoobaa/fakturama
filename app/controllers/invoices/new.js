@@ -40,6 +40,7 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
 
         properties.seller = this.get("settings.seller");
         properties.sellerSignature = this.get("settings.contactName");
+        properties.dueDays = this.getWithDefault("settings.dueDays", 14);
 
         this.setProperties(properties);
 

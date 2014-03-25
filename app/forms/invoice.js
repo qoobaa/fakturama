@@ -34,7 +34,9 @@ var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePrope
             numericality: {
                 if: "isSubmitted",
                 greaterThanOrEqualTo: 0,
-                message: "nie może być ujemny"
+                messages: {
+                    greaterThanOrEqualTo: "nie może być ujemny"
+                }
             }
         },
         seller: {
