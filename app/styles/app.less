@@ -1,10 +1,13 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext");
+@import url("https://fonts.googleapis.com/css?family=Yesteryear");
 
 // Core variables and mixins
 @import "/vendor/bootstrap/less/variables.less";
 
-@font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-size-base:          12px;
+@brand-primary: #032D5A;
+@font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@font-size-base: 12px;
+@icon-font-path: "/vendor/bootstrap/fonts/";
 
 @import "/vendor/bootstrap/less/mixins.less";
 
@@ -139,4 +142,86 @@ body {
     width: 100%;
     direction: ltr;
     cursor: pointer;
+}
+
+// NEW STYLES
+
+.site-header {
+    color: white;
+    background-image: url("/assets/binders.jpg");
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    width: 100%;
+}
+
+.site-header strong {
+    font-weight: 400;
+}
+
+.site-title {
+    // font-family: Yesteryear;
+    font-size: 3em;
+    font-weight: 300;
+}
+
+.site-header svg path {
+    fill: white;
+}
+
+.site-header h2 {
+    margin: 50px 0;
+    font-size: 3em;
+    font-weight: 300;
+}
+
+.site-header h3 {
+    margin: 20px 0;
+    font-size: 2em;
+    font-weight: 300;
+}
+
+.header-title {
+    padding: 50px 0;
+    background: fade(@brand-primary, 30%);
+}
+
+.btn-issue {
+    padding: 15px;
+    font-size: 1.5em;
+    color: @brand-primary;
+    margin-top: 30px;
+}
+
+.header-marketing {
+    padding: 50px 0;
+    background-color: fade(white, 60%);
+    color: @brand-primary;
+}
+
+.header-marketing p {
+    font-weight: 300;
+    font-size: 1.25em;
+}
+
+.header-marketing svg path {
+    fill: @brand-primary;
+}
+
+.header-features {
+    padding: 50px 0;
+    background: @brand-primary;
+    font-weight: 300;
+    font-size: 1.25em;
+}
+
+.header-features li {
+    margin: 1em 0;
+}
+
+.header-features li:before {
+    font-family: "Glyphicons Halflings";
+    content: "\e013";
+    margin: 0 1em;
 }
