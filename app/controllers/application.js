@@ -11,23 +11,37 @@ var ApplicationController = Ember.ObjectController.extend({
         [Account, Client, Invoice, Settings].invoke("clearCache");
     },
 
+    goOnline: function () {
+        try {
+            window.Firebase.goOnline();
+        } catch (error) {
+            // do nothing
+        }
+    },
+
     actions: {
         signIn: function (method) {
             var controller = this;
 
+            controller.goOnline();
+
             this.get("user").login(method).then(function () {
+                controller.goOffline();
                 controller.clearCache();
                 controller.transitionToRoute("index");
-            });
+            }).finally(window.Firebase.goOffline);
         },
 
         signOut: function () {
             var controller = this;
 
+            controller.goOnline();
+
             this.get("user").logout().then(function () {
+                controller.goOffline();
                 controller.clearCache();
                 controller.transitionToRoute("index");
-            });
+            }).finally(window.Firebase.goOffline);
         },
 
         dismissAlert: function () {

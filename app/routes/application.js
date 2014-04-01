@@ -2,7 +2,7 @@ import User from "fakturama/models/user";
 
 var ApplicationRoute = Ember.Route.extend({
     model: function () {
-        return User.fetch();
+        return User.fetch().finally(window.Firebase.goOffline);
     }
 });
 
