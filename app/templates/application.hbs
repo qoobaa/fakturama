@@ -28,7 +28,7 @@
       </ul>
       <div class="navbar-right">
         {{#if user.isAnonymous}}
-          {{#view "popover" tagName="p" class="navbar-text" content="Korzystasz z aplikacji jako <strong>gość</strong>. Dostęp do wprowadzonych danych zostanie utracony po zamknięciu okna przeglądarki lub <strong>zalogowaniu się</strong>. <br> Niektóre funkcje aplikacji są dostępne wyłącznie po <strong>zalogowaniu się</strong>." isDismissedBinding="isAlertDismissed"}}
+          {{#view "popover" id="login-alert" tagName="p" class="navbar-text" content="<button type='button' class='close' onclick='$(&quot;#login-alert&quot;).click()' aria-hidden='true'>&times;</button>Korzystasz z aplikacji jako <strong>gość</strong>. Dostęp do wprowadzonych danych zostanie utracony po zamknięciu okna przeglądarki lub <strong>zalogowaniu się</strong>. <br> Niektóre funkcje aplikacji są dostępne wyłącznie po <strong>zalogowaniu się</strong>." isDismissedBinding="isAlertDismissed"}}
             <img height="30" class="gravatar img-circle" {{bind-attr src="user.gravatarURL"}}>
             {{user.name}}
           {{/view}}
