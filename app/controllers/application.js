@@ -26,7 +26,6 @@ var ApplicationController = Ember.ObjectController.extend({
             controller.goOnline();
 
             this.get("user").login(method).then(function () {
-                controller.goOffline();
                 controller.clearCache();
                 controller.transitionToRoute("index");
             }).finally(window.Firebase.goOffline);
@@ -38,7 +37,6 @@ var ApplicationController = Ember.ObjectController.extend({
             controller.goOnline();
 
             this.get("user").logout().then(function () {
-                controller.goOffline();
                 controller.clearCache();
                 controller.transitionToRoute("index");
             }).finally(window.Firebase.goOffline);
