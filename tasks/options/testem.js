@@ -5,7 +5,7 @@ module.exports = {
       parallel: 2,
       framework: 'qunit',
       port: (parseInt(process.env.PORT || 7358, 10) + 1),
-      test_page: 'tmp/result/tests/index.html',
+      test_page: 'tmp/result/tests/app.html',
       routes: {
         '/tests/tests.js': 'tmp/result/tests/tests.js',
         '/assets/app.js': 'tmp/result/assets/app.js',
@@ -24,7 +24,7 @@ module.exports = {
       parallel: 8,
       framework: 'qunit',
       port: (parseInt(process.env.PORT || 7358, 10) + 1),
-      test_page: 'tmp/result/tests/index.html',
+      test_page: 'tmp/result/tests/app.html',
       routes: {
         '/tests/tests.js': 'tmp/result/tests/tests.js',
         '/assets/app.js': 'tmp/result/assets/app.js',

@@ -170,13 +170,15 @@ module.exports = function(grunt) {
         "buildTemplates:dist",
         "buildScripts",
         "buildStyles",
-        "buildIndexHTML:dist"
+        "buildIndexHTML:dist",
+        "buildAppHTML:dist"
       ],
       buildDebug: [
         "buildTemplates:debug",
         "buildScripts",
         "buildStyles",
-        "buildIndexHTML:debug"
+        "buildIndexHTML:debug",
+        "buildAppHTML:debug"
       ]
     }
   });
@@ -217,13 +219,22 @@ module.exports = function(grunt) {
 
   // Index HTML
   grunt.registerTask('buildIndexHTML:dist', [
-                     'preprocess:indexHTMLDistApp',
-                     'preprocess:indexHTMLDistTests'
+                     'preprocess:indexHTMLDistApp'
                      ]);
 
   grunt.registerTask('buildIndexHTML:debug', [
-                     'preprocess:indexHTMLDebugApp',
-                     'preprocess:indexHTMLDebugTests'
+                     'preprocess:indexHTMLDebugApp'
+                     ]);
+
+  // App HTML
+  grunt.registerTask('buildAppHTML:dist', [
+                     'preprocess:appHTMLDistApp',
+                     'preprocess:appHTMLDistTests'
+                     ]);
+
+  grunt.registerTask('buildAppHTML:debug', [
+                     'preprocess:appHTMLDebugApp',
+                     'preprocess:appHTMLDebugTests'
                      ]);
 
   grunt.registerTask('createResultDirectory', function() {

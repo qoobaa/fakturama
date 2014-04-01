@@ -1,6 +1,6 @@
 {
   "framework": "qunit",
-  "test_page": "tmp/result/tests/index.html",
+  "test_page": "tmp/result/tests/app.html",
   "routes": {
     "/tests/tests.js": "tmp/result/tests/tests.js",
     "/assets/app.js": "tmp/result/assets/app.js",

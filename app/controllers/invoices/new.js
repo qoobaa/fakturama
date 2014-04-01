@@ -32,9 +32,8 @@ var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
             periodNumber = (new Date().getMonth() + 1).toString() + "/" + new Date().getFullYear().toString();
         }
 
-        lastNumber = this.get("invoices").filterBy("periodNumber", periodNumber).sortBy("periodicalNumber").get("lastObject.periodicalNumber") || 0;
-
         if (periodNumber) {
+            lastNumber = this.get("invoices").filterBy("periodNumber", periodNumber).sortBy("periodicalNumber").get("lastObject.periodicalNumber") || 0;
             properties.number = (lastNumber + 1) + "/" + periodNumber;
         }
 

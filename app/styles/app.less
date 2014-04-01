@@ -1,5 +1,6 @@
+@charset "UTF-8";
+
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&subset=latin,latin-ext");
-@import url("https://fonts.googleapis.com/css?family=Yesteryear");
 
 // Core variables and mixins
 @import "/vendor/bootstrap/less/variables.less";
@@ -7,7 +8,6 @@
 @brand-primary: #1D4E6F;
 @font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @font-size-base: 12px;
-@icon-font-path: "/vendor/bootstrap/fonts/";
 
 @import "/vendor/bootstrap/less/mixins.less";
 
@@ -95,56 +95,26 @@ body {
     height: 30px;
 }
 
-.footer a {
-    opacity: 0.5;
-    transition: opacity 0.2s linear;
-}
-
-.footer a:hover {
-    opacity: 0.7;
-}
-
-.cowbell-labs img {
-    vertical-align: middle;
-}
-
-.cowbell-labs span {
-    display: none;
-}
-
-.features {
-    margin: 30px 0;
-}
-
-.features img {
-    opacity: 0.7;
-    transition: opacity 0.2s linear;
-}
-
-.features img:hover {
-    opacity: 1;
-}
-
 .btn-upload {
     position: relative;
     overflow: hidden;
+
+    input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        transform: translate(0, 0) scale(4);
+        font-size: 60px;
+        width: 100%;
+        direction: ltr;
+        cursor: pointer;
+    }
 }
 
-.btn-upload input {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    opacity: 0;
-    filter: alpha(opacity=0);
-    transform: translate(0, 0) scale(4);
-    font-size: 60px;
-    width: 100%;
-    direction: ltr;
-    cursor: pointer;
-}
-
-// NEW STYLES
+// LANDING PAGE
 
 .site-header {
     color: white;
@@ -153,38 +123,37 @@ body {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
+    background-position: center;
     width: 100%;
-    background-position: 50% 50%;
-}
 
-.site-header strong {
-    font-weight: 400;
+    strong {
+        font-weight: 400;
+    }
+
+    svg path {
+        fill: white;
+    }
+
+    h1 {
+        font-size: 8em;
+        margin: 50px 0;
+    }
+
+    h2 {
+        margin: 50px 0;
+        font-size: 3em;
+        font-weight: 300;
+    }
+
+    h3 {
+        margin: 20px 0;
+        font-size: 2em;
+        font-weight: 300;
+    }
 }
 
 .site-title {
-    // font-family: Yesteryear;
     font-size: 2.5em;
-    font-weight: 300;
-}
-
-.site-header h1 {
-    font-size: 8em;
-    margin: 50px;
-}
-
-.site-header svg path {
-    fill: white;
-}
-
-.site-header h2 {
-    margin: 50px 0;
-    font-size: 3em;
-    font-weight: 300;
-}
-
-.site-header h3 {
-    margin: 20px 0;
-    font-size: 2em;
     font-weight: 300;
 }
 
@@ -203,16 +172,16 @@ body {
     padding: 75px 0;
     background-color: white;
     color: @gray-dark;
-}
 
-.header-marketing p {
-    font-weight: 300;
-    font-size: 1.25em;
-    color: @gray-darker;
-}
+    p {
+        font-weight: 300;
+        font-size: 1.25em;
+        color: @gray-darker;
+    }
 
-.header-marketing svg path {
-    fill: @brand-primary;
+    svg path {
+        fill: @brand-primary;
+    }
 }
 
 .header-features {
@@ -220,14 +189,22 @@ body {
     background: @brand-primary;
     font-weight: 300;
     font-size: 1.25em;
+
+    li {
+        margin: 1em 0;
+    }
+
+    li:before {
+        content: "✔";
+        font-size: 1.25em;
+        margin: 0 0.5em;
+    }
 }
 
-.header-features li {
-    margin: 1em 0;
-}
+.site-footer {
+    background: darken(@brand-primary, 15%);
 
-.header-features li:before {
-    font-family: "Glyphicons Halflings";
-    content: "\e013";
-    margin: 0 1em;
+    svg path {
+        fill: white;
+    }
 }

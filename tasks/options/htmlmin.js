@@ -7,6 +7,9 @@ module.exports = {
     files: [{
       src: 'dist/index.html',
       dest: 'dist/index.html'
+    }, {
+      src: 'dist/app.html',
+      dest: 'dist/app.html'
     }]
   }
 };
