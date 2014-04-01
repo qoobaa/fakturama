@@ -87,12 +87,12 @@ body {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -30px;
+    margin: 0 auto -50px;
 }
 
 .push,
-.footer {
-    height: 30px;
+.site-footer {
+    height: 50px;
 }
 
 .btn-upload {
@@ -111,6 +111,24 @@ body {
         width: 100%;
         direction: ltr;
         cursor: pointer;
+    }
+}
+
+.site-content {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+@media print {
+    .site-content {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    @page {
+        @bottom-left {
+            content: counter(page) "/" counter(pages);
+        }
     }
 }
 
