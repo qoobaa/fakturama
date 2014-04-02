@@ -2,7 +2,7 @@
   {{#each client in controller}}
     <li class="media">
       {{#link-to "client.edit" client class="pull-left"}}
-        <img height="36" class="img-circle pull-left" {{bind-attr src="client.gravatarURL"}}>
+        <img height="36" width="36" class="img-circle pull-left" {{bind-attr src="client.gravatarURL"}}>
       {{/link-to}}
       <div class="media-body">
         <h4 class="media-heading">
