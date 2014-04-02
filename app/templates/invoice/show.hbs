@@ -42,15 +42,9 @@
 
   {{#if isExchanging}}
     <p>
-      Kwoty podatku VAT zostały przeliczone po kursie średnim ogłoszonym przez NBP dnia
-      <strong>{{exchangeDate}}</strong>
+      Kwoty podatku VAT zostały przeliczone po kursie średnim {{currencyCode}} z dnia <strong>{{exchangeDate}}</strong>,
+      wynoszącym <strong>{{format-cents exchangeRate precision=4}}</strong> PLN.
     </p>
-    {{#if isEnglish}}
-      <p>
-        VAT amounts are converted using an average exchange rate published by the NBP on
-        <strong>{{exchangeDate}}</strong>
-      </p>
-    {{/if}}
   {{/if}}
 
 </div>
