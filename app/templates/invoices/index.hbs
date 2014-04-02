@@ -10,7 +10,7 @@
       <th></th>
     </tr>
     {{#each invoice in controller}}
-      <tr {{bind-attr class="invoice.isOverdue:text-danger"}}>
+      <tr {{bind-attr class="invoice.isOverdue:danger"}}>
         <td>
           {{invoice.number}}
         </td>
