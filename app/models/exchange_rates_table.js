@@ -4,14 +4,12 @@ var ExchangeRatesTable = Ember.Object.extend({
 });
 
 ExchangeRatesTable.reopenClass({
-    QUERY: "USE 'https://raw.github.com/cowbell/yql-tables/master/nbp/nbp.dir.xml';" +
-        "USE 'https://raw.github.com/cowbell/yql-tables/master/nbp/nbp.tables.xml';" +
-        "SELECT * FROM nbp.tables WHERE id IN (SELECT id FROM nbp.dir WHERE typ = 'A' AND data_publikacji < '%@' | SORT(field='data_publikacji') | TAIL(count=1));",
+    QUERY: "SELECT * FROM nbp.tables WHERE id IN (SELECT id FROM nbp.dir WHERE typ = 'A' AND data_publikacji < '%@' | SORT(field='data_publikacji') | TAIL(count=1))",
 
     find: function (issueDate) {
         var model = this.create({ isLoading: true });
 
-        $.ajax("https://query.yahooapis.com/v1/public/yql", { data: { format: "json", q: this.QUERY.fmt(issueDate) } })
+        $.ajax("https://query.yahooapis.com/v1/public/yql", { data: { format: "json", q: this.QUERY.fmt(issueDate), env: "store://datatables.org/alltableswithkeys" } })
             .then(function (response) {
                 if (response.query.results) {
                     return response.query.results.tabela_kursow;
