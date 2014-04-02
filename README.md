@@ -8,7 +8,14 @@ Aby uruchomić aplikację lokalnie, musisz posiadać node.js (wersja w okolicy 0
 
 ## Budowanie wersji produkcyjnej
 
-Do budowania wersji produkcyjnej aplikacji służy polecenie `grunt dist`.
+Do budowania wersji produkcyjnej aplikacji służy polecenie `grunt dist`. Po wykonaniu polecenia w katalogu `dist` powinno znajdować się kilka plików, wśród których najważniejsze to:
+
+* `index.html` - strona powitalna (tzw. „landing page”)
+* `app.html` - strona startowa
+* `assets/xxxxxxxx.app.min.css` - arkusz styli
+* `assets/xxxxxxxx.app.min.js` - kod źródłowy aplikacji
+* `assets/xxxxxxxx.vendor.min.js` - kod źródłowy zależności (zewnętrznych bibliotek)
+* `assets/xxxxxxxx.config.min.js` - konfiguracja aplikacji (definicja obiektu `window.ENV`)
 
 ## Publikowanie
 
