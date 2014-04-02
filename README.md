@@ -19,7 +19,7 @@ Do budowania wersji produkcyjnej aplikacji służy polecenie `grunt dist`. Po wy
 
 ## Publikowanie
 
-Ogólnodostępna wersja hostowana jest przy pomocy GitHub Pages i Cloudflare. Do publikowania aplikacji służy polecenie `grunt deploy`.
+Ogólnodostępna wersja hostowana jest przy pomocy [GitHub Pages](https://pages.github.com/) i [Cloudflare](https://www.cloudflare.com/). Do publikowania aplikacji służy polecenie `grunt deploy`.
 
 ## Licencja
 
