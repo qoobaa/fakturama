@@ -28,9 +28,9 @@
         </td>
         <td class="text-center">
           {{#if invoice.isPaid}}
-            <a href="javascript:;" {{action "markAsUnpaidInvoice" invoice}}>tak</a>
+            <a href="javascript:;" class="text-success" {{action "markAsUnpaidInvoice" invoice}}>tak</a>
           {{else}}
-            <a href="javascript:;" {{action "markAsPaidInvoice" invoice}}>nie</a>
+            <a href="javascript:;" class="text-danger" {{action "markAsPaidInvoice" invoice}}>nie</a>
           {{/if}}
         </td>
         <td class="text-right">
