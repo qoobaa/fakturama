@@ -50,11 +50,14 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
     subTotals: function () {
         var invoice = this;
 
-        return this.get("items").mapBy("taxRate").uniq().map(function (taxRate) {
+        return invoice.get("items").mapBy("taxRate").uniq().map(function (taxRate) {
             var items,
                 result = Ember.Object.create({ taxRate: taxRate });
 
             items = invoice.get("items").filterBy("taxRate", taxRate);
+
+            console.log(result.get("taxRate"));
+            console.log(result.get("taxRate.value"));
 
             result.set("netAmount", items.reduce(function (previousValue, item) {
                 return previousValue + item.get("netAmount");
