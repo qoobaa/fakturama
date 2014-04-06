@@ -47,23 +47,20 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
         return code && Language.find(code);
     }.property("languageCode"),
 
-    totalNetAmount: function () {
-        return this.get("items").reduce(function (previousValue, item) {
-            return previousValue + item.get("netAmount");
-        }, 0);
-    }.property("items", "items.@each.netAmount"),
+    // totalNetAmount: function () {
+    //     return this.get("items").reduce(function (previousValue, item) {
+    //         return previousValue + item.get("netAmount");
+    //     }, 0);
+    // }.property("items", "items.@each.netAmount"),
 
-    totalTaxAmount: function () {
-        return this.get("items").reduce(function (previousValue, item) {
-            return previousValue + item.get("taxAmount");
-        }, 0);
-    }.property("items", "items.@each.taxAmount"),
+    netAmounts: Ember.computed.mapBy("subTotals", "netAmount"),
+    totalNetAmount: Ember.computed.sum("netAmounts"),
 
-    totalGrossAmount: function () {
-        return this.get("items").reduce(function (previousValue, item) {
-            return previousValue + item.get("grossAmount");
-        }, 0);
-    }.property("items", "items.@each.grossAmount"),
+    taxAmounts: Ember.computed.mapBy("subTotals", "taxAmount"),
+    totalTaxAmount: Ember.computed.sum("taxAmounts"),
+
+    grossAmounts: Ember.computed.mapBy("subTotals", "grossAmount"),
+    totalGrossAmount: Ember.computed.sum("grossAmounts"),
 
     totalTaxAmountPLN: function () {
         if (this.get("isExchanging")) {
@@ -90,13 +87,9 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
                 return previousValue + item.get("netAmount");
             }, 0);
 
-            result.taxAmount = items.reduce(function (previousValue, item) {
-                return previousValue + item.get("taxAmount");
-            }, 0);
+            result.taxAmount = Math.round(result.netAmount * result.taxRate.get("value") / 100);
 
-            result.grossAmount = items.reduce(function (previousValue, item) {
-                return previousValue + item.get("grossAmount");
-            }, 0);
+            result.grossAmount = result.netAmount + result.taxAmount;
 
             if (this.get("isExchanging")) {
                 result.taxAmountPLN = Math.round(result.taxAmount * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000));
