@@ -56,9 +56,6 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
 
             items = invoice.get("items").filterBy("taxRate", taxRate);
 
-            console.log(result.get("taxRate"));
-            console.log(result.get("taxRate.value"));
-
             result.set("netAmount", items.reduce(function (previousValue, item) {
                 return previousValue + item.get("netAmount");
             }, 0));

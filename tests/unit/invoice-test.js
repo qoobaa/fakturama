@@ -1,9 +1,11 @@
 import Invoice from "fakturama/models/invoice";
+import TaxRate from "fakturama/models/tax_rate";
 
 var invoice;
 
 module("Unit - Invoice", {
     setup: function () {
+        TaxRate.fetch();
         invoice = Invoice.create({
             itemsAttributes: []
         });
