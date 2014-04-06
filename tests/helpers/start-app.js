@@ -1,18 +1,18 @@
-import Application from 'fakturama/app';
-import Router from 'fakturama/router';
+import Application from "fakturama/app";
+import Router from "fakturama/router";
 
 function startApp(attrs) {
     var App;
 
     var attributes = Ember.merge({
         // useful Test defaults
-        rootElement: '#ember-testing',
+        rootElement: "#ember-testing",
         LOG_ACTIVE_GENERATION:false,
         LOG_VIEW_LOOKUPS: false
     }, attrs); // but you can override;
 
     Router.reopen({
-        location: 'none'
+        location: "none"
     });
 
     Ember.run(function(){

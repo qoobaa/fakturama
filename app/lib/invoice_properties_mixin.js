@@ -48,11 +48,13 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
     }.property("languageCode"),
 
     subTotals: function () {
+        var invoice = this;
+
         return this.get("items").mapBy("taxRate").uniq().map(function (taxRate) {
             var items,
                 result = Ember.Object.create({ taxRate: taxRate });
 
-            items = this.get("items").filterBy("taxRate", taxRate);
+            items = invoice.get("items").filterBy("taxRate", taxRate);
 
             result.set("netAmount", items.reduce(function (previousValue, item) {
                 return previousValue + item.get("netAmount");
@@ -62,12 +64,12 @@ var InvoicePropertiesMixin = Ember.Mixin.create({
 
             result.set("grossAmount", result.get("netAmount") + result.get("taxAmount"));
 
-            if (this.get("exchangeRate")) {
-                result.set("taxAmountPLN", Math.round(result.get("taxAmount") * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000)));
+            if (invoice.get("exchangeRate")) {
+                result.set("taxAmountPLN", Math.round(result.get("taxAmount") * invoice.get("exchangeRate") / (invoice.get("exchangeDivisor") * 10000)));
             }
 
             return result;
-        }.bind(this));
+        });
     }.property("items", "items.@each.netAmount", "items.@each.taxAmount", "items.@each.grossAmount", "items.@each.taxRate", "exchangeRate", "exchangeDivisor"),
 
     totalNetAmount: function () {
