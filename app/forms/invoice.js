@@ -1,12 +1,11 @@
-import InvoicePropertiesMixin from "fakturama/lib/invoice_properties_mixin";
 import Item from "fakturama/models/item";
 import ItemForm from "fakturama/forms/item";
 import Currency from "fakturama/models/currency";
 import Language from "fakturama/models/language";
+import FormMixin from "fakturama/mixins/form";
+import InvoicePropertiesMixin from "fakturama/mixins/invoice_properties";
 
-var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePropertiesMixin, {
-    model: Ember.computed.alias("content"),
-
+var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, FormMixin, InvoicePropertiesMixin, {
     validations: {
         number: {
             presence: {
@@ -151,16 +150,6 @@ var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePrope
         return Ember.RSVP.Promise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));
     },
 
-    save: function () {
-        var form = this,
-            model = this.get("model");
-
-        return this.validate().then(function () {
-            model.setProperties(form.toJSON());
-            return model.save();
-        });
-    },
-
     currency: function () {
         var code = this.get("currencyCode");
 
@@ -175,11 +164,7 @@ var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, InvoicePrope
         if (code) {
             return Language.find(code);
         }
-    }.property("languageCode"),
-
-    toJSON: function () {
-        return this.getProperties(this.get("model").constructor.getAttributes());
-    }
+    }.property("languageCode")
 });
 
 export default InvoiceForm;
