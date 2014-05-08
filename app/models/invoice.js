@@ -1,5 +1,5 @@
 import FirebaseAdapter from "fakturama/adapters/firebase";
-import InvoicePropertiesMixin from "fakturama/lib/invoice_properties_mixin";
+import InvoicePropertiesMixin from "fakturama/mixins/invoice_properties";
 
 var Invoice = Ember.Model.extend(InvoicePropertiesMixin, {
     id: Ember.attr(String),

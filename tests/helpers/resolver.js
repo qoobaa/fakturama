@@ -1,9 +1,9 @@
-import Resolver from 'ember/resolver';
+import Resolver from "ember/resolver";
 
 var resolver = Resolver.create();
 
 resolver.namespace = {
-  modulePrefix: 'fakturama'
+    modulePrefix: "fakturama"
 };
 
 export default resolver;

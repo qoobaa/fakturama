@@ -1,6 +1,6 @@
-var SettingsForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
-    model: Ember.computed.alias("content"),
+import FormMixin from "fakturama/mixins/form";
 
+var SettingsForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, FormMixin, {
     validations: {
         companyName: {
             presence: {
@@ -45,21 +45,7 @@ var SettingsForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, {
         if (this.get("dueDays") === undefined) {
             this.set("dueDays", 14);
         }
-    }.on("init"),
-
-    save: function () {
-        var form = this,
-            model = this.get("model");
-
-        return this.validate().then(function () {
-            model.setProperties(form.toJSON());
-            return model.save();
-        });
-    },
-
-    toJSON: function () {
-        return this.getProperties(this.get("model").constructor.getAttributes());
-    }
+    }.on("init")
 });
 
 export default SettingsForm;

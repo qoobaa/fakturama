@@ -1,4 +1,4 @@
-import ItemPropertiesMixin from "fakturama/lib/item_properties_mixin";
+import ItemPropertiesMixin from "fakturama/mixins/item_properties";
 
 var Item = Ember.Model.extend(ItemPropertiesMixin, {
     description: Ember.attr(String),

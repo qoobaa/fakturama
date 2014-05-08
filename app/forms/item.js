@@ -1,8 +1,7 @@
-import ItemPropertiesMixin from "fakturama/lib/item_properties_mixin";
+import ItemPropertiesMixin from "fakturama/mixins/item_properties";
+import FormMixin from "fakturama/mixins/form";
 
-var ItemForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, ItemPropertiesMixin, {
-    model: Ember.computed.alias("content"),
-
+var ItemForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, FormMixin, ItemPropertiesMixin, {
     validations: {
         description: {
             presence: { if: "invoiceForm.isSubmitted" }
@@ -27,11 +26,7 @@ var ItemForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, ItemPropertiesM
     quantity: Ember.computed.oneWay("model.quantity"),
     netPrice: Ember.computed.oneWay("model.netPrice"),
     unitCode: Ember.computed.oneWay("model.unitCode"),
-    taxRateCode: Ember.computed.oneWay("model.taxRateCode"),
-
-    toJSON: function () {
-        return this.getProperties(this.get("model").constructor.getAttributes());
-    }
+    taxRateCode: Ember.computed.oneWay("model.taxRateCode")
 });
 
 export default ItemForm;
