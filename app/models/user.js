@@ -3,9 +3,13 @@ var User = Ember.Object.extend({
         return this.get("provider") === "anonymous";
     }.property("email"),
 
+    emailMD5: function () {
+        return md5(this.getWithDefault("email", ""));
+    }.property("email"),
+
     gravatarURL: function () {
-        return "//www.gravatar.com/avatar/" + this.getWithDefault("md5_hash", "") + "?d=mm";
-    }.property("md5_hash"),
+        return "//www.gravatar.com/avatar/" + this.get("emailMD5") + "?d=mm";
+    }.property("emailMD5"),
 
     name: function () {
         return this.get("displayName") || this.get("email") || "Gość";
@@ -14,6 +18,10 @@ var User = Ember.Object.extend({
     firebaseAuthTokenDidChange: function () {
         window.ENV.FIREBASE_AUTH_TOKEN = this.get("firebaseAuthToken");
     }.observes("firebaseAuthToken").on("init"),
+
+    isPersona: function () {
+        return this.get("provider") === "persona";
+    }.property("provider"),
 
     idDidChange: function () {
         window.ENV.FIREBASE_USER_ID = this.get("id");
