@@ -19,10 +19,6 @@ var User = Ember.Object.extend({
         window.ENV.FIREBASE_AUTH_TOKEN = this.get("firebaseAuthToken");
     }.observes("firebaseAuthToken").on("init"),
 
-    isPersona: function () {
-        return this.get("provider") === "persona";
-    }.property("provider"),
-
     idDidChange: function () {
         window.ENV.FIREBASE_USER_ID = this.get("id");
     }.observes("id").on("init"),

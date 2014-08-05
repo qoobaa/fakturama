@@ -34,10 +34,7 @@
           {{/view}}
           <ul class="nav navbar-nav">
             <li>
-              <a href="javascript:;" {{action "signIn" "persona"}}><span class="text-muted" title="Niezalecany dla nowych użytkowników">Zaloguj przez Mozilla Persona</span></a>
-            </li>
-            <li>
-              <a href="javascript:;" {{action "signIn" "google"}}><strong>Zaloguj przez Google</strong></a>
+              <a href="javascript:;" {{action "signIn" "google"}}>Zaloguj</a>
             </li>
           </ul>
         {{else}}
@@ -58,46 +55,5 @@
 </nav>
 
 <div class="container site-content">
-  {{#if user.isPersona}}
-    <div class="alert alert-warning hidden-print">
-
-      <p>
-
-        W związku z zawieszeniem przez <a
-        href="http://www.mozilla.org">Fundację Mozilla</a> rozwoju
-        usługi <a
-        href="https://www.mozilla.org/en-US/persona/">Mozilla
-        Persona</a> i zawieszeniem wsparcia dla tego sposobu logowania
-        przez bazę danych Firebase, jesteśmy zmuszeni wycofać wsparcie
-        dla Persony z serwisu Fakturama. <strong>Logowanie przez
-        usługę Mozilla Persona nie będzie możliwe po 31 lipca 2014
-        roku</strong>. Użytkowników, którzy chcą utrzymać dostęp do
-        zapisanych w bazie danych dokumentów prosimy o wykonanie kilku
-        kroków, przed upływem tego terminu:
-
-      </p>
-
-      <p>
-        <ol>
-          <li>zalogowanie się przez Personę</li>
-          <li>kliknięcie na przycisk <em>Eksportuj dane</em> w zakładce <em>Ustawienia</em></li>
-          <li>wylogowanie się</li>
-          <li>zalogowanie się przez Google</li>
-          <li>kliknięcie na przycisk <em>Importuj dane</em> w zakładce <em>Ustawienia</em>, a następnie zatwierdzenie poprzez wybór pliku pobranego w drugim kroku</li>
-        </ol>
-      </p>
-
-      <p>
-        Przepraszamy za wszelkie niedogodności związane z tą
-        zmianą. Jesteśmy zwolennikami neutralności sieci i rozwiązań
-        poprawiających bezpieczeństwo i ochronę prywatności
-        użytkowników. Zarówno <a
-        href="http://identity.mozilla.com/post/78873831485/transitioning-persona-to-community-ownership">wstrzymanie
-        rozwoju usługi Persona</a> jak i wycofanie wsparcia dla tej
-        usługi przez Firebase uważamy za kroki w złym kierunku.
-      </p>
-
-    </div>
-  {{/if}}
   {{outlet}}
 </div>
