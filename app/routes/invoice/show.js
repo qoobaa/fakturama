@@ -9,7 +9,6 @@ var InvoiceShowRoute = Ember.Route.extend({
     },
     deactivate: function () {
         document.title = "Fakturama";
-        console.log("deactivate", arguments);
     }
 });
 
