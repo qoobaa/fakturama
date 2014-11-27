@@ -1,6 +1,4 @@
-var Router = Ember.Router.extend({
-    location: "history"
-});
+var Router = Ember.Router.extend();
 
 Router.map(function () {
     this.resource("clients", function () {
