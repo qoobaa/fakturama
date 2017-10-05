@@ -1,29 +1,20 @@
-import FirebaseAdapter from "fakturama/adapters/firebase";
+import DS from "ember-data";
+import Ember from "ember";
 
-var Account = Ember.Model.extend({
-    id: Ember.attr(),
-    bankName: Ember.attr(),
-    swift: Ember.attr(),
-    number: Ember.attr(),
-    description: Ember.attr(),
+const { Model, attr } = DS;
+const { computed } = Ember;
 
-    name: function () {
-        if (this.get("description")) {
-            return this.get("description");
-        } else {
-            return [this.get("bankName"), this.get("number")].compact().join(" ");
-        }
-    }.property("description", "number", "bankName")
-});
-
-Account.reopenClass({
-    url: "accounts",
-    adapter: FirebaseAdapter.create(),
-
-    clearCache: function () {
-        this._super.apply(this, arguments);
-        this._findAllRecordArray = undefined;
+export default Model.extend({
+  id: attr(),
+  bankName: attr(),
+  swift: attr(),
+  number: attr(),
+  description: attr(),
+  name: computed("bankName", "description", "number", function() {
+    if (this.get("description")) {
+      return this.get("description");
+    } else {
+      return [this.get("bankName"), this.get("number")].compact().join(" ");
     }
+  })
 });
-
-export default Account;

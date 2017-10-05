@@ -1,4 +1,4 @@
-import ItemPropertiesMixin from "fakturama/mixins/item_properties";
+import ItemPropertiesMixin from "fakturama/mixins/item-properties";
 import FormMixin from "fakturama/mixins/form";
 
 var ItemForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, FormMixin, ItemPropertiesMixin, {

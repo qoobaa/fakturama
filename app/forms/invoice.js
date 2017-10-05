@@ -3,7 +3,7 @@ import ItemForm from "fakturama/forms/item";
 import Currency from "fakturama/models/currency";
 import Language from "fakturama/models/language";
 import FormMixin from "fakturama/mixins/form";
-import InvoicePropertiesMixin from "fakturama/mixins/invoice_properties";
+import InvoicePropertiesMixin from "fakturama/mixins/invoice-properties";
 
 var InvoiceForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, FormMixin, InvoicePropertiesMixin, {
     validations: {

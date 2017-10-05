@@ -1,28 +1,30 @@
-var FormMixin = Ember.Mixin.create({
-    model: Ember.computed.alias("content"),
-    isSubmitted: false,
+import Ember from 'ember';
 
-    save: function () {
-        var form = this,
-            model = this.get("model");
+const { Mixin, computed } = Ember;
 
-        return this.validate().then(function () {
-            model.setProperties(form.toJSON());
-            return model.save();
-        });
-    },
+export default Mixin.create({
+  model: computed.alias("content"),
+  isSubmitted: false,
 
-    toJSON: function () {
-        return this.getProperties(this.get("model").constructor.getAttributes());
-    },
+  save: function () {
+    var form = this,
+      model = this.get("model");
 
-    addErrors: function (errors) {
-        var form = this;
+    return this.validate().then(function () {
+      model.setProperties(form.toJSON());
+      return model.save();
+    });
+  },
 
-        Object.keys(errors || {}).forEach(function (property) {
-            form.set("errors." + property, form.get("errors." + property).concat(errors[property]));
-        });
-    }
+  toJSON: function () {
+    return this.getProperties(this.get("model").constructor.getAttributes());
+  },
+
+  addErrors: function (errors) {
+    var form = this;
+
+    Object.keys(errors || {}).forEach(function (property) {
+      form.set("errors." + property, form.get("errors." + property).concat(errors[property]));
+    });
+  }
 });
-
-export default FormMixin;
