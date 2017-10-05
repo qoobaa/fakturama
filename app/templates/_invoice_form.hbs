@@ -6,7 +6,7 @@
       Numer
     </label>
     <div class="col-sm-3">
-      {{input valueBinding="number" class="form-control" id="invoice-number"}}
+      {{input value=number class="form-control" id="invoice-number"}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.number.firstObject}}</span>
@@ -18,7 +18,7 @@
       Data wystawienia
     </label>
     <div class="col-sm-3">
-      {{input type="date" valueBinding="issueDate" class="form-control" id="invoice-issue-date"}}
+      {{input type="date" value=issueDate class="form-control" id="invoice-issue-date"}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.issueDate.firstObject}}</span>
@@ -29,7 +29,7 @@
     <div class="col-sm-9 col-sm-offset-3">
       <div class="checkbox">
         <label>
-          {{input type="checkbox" checkedBinding="isIssueDelivery"}}
+          {{input type="checkbox" checked=isIssueDelivery}}
           Data dostawy towarów lub wykonania usługi jest taka sama jak data wystawienia
         </label>
       </div>
@@ -41,7 +41,7 @@
       Data dostawy towarów lub wykonania usługi
     </label>
     <div class="col-sm-3">
-      {{input type="date" valueBinding="deliveryDate" class="form-control" id="invoice-delivery-date"}}
+      {{input type="date" value=deliveryDate class="form-control" id="invoice-delivery-date"}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.deliveryDate.firstObject}}</span>
@@ -54,7 +54,7 @@
     </label>
     <div class="col-sm-3">
       <div class="input-group">
-        {{input type="number" class="form-control text-right" valueBinding="dueDays" id="invoice-due-days" min="0"}}
+        {{input type="number" class="form-control text-right" value=dueDays id="invoice-due-days" min="0"}}
         <span class="input-group-addon">dni</span>
       </div>
     </div>
@@ -68,7 +68,7 @@
       Waluta
     </label>
     <div class="col-sm-3">
-      {{view Ember.Select class="form-control" contentBinding="currencies.content" optionValuePath="content.code" optionLabelPath="content.nameWithCode" valueBinding="currencyCode" id="invoice-currency"}}
+      {{view Ember.Select class="form-control" content=currencies.content optionValuePath="content.code" optionLabelPath="content.nameWithCode" value=currencyCode id="invoice-currency"}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.currency.firstObject}}</span>
@@ -81,7 +81,7 @@
         Data publikacji tabeli kursów walut obcych
       </label>
       <div class="col-sm-3">
-        {{input type="date" valueBinding="exchangeDate" class="form-control" id="invoice-exchange-date" disabled="disabled"}}
+        {{input type="date" value=exchangeDate class="form-control" id="invoice-exchange-date" disabled="disabled"}}
       </div>
       <div class="col-sm-6">
         {{#if exchangeRate.isLoading}}
@@ -98,7 +98,7 @@
       Wersja językowa
     </label>
     <div class="col-sm-3">
-      {{view Ember.Select class="form-control" contentBinding="languages.content" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="languageCode" id="invoice-language"}}
+      {{view Ember.Select class="form-control" content=languages.content optionValuePath="content.code" optionLabelPath="content.name" value=languageCode id="invoice-language"}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.language.firstObject}}</span>
@@ -111,7 +111,7 @@
         Sprzedawca
       </label>
       <span class="help-block" style="display: inline;">{{errors.seller.firstObject}}</span>
-      {{textarea class="form-control" rows="5" valueBinding="seller" id="invoice-seller"}}
+      {{textarea class="form-control" rows="5" value=seller id="invoice-seller"}}
     </div>
 
     <div {{bind-attr class=":col-sm-6 errors.buyer.firstObject:has-error"}}>
@@ -135,7 +135,7 @@
         </ul>
       </div>
       <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
-      {{textarea class="form-control" rows="5" valueBinding="buyer" id="invoice-buyer"}}
+      {{textarea class="form-control" rows="5" value=buyer id="invoice-buyer"}}
     </div>
   </div>
 
@@ -173,28 +173,28 @@
     {{#each item in items}}
       <tr>
         <td {{bind-attr class=":form-group item.errors.description.firstObject:has-error"}}>
-          {{input class="form-control" valueBinding="item.description"}}
+          {{input class="form-control" value=item.description}}
         </td>
         <td {{bind-attr class=":form-group :text-right item.errors.quantity.firstObject:has-error"}}>
-          {{view "number-field" numberBinding="item.quantity" class="form-control text-right"}}
+          {{view "number-field" number=item.quantity class="form-control text-right"}}
         </td>
         <td {{bind-attr class=":form-group :text-right item.errors.unit.firstObject:has-error"}}>
-          {{view Ember.Select class="form-control" contentBinding="units" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.unitCode"}}
+          {{view Ember.Select class="form-control" content=units optionValuePath="content.code" optionLabelPath="content.name" value=item.unitCode}}
         </td>
         <td {{bind-attr class=":form-group :text-right item.errors.netPrice.firstObject:has-error"}}>
-          {{view "cents-field" centsBinding="item.netPrice" class="form-control text-right" precisionBinding="currency.precision"}}
+          {{view "cents-field" cents=item.netPrice class="form-control text-right" precision=currency.precision}}
         </td>
         <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.netAmount.firstObject:has-error"}}>
-          {{view "cents-field" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+          {{view "cents-field" cents=item.netAmount class="form-control text-right" disabled="disabled" precision=currency.precision}}
         </td>
         <td {{bind-attr class=":form-group :text-right item.errors.taxRateCode.firstObject:has-error"}}>
-          {{view Ember.Select class="form-control" contentBinding="taxRates" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.taxRateCode"}}
+          {{view Ember.Select class="form-control" content=taxRates optionValuePath="content.code" optionLabelPath="content.name" value=item.taxRateCode}}
         </td>
         <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.taxAmount.firstObject:has-error"}}>
-          {{view "cents-field" centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+          {{view "cents-field" cents=item.taxAmount class="form-control text-right" disabled="disabled" precision=currency.precision}}
         </td>
         <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.grossAmount.firstObject:has-error"}}>
-          {{view "cents-field" centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+          {{view "cents-field" cents=item.grossAmount class="form-control text-right" disabled="disabled" precision=currency.precision}}
         </td>
         <td>
           <button class="btn btn-remove" {{action "removeItem" item}} {{bind-attr disabled="isRemoveItemDisabled"}}><strong>×</strong></button>
@@ -209,14 +209,14 @@
         Razem
       </th>
       <td class="text-right">
-        {{format-cents totalNetAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>
+        {{format-cents totalNetAmount precision=currency.precision}}&nbsp;<small>{{currency.code}}</small>
       </td>
       <td></td>
       <td class="text-right">
-        {{format-cents totalTaxAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+        {{format-cents totalTaxAmount precision=currency.precision}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
       </td>
       <td class="text-right">
-        {{format-cents totalGrossAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>
+        {{format-cents totalGrossAmount precision=currency.precision}}&nbsp;<small>{{currency.code}}</small>
       </td>
       <td></td>
     </tr>
@@ -226,16 +226,20 @@
           W tym
         </th>
         <td class="text-right">
-          {{format-cents subTotal.netAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>
+          {{format-cents subTotal.netAmount precision=currency.precision}}
+          {{!-- <small>{{../currency.code}}</small> --}}
         </td>
         <td class="text-right">
           {{subTotal.taxRate.name}}
         </td>
         <td class="text-right">
-          {{format-cents subTotal.taxAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+          {{format-cents subTotal.taxAmount precision=currency.precision}}
+          {{!-- <small>{{../currency.code}}</small> --}}
+          {{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
         </td>
         <td class="text-right">
-          {{format-cents subTotal.grossAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>
+          {{format-cents subTotal.grossAmount precision=currency.precision}}
+          {{!-- <small>{{../currency.code}}</small> --}}
         </td>
         <td></td>
       </tr>
@@ -280,7 +284,7 @@
       Nazwa banku
     </label>
     <div class="col-sm-3">
-      {{input class="form-control" valueBinding="accountBankName" id="invoice-account-bank-name"}}
+      {{input class="form-control" value=accountBankName id="invoice-account-bank-name"}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.accountBankName.firstObject}}</span>
@@ -292,7 +296,7 @@
       SWIFT
     </label>
     <div class="col-sm-3">
-      {{input class="form-control" valueBinding="accountSwift" id="invoice-account-swift"}}
+      {{input class="form-control" value=accountSwift id="invoice-account-swift"}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.accountSwift.firstObject}}</span>
@@ -304,7 +308,7 @@
       Numer rachunku
     </label>
     <div class="col-sm-3">
-      {{input class="form-control" valueBinding="accountNumber" id="invoice-account-number"}}
+      {{input class="form-control" value=accountNumber id="invoice-account-number"}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.accountNumber.firstObject}}</span>
@@ -316,17 +320,17 @@
       <label for="invoice-comment">
         Uwagi
       </label>
-      {{textarea class="form-control" rows="4" valueBinding="comment" id="invoice-comment"}}
+      {{textarea class="form-control" rows="4" value=comment id="invoice-comment"}}
     </div>
   </div>
 
   <div class="row">
     <div class="col-sm-6">
-      {{input class="form-control text-center" valueBinding="sellerSignature" id="sellerSignature"}}
+      {{input class="form-control text-center" value=sellerSignature id="sellerSignature"}}
       <label for="sellerSignature">Podpis wystawiającego</label>
     </div>
     <div class="col-sm-6">
-      {{input class="form-control text-center" valueBinding="buyerSignature" id="buyerSignature"}}
+      {{input class="form-control text-center" value=buyerSignature id="buyerSignature"}}
       <label for="buyerSignature">Podpis nabywcy</label>
     </div>
   </div>

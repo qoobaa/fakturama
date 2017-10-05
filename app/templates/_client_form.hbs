@@ -6,7 +6,7 @@
       Nazwa
     </label>
     <div class="col-sm-5">
-      {{input valueBinding="companyName" class="form-control" id="client-company-name"}}
+      {{input value=companyName class="form-control" id="client-company-name"}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">{{errors.companyName.firstObject}}</span>
@@ -18,7 +18,7 @@
       Adres
     </label>
     <div class="col-sm-5">
-      {{textarea valueBinding="address" class="form-control" id="client-address" rows=3}}
+      {{textarea value=address class="form-control" id="client-address" rows=3}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">{{errors.address.firstObject}}</span>
@@ -30,7 +30,7 @@
       NIP
     </label>
     <div class="col-sm-5">
-      {{input valueBinding="vatin" class="form-control" id="client-vatin"}}
+      {{input value=vatin class="form-control" id="client-vatin"}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">{{errors.vatin.firstObject}}</span>
@@ -46,7 +46,7 @@
       Imię i nazwisko
     </label>
     <div class="col-sm-5">
-      {{input valueBinding="contactName" class="form-control" id="client-contact-name"}}
+      {{input value=contactName class="form-control" id="client-contact-name"}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">{{errors.contactName.firstObject}}</span>
@@ -58,7 +58,7 @@
       Adres e-mail
     </label>
     <div class="col-sm-5">
-      {{input valueBinding="contactEmail" class="form-control" id="client-contact-email" type="email"}}
+      {{input value=contactEmail class="form-control" id="client-contact-email" type="email"}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">{{errors.contactEmail.firstObject}}</span>
