@@ -5,7 +5,6 @@ const { Model, attr } = DS;
 const { computed } = Ember;
 
 export default Model.extend({
-  id: attr(),
   bankName: attr(),
   swift: attr(),
   number: attr(),

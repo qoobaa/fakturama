@@ -3,6 +3,8 @@ import Ember from "ember";
 
 const { computed, observer } = Ember;
 
+const firebase = new window.firebase.initializeApp(config.APP.FIREBASE);
+
 let User = Ember.Object.extend({
   isAnonymous: computed("provider", function () {
     return this.get("provider") === "anonymous";
@@ -21,36 +23,35 @@ let User = Ember.Object.extend({
   }),
 
   firebaseAuthTokenDidChange: observer("firebaseAuthToken", function () {
-    window.ENV = window.ENV || {};
-    window.ENV.FIREBASE_AUTH_TOKEN = this.get("firebaseAuthToken");
+    this.get("firebase").set("token", this.get("firebaseAuthToken"));
   }).on("init"),
 
-  idDidChange: observer("id", function () {
-    window.ENV = window.ENV || {};
-    window.ENV.FIREBASE_USER_ID = this.get("id");
+  uidDidChange: observer("uid", function () {
+    this.get('firebase').set("userId", this.get("uid"));
   }).on("init"),
 
   login: function (method) {
-    var model = this,
-      firebase = new window.Firebase(config.APP.FIREBASE_URL);
+    var model = this;
 
     return new Ember.RSVP.Promise(function (resolve, reject) {
-      new window.FirebaseSimpleLogin(firebase, function (error, user) {
-        if (error) {
-          reject(error);
-        } else if (user && user.provider === method) {
-          resolve(user);
-        }
-      }).login(method);
+      const auth = firebase.auth("fakturama-e87a7");
+      auth.signInAnonymously().then((user) => resolve(user),
+                                    (error) => reject(error));
     }).then(function (user) {
-      model.setProperties($.extend({}, model.constructor.blankProperties, user));
-      return model;
+      return user.getIdToken().then((token) => {
+        model.setProperties($.extend({}, model.constructor.blankProperties, {
+          uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
+          firebaseAuthToken: token
+        }));
+        return model;
+      });
     });
   },
 
   logout: function () {
-    var model = this,
-      firebase = new window.Firebase(config.APP.FIREBASE_URL);
+    var model = this;
 
     return new Ember.RSVP.Promise(function (resolve, reject) {
       new window.FirebaseSimpleLogin(firebase, function (error, user) {
@@ -71,24 +72,17 @@ User.reopenClass({
     displayName: null,
     email: null,
     firebaseAuthToken: null,
-    id: null,
     md5_hash: null,
     provider: null,
     uid: null
   },
 
-  fetch: function () {
-    var model = this.create(),
-      firebase = new window.Firebase(config.APP.FIREBASE_URL);
+  fetch: function (firebaseService) {
+    var model = this.create({ firebase: firebaseService });
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
-      new window.FirebaseSimpleLogin(firebase, function (error, user) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(user);
-        }
-      });
+    return new Ember.RSVP.Promise(function (resolve) {
+      const auth = firebase.auth();
+      resolve(auth.currentUser);
     }).then(function (user) {
       if (user) {
         model.setProperties(user);

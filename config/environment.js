@@ -25,7 +25,14 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    ENV.APP.FIREBASE_URL = "https://fakturama.firebaseio.com/";
+    ENV.APP.FIREBASE = {
+      apiKey: "AIzaSyCoxVMOvGe1l07rMvsAZNPg0Kqt8kV5zd8",
+      authDomain: "fakturama-e87a7.firebaseapp.com",
+      databaseURL: "https://fakturama-e87a7.firebaseio.com",
+      projectId: "fakturama-e87a7",
+      storageBucket: "fakturama-e87a7.appspot.com",
+      messagingSenderId: "690318607516"
+    }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -45,7 +52,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.FIREBASE_URL = "https://fakturama.firebaseio.com/";
+    ENV.APP.FIREBASE_URL = "https://fakturama.firebaseio.com";
   }
 
   return ENV;

@@ -1,6 +1,8 @@
-var ClientsIndexController = Ember.ArrayController.extend({
-    sortProperties: ["companyName"],
-    sortAscending: true
-});
+import Ember from "ember";
 
-export default ClientsIndexController;
+const { Controller } = Ember;
+
+export default Controller.extend({
+  sortProperties: ["companyName"],
+  sortAscending: true
+});

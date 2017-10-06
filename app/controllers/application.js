@@ -16,7 +16,7 @@ export default Controller.extend({
 
   goOnline: function () {
     try {
-      window.Firebase.goOnline();
+      // window.Firebase.goOnline();
     } catch (error) {
       // do nothing
     }
@@ -31,7 +31,8 @@ export default Controller.extend({
       this.get("user").login(method).then(function () {
         controller.clearCache();
         controller.transitionToRoute("index");
-      }).finally(window.Firebase.goOffline);
+      })
+        // .finally(window.Firebase.goOffline);
     },
 
     signOut: function () {
@@ -42,7 +43,8 @@ export default Controller.extend({
       this.get("user").logout().then(function () {
         controller.clearCache();
         controller.transitionToRoute("index");
-      }).finally(window.Firebase.goOffline);
+      })
+        // .finally(window.Firebase.goOffline);
     },
 
     dismissAlert: function () {

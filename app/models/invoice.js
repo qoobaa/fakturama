@@ -4,7 +4,6 @@ import InvoicePropertiesMixin from "fakturama/mixins/invoice-properties";
 const { Model, attr } = DS;
 
 export default Model.extend(InvoicePropertiesMixin, {
-  id: attr("string"),
   itemsAttributes: attr(),
   number: attr("string"),
   issueDate: attr("string"),

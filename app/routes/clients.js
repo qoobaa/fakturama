@@ -4,7 +4,7 @@ const { Route } = Ember;
 
 export default Route.extend({
   templateName: 'app',
-  model: function (params) {
-    return this.store.findRecord("client", params.client_id);
+  model: function () {
+    return this.store.findAll('client');
   }
 });
