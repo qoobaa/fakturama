@@ -3,7 +3,9 @@ import DS from "ember-data";
 import Ember from "ember";
 
 const { RESTAdapter } = DS;
-const { computed, inject: { service } } = Ember;
+const { Inflector, computed, inject: { service } } = Ember;
+
+const inflector = new Inflector(Inflector.defaultRules);
 
 export default RESTAdapter.extend({
   firebase: service("firebase"),
@@ -17,19 +19,19 @@ export default RESTAdapter.extend({
     return `${path}.json?auth=${this.get("firebase.token")}`;
   },
 
-  findAll: function() {
+  findAll: function(store, model) {
     return this._super(...arguments).then((payload) => {
-      return payload || [];
+      const records = Object.keys(payload || {}).map((id) => {
+        return Object.assign({}, payload[id][model.modelName], { id: id });
+      });
+      return { [inflector.pluralize(model.modelName)]: records };
     });
   },
 
-  didFindAll: function(klass, records, data) {
-    this._super(klass, records, Object.keys(data || {}).map(function (id) {
-      return $.extend({}, data[id], { id: id });
-    }));
-  },
-
-  didCreateRecord: function(record, data) {
-    this._super(record, $.extend({}, record.getProperties(record.constructor.getAttributes()), { id: data.name }));
+  createRecord: function(store, model) {
+    return this._super(...arguments).then((payload) => {
+      const record = Object.assign({}, { id: payload.name });
+      return { [inflector.pluralize(model.modelName)]: record };
+    });
   }
 });

@@ -8,7 +8,6 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route("home", { path: "/" });
-  this.route("app", { path: "/app" });
 
   // this.resource("clients", function () {
   //   this.route("new");
@@ -16,8 +15,11 @@ Router.map(function() {
   //     this.route("edit");
   //   });
   // });
-  this.route("clients", { path: "/clients" });
-  this.route("client", { path: "/client/:client_id" });
+  this.route("app", {}, function() {
+    this.route("clients", {}, function() {
+      this.route("new");
+    });
+  });
 
   // this.resource("accounts", function () {
   //   this.route("new");

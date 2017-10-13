@@ -13,11 +13,11 @@ export default Mixin.create({
     return this.validate().then(function () {
       model.setProperties(form.toJSON());
       return model.save();
-    });
+    }, null);
   },
 
   toJSON: function () {
-    return this.getProperties(this.get("model").constructor.getAttributes());
+    return this.getProperties(Object.keys(this.get("model").toJSON()));
   },
 
   addErrors: function (errors) {

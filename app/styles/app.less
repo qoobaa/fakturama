@@ -81,13 +81,17 @@
 html,
 body {
     height: 100%;
+
+    & > .ember-view {
+      height: 100vh;
+    }
 }
 
 .wrap {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -50px;
+    margin: 0 0 -50px;
 }
 
 .push,
