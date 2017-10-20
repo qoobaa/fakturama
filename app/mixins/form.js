@@ -16,6 +16,10 @@ export default Mixin.create({
     }, null);
   },
 
+  delete() {
+    return this.get('model').destroyRecord();
+  },
+
   toJSON: function () {
     return this.getProperties(Object.keys(this.get("model").toJSON()));
   },

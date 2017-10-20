@@ -1,21 +1,17 @@
 import Ember from 'ember';
 
-const { Controller } = Ember;
+const { Controller, computed: { oneWay } } = Ember;
 
 export default Controller.extend({
+  errors: oneWay('model.errors'),
+
   actions: {
-    saveRecord: function () {
+    saveRecord() {
       let model = this.get('model');
 
       model.set('isSubmitted', true);
       model.save().then(() => this.transitionToRoute('clients'),
                         () => model.set('isSubmitted', false));
-    },
-
-    deleteRecord: function () {
-      let model = this.get('model');
-
-      model.delete().then(() => this.transitionToRoute('clients'));
     }
   }
 });

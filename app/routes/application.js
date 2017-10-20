@@ -4,6 +4,7 @@ import User from "fakturama/models/user";
 const { Route, inject: { service } } = Ember;
 
 export default Route.extend({
+  showLayout: true,
   firebase: service("firebase"),
 
   model: function () {

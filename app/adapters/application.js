@@ -1,4 +1,3 @@
-import config from "fakturama/config/environment";
 import DS from "ember-data";
 import Ember from "ember";
 
@@ -9,28 +8,33 @@ const inflector = new Inflector(Inflector.defaultRules);
 
 export default RESTAdapter.extend({
   firebase: service("firebase"),
-
   host: computed.readOnly("firebase.url"),
-
   namespace: computed.readOnly("firebase.userId"),
 
-  pathForType: function() {
-    const path = this._super(...arguments);
-    return `${path}.json?auth=${this.get("firebase.token")}`;
+  buildURL() {
+    const url = this._super(...arguments);
+    return `${url}.json?auth=${this.get("firebase.token")}`;
   },
 
-  findAll: function(store, model) {
+  createRecord(store, model) {
+    return this._super(...arguments).then((payload) => {
+      const record = Object.assign({}, { id: payload.name });
+      return { [inflector.pluralize(model.modelName)]: record };
+    });
+  },
+
+  findAll(store, model) {
     return this._super(...arguments).then((payload) => {
       const records = Object.keys(payload || {}).map((id) => {
-        return Object.assign({}, payload[id][model.modelName], { id: id });
+        return Object.assign({}, payload[id][model.modelName], { id });
       });
       return { [inflector.pluralize(model.modelName)]: records };
     });
   },
 
-  createRecord: function(store, model) {
+  findRecord(store, model, id) {
     return this._super(...arguments).then((payload) => {
-      const record = Object.assign({}, { id: payload.name });
+      const record = Object.assign({}, payload[model.modelName], { id });
       return { [inflector.pluralize(model.modelName)]: record };
     });
   }

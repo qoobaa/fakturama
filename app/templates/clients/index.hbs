@@ -2,12 +2,12 @@
   <ul class="media-list">
     {{#each content as |client| }}
       <li class="media">
-        <!-- {{#link-to "client.edit" client class="pull-left"}} -->
+        {{#link-to "client.edit" client class="pull-left"}}
           <img height="36" width="36" class="img-circle pull-left" src={{client.gravatarURL}}>
-        <!-- {{/link-to}} -->
+        {{/link-to}}
         <div class="media-body">
           <h4 class="media-heading">
-            <!-- {{link-to client.contactName "client.edit" client}} -->
+            {{link-to client.contactName "client.edit" client}}
           </h4>
           <p>{{client.companyName}}</p>
         </div>
@@ -19,4 +19,4 @@
   <p>Nie dodano jeszcze żadnego klienta.</p>
 {{/if}}
 
-{{link-to "Dodaj nowego klienta" "app.clients.new" class="btn btn-success" active=null}}
+{{link-to "Dodaj nowego klienta" "clients.new" class="btn btn-success" active=null}}

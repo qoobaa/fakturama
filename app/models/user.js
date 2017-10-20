@@ -1,4 +1,5 @@
 import config from 'fakturama/config/environment';
+import md5 from 'md5';
 import Ember from "ember";
 
 const { computed, observer } = Ember;
@@ -11,7 +12,7 @@ let User = Ember.Object.extend({
   }),
 
   emailMD5: computed("email", function () {
-    return md5(this.getWithDefault("email", ""));
+    return md5(this.getWithDefault('email', ''));
   }),
 
   gravatarURL: computed("emailMD5", function () {

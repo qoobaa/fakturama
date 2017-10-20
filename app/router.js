@@ -9,16 +9,11 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route("home", { path: "/" });
 
-  // this.resource("clients", function () {
-  //   this.route("new");
-  //   this.resource("client", { path: "/:client_id" }, function () {
-  //     this.route("edit");
-  //   });
-  // });
-  this.route("app", {}, function() {
-    this.route("clients", {}, function() {
-      this.route("new");
-    });
+  this.route("clients", function () {
+    this.route("new");
+  });
+  this.route("client", { path: "client/:client_id" }, function () {
+    this.route("edit");
   });
 
   // this.resource("accounts", function () {

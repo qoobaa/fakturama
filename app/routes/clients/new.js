@@ -4,11 +4,11 @@ import Ember from 'ember';
 const { Route } = Ember;
 
 export default Route.extend({
-  model: function () {
-    return this.modelFor('client');
+  model() {
+    return this.get('store').createRecord('client');
   },
 
-  setupController: function (controller, model) {
+  setupController(controller, model) {
     controller.set('model', ClientForm.create({ model: model }));
   }
 });

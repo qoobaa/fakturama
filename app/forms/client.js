@@ -2,7 +2,7 @@ import Ember from 'ember';
 import EmberValidations from 'ember-validations';
 import FormMixin from 'fakturama/mixins/form';
 
-const { ObjectProxy } = Ember;
+const { ObjectProxy, computed: { oneWay } } = Ember;
 
 export default ObjectProxy.extend(EmberValidations, FormMixin, {
   validations: {
@@ -20,8 +20,8 @@ export default ObjectProxy.extend(EmberValidations, FormMixin, {
     }
   },
 
-  id: Ember.computed.oneWay("model.id"),
-  companyName: Ember.computed.oneWay("model.companyName"),
-  address: Ember.computed.oneWay("model.address"),
-  vatin: Ember.computed.oneWay("model.vatin")
+  id: oneWay("model.id"),
+  companyName: oneWay("model.companyName"),
+  address: oneWay("model.address"),
+  vatin: oneWay("model.vatin")
 });

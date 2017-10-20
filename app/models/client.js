@@ -10,7 +10,7 @@ export default Model.extend({
   vatin: attr(),
   contactName: attr(),
   contactEmail: attr(),
-  gravatarURL: computed("md5_hash", function () {
+  gravatarURL: computed("contactEmail", function () {
     const md5 = window.md5(this.getWithDefault("contactEmail", ""));
     return `//www.gravatar.com/avatar/${md5}?d=mm`;
   }),
