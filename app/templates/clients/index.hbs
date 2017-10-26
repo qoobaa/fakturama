@@ -1,6 +1,6 @@
-{{#if content }}
+{{#if content}}
   <ul class="media-list">
-    {{#each content as |client| }}
+    {{#each content as |client|}}
       <li class="media">
         {{#link-to "client.edit" client class="pull-left"}}
           <img height="36" width="36" class="img-circle pull-left" src={{client.gravatarURL}}>

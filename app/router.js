@@ -16,12 +16,12 @@ Router.map(function() {
     this.route("edit");
   });
 
-  // this.resource("accounts", function () {
-  //   this.route("new");
-  //   this.resource("account", { path: "/:account_id" }, function () {
-  //     this.route("edit");
-  //   });
-  // });
+  this.route("accounts", function () {
+    this.route("new");
+  });
+  this.route("account", { path: "account/:account_id" }, function () {
+    this.route("edit");
+  });
 
   // this.resource("invoices", function () {
   //   this.route("new");

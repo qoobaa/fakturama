@@ -8,20 +8,20 @@ export default ObjectProxy.extend(EmberValidations, FormMixin, {
   validations: {
     companyName: {
       presence: {
-        if: "isSubmitted",
-        message: "nie może być pusta"
+        if: 'isSubmitted',
+        message: 'nie może być pusta'
       }
     },
     address: {
       presence: {
-        if: "isSubmitted",
-        message: "nie może być pusty"
+        if: 'isSubmitted',
+        message: 'nie może być pusty'
       }
     }
   },
 
-  id: oneWay("model.id"),
-  companyName: oneWay("model.companyName"),
-  address: oneWay("model.address"),
-  vatin: oneWay("model.vatin")
+  id: oneWay('model.id'),
+  companyName: oneWay('model.companyName'),
+  address: oneWay('model.address'),
+  vatin: oneWay('model.vatin')
 });

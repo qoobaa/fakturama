@@ -37,5 +37,12 @@ export default RESTAdapter.extend({
       const record = Object.assign({}, payload[model.modelName], { id });
       return { [inflector.pluralize(model.modelName)]: record };
     });
+  },
+
+  updateRecord(store, model, snapshot) {
+    return this._super(...arguments).then((payload) => {
+      const record = Object.assign({}, payload[model.modelName], { id: snapshot.id});
+      return { [inflector.pluralize(model.modelName)]: record };
+    });
   }
 });

@@ -8,7 +8,7 @@ export default Route.extend({
     return this.modelFor('client');
   },
 
-  setupController: function (controller, model) {
+  setupController(controller, model) {
     controller.set('model', ClientForm.create({ model: model }));
   }
 });

@@ -10,8 +10,7 @@ export default Controller.extend({
       let model = this.get('model');
 
       model.set('isSubmitted', true);
-      model.save().then(() => this.transitionToRoute('clients'),
-                        () => model.set('isSubmitted', false));
+      model.save().then(() => this.transitionToRoute('clients'));
     }
   }
 });

@@ -20,6 +20,10 @@ export default Mixin.create({
     return this.get('model').destroyRecord();
   },
 
+  rollback() {
+    return this.get('model').rollbackAttributes();
+  },
+
   toJSON: function () {
     return this.getProperties(Object.keys(this.get("model").toJSON()));
   },

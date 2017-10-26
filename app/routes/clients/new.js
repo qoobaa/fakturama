@@ -10,5 +10,12 @@ export default Route.extend({
 
   setupController(controller, model) {
     controller.set('model', ClientForm.create({ model: model }));
+  },
+
+  deactivate() {
+    let controller = this.controllerFor(this.routeName);
+    let model = controller.get('model');
+    controller.set('model', null);
+    model.rollback();
   }
 });

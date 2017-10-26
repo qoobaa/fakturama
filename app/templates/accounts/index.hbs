@@ -1,4 +1,4 @@
-{{#if firstObject}}
+{{#if content}}
   <table class="table table-striped">
     <tr>
       <th>Opis</th>
@@ -7,7 +7,7 @@
       <th class="text-center">SWIFT</th>
       <th></th>
     </tr>
-    {{#each account in controller}}
+    {{#each content as |account|}}
       <tr>
         <td>{{account.description}}</td>
         <td class="text-center">{{account.bankName}}</td>

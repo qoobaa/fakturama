@@ -1,15 +1,16 @@
-var AccountsNewController = Ember.ObjectController.extend({
-    actions: {
-        saveRecord: function () {
-            var controller = this;
+import Ember from 'ember';
 
-            this.set("isSubmitted", true);
+const { Controller, computed: { oneWay } } = Ember;
 
-            this.get("content").save().then(function () {
-                controller.transitionToRoute("accounts");
-            });
-        }
+export default Controller.extend({
+  errors: oneWay('model.errors'),
+
+  actions: {
+    saveRecord: function () {
+      let model = this.get('model');
+
+      model.set('isSubmitted', true);
+      model.save().then(() => this.transitionToRoute('accounts'));
     }
+  }
 });
-
-export default AccountsNewController;
