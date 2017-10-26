@@ -1,16 +1,8 @@
 import Ember from 'ember';
+import NewController from 'fakturama/mixins/new-controller';
 
-const { Controller, computed: { oneWay } } = Ember;
+const { Controller } = Ember;
 
-export default Controller.extend({
-  errors: oneWay('model.errors'),
-
-  actions: {
-    saveRecord() {
-      let model = this.get('model');
-
-      model.set('isSubmitted', true);
-      model.save().then(() => this.transitionToRoute('clients'));
-    }
-  }
+export default Controller.extend(NewController, {
+  transitionTo: 'clients'
 });
