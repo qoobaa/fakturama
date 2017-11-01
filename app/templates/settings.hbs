@@ -2,15 +2,18 @@
   <fieldset>
     <legend>Dane osobiste</legend>
 
-    <div {{bind-attr class=":form-group errors.contactName.firstObject:has-error"}}>
+    <div class="form-group {{if errors.contactName.firstObject "has-error"}}">
       <label for="settings-contact-name" class="col-sm-2 control-label">
         Imię i nazwisko
       </label>
       <div class="col-sm-5">
-        {{input value=contactName class="form-control" id="settings-contact-name"}}
+        {{input id="settings-contact-name" class="form-control"
+          value=(mut (get model 'contactName'))}}
       </div>
       <div class="col-sm-5">
-        <span class="help-block">{{errors.contactName.firstObject}}</span>
+        <span class="help-block">
+          {{errors.contactName.firstObject}}
+        </span>
       </div>
     </div>
   </fieldset>
@@ -18,39 +21,48 @@
   <fieldset>
     <legend>Firma</legend>
 
-    <div {{bind-attr class=":form-group errors.companyName.firstObject:has-error"}}>
+    <div class="form-group {{if errors.companyName.firstObject "has-error"}}">
       <label for="settings-company-name" class="col-sm-2 control-label">
         Nazwa
       </label>
       <div class="col-sm-5">
-        {{input value=companyName class="form-control" id="settings-company-name"}}
+        {{input id="settings-company-name" class="form-control"
+          value=(mut (get model 'companyName'))}}
       </div>
       <div class="col-sm-5">
-        <span class="help-block">{{errors.companyName.firstObject}}</span>
+        <span class="help-block">
+          {{errors.companyName.firstObject}}
+        </span>
       </div>
     </div>
 
-    <div {{bind-attr class=":form-group errors.address.firstObject:has-error"}}>
+    <div class="form-group {{if errors.address.firstObject "has-error"}}">
       <label for="settings-address" class="col-sm-2 control-label">
         Adres
       </label>
       <div class="col-sm-5">
-        {{textarea value=address class="form-control" id="settings-address" rows=3}}
+        {{input id="settings-adress" class="form-control"
+          value=(mut (get model 'address'))}}
       </div>
       <div class="col-sm-5">
-        <span class="help-block">{{errors.address.firstObject}}</span>
+        <span class="help-block">
+          {{errors.address.firstObject}}
+        </span>
       </div>
     </div>
 
-    <div {{bind-attr class=":form-group errors.vatin.firstObject:has-error"}}>
+    <div class="form-group {{if errors.vatin.firstObject "has-error"}}">
       <label for="settings-vatin" class="col-sm-2 control-label">
         NIP
       </label>
       <div class="col-sm-5">
-        {{input value=vatin class="form-control" id="settings-vatin"}}
+        {{input id="settings-vatin" class="form-control"
+          value=(mut (get model 'vatin'))}}
       </div>
       <div class="col-sm-5">
-        <span class="help-block">{{errors.vatin.firstObject}}</span>
+        <span class="help-block">
+          {{errors.vatin.firstObject}}
+        </span>
       </div>
     </div>
   </fieldset>
@@ -58,38 +70,50 @@
   <fieldset>
     <legend>Inne</legend>
 
-    <div {{bind-attr class=":form-group errors.numerationType.firstObject:has-error"}}>
+    <div class="form-group {{if errors.numerationTypeCode.firstObject "has-error"}}">
       <label for="settings-numeration-type" class="col-sm-2 control-label">
         Typ numeracji faktur
       </label>
       <div class="col-sm-5">
-        {{view Ember.Select class="form-control" content=numerationTypes.content optionValuePath="content.code" optionLabelPath="content.name" value=numerationTypeCode id="settings-numeration-type"}}
+        <select id="settings-numeration-type" class="form-control"
+          onchange={{action (mut (get model 'numerationTypeCode')) value="target.value"}}>
+          {{#each numerationTypes as |type|}}
+            <option value={{type.code}} selected={{eq type.code model.numerationTypeCode}}>
+              {{type.name}}
+            </option>
+          {{/each}}
+        </select>
       </div>
       <div class="col-sm-5">
-        <span class="help-block">{{errors.numerationType.firstObject}}</span>
+        <span class="help-block">
+          {{errors.numerationTypeCode.firstObject}}
+        </span>
       </div>
     </div>
 
-    <div {{bind-attr class=":form-group errors.dueDays.firstObject:has-error"}}>
+    <div class="form-group {{if errors.dueDays.firstObject "has-error"}}">
       <label class="control-label col-sm-2" for="settings-due-days">
         Domyślny termin płatności
       </label>
       <div class="col-sm-2">
         <div class="input-group">
-          {{input type="number" class="form-control text-right" value=dueDays id="settings-due-days" min="0"}}
+          {{input id="settings-due-days" class="form-control" type="number" min="0"
+            value=(mut (get model 'dueDays'))}}
           <span class="input-group-addon">dni</span>
         </div>
       </div>
       <div class="col-sm-8">
-        <span class="help-block">{{errors.dueDays.firstObject}}</span>
+        <span class="help-block">
+          {{errors.dueDays.firstObject}}
+        </span>
       </div>
     </div>
   </fieldset>
 
   <div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
-      <button type="submit" class="btn btn-primary" {{action "save"}} {{bind-attr disabled="model.isSaving"}}>Zapisz ustawienia</button>
-      {{link-to "Anuluj" "index" class="btn btn-default" activeClass=null}}
+      <button type="submit" class="btn btn-primary" {{action "save"}} disabled={{model.isSaving}}>Zapisz ustawienia</button>
+      {{link-to "Anuluj" "clients" class="btn btn-default" activeClass=null}}
     </div>
   </div>
 
@@ -99,8 +123,8 @@
     <legend>Baza danych</legend>
     <div class="form-group">
       <div class="col-sm-10 col-sm-offset-2">
-        {{#view "export-button" class="btn btn-default"}}Eksportuj dane{{/view}}
-        {{#view "import-button" class="btn btn-default btn-upload" action="importDatabase" target=controllers.application}}Importuj dane{{/view}}
+        {{export-button}}
+        {{import-button import=(action 'importDatabase')}}
         <button class="btn btn-danger" {{action "showDeleteModal"}}>Usuń dane</button>
       </div>
     </div>
@@ -121,7 +145,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" {{action "dismissDeleteModal"}}>Nie</button>
-          <button type="button" class="btn btn-danger" {{action "deleteDatabase" target="controllers.application"}}>Tak, usuń dane</button>
+          <button type="button" class="btn btn-danger" {{action "deleteDatabase"}}>Tak, usuń dane</button>
         </div>
       </div>
     </div>

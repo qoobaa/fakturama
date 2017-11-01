@@ -1,20 +1,19 @@
-import Settings from "fakturama/models/settings";
-import SettingsForm from "fakturama/forms/settings";
-import NumerationType from "fakturama/models/numeration_type";
+import Ember from 'ember';
+import SettingsForm from 'fakturama/forms/settings';
 
-var SettingsRoute = Ember.Route.extend({
-    model: function () {
-        return Ember.RSVP.hash({
-            model: Settings.fetch(),
-            numerationTypes: NumerationType.fetch()
-        });
-    },
+const { Route, RSVP } = Ember;
 
-    setupController: function (controller, models) {
-        models.model = SettingsForm.create({ model: models.model });
-        models.isDeleteModalVisible = false;
-        controller.setProperties(models);
-    }
+export default Route.extend({
+  model: function () {
+    return RSVP.hash({
+      model: this.get('store').findRecord('settings', 'default'),
+      numerationTypes: this.get('store').findAll('numeration-type')
+    });
+  },
+
+  setupController: function (controller, models) {
+    models.model = SettingsForm.create({ model: models.model });
+    models.isDeleteModalVisible = false;
+    controller.setProperties(models);
+  }
 });
-
-export default SettingsRoute;

@@ -10,8 +10,8 @@ let NumerationType = Model.extend({
 NumerationType.reopenClass({
   primaryKey: "code",
   FIXTURES: [
-    { code: "month", name: "miesięczny" },
-    { code: "year", name: "roczny" }
+    { id: 1, code: "month", name: "miesięczny" },
+    { id: 2, code: "year", name: "roczny" }
   ]
 });
 

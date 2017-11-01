@@ -34,7 +34,7 @@ export default RESTAdapter.extend({
 
   findRecord(store, model, id) {
     return this._super(...arguments).then((payload) => {
-      const record = Object.assign({}, payload[model.modelName], { id });
+      const record = Object.assign({}, (payload || {})[model.modelName], { id });
       return { [inflector.pluralize(model.modelName)]: record };
     });
   },
