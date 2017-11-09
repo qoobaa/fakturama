@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ExchangeRatesTable from "fakturama/models/exchange-rates-table";
+import ExchangeRatesTable from 'fakturama/models/exchange-rates-table';
 
 const { Mixin, observer } = Ember;
 
@@ -21,8 +21,10 @@ export default Mixin.create({
       exchangeRate = parseInt(currency.kurs_sredni.replace(",", ""), 10);
       exchangeDivisor = parseInt(currency.przelicznik, 10);
     }
-    this.setProperties({ exchangeDate: exchangeDate,
+    this.setProperties({
+      exchangeDate: exchangeDate,
       exchangeRate: exchangeRate,
-      exchangeDivisor: exchangeDivisor });
+      exchangeDivisor: exchangeDivisor
+    });
   })
 });

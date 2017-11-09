@@ -10,8 +10,8 @@ let Language = Model.extend({
 Language.reopenClass({
   primaryKey: "code",
   FIXTURES: [
-    { code: "pl", name: "polska" },
-    { code: "plen", name: "polsko-angielska" }
+    { id: 1, code: "pl", name: "polska" },
+    { id: 2, code: "plen", name: "polsko-angielska" }
   ]
 });
 

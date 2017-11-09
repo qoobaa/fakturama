@@ -13,9 +13,9 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar">
           <ul class="nav navbar-nav">
-            <!-- {{#link-to "invoices" tagName="li"}} -->
-            <!--   <a href="javascript:;">Faktury</a> -->
-            <!-- {{/link-to}} -->
+            {{#link-to "invoices" tagName="li"}}
+              <a href="javascript:;">Faktury</a>
+            {{/link-to}}
             {{#unless user.isAnonymous}}
               {{#link-to "clients" tagName="li"}}
                 <a href="javascript:;">Klienci</a>

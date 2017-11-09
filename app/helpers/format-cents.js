@@ -1,13 +1,11 @@
-import formatCents from "fakturama/lib/format_cents";
+import Ember from 'ember'
+import formatCents from 'fakturama/lib/format_cents';
 
-export default Ember.Handlebars.makeBoundHelper(function (value, options) {
-    var integerPart, fractionalPart, precision;
+const { Helper: { helper } } = Ember;
 
-    if (!options) {
-        options = {};
-    }
+export default helper(function (value, { options: { hash = {} } = {} }) {
 
-    precision = options.hash.hasOwnProperty("precision") ? options.hash.precision : 2;
+  const precision = (hash || {}).precision || 2;
 
-    return formatCents(value, precision);
+  return formatCents(value, precision);
 });

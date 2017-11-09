@@ -5,9 +5,10 @@ const { Route, RSVP } = Ember;
 
 export default Route.extend({
   model: function () {
+    const store = this.get('store');
     return RSVP.hash({
-      model: this.get('store').findRecord('settings', 'default'),
-      numerationTypes: this.get('store').findAll('numeration-type')
+      model: store.findRecord('settings', 'default'),
+      numerationTypes: store.findAll('numeration-type')
     });
   },
 

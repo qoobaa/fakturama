@@ -23,6 +23,9 @@ Router.map(function() {
     this.route('edit');
   });
 
+  this.route('invoices', function() {
+    this.route('new');
+  });
   // this.resource('invoices', function () {
   //   this.route('new');
   //   this.resource('invoice', { path: '/:invoice_id' }, function () {

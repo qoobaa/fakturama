@@ -76,7 +76,7 @@
       </label>
       <div class="col-sm-5">
         <select id="settings-numeration-type" class="form-control"
-          onchange={{action (mut (get model 'numerationTypeCode')) value="target.value"}}>
+          onchange={{action (mut (get model 'numerationTypeCode')) value='target.value'}}>
           {{#each numerationTypes as |type|}}
             <option value={{type.code}} selected={{eq type.code model.numerationTypeCode}}>
               {{type.name}}

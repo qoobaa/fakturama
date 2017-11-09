@@ -1,4 +1,4 @@
-{{#if firstObject}}
+{{#if content}}
   <table class="table table-striped">
     <tr>
       <th>Numer</th>
@@ -9,8 +9,8 @@
       <th class="text-center">Opłacona?</th>
       <th></th>
     </tr>
-    {{#each invoice in controller}}
-      <tr {{bind-attr class="invoice.isOverdue:danger"}}>
+    {{#each content as |invoice|}}
+      <tr class={{if invoice.isOverdue "danger"}}>
         <td>
           {{invoice.number}}
         </td>
@@ -24,7 +24,12 @@
           {{invoice.buyerFirstLine}}
         </td>
         <td class="text-right">
-          {{format-cents invoice.totalGrossAmount}}&nbsp;<small>{{invoice.currencyCode}}</small>{{#if invoice.isForeignCurrency}}<br>{{format-cents invoice.totalGrossAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+          {{format-cents invoice.totalGrossAmount}}
+          <small>{{invoice.currencyCode}}</small>
+          {{#if invoice.isForeignCurrency}}
+            <br>{{format-cents invoice.totalGrossAmountPLN}}
+            <small>PLN</small>
+          {{/if}}
         </td>
         <td class="text-center">
           {{#if invoice.isPaid}}
@@ -34,7 +39,7 @@
           {{/if}}
         </td>
         <td class="text-right">
-          {{link-to "Zobacz podgląd" "invoice.show" invoice}}
+          <!-- {{link-to "Zobacz podgląd" "invoice.show" invoice}} -->
         </td>
       </tr>
     {{/each}}
