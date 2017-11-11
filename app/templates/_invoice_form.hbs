@@ -80,14 +80,9 @@
       Waluta
     </label>
     <div class="col-sm-3">
-      <select id="invoice-currency" class="form-control"
-        onchange={{action (mut (get model 'currencyCode')) value='target.value'}}>
-        {{#each currencies as |currency|}}
-          <option value={{currency.code}} selected={{eq currency.code model.currencyCode }}>
-            {{currency.nameWithCode}}
-          </option>
-        {{/each}}
-      </select>
+      {{drop-down model=currencies value=model.currencyCode
+        labelKey='nameWithCode' valueKey='code'
+        onSelect=(action (mut (get model 'currencyCode')))}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.currency.firstObject}}</span>
