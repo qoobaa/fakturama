@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import Unit from "fakturama/models/unit";
-import TaxRate from "fakturama/models/tax-rate";
 
 const { Mixin, computed } = Ember;
 
@@ -26,6 +25,9 @@ export default Mixin.create({
 
   taxRate: computed("taxRateCode", function () {
     const code = this.get("taxRateCode");
-    return code && TaxRate.find(code);
+
+    if (code) {
+      return this.get('store').queryRecord('tax-rate', { code });
+    }
   })
 });

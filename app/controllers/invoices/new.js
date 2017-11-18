@@ -52,15 +52,15 @@ export default Controller.extend(ExchangeRateMixin, {
   actions: {
     saveRecord: function () {
       this.set("isSubmitted", true);
-      this.get("content").save().then(() => this.transitionToRoute("invoices"));
+      this.get("model").save().then(() => this.transitionToRoute("invoices"));
     },
 
-    addItem: function () {
-      this.get("content").addItem();
+    addItem() {
+      this.get("model").addItem();
     },
 
-    removeItem: function (item) {
-      this.get("items").removeObject(item);
+    removeItem(item) {
+      this.get("model.items").removeObject(item);
     },
 
     chooseClient: function (client) {

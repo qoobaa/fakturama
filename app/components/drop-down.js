@@ -9,6 +9,19 @@ export default Component.extend({
 
   classNames: ['form-control'],
 
+  didReceiveAttrs() {
+    this._super(...arguments);
+
+    // Pass first option's value to onSelect if value is undefined
+    if(this.get('value') === undefined) {
+      const valueKey = this.get('valueKey');
+      const value = this.get('model.firstObject').get(valueKey);
+      Ember.run.next(this, function() {
+        this.get('onSelect')(value);
+      });
+    }
+  },
+
   change(event) {
     const value = event.target.value;
     this.get('onSelect')(value);

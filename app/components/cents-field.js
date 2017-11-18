@@ -2,37 +2,35 @@ import Ember from 'ember';
 import formatCents from 'fakturama/lib/format_cents';
 import parseCents from 'fakturama/lib/parse_cents';
 
-const { Component, computed } = Ember;
+const { Component, computed, observer } = Ember;
+const defaultPrecision = 2;
 
 export default Component.extend({
   tagName: 'input',
 
-  attributeBindings: ['type', 'value', 'step'],
+  attributeBindings: ['type', 'step', 'value', 'disabled'],
 
   type: 'number',
 
-  precision: 2,
+  precision: defaultPrecision,
 
-  value: 0,
+  init() {
+    this._super(...arguments);
+    const cents = this.get('cents');
+    const precision = this.get('precision');
+    this.set('value', formatCents(cents, precision));
+  },
 
-  step: computed('precision', {
-    get() {
-      return String(1 / Math.pow(10, this.get('precision')));
-    },
-    set(_key, value) {
-      const fractionalPart = String(value).split(".")[1];
-      this.set('precision', fractionalPart ? fractionalPart.length : 0);
-      return value;
-    }
-  }),
+  change(event) {
+    const { target: { value }} = event;
+    const precision = this.get('precision');
+    const cents = parseCents(value, precision);
+    this.attrs.cents.update(cents);
+  },
 
-  cents: computed('value', 'precision', {
-    get() {
-      return parseCents(this.get('value'), this.get('precision'));
-    },
-    set(_key, value) {
-      this.set('value', formatCents(value, this.get('precision')));
-      return value;
-    }
+  step: computed('precision', function() {
+    const precision = parseInt(this.get('precision') || defaultPrecision, 10);
+
+    return String(1 / Math.pow(10, precision));
   })
 });

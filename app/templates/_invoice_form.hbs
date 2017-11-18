@@ -112,14 +112,9 @@
       Wersja językowa
     </label>
     <div class="col-sm-3">
-      <select id="invoice-languages" class="form-control"
-        onchange={{action (mut (get model 'languageCode')) value='target.value'}}>
-        {{#each languages as |language|}}
-          <option value={{language.code}} selected={{eq language.code model.languageCode}}>
-            {{type.name}}
-          </option>
-        {{/each}}
-      </select>
+      {{drop-down model=languages value=model.languageCode
+        labelKey='name' valueKey='code'
+        onSelect=(action (mut (get model 'languageCode')))}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">
@@ -208,24 +203,30 @@
             value=(mut (get item 'quantity'))}}
         </td>
         <td class="form-group text-right {{if item.errors.unit 'has-error'}}">
-          <!-- {{view Ember.Select class="form-control" content=units optionValuePath="content.code" optionLabelPath="content.name" value=item.unitCode}} -->
+          {{drop-down model=units value=item.unitCode
+            labelKey='name' valueKey='code'
+            onSelect=(action (mut (get item 'unitCode')))}}
         </td>
         <td class="form-group text-right {{if item.errors.netPrice 'has-error'}}">
-          <!-- {{view "cents-field" cents=item.netPrice class="form-control text-right" precision=currency.precision}} -->
           {{cents-field class="form-control text-right" cents=(mut (get item 'netPrice'))
-            precision=(mut (get model.currency 'precision'))}}
+            precision=(get model.currency 'precision')}}
         </td>
         <td class="form-group text-right hidden-xs {{if item.errors.netAmount 'has-error'}}">
-          <!-- {{view "cents-field" cents=item.netAmount class="form-control text-right" disabled="disabled" precision=currency.precision}} -->
+          {{cents-field class="form-control text-right" cents=(mut (get item 'netAmount'))
+            disabled="disabled" precision=(get model.currency 'precision')}}
         </td>
         <td class="form-group text-right {{if item.errors.taxRateCode 'has-error'}}">
-          <!-- {{view Ember.Select class="form-control" content=taxRates optionValuePath="content.code" optionLabelPath="content.name" value=item.taxRateCode}} -->
+          {{drop-down model=taxRates value=item.taxRateCode
+            labelKey='name' valueKey='code'
+            onSelect=(action (mut (get item 'taxRateCode')))}}
         </td>
         <td class="form-group text-right hidden-xs {{if item.errors.taxAmount 'has-error'}}">
-          <!-- {{view "cents-field" cents=item.taxAmount class="form-control text-right" disabled="disabled" precision=currency.precision}} -->
+          {{cents-field class="form-control text-right" cents=(mut (get item 'taxAmount'))
+            disabled="disabled" precision=(get model.currency 'precision')}}
         </td>
         <td class="form-group text-right hidden-xs {{if item.errors.grossAmount 'has-error'}}">
-          <!-- {{view "cents-field" cents=item.grossAmount class="form-control text-right" disabled="disabled" precision=currency.precision}} -->
+          {{cents-field class="form-control text-right" cents=(mut (get item 'grossAmount'))
+            disabled="disabled" precision=(get model.currency 'precision')}}
         </td>
         <td>
           <button class="btn btn-remove" {{action "removeItem" item}} disabled={{isRemoveItemDisabled}}>
@@ -238,51 +239,55 @@
       <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
     </tr>
     <tr class="hidden-xs">
-      <!-- <th class="text-right" colspan="4"> -->
-      <!--   Razem -->
-      <!-- </th> -->
-      <!-- <td class="text-right"> -->
-      <!--   {{format-cents totalNetAmount precision=currency.precision}}&nbsp;<small>{{currency.code}}</small> -->
-      <!-- </td> -->
-      <!-- <td></td> -->
-      <!-- <td class="text-right"> -->
-      <!--   {{format-cents totalTaxAmount precision=currency.precision}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}} -->
-      <!-- </td> -->
-      <!-- <td class="text-right"> -->
-      <!--   {{format-cents totalGrossAmount precision=currency.precision}}&nbsp;<small>{{currency.code}}</small> -->
-      <!-- </td> -->
-      <!-- <td></td> -->
+      <th class="text-right" colspan="4">
+        Razem
+      </th>
+      <td class="text-right">
+        {{format-cents model.totalNetAmount precision=currency.precision}}
+        <small>{{currency.code}}</small>
+      </td>
+      <td></td>
+      <td class="text-right">
+        {{format-cents model.totalTaxAmount precision=currency.precision}}
+        <small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+      </td>
+      <td class="text-right">
+        {{format-cents model.totalGrossAmount precision=currency.precision}}
+        <small>{{currency.code}}</small>
+      </td>
+      <td></td>
     </tr>
-    <!-- {{#each subTotal in subTotals}} -->
-    <!--   <tr class="subtotal hidden-xs"> -->
-    <!--     <th class="text-right" colspan="4"> -->
-    <!--       W tym -->
-    <!--     </th> -->
-    <!--     <td class="text-right"> -->
-    <!--       {{format-cents subTotal.netAmount precision=currency.precision}} -->
-    <!--       {{!-- <small>{{../currency.code}}</small> --}} -->
-    <!--     </td> -->
-    <!--     <td class="text-right"> -->
-    <!--       {{subTotal.taxRate.name}} -->
-    <!--     </td> -->
-    <!--     <td class="text-right"> -->
-    <!--       {{format-cents subTotal.taxAmount precision=currency.precision}} -->
-    <!--       {{!-- <small>{{../currency.code}}</small> --}} -->
-    <!--       {{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small>PLN</small>{{/if}} -->
-    <!--     </td> -->
-    <!--     <td class="text-right"> -->
-    <!--       {{format-cents subTotal.grossAmount precision=currency.precision}} -->
-    <!--       {{!-- <small>{{../currency.code}}</small> --}} -->
-    <!--     </td> -->
-    <!--     <td></td> -->
-    <!--   </tr> -->
-    <!-- {{/each}} -->
+    {{#each model.subTotals as |subTotal|}}
+      <tr class="subtotal hidden-xs">
+        <th class="text-right" colspan="4">
+          W tym
+        </th>
+        <td class="text-right">
+          {{format-cents subTotal.netAmount precision=currency.precision}}
+        </td>
+        <td class="text-right">
+          {{subTotal.taxRate.name}}
+        </td>
+        <td class="text-right">
+          {{format-cents subTotal.taxAmount precision=currency.precision}}
+          {{#if isExchanging}}
+            <br>
+            {{format-cents subTotal.taxAmountPLN}}
+            <small>PLN</small>
+          {{/if}}
+        </td>
+        <td class="text-right">
+          {{format-cents subTotal.grossAmount precision=currency.precision}}
+        </td>
+        <td></td>
+      </tr>
+    {{/each}}
   </table>
 
   <!-- <div class="row"> -->
   <!--   <div class="col-sm-12"> -->
   <!--     <p> -->
-  <!--       Słownie: {{totalGrossAmountInWords}} -->
+  <!--       Słownie: {{model.totalGrossAmountInWords}} -->
   <!--     </p> -->
   <!--   </div> -->
   <!-- </div> -->

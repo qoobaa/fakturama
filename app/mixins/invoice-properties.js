@@ -62,7 +62,7 @@ export default Mixin.create({
       items = invoice.get("items").filterBy("taxRate", taxRate);
 
       result.set("netAmount", items.reduce(function (previousValue, item) {
-        return previousValue + item.get("netAmount");
+        return previousValue + item.getWithDefault("netAmount", 0);
       }, 0));
 
       result.set("taxAmount", Math.round(result.get("netAmount") * result.get("taxRate.value") / 100));
@@ -85,7 +85,7 @@ export default Mixin.create({
 
   totalTaxAmount: computed("subTotals", "subTotals.@each.taxAmount", function () {
     return this.get("subTotals").reduce(function (previousValue, item) {
-      return previousValue + item.get("taxAmount");
+      return previousValue + item.getWithDefault("taxAmount", 0);
     }, 0);
   }),
 

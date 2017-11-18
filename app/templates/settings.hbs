@@ -75,14 +75,9 @@
         Typ numeracji faktur
       </label>
       <div class="col-sm-5">
-        <select id="settings-numeration-type" class="form-control"
-          onchange={{action (mut (get model 'numerationTypeCode')) value='target.value'}}>
-          {{#each numerationTypes as |type|}}
-            <option value={{type.code}} selected={{eq type.code model.numerationTypeCode}}>
-              {{type.name}}
-            </option>
-          {{/each}}
-        </select>
+        {{drop-down model=numerationTypes value=model.numerationTypeCode
+          labelKey='name' valueKey='code'
+          onSelect=(action (mut (get model 'numerationTypeCode')))}}
       </div>
       <div class="col-sm-5">
         <span class="help-block">
