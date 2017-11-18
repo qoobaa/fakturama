@@ -3,6 +3,8 @@ import Item from "fakturama/models/item";
 import Currency from "fakturama/models/currency";
 import Language from "fakturama/models/language";
 
+import polishToWords from 'polish-to-words';
+
 const { Mixin, computed } = Ember;
 
 export default Mixin.create({
@@ -112,13 +114,11 @@ export default Mixin.create({
   }),
 
   totalGrossAmountInWords: computed("totalGrossAmount", "currency.code", function () {
-    var dollars, cents,
-      amount = String(this.get("totalGrossAmount"));
+    const amount = String(this.get("totalGrossAmount"));
+    const dollars = amount.substr(0, amount.length - 2) || "0";
+    const cents = amount.substr(amount.length - 2, amount.length) || "0";
 
-    dollars = amount.substr(0, amount.length - 2) || "0";
-    cents = amount.substr(amount.length - 2, amount.length) || "0";
-
-    return window.polishToWords(dollars) + " " + this.get("currency.code") + " " + cents + "/100";
+    return `${polishToWords(dollars)} ${this.get('currency.code')} ${cents}/100`;
   }),
 
   englishTotalGrossAmountInWords: computed("totalGrossAmount", "currency.code", function () {
