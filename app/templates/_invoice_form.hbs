@@ -293,83 +293,94 @@
     </div>
   </div>
 
-  <!-- <div class="form-group"> -->
-  <!--   <div class="col-sm-12"> -->
-  <!--     <div class="dropdown" style="display: inline;"> -->
-  <!--       <label data-toggle="dropdown" class="control-label"> -->
-  <!--         Płatność <span class="caret"></span> -->
-  <!--       </label> -->
-  <!--       <ul class="dropdown-menu" role="menu"> -->
-  <!--         {{#if accounts.firstObject}} -->
-  <!--           {{#each account in accounts}} -->
-  <!--             <li><a href="javascript:;" {{action "chooseAccount" account}}>{{account.name}}</a></li> -->
-  <!--           {{/each}} -->
-  <!--         {{else}} -->
-  <!--           <li class="text-center text-muted"> -->
-  <!--             {{#if controllers.application.user.isAnonymous}} -->
-  <!--               zaloguj się i -->
-  <!--             {{/if}} -->
-  <!--             dodaj nowy rachunek w zakładce <em>rachunki bankowe</em>, aby&nbsp;skorzystać z autouzupełniania -->
-  <!--           </li> -->
-  <!--         {{/if}} -->
-  <!--       </ul> -->
-  <!--     </div> -->
-  <!--   </div> -->
-  <!-- </div> -->
+  <div class="form-group">
+    <div class="col-sm-12">
+      <div class="dropdown" style="display: inline;">
+        <label data-toggle="dropdown" class="control-label">
+          Płatność <span class="caret"></span>
+        </label>
+        <ul class="dropdown-menu" role="menu">
+          {{#if accounts.firstObject}}
+            {{#each accounts as |account|}}
+              <li>
+                <a href="javascript:;" {{action "chooseAccount" account}}>{{account.name}}</a>
+              </li>
+            {{/each}}
+          {{else}}
+            <li class="text-center text-muted">
+              {{#if controllers.application.user.isAnonymous}}
+                zaloguj się i
+              {{/if}}
+              dodaj nowy rachunek w zakładce <em>rachunki bankowe</em>, aby&nbsp;skorzystać z autouzupełniania
+            </li>
+          {{/if}}
+        </ul>
+      </div>
+    </div>
+  </div>
 
-  <!-- <div {{bind-attr class=":form-group errors.accountBankName.firstObject:has-error"}}> -->
-  <!--   <label for="invoice-account-bank-name" class="col-sm-3 control-label"> -->
-  <!--     Nazwa banku -->
-  <!--   </label> -->
-  <!--   <div class="col-sm-3"> -->
-  <!--     {{input class="form-control" value=accountBankName id="invoice-account-bank-name"}} -->
-  <!--   </div> -->
-  <!--   <div class="col-sm-6"> -->
-  <!--     <span class="help-block">{{errors.accountBankName.firstObject}}</span> -->
-  <!--   </div> -->
-  <!-- </div> -->
+  <div class="form-group {{if errors.accountBankName.firstObject 'has-error'}}">
+    <label for="invoice-account-bank-name" class="col-sm-3 control-label">
+      Nazwa banku
+    </label>
+    <div class="col-sm-3">
+      {{input id="invoice-account-bank-name" class="form-control"
+        value=(mut accountBankName)}}
+    </div>
+    <div class="col-sm-6">
+      <span class="help-block">
+        {{errors.accountBankName.firstObject}}
+      </span>
+    </div>
+  </div>
 
-  <!-- <div {{bind-attr class=":form-group errors.accountSwift.firstObject:has-error"}}> -->
-  <!--   <label for="invoice-account-swift" class="col-sm-3 control-label"> -->
-  <!--     SWIFT -->
-  <!--   </label> -->
-  <!--   <div class="col-sm-3"> -->
-  <!--     {{input class="form-control" value=accountSwift id="invoice-account-swift"}} -->
-  <!--   </div> -->
-  <!--   <div class="col-sm-6"> -->
-  <!--     <span class="help-block">{{errors.accountSwift.firstObject}}</span> -->
-  <!--   </div> -->
-  <!-- </div> -->
+  <div class="form-group {{if errors.accountSwift.firstObject 'has-error'}}">
+    <label for="invoice-account-swift" class="col-sm-3 control-label">
+      SWIFT
+    </label>
+    <div class="col-sm-3">
+      {{input id="invoice-account-swift" class="form-control"
+        value=(mut accountSwift)}}
+    </div>
+    <div class="col-sm-6">
+      <span class="help-block">
+        {{errors.accountSwift.firstObject}}
+      </span>
+    </div>
+  </div>
 
-  <!-- <div {{bind-attr class=":form-group errors.accountNumber.firstObject:has-error"}}> -->
-  <!--   <label for="invoice-account-number" class="col-sm-3 control-label"> -->
-  <!--     Numer rachunku -->
-  <!--   </label> -->
-  <!--   <div class="col-sm-3"> -->
-  <!--     {{input class="form-control" value=accountNumber id="invoice-account-number"}} -->
-  <!--   </div> -->
-  <!--   <div class="col-sm-6"> -->
-  <!--     <span class="help-block">{{errors.accountNumber.firstObject}}</span> -->
-  <!--   </div> -->
-  <!-- </div> -->
+  <div class="form-group {{if errors.accountNumber.firstObject 'has-error'}}">
+    <label for="invoice-account-number" class="col-sm-3 control-label">
+      Numer rachunku
+    </label>
+    <div class="col-sm-3">
+      {{input id="invoice-account-number" class="form-control"
+        value=(mut accountNumber)}}
+    </div>
+    <div class="col-sm-6">
+      <span class="help-block">
+        {{errors.accountNumber.firstObject}}
+      </span>
+    </div>
+  </div>
 
-  <!-- <div class="form-group"> -->
-  <!--   <div class="col-sm-12"> -->
-  <!--     <label for="invoice-comment"> -->
-  <!--       Uwagi -->
-  <!--     </label> -->
-  <!--     {{textarea class="form-control" rows="4" value=comment id="invoice-comment"}} -->
-  <!--   </div> -->
-  <!-- </div> -->
+  <div class="form-group">
+    <div class="col-sm-12">
+      <label for="invoice-comment">
+        Uwagi
+      </label>
+      {{textarea id="invoice-commment" class="form-control" rows="4" value=(mut comment)}}
+    </div>
+  </div>
 
-  <!-- <div class="row"> -->
-  <!--   <div class="col-sm-6"> -->
-  <!--     {{input class="form-control text-center" value=sellerSignature id="sellerSignature"}} -->
-  <!--     <label for="sellerSignature">Podpis wystawiającego</label> -->
-  <!--   </div> -->
-  <!--   <div class="col-sm-6"> -->
-  <!--     {{input class="form-control text-center" value=buyerSignature id="buyerSignature"}} -->
-  <!--     <label for="buyerSignature">Podpis nabywcy</label> -->
-  <!--   </div> -->
-  <!-- </div> -->
+  <div class="row">
+    <div class="col-sm-6">
+      {{input class="form-control text-center" value=sellerSignature id="sellerSignature"}}
+      <label for="sellerSignature">Podpis wystawiającego</label>
+    </div>
+    <div class="col-sm-6">
+      {{input class="form-control text-center" value=buyerSignature id="buyerSignature"}}
+      <label for="buyerSignature">Podpis nabywcy</label>
+    </div>
+  </div>
 </fieldset>

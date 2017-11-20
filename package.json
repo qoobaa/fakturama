@@ -52,6 +52,7 @@
   "false": {},
   "ember-addon": {
     "paths": [
+      "lib/ember-bootstrap",
       "lib/ember-md5",
       "lib/ember-polish-to-words"
     ]
