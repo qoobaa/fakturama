@@ -1,6 +1,5 @@
 import Ember from "ember";
 import Item from "fakturama/models/item";
-import Currency from "fakturama/models/currency";
 import Language from "fakturama/models/language";
 
 import polishToWords from 'polish-to-words';
@@ -44,7 +43,9 @@ export default Mixin.create({
 
   currency: computed("currencyCode", function () {
     var code = this.get("currencyCode");
-    return code && Currency.find(code);
+    if(code) {
+      return this.get('store').queryRecord('currency', { code });
+    }
   }),
 
   language: computed("languageCode", function () {
@@ -55,28 +56,29 @@ export default Mixin.create({
   subTotals: computed("items", "items.@each.netAmount", "items.@each.taxAmount",
                       "items.@each.grossAmount", "items.@each.taxRate",
                       "exchangeRate", "exchangeDivisor", function () {
-    var invoice = this;
+    let results = Ember.ArrayProxy.create({ content: Ember.A([]) });
 
-    return invoice.get("items").mapBy("taxRate").uniq().map(function (taxRate) {
-      var items,
-        result = Ember.Object.create({ taxRate: taxRate });
+    Ember.RSVP.all(this.get('items').map((item) => item.get('taxRate'))).then(() => {
+      this.get('items').mapBy('taxRate').uniq().map((taxRate) => {
+        const items = this.get('items').filterBy('taxRate', taxRate);
+        let result = Ember.Object.create({ taxRate: taxRate });
 
-      items = invoice.get("items").filterBy("taxRate", taxRate);
+        result.set('netAmount', items.reduce(function(previousValue, item) {
+          return previousValue + item.getWithDefault('netAmount', 0);
+        }, 0));
 
-      result.set("netAmount", items.reduce(function (previousValue, item) {
-        return previousValue + item.getWithDefault("netAmount", 0);
-      }, 0));
+        result.set('taxAmount', Math.round(result.get('netAmount') * result.get('taxRate.value') / 100));
+        result.set('grossAmount', result.get('netAmount') + result.get('taxAmount'));
 
-      result.set("taxAmount", Math.round(result.get("netAmount") * result.get("taxRate.value") / 100));
+        if (this.get('exchangeRate')) {
+          result.set('taxAmountPLN', Math.round(result.get('taxAmount') * this.get('exchangeRate') / (this.get('exchangeDivisor') * 10000)));
+        }
 
-      result.set("grossAmount", result.get("netAmount") + result.get("taxAmount"));
-
-      if (invoice.get("exchangeRate")) {
-        result.set("taxAmountPLN", Math.round(result.get("taxAmount") * invoice.get("exchangeRate") / (invoice.get("exchangeDivisor") * 10000)));
-      }
-
-      return result;
+        results.pushObject(result);
+      })
     });
+
+    return results;
   }),
 
   totalNetAmount: computed("subTotals", "subTotals.@each.netAmount", function () {
@@ -113,10 +115,10 @@ export default Mixin.create({
     }
   }),
 
-  totalGrossAmountInWords: computed("totalGrossAmount", "currency.code", function () {
-    const amount = String(this.get("totalGrossAmount"));
-    const dollars = amount.substr(0, amount.length - 2) || "0";
-    const cents = amount.substr(amount.length - 2, amount.length) || "0";
+  totalGrossAmountInWords: computed('totalGrossAmount', 'currency.code', function () {
+    const amount = String(this.get('totalGrossAmount'));
+    const dollars = amount.substr(0, amount.length - 2) || '0';
+    const cents = amount.substr(amount.length - 2, amount.length) || '0';
 
     return `${polishToWords(dollars)} ${this.get('currency.code')} ${cents}/100`;
   }),

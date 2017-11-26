@@ -1,15 +1,16 @@
-var InvoiceShowRoute = Ember.Route.extend({
-    model: function (params) {
-        return this.modelFor("invoice");
-    },
-    activate: function () {
-        var invoice = this.modelFor("invoice");
+import Ember from 'ember';
 
-        document.title = [invoice.get("number"), invoice.get("buyerFirstLine"), "- Fakturama"].compact().join(" ");
-    },
-    deactivate: function () {
-        document.title = "Fakturama";
-    }
+const { Route } = Ember;
+
+export default Route.extend({
+  model() {
+    return this.modelFor('invoice');
+  },
+  activate() {
+    const invoice = this.modelFor('invoice');
+    document.title = `${invoice.get('number')} ${invoice.get('buyerFirstLine')} - Fakturama`;
+  },
+  deactivate() {
+    document.title = 'Fakturama';
+  }
 });
-
-export default InvoiceShowRoute;

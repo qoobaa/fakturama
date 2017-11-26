@@ -26,13 +26,10 @@ Router.map(function() {
   this.route('invoices', function() {
     this.route('new');
   });
-  // this.resource('invoices', function () {
-  //   this.route('new');
-  //   this.resource('invoice', { path: '/:invoice_id' }, function () {
-  //     this.route('show', { path: '/' });
-  //     this.route('edit');
-  //   });
-  // });
+  this.resource('invoice', { path: 'invoice/:invoice_id' }, function () {
+    this.route('show', { path: '/' });
+    // this.route('edit');
+  });
 
   this.route('settings');
 });

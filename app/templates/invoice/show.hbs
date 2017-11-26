@@ -1,6 +1,9 @@
 <h1>
   <strong>
-    Faktura {{#if isEnglish}}/ Invoice{{/if}}
+    Faktura
+    {{#if model.isEnglish}}
+      / Invoice
+    {{/if}}
   </strong>
 </h1>
 
@@ -8,61 +11,72 @@
 
 <div>
   <p>
-    {{#if isEnglish}}
+    {{#if model.isEnglish}}
       Numer / Number:
     {{else}}
       Numer:
     {{/if}}
-    <strong>{{number}}</strong>
+    <strong>{{model.number}}</strong>
   </p>
   <p>
-    {{#if isEnglish}}
+    {{#if model.isEnglish}}
       Data wystawienia / Date of issue:
     {{else}}
       Data wystawienia:
     {{/if}}
-    <strong>{{issueDate}}</strong>
+    <strong>{{model.issueDate}}</strong>
   </p>
   <p>
-    {{#if isEnglish}}
+    {{#if model.isEnglish}}
       Data dostawy towarów/wykonania usługi / Delivery date of goods/services:
     {{else}}
       Data dostawy towarów/wykonania usługi:
     {{/if}}
-    <strong>{{deliveryDate}}</strong>
+    <strong>{{model.deliveryDate}}</strong>
   </p>
   <p>
-    {{#if isEnglish}}
+    {{#if model.isEnglish}}
       Termin płatności / Due date:
     {{else}}
       Termin płatności:
     {{/if}}
-    <strong>{{dueDate}}</strong>
+    <strong>{{model.dueDate}}</strong>
   </p>
 
-  {{#if isExchanging}}
+  {{#if model.isExchanging}}
     <p>
-      Kwoty podatku VAT zostały przeliczone po kursie średnim {{currencyCode}} z dnia <strong>{{exchangeDate}}</strong>,
+      Kwoty podatku VAT zostały przeliczone po kursie średnim {{model.currencyCode}} z dnia <strong>{{model.exchangeDate}}</strong>,
       wynoszącym <strong>{{format-cents exchangeRate precision=4}}</strong> PLN.
     </p>
   {{/if}}
-
 </div>
 
 <div class="row">
   <div class="col-xs-6">
     <h4>
-      <strong>Sprzedawca{{#if isEnglish}} / Seller{{/if}}</strong>
+      <strong>
+        Sprzedawca
+        {{#if model.isEnglish}}
+          / Seller
+        {{/if}}
+      </strong>
     </h4>
     <p>
-      <strong>{{sellerFirstLine}}</strong><br>
-      {{#each line in sellerRest}}{{line}}<br>{{/each}}
+      <strong>{{model.sellerFirstLine}}</strong><br>
+      {{#each sellerRest as |line|}}
+        {{line}}<br>
+      {{/each}}
     </p>
   </div>
 
   <div class="col-xs-6">
     <h4>
-      <strong>Nabywca{{#if isEnglish}} / Buyer{{/if}}</strong>
+      <strong>
+        Nabywca
+        {{#if isEnglish}}
+          / Buyer
+        {{/if}}
+      </strong>
     </h4>
     <p>
       <strong>{{buyerFirstLine}}</strong><br>
@@ -101,7 +115,7 @@
     </th>
   </tr>
 
-  {{#if isEnglish}}
+  {{#if model.isEnglish}}
     <tr>
       <th class="col-xs-4">
         Name
@@ -130,73 +144,112 @@
     </tr>
   {{/if}}
 
-  {{#each item in items}}
+  {{#each model.items as |item|}}
     <tr>
       <td>
-        <p><small>{{item.description}}</small></p>
+        <p>
+          <small>{{item.description}}</small>
+        </p>
       </td>
       <td class="text-right">
         <p>{{item.quantity}}</p>
       </td>
       <td class="text-right">
-        <p>{{item.unit.name}}{{#if isEnglish}}<br>{{item.unit.nameEN}}{{/if}}</p>
-      </td>
-      <td class="text-right">
         <p>
-          {{format-cents item.netPrice}}&nbsp;<small>{{currency.code}}</small>
+          {{item.unit.name}}
+          {{#if model.isEnglish}}
+            <br>{{item.unit.nameEN}}
+          {{/if}}
         </p>
       </td>
       <td class="text-right">
         <p>
-          {{format-cents item.netAmount}}&nbsp;<small>{{currency.code}}</small>
-        </p>
-      </td>
-      <td class="text-right">
-        <p>{{item.taxRate.name}}{{#if isEnglish}}<br>{{item.taxRate.nameEN}}{{/if}}</p>
-      </td>
-      <td class="text-right">
-        <p>
-          {{format-cents item.taxAmount}}&nbsp;<small>{{currency.code}}</small>
+          {{format-cents item.netPrice}}
+          <small>{{model.currency.code}}</small>
         </p>
       </td>
       <td class="text-right">
         <p>
-          {{format-cents item.grossAmount}}&nbsp;<small>{{currency.code}}</small>
+          {{format-cents item.netAmount}}
+          <small>{{model.currency.code}}</small>
+        </p>
+      </td>
+      <td class="text-right">
+        <p>
+          {{item.taxRate.name}}
+          {{#if model.isEnglish}}
+            <br>{{item.taxRate.nameEN}}
+          {{/if}}
+        </p>
+      </td>
+      <td class="text-right">
+        <p>
+          {{format-cents item.taxAmount}}
+          <small>{{model.currency.code}}</small>
+        </p>
+      </td>
+      <td class="text-right">
+        <p>
+          {{format-cents item.grossAmount}}
+          <small>{{model.currency.code}}</small>
         </p>
       </td>
     </tr>
   {{/each}}
   <tr>
     <th class="text-right" colspan="4">
-      Razem{{#if isEnglish}} / Total{{/if}}
+      Razem
+      {{#if model.isEnglish}}
+        / Total
+      {{/if}}
     </th>
     <td class="text-right">
-      {{format-cents totalNetAmount}}&nbsp;<small>{{currency.code}}</small>
+      {{format-cents model.totalNetAmount}}
+      <small>{{model.currency.code}}</small>
     </td>
     <td></td>
     <td class="text-right">
-      {{format-cents totalTaxAmount}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+      {{format-cents model.totalTaxAmount}}
+      <small>{{model.currency.code}}</small>
+      {{#if model.isExchanging}}
+        <br>{{format-cents model.totalTaxAmountPLN}}
+        <small>PLN</small>
+      {{/if}}
     </td>
     <td class="text-right">
-      {{format-cents totalGrossAmount}}&nbsp;<small>{{currency.code}}</small>
+      {{format-cents model.totalGrossAmount}}
+      <small>{{model.currency.code}}</small>
     </td>
   </tr>
-  {{#each subTotal in subTotals}}
+  {{#each subTotals as |subTotal|}}
     <tr class="subtotal">
       <th class="text-right" colspan="4">
-        W tym{{#if isEnglish}} / Including{{/if}}
+        W tym
+        {{#if model.isEnglish}}
+          / Including
+        {{/if}}
       </th>
       <td class="text-right">
-        {{format-cents subTotal.netAmount}}&nbsp;<small>{{currency.code}}</small>
+        {{format-cents subTotal.netAmount}}
+        <small>{{model.currency.code}}</small>
       </td>
       <td class="text-right">
-        {{subTotal.taxRate.name}}{{#if isEnglish}}<br>{{subTotal.taxRate.nameEN}}{{/if}}
+        {{subTotal.taxRate.name}}
+        {{#if isEnglish}}
+          <br>{{subTotal.taxRate.nameEN}}
+        {{/if}}
       </td>
       <td class="text-right">
-        {{format-cents subTotal.taxAmount}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+        {{format-cents subTotal.taxAmount}}
+        <small>{{currency.code}}</small>
+        {{#if model.isExchanging}}
+          <br>{{format-cents subTotal.taxAmountPLN}}
+          <small>PLN</small>
+        {{/if}}
       </td>
       <td class="text-right">
-        {{format-cents subTotal.grossAmount}}&nbsp;<small>{{currency.code}}</small>
+        {{format-cents subTotal.grossAmount}}
+        <small>{{currency.code}}</small>
       </td>
     </tr>
   {{/each}}
@@ -205,47 +258,59 @@
 <div class="row">
   <div class="col-xs-12">
     <p>
-      Słownie: {{totalGrossAmountInWords}}
+      Słownie: {{model.totalGrossAmountInWords}}
     </p>
-    {{#if isEnglish}}
+    {{#if model.isEnglish}}
       <p>
-        In words: {{englishTotalGrossAmountInWords}}
+        In words: {{model.englishTotalGrossAmountInWords}}
       </p>
     {{/if}}
   </div>
 </div>
 
-{{#if accountNumber}}
+{{#if model.accountNumber}}
   <div class="row">
     <div class="col-xs-12">
       <h4>
-        <strong>Płatność{{#if isEnglish}} / Payment{{/if}}</strong>
+        <strong>
+          Płatność
+          {{#if model.isEnglish}}
+            / Payment
+          {{/if}}
+        </strong>
       </h4>
-      {{#if accountBankName}}
+      {{#if model.accountBankName}}
         <p>
-          <strong>{{accountBankName}}</strong>
+          <strong>{{model.accountBankName}}</strong>
         </p>
       {{/if}}
-      {{#if accountSwift}}
+      {{#if model.accountSwift}}
         <p>
-          SWIFT: <strong>{{accountSwift}}</strong>
+          SWIFT: <strong>{{model.accountSwift}}</strong>
         </p>
       {{/if}}
       <p>
-        IBAN: <strong>{{accountNumber}}</strong>
+        IBAN: <strong>{{model.accountNumber}}</strong>
       </p>
     </div>
   </div>
 {{/if}}
 
-{{#if comment}}
+{{#if model.comment}}
   <div class="row">
     <div class="col-xs-12">
       <h4>
-        <strong>Uwagi{{#if isEnglish}} / Comments{{/if}}</strong>
+        <strong>
+          Uwagi
+          {{#if model.isEnglish}}
+            / Comments
+          {{/if}}
+        </strong>
       </h4>
       <p>
-        {{#each line in commentLines}}{{line}}<br>{{/each}}
+        {{#each commentLines as |line|}}
+          {{line}}<br>
+        {{/each}}
       </p>
     </div>
   </div>
@@ -255,15 +320,25 @@
 
 <div class="row">
   <div class="col-xs-6">
-    {{#if sellerSignature}}
-      <p class="text-center signature">{{sellerSignature}}</p>
-      <p>Podpis wystawiającego{{#if isEnglish}} / Issuer's signature{{/if}}</p>
+    {{#if model.sellerSignature}}
+      <p class="text-center signature">{{model.sellerSignature}}</p>
+      <p>
+        Podpis wystawiającego
+        {{#if model.isEnglish}}
+          / Issuer's signature
+        {{/if}}
+      </p>
     {{/if}}
   </div>
   <div class="col-xs-6">
-    {{#if buyerSignature}}
-      <p class="text-center signature">{{buyerSignature}}</p>
-      <p>Podpis nabywcy{{#if isEnglish}} / Buyer's signature{{/if}}</p>
+    {{#if model.buyerSignature}}
+      <p class="text-center signature">{{model.buyerSignature}}</p>
+      <p>
+        Podpis nabywcy
+        {{#if model.isEnglish}}
+          / Buyer's signature
+        {{/if}}
+      </p>
     {{/if}}
   </div>
 </div>
@@ -271,9 +346,8 @@
 <div class="row hidden-print">
   <div class="col-xs-12 text-right">
     <a href="javascript:window.print()" class="btn btn-primary">Drukuj fakturę</a>
-    {{link-to "Edytuj fakturę" "invoice.edit" model class="btn btn-warning"}}
+    <!-- {{link-to "Edytuj fakturę" "invoice.edit" model class="btn btn-warning"}} -->
     {{link-to "Anuluj" "invoices" class="btn btn-default" active=null}}
   </div>
 </div>
-
 <br>

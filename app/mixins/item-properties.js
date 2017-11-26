@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Unit from "fakturama/models/unit";
 
 const { Mixin, computed } = Ember;
 
@@ -8,9 +7,7 @@ export default Mixin.create({
     return Math.round(this.get("netPrice") * this.get("quantity"));
   }),
 
-  taxRateValueBinding: "taxRate.value",
-
-  taxAmount: computed("netAmount", "taxRateValue", function () {
+  taxAmount: computed("netAmount", "taxRate.value", function () {
     return Math.round(this.get("netAmount") * this.get("taxRate.value") / 100);
   }),
 
@@ -20,13 +17,15 @@ export default Mixin.create({
 
   unit: computed("unitCode", function () {
     const code = this.get("unitCode");
-    return code && Unit.find(code);
+    if(code) {
+      return this.get('store').queryRecord('unit', { code });
+    }
   }),
 
   taxRate: computed("taxRateCode", function () {
     const code = this.get("taxRateCode");
 
-    if (code) {
+    if(code) {
       return this.get('store').queryRecord('tax-rate', { code });
     }
   })
