@@ -28,7 +28,7 @@ Router.map(function() {
   });
   this.resource('invoice', { path: 'invoice/:invoice_id' }, function () {
     this.route('show', { path: '/' });
-    // this.route('edit');
+    this.route('edit');
   });
 
   this.route('settings');
