@@ -9,7 +9,7 @@
       <th class="text-center">Opłacona?</th>
       <th></th>
     </tr>
-    {{#each content as |invoice|}}
+    {{#each invoices as |invoice|}}
       <tr class={{if invoice.isOverdue "danger"}}>
         <td>
           {{invoice.number}}

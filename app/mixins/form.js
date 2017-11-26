@@ -25,7 +25,7 @@ export default Mixin.create({
   },
 
   toJSON: function () {
-    return this.getProperties(Object.keys(this.get("model").toJSON()));
+    return this.getProperties(Object.keys(this.get('model').toJSON()));
   },
 
   addErrors: function (errors) {

@@ -1,12 +1,22 @@
-import DS from "ember-data";
+import Ember from 'ember';
 import ItemPropertiesMixin from "fakturama/mixins/item-properties";
 
-const { Model, attr } = DS;
+const { inject: { service } } = Ember;
 
-export default Model.extend(ItemPropertiesMixin, {
-  description: attr("string"),
-  quantity: attr("number"),
-  netPrice: attr("number"),
-  unitCode: attr("string"),
-  taxRateCode: attr("string")
+const attributes = [
+  'description',
+  'quantity',
+  'unitCode',
+  'netPrice',
+  'netAmount',
+  'taxRateCode',
+  'taxAmount',
+  'grossAmount'
+];
+
+export default Ember.Object.extend(ItemPropertiesMixin, {
+  store: service('store'),
+  toJSON() {
+    return this.getProperties(attributes);
+  }
 });

@@ -89,23 +89,24 @@
     </div>
   </div>
 
-  <!-- {{#if isExchanging}} -->
-  <!--   <div {{bind-attr class=":form-group errors.exchangeDate.firstObject:has-error"}}> -->
-  <!--     <label for="invoice-exchange-date" class="col-sm-3 control-label"> -->
-  <!--       Data publikacji tabeli kursów walut obcych -->
-  <!--     </label> -->
-  <!--     <div class="col-sm-3"> -->
-  <!--       {{input type="date" value=exchangeDate class="form-control" id="invoice-exchange-date" disabled="disabled"}} -->
-  <!--     </div> -->
-  <!--     <div class="col-sm-6"> -->
-  <!--       {{#if exchangeRate.isLoading}} -->
-  <!--         <span class="help-block text-muted"> -->
-  <!--           Trwa ładowanie tabeli kursów walut obcych, proszę czekać… -->
-  <!--         </span> -->
-  <!--       {{/if}} -->
-  <!--     </div> -->
-  <!--   </div> -->
-  <!-- {{/if}} -->
+  {{#if model.isExchanging}}
+    <div class="form-group {{if errors.exchangeRate.firstObject 'has-error'}}">
+      <label for="invoice-exchange-date" class="col-sm-3 control-label">
+        Data publikacji tabeli kursów walut obcych
+      </label>
+      <div class="col-sm-3">
+        {{input id="invoice-exchange-date" class="form-control" type="date"
+          value=(mut (get model 'exchangeDate'))}}
+      </div>
+      <div class="col-sm-6">
+        {{#if model.exchangeRate.isLoading}}
+          <span class="help-block text-muted">
+            Trwa ładowanie tabeli kursów walut obcych, proszę czekać…
+          </span>
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
 
   <div class="form-group {{if errors.language.firstObject "has-error"}}">
     <label class="control-label col-sm-3" for="invoice-language">

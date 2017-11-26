@@ -37,8 +37,8 @@ export default Mixin.create({
   }),
 
   items: computed("itemsAttributes", "itemsAttributes.@each", function () {
-    return this.getWithDefault("itemsAttributes", []).map(function (itemAttributes) {
-      return Item.create(itemAttributes);
+    return this.getWithDefault("itemsAttributes", []).map((itemAttributes) => {
+      return Item.create(Object.assign({}, itemAttributes, { container: Ember.getOwner(this) }));
     });
   }),
 

@@ -1,8 +1,9 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
-import FormMixin from "fakturama/mixins/form";
-import InvoicePropertiesMixin from "fakturama/mixins/invoice-properties";
-import ItemForm from "fakturama/forms/item";
+import FormMixin from 'fakturama/mixins/form';
+import InvoicePropertiesMixin from 'fakturama/mixins/invoice-properties';
+import Item from 'fakturama/models/item';
+import ItemForm from 'fakturama/forms/item';
 
 const { ObjectProxy, computed, inject: { service } } = Ember
 const { oneWay } = computed;
@@ -91,7 +92,7 @@ export default ObjectProxy.extend(EmberValidations, FormMixin, InvoiceProperties
   items: computed('model.itemsAttributes', 'model.itemsAttributes.@each', function () {
     return this.getWithDefault("model.itemsAttributes", []).map((itemAttributes) => {
       return ItemForm.create({
-        model: this.get('store').createRecord('item', itemAttributes),
+        model: Item.create(Object.assign({}, itemAttributes, { container: Ember.getOwner(this) })),
         invoiceForm: this
       });
     });
@@ -149,7 +150,7 @@ export default ObjectProxy.extend(EmberValidations, FormMixin, InvoiceProperties
   addItem: function () {
     const item = ItemForm.create({
       invoiceForm: this,
-      model: this.get('store').createRecord('item', { quantity: 0, netPrice: 0 })
+      model: Item.create({ quantity: 0, netPrice: 0, container: Ember.getOwner(this) })
     });
     this.get("items").pushObject(item);
   },
