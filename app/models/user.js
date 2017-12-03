@@ -31,7 +31,7 @@ let User = Ember.Object.extend({
     this.get('firebase').set("userId", this.get("uid"));
   }).on("init"),
 
-  login: function (method) {
+  login() {
     var model = this;
 
     return new Ember.RSVP.Promise(function (resolve, reject) {
@@ -40,7 +40,7 @@ let User = Ember.Object.extend({
                                     (error) => reject(error));
     }).then(function (user) {
       return user.getIdToken().then((token) => {
-        model.setProperties($.extend({}, model.constructor.blankProperties, {
+        model.setProperties(Object.assign({}, model.constructor.blankProperties, {
           uid: user.uid,
           displayName: user.displayName,
           email: user.email,
@@ -62,7 +62,7 @@ let User = Ember.Object.extend({
           resolve(user);
         }
       }).logout();
-    }).then(function (user) {
+    }).then(function() {
       return model.login("anonymous");
     });
   }

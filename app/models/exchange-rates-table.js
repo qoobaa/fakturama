@@ -1,5 +1,7 @@
 import Ember from "ember";
 
+const { $ } = Ember;
+
 let ExchangeRatesTable = Ember.Object.extend({
   isLoading: false,
   isError: false

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { Mixin, observer } = Ember;
+const { Mixin } = Ember;
 
 export default Mixin.create({
   actions: {

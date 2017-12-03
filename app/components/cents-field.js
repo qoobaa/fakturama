@@ -2,7 +2,7 @@ import Ember from 'ember';
 import formatCents from 'fakturama/lib/format_cents';
 import parseCents from 'fakturama/lib/parse_cents';
 
-const { Component, computed, observer } = Ember;
+const { Component, computed } = Ember;
 const defaultPrecision = 2;
 
 export default Component.extend({

@@ -41,6 +41,14 @@ module.exports = function(environment) {
   }
 
   if (environment === 'test') {
+    ENV.APP.FIREBASE = {
+      apiKey: "AIzaSyA4RCBawIoEoNs2W9oI7WY2S8OMwJra7xg",
+      authDomain: "fakturama-test.firebaseapp.com",
+      databaseURL: "https://fakturama-test.firebaseio.com",
+      projectId: "fakturama-test",
+      storageBucket: "fakturama-test.appspot.com",
+      messagingSenderId: "690318607516"
+    }
     // Testem prefers this...
     ENV.locationType = 'none';
 
