@@ -1,8 +1,7 @@
+import { computed } from '@ember/object';
 import DS from "ember-data";
-import Ember from "ember";
 
 const { Model, attr } = DS;
-const { computed } = Ember;
 
 let Settings = Model.extend({
   companyName: attr(),

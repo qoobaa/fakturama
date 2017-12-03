@@ -1,7 +1,7 @@
-import Ember from 'ember';
+import { next } from '@ember/runloop';
+import Controller from '@ember/controller';
+import { alias } from '@ember/object/computed';
 import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
-
-const { Controller, computed: { alias } } = Ember;
 
 export default Controller.extend(ExchangeRateMixin, {
   form: alias("content"),
@@ -44,7 +44,7 @@ export default Controller.extend(ExchangeRateMixin, {
     this.setProperties(properties);
 
     // bindings somehow don't work in minified version without Ember.run.next
-    Ember.run.next(function () {
+    next(function () {
       controller.get("content").addItem();
     });
   }.observes("content"),

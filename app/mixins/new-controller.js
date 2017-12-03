@@ -1,6 +1,5 @@
-import Ember from 'ember';
-
-const { Mixin, computed: { oneWay } } = Ember;
+import Mixin from '@ember/object/mixin';
+import { oneWay } from '@ember/object/computed';
 
 export default Mixin.create({
   errors: oneWay('model.errors'),

@@ -1,10 +1,10 @@
-import Ember from 'ember';
+import { setOwner } from '@ember/application';
 import Form from 'fakturama/mixins/form';
 
 // Dirty hack to get owner symbol
 const OWNER = (function() {
   let finder = {};
-  Ember.setOwner(finder, 'owner');
+  setOwner(finder, 'owner');
   return Object.keys(finder)[0];
 })();
 

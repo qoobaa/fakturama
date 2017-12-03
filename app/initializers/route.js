@@ -1,6 +1,4 @@
-import Ember from 'ember';
-
-let { Route } = Ember;
+import Route from '@ember/routing/route';
 
 export function initialize() {
   Route.reopen({

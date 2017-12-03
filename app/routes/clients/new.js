@@ -1,7 +1,5 @@
+import Route from '@ember/routing/route';
 import ClientForm from 'fakturama/forms/client';
-import Ember from 'ember';
-
-const { Route } = Ember;
 
 export default Route.extend({
   model() {

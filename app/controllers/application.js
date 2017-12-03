@@ -1,13 +1,12 @@
-import Ember from 'ember';
+import { alias } from '@ember/object/computed';
+import Controller from '@ember/controller';
 import Account from "fakturama/models/account";
 import Client from "fakturama/models/client";
 import Invoice from "fakturama/models/invoice";
 import Settings from "fakturama/models/settings";
 
-const { Controller } = Ember;
-
 export default Controller.extend({
-  user: Ember.computed.alias("model"),
+  user: alias("model"),
   isAlertDismissed: false,
 
   clearCache: function () {

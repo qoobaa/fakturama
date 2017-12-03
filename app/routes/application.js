@@ -1,7 +1,6 @@
-import Ember from "ember";
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import User from "fakturama/models/user";
-
-const { Route, inject: { service } } = Ember;
 
 export default Route.extend({
   showLayout: true,

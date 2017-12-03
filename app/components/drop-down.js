@@ -1,6 +1,6 @@
-import Ember from 'ember';
-
-const { Component, computed } = Ember;
+import { next } from '@ember/runloop';
+import Component from '@ember/component';
+import { computed } from '@ember/object';
 
 export default Component.extend({
   tagName: 'select',
@@ -16,7 +16,7 @@ export default Component.extend({
     if(this.get('value') === undefined) {
       const valueKey = this.get('valueKey');
       const value = this.get('model.firstObject').get(valueKey);
-      Ember.run.next(this, function() {
+      next(this, function() {
         this.get('onSelect')(value);
       });
     }

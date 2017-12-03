@@ -1,15 +1,19 @@
+import { readOnly } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 import DS from "ember-data";
 import Ember from "ember";
 
 const { RESTAdapter } = DS;
-const { Inflector, computed, inject: { service } } = Ember;
+const {
+  Inflector
+} = Ember;
 
 const inflector = new Inflector(Inflector.defaultRules);
 
 export default RESTAdapter.extend({
   firebase: service("firebase"),
-  host: computed.readOnly("firebase.url"),
-  namespace: computed.readOnly("firebase.userId"),
+  host: readOnly("firebase.url"),
+  namespace: readOnly("firebase.userId"),
 
   buildURL() {
     const url = this._super(...arguments);

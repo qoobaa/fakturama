@@ -1,9 +1,7 @@
-import Ember from 'ember';
-
-const { Controller,
-        computed: { oneWay },
-        inject: { service },
-        $ } = Ember;
+import Controller from '@ember/controller';
+import { oneWay } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
+import $ from 'jquery';
 
 export default Controller.extend({
   firebase: service('firebase'),

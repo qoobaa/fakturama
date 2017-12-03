@@ -1,11 +1,14 @@
-import Ember from 'ember';
+import { Promise as EmberPromise } from 'rsvp';
+import { getOwner } from '@ember/application';
+import ObjectProxy from '@ember/object/proxy';
+import { computed } from '@ember/object';
+import { inject as service } from '@ember/service';
 import EmberValidations from 'ember-validations';
 import FormMixin from 'fakturama/mixins/form';
 import InvoicePropertiesMixin from 'fakturama/mixins/invoice-properties';
 import Item from 'fakturama/models/item';
 import ItemForm from 'fakturama/forms/item';
 
-const { ObjectProxy, computed, inject: { service } } = Ember
 const { oneWay } = computed;
 
 export default ObjectProxy.extend(EmberValidations, FormMixin, InvoicePropertiesMixin, {
@@ -92,7 +95,7 @@ export default ObjectProxy.extend(EmberValidations, FormMixin, InvoiceProperties
   items: computed('model.itemsAttributes', 'model.itemsAttributes.@each', function () {
     return this.getWithDefault("model.itemsAttributes", []).map((itemAttributes) => {
       return ItemForm.create({
-        model: Item.create(Object.assign({}, itemAttributes, { container: Ember.getOwner(this) })),
+        model: Item.create(Object.assign({}, itemAttributes, { container: getOwner(this) })),
         invoiceForm: this
       });
     });
@@ -150,13 +153,13 @@ export default ObjectProxy.extend(EmberValidations, FormMixin, InvoiceProperties
   addItem: function () {
     const item = ItemForm.create({
       invoiceForm: this,
-      model: Item.create({ quantity: 0, netPrice: 0, container: Ember.getOwner(this) })
+      model: Item.create({ quantity: 0, netPrice: 0, container: getOwner(this) })
     });
     this.get("items").pushObject(item);
   },
 
   validate: function () {
-    return Ember.RSVP.Promise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));
+    return EmberPromise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));
   },
 
   currency: computed('currencyCode', function () {

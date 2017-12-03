@@ -1,8 +1,7 @@
-import Ember from "ember";
+import EmberObject from '@ember/object';
+import $ from 'jquery';
 
-const { $ } = Ember;
-
-let ExchangeRatesTable = Ember.Object.extend({
+let ExchangeRatesTable = EmberObject.extend({
   isLoading: false,
   isError: false
 });

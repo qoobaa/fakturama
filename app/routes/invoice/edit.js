@@ -1,13 +1,12 @@
-import Ember from 'ember';
+import { hash } from 'rsvp';
+import Route from '@ember/routing/route';
 import InvoiceForm from "fakturama/forms/invoice";
-
-const { Route } = Ember;
 
 export default Route.extend({
   model() {
     const store = this.get('store');
 
-    return Ember.RSVP.hash({
+    return hash({
       model: this.modelFor("invoice"),
       currencies: store.findAll('currency'),
       taxRates: store.findAll('tax-rate'),

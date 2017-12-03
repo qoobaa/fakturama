@@ -1,10 +1,13 @@
-import Ember from "ember";
+import { all } from 'rsvp';
+import { A } from '@ember/array';
+import ArrayProxy from '@ember/array/proxy';
+import { getOwner } from '@ember/application';
+import Mixin from '@ember/object/mixin';
+import EmberObject, { computed } from '@ember/object';
 import Item from "fakturama/models/item";
 import Language from "fakturama/models/language";
 
 import polishToWords from 'polish-to-words';
-
-const { Mixin, computed } = Ember;
 
 export default Mixin.create({
   sellerFirstLine: computed("seller", function () {
@@ -37,7 +40,7 @@ export default Mixin.create({
 
   items: computed("itemsAttributes", "itemsAttributes.@each", function () {
     return this.getWithDefault("itemsAttributes", []).map((itemAttributes) => {
-      return Item.create(Object.assign({}, itemAttributes, { container: Ember.getOwner(this) }));
+      return Item.create(Object.assign({}, itemAttributes, { container: getOwner(this) }));
     });
   }),
 
@@ -56,12 +59,12 @@ export default Mixin.create({
   subTotals: computed("items", "items.@each.netAmount", "items.@each.taxAmount",
                       "items.@each.grossAmount", "items.@each.taxRate",
                       "exchangeRate", "exchangeDivisor", function () {
-    let results = Ember.ArrayProxy.create({ content: Ember.A([]) });
+    let results = ArrayProxy.create({ content: A([]) });
 
-    Ember.RSVP.all(this.get('items').map((item) => item.get('taxRate'))).then(() => {
+    all(this.get('items').map((item) => item.get('taxRate'))).then(() => {
       this.get('items').mapBy('taxRate').uniq().map((taxRate) => {
         const items = this.get('items').filterBy('taxRate', taxRate);
-        let result = Ember.Object.create({ taxRate: taxRate });
+        let result = EmberObject.create({ taxRate: taxRate });
 
         result.set('netAmount', items.reduce(function(previousValue, item) {
           return previousValue + item.getWithDefault('netAmount', 0);

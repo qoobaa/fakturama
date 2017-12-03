@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
+import { observer } from '@ember/object';
 import ExchangeRatesTable from 'fakturama/models/exchange-rates-table';
-
-const { Mixin, observer } = Ember;
 
 export default Mixin.create({
   issueDateDidChange: observer("issueDate", function () {

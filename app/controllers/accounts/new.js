@@ -1,7 +1,5 @@
-import Ember from 'ember';
+import Controller from '@ember/controller';
 import NewController from 'fakturama/mixins/new-controller';
-
-const { Controller } = Ember;
 
 export default Controller.extend(NewController, {
   transitionTo: 'accounts'

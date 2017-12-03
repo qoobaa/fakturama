@@ -1,8 +1,6 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import wait from 'ember-test-helpers/wait';
 import { moduleForModel, test } from 'ember-qunit';
-
-const { run } = Ember;
 
 moduleForModel('invoice', 'Unit | Model | invoice', {
   integration: true,

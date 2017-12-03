@@ -1,7 +1,5 @@
-import Ember from 'ember'
+import { helper } from '@ember/component/helper';
 import formatCents from 'fakturama/lib/format_cents';
-
-const { Helper: { helper } } = Ember;
 
 export default helper(function (value, { options: { hash = {} } = {} }) {
 

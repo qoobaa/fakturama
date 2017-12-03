@@ -1,7 +1,6 @@
-import Ember from 'ember';
+import EmberObject from '@ember/object';
+import { inject as service } from '@ember/service';
 import ItemPropertiesMixin from "fakturama/mixins/item-properties";
-
-const { inject: { service } } = Ember;
 
 const attributes = [
   'description',
@@ -14,7 +13,7 @@ const attributes = [
   'grossAmount'
 ];
 
-export default Ember.Object.extend(ItemPropertiesMixin, {
+export default EmberObject.extend(ItemPropertiesMixin, {
   store: service('store'),
   toJSON() {
     return this.getProperties(attributes);

@@ -1,12 +1,11 @@
+import { Promise as EmberPromise } from 'rsvp';
+import EmberObject, { observer, computed } from '@ember/object';
 import config from 'fakturama/config/environment';
 import md5 from 'md5';
-import Ember from "ember";
-
-const { computed, observer } = Ember;
 
 const firebase = new window.firebase.initializeApp(config.APP.FIREBASE);
 
-let User = Ember.Object.extend({
+let User = EmberObject.extend({
   isAnonymous: computed("provider", function () {
     return this.get("provider") === "anonymous";
   }),
@@ -34,7 +33,7 @@ let User = Ember.Object.extend({
   login() {
     var model = this;
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new EmberPromise(function (resolve, reject) {
       const auth = firebase.auth("fakturama-e87a7");
       auth.signInAnonymously().then((user) => resolve(user),
                                     (error) => reject(error));
@@ -54,7 +53,7 @@ let User = Ember.Object.extend({
   logout: function () {
     var model = this;
 
-    return new Ember.RSVP.Promise(function (resolve, reject) {
+    return new EmberPromise(function (resolve, reject) {
       new window.FirebaseSimpleLogin(firebase, function (error, user) {
         if (error) {
           reject(error);
@@ -81,7 +80,7 @@ User.reopenClass({
   fetch: function (firebaseService) {
     var model = this.create({ firebase: firebaseService });
 
-    return new Ember.RSVP.Promise(function (resolve) {
+    return new EmberPromise(function (resolve) {
       const auth = firebase.auth();
       resolve(auth.currentUser);
     }).then(function (user) {

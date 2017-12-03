@@ -1,9 +1,8 @@
-import Ember from 'ember';
-
-const { Mixin, computed } = Ember;
+import { alias } from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
-  model: computed.alias("content"),
+  model: alias("content"),
   isSubmitted: false,
 
   save: function () {
