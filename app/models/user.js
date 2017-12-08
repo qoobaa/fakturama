@@ -3,7 +3,8 @@ import EmberObject, { observer, computed } from '@ember/object';
 import config from 'fakturama/config/environment';
 import md5 from 'md5';
 
-const firebase = new window.firebase.initializeApp(config.APP.FIREBASE);
+const { firebase } = window;
+const firebaseApp = firebase.initializeApp(config.APP.FIREBASE);
 
 let User = EmberObject.extend({
   isAnonymous: computed("provider", function () {
@@ -30,20 +31,28 @@ let User = EmberObject.extend({
     this.get('firebase').set("userId", this.get("uid"));
   }).on("init"),
 
-  login() {
+  login(method) {
     var model = this;
 
     return new EmberPromise(function (resolve, reject) {
-      const auth = firebase.auth("fakturama-e87a7");
-      auth.signInAnonymously().then((user) => resolve(user),
-                                    (error) => reject(error));
+      const auth = firebaseApp.auth(config.APP.FIREBASE['projectId']);
+      if(method === 'anonymous') {
+        auth.signInAnonymously().then((user) => resolve(user),
+                                      (error) => reject(error));
+      } else if(method === 'google') {
+        let provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('email');
+        auth.signInWithPopup(provider).then((result) => resolve(result.user),
+                                            (error) => reject(error));
+      }
     }).then(function (user) {
       return user.getIdToken().then((token) => {
         model.setProperties(Object.assign({}, model.constructor.blankProperties, {
           uid: user.uid,
           displayName: user.displayName,
           email: user.email,
-          firebaseAuthToken: token
+          firebaseAuthToken: token,
+          provider: user.isAnonymous ? 'anonymous' : user.providerId
         }));
         return model;
       });
@@ -54,13 +63,9 @@ let User = EmberObject.extend({
     var model = this;
 
     return new EmberPromise(function (resolve, reject) {
-      new window.FirebaseSimpleLogin(firebase, function (error, user) {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(user);
-        }
-      }).logout();
+      const auth = firebaseApp.auth(config.APP.FIREBASE['projectId']);
+      auth.signOut().then(() => resolve(),
+                          (error) => reject(error));
     }).then(function() {
       return model.login("anonymous");
     });
@@ -81,7 +86,7 @@ User.reopenClass({
     var model = this.create({ firebase: firebaseService });
 
     return new EmberPromise(function (resolve) {
-      const auth = firebase.auth();
+      const auth = firebaseApp.auth(config.APP.FIREBASE['projectId']);
       resolve(auth.currentUser);
     }).then(function (user) {
       if (user) {

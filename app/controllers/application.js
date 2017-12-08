@@ -29,7 +29,7 @@ export default Controller.extend({
 
       this.get("user").login(method).then(function () {
         controller.clearCache();
-        controller.transitionToRoute("index");
+        controller.transitionToRoute("invoices");
       })
         // .finally(window.Firebase.goOffline);
     },
@@ -41,7 +41,7 @@ export default Controller.extend({
 
       this.get("user").logout().then(function () {
         controller.clearCache();
-        controller.transitionToRoute("index");
+        controller.transitionToRoute("home");
       })
         // .finally(window.Firebase.goOffline);
     },
