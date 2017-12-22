@@ -20,9 +20,7 @@ export default Controller.extend(ExchangeRateMixin, {
   }.property("items.@each"),
 
   contentDidChange: function () {
-    var periodNumber, lastNumber,
-      properties = {},
-      controller = this;
+    let periodNumber, lastNumber, properties = {};
 
     if (this.get("settings.numerationTypeCode") === "year") {
       periodNumber = new Date().getFullYear().toString();
@@ -44,8 +42,9 @@ export default Controller.extend(ExchangeRateMixin, {
     this.setProperties(properties);
 
     // bindings somehow don't work in minified version without Ember.run.next
-    next(function () {
-      controller.get("content").addItem();
+    next(() => {
+      let content = this.get("content");
+      if (content) content.addItem();
     });
   }.observes("content"),
 
