@@ -1,5 +1,4 @@
 import { run } from '@ember/runloop';
-import wait from 'ember-test-helpers/wait';
 import { moduleForModel, test } from 'ember-qunit';
 
 moduleForModel('invoice', 'Unit | Model | invoice', {
