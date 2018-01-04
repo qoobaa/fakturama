@@ -1,25 +1,26 @@
-import FormMixin from "fakturama/mixins/form";
+import ObjectProxy from '@ember/object/proxy';
+import { oneWay } from '@ember/object/computed';
+import EmberValidations from 'ember-validations';
+import FormMixin from 'fakturama/mixins/form';
 
-var ClientForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, FormMixin, {
-    validations: {
-        companyName: {
-            presence: {
-                if: "isSubmitted",
-                message: "nie może być pusta"
-            }
-        },
-        address: {
-            presence: {
-                if: "isSubmitted",
-                message: "nie może być pusty"
-            }
-        }
+export default ObjectProxy.extend(EmberValidations, FormMixin, {
+  validations: {
+    companyName: {
+      presence: {
+        if: 'isSubmitted',
+        message: 'nie może być pusta'
+      }
     },
+    address: {
+      presence: {
+        if: 'isSubmitted',
+        message: 'nie może być pusty'
+      }
+    }
+  },
 
-    id: Ember.computed.oneWay("model.id"),
-    companyName: Ember.computed.oneWay("model.companyName"),
-    address: Ember.computed.oneWay("model.address"),
-    vatin: Ember.computed.oneWay("model.vatin")
+  id: oneWay('model.id'),
+  companyName: oneWay('model.companyName'),
+  address: oneWay('model.address'),
+  vatin: oneWay('model.vatin')
 });
-
-export default ClientForm;

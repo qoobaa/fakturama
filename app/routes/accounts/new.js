@@ -1,14 +1,19 @@
-import Account from "fakturama/models/account";
-import AccountForm from "fakturama/forms/account";
+import Route from '@ember/routing/route';
+import AccountForm from 'fakturama/forms/account';
 
-var AccountsNewRoute = Ember.Route.extend({
-    model: function () {
-        return Account.create();
-    },
+export default Route.extend({
+  model: function () {
+    return this.get('store').createRecord('account');
+  },
 
-    setupController: function (controller, model) {
-        controller.set("model", AccountForm.create({ model: model }));
-    }
+  setupController(controller, model) {
+    controller.set('model', AccountForm.create({ model: model }));
+  },
+
+  deactivate() {
+    let controller = this.controllerFor(this.routeName);
+    let model = controller.get('model');
+    controller.set('model', null);
+    model.rollback();
+  }
 });
-
-export default AccountsNewRoute;

@@ -1,14 +1,19 @@
-import Client from "fakturama/models/client";
-import ClientForm from "fakturama/forms/client";
+import Route from '@ember/routing/route';
+import ClientForm from 'fakturama/forms/client';
 
-var ClientsNewRoute = Ember.Route.extend({
-    model: function () {
-        return Client.create();
-    },
+export default Route.extend({
+  model() {
+    return this.get('store').createRecord('client');
+  },
 
-    setupController: function (controller, model) {
-        controller.set("model", ClientForm.create({ model: model }));
-    }
+  setupController(controller, model) {
+    controller.set('model', ClientForm.create({ model: model }));
+  },
+
+  deactivate() {
+    let controller = this.controllerFor(this.routeName);
+    let model = controller.get('model');
+    controller.set('model', null);
+    model.rollback();
+  }
 });
-
-export default ClientsNewRoute;

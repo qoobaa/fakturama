@@ -1,36 +1,25 @@
-import FirebaseAdapter from "fakturama/adapters/firebase";
+import { computed } from '@ember/object';
+import DS from "ember-data";
 
-var Client = Ember.Model.extend({
-    id: Ember.attr(),
-    companyName: Ember.attr(),
-    address: Ember.attr(),
-    vatin: Ember.attr(),
-    contactName: Ember.attr(),
-    contactEmail: Ember.attr(),
+const { Model, attr } = DS;
 
-    gravatarURL: function () {
-        return "//www.gravatar.com/avatar/" + window.md5(this.getWithDefault("contactEmail", "")) + "?d=mm";
-    }.property("md5_hash"),
+export default Model.extend({
+  companyName: attr(),
+  address: attr(),
+  vatin: attr(),
+  contactName: attr(),
+  contactEmail: attr(),
+  gravatarURL: computed("contactEmail", function () {
+    const md5 = window.md5(this.getWithDefault("contactEmail", ""));
+    return `//www.gravatar.com/avatar/${md5}?d=mm`;
+  }),
+  buyer: computed("address", "companyName", "vatin", function () {
+    let parts = [this.get("companyName"), this.get("address")];
 
-    buyer: function () {
-        var parts = [this.get("companyName"), this.get("address")];
-
-        if (this.get("vatin")) {
-            parts.push("NIP / VATIN: " + this.get("vatin"));
-        }
-
-        return parts.join("\n").trim();
-    }.property("companyName", "address", "vatin")
-});
-
-Client.reopenClass({
-    url: "clients",
-    adapter: FirebaseAdapter.create(),
-
-    clearCache: function () {
-        this._super.apply(this, arguments);
-        this._findAllRecordArray = undefined;
+    if (this.get("vatin")) {
+      parts.push("NIP / VATIN: " + this.get("vatin"));
     }
-});
 
-export default Client;
+    return parts.join("\n").trim();
+  })
+});

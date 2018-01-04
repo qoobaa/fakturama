@@ -1,9 +1,7 @@
-import Account from "fakturama/models/account";
+import Route from '@ember/routing/route';
 
-var AccountRoute = Ember.Route.extend({
-    model: function (params) {
-        return Account.fetch(params.account_id);
-    }
+export default Route.extend({
+  model: function (params) {
+    return this.store.findRecord('account', params.account_id);
+  }
 });
-
-export default AccountRoute;

@@ -1,18 +1,20 @@
-var InvoicesIndexController = Ember.ArrayController.extend({
-    sortProperties: ["issueDate", "number"],
-    sortAscending: true,
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 
-    actions: {
-        markAsPaidInvoice: function (invoice) {
-            invoice.set("isPaid", true);
-            invoice.save();
-        },
+export default Controller.extend({
+  invoices: computed('content', function() {
+    return this.get('content').filterBy('isNew', false);
+  }),
 
-        markAsUnpaidInvoice: function (invoice) {
-            invoice.set("isPaid", false);
-            invoice.save();
-        }
+  actions: {
+    markAsPaidInvoice: function (invoice) {
+      invoice.set('isPaid', true);
+      invoice.save();
+    },
+
+    markAsUnpaidInvoice: function (invoice) {
+      invoice.set('isPaid', false);
+      invoice.save();
     }
+  }
 });
-
-export default InvoicesIndexController;

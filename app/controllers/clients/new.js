@@ -1,15 +1,6 @@
-var ClientsNewController = Ember.ObjectController.extend({
-    actions: {
-        saveRecord: function () {
-            var controller = this;
+import Controller from '@ember/controller';
+import NewController from 'fakturama/mixins/new-controller';
 
-            this.set("isSubmitted", true);
-
-            this.get("content").save().then(function () {
-                controller.transitionToRoute("clients");
-            });
-        }
-    }
+export default Controller.extend(NewController, {
+  transitionTo: 'clients'
 });
-
-export default ClientsNewController;

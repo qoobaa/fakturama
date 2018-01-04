@@ -3,7 +3,7 @@
 
   <div class="form-group">
     <div class="col-sm-12 text-right">
-      <button type="submit" class="btn btn-primary" {{action "saveRecord"}} {{bind-attr disabled="model.isSaving"}}>Utwórz fakturę</button>
+      <button type="submit" class="btn btn-primary" {{action "saveRecord"}} disabled={{model.isSaving}}>Utwórz fakturę</button>
       {{link-to "Anuluj" "invoices" class="btn btn-default" activeClass=null}}
     </div>
   </div>

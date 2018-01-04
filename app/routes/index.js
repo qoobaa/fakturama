@@ -1,7 +1,7 @@
-var IndexRoute = Ember.Route.extend({
-    beforeModel: function() {
-        this.transitionTo("invoices");
-    }
-});
+import Route from '@ember/routing/route';
 
-export default IndexRoute;
+export default Route.extend({
+  beforeModel() {
+    this.transitionTo("invoices");
+  }
+});

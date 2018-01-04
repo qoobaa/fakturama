@@ -1,28 +1,37 @@
-var FormMixin = Ember.Mixin.create({
-    model: Ember.computed.alias("content"),
-    isSubmitted: false,
+import { alias } from '@ember/object/computed';
+import Mixin from '@ember/object/mixin';
 
-    save: function () {
-        var form = this,
-            model = this.get("model");
+export default Mixin.create({
+  model: alias("content"),
+  isSubmitted: false,
 
-        return this.validate().then(function () {
-            model.setProperties(form.toJSON());
-            return model.save();
-        });
-    },
+  save: function () {
+    var form = this,
+      model = this.get("model");
 
-    toJSON: function () {
-        return this.getProperties(this.get("model").constructor.getAttributes());
-    },
+    return this.validate().then(function () {
+      model.setProperties(form.toJSON());
+      return model.save();
+    }, null);
+  },
 
-    addErrors: function (errors) {
-        var form = this;
+  delete() {
+    return this.get('model').destroyRecord();
+  },
 
-        Object.keys(errors || {}).forEach(function (property) {
-            form.set("errors." + property, form.get("errors." + property).concat(errors[property]));
-        });
-    }
+  rollback() {
+    return this.get('model').rollbackAttributes();
+  },
+
+  toJSON: function () {
+    return this.getProperties(Object.keys(this.get('model').toJSON()));
+  },
+
+  addErrors: function (errors) {
+    var form = this;
+
+    Object.keys(errors || {}).forEach(function (property) {
+      form.set("errors." + property, form.get("errors." + property).concat(errors[property]));
+    });
+  }
 });
-
-export default FormMixin;

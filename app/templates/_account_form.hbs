@@ -1,51 +1,63 @@
 <fieldset>
   <legend>Rachunek bankowy</legend>
 
-  <div class="form-group" {{bind-attr class="errors.bankName.firstObject:has-error"}}>
+  <div class="form-group {{if errors.bankName.firstObject "has-error"}}">
     <label for="account-bank-name" class="col-sm-2 control-label">
       Nazwa banku
     </label>
     <div class="col-sm-5">
-      {{input valueBinding="bankName" class="form-control" id="account-bank-name"}}
+      {{input id="account-bank-name" class="form-control"
+        value=(mut (get model 'bankName'))}}
     </div>
     <div class="col-sm-5">
-      <span class="help-block">{{errors.bankName.firstObject}}</span>
+      <span class="help-block">
+        {{errors.bankName.firstObject}}
+      </span>
     </div>
   </div>
 
-  <div class="form-group" {{bind-attr class="errors.swift.firstObject:has-error"}}>
+  <div class="form-group {{if errors.swift.firstObject "has-error"}}">
     <label for="account-swift" class="col-sm-2 control-label">
       Kod SWIFT
     </label>
     <div class="col-sm-5">
-      {{input valueBinding="swift" class="form-control" id="account-swift"}}
+      {{input id="account-swift" class="form-control"
+        value=(mut (get model 'swift'))}}
     </div>
     <div class="col-sm-5">
-      <span class="help-block">{{errors.swift.firstObject}}</span>
+      <span class="help-block">
+        {{errors.swift.firstObject}}
+      </span>
     </div>
   </div>
 
-  <div class="form-group" {{bind-attr class="errors.number.firstObject:has-error"}}>
+  <div class="form-group {{if errors.number.firstObject "has-error"}}">
     <label for="account-number" class="col-sm-2 control-label">
       Numer rachunku
     </label>
     <div class="col-sm-5">
-      {{input valueBinding="number" class="form-control" id="account-number"}}
+      {{input id="account-number" class="form-control"
+        value=(mut (get model 'number'))}}
     </div>
     <div class="col-sm-5">
-      <span class="help-block">{{errors.number.firstObject}}</span>
+      <span class="help-block">
+        {{errors.number.firstObject}}
+      </span>
     </div>
   </div>
 
-  <div class="form-group" {{bind-attr class="errors.description.firstObject:has-error"}}>
+  <div class="form-group {{if errors.description.firstObject "has-error"}}">
     <label for="account-description" class="col-sm-2 control-label">
       Opis
     </label>
     <div class="col-sm-5">
-      {{input valueBinding="description" class="form-control" id="account-description"}}
+      {{input id="account-description" class="form-control"
+        value=(mut (get model 'description'))}}
     </div>
     <div class="col-sm-5">
-      <span class="help-block">{{errors.description.firstObject}}</span>
+      <span class="help-block">
+        {{errors.description.firstObject}}
+      </span>
     </div>
   </div>
 </fieldset>

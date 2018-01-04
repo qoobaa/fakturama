@@ -1,6 +1,8 @@
-var ClientsIndexController = Ember.ArrayController.extend({
-    sortProperties: ["companyName"],
-    sortAscending: true
-});
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 
-export default ClientsIndexController;
+export default Controller.extend({
+  clients: computed('content', function() {
+    return this.get('content').filterBy('isNew', false);
+  }),
+});

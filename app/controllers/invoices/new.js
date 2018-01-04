@@ -1,85 +1,80 @@
-import ItemForm from "fakturama/forms/item";
-import ExchangeRateMixin from "fakturama/mixins/exchange_rate";
+import { next } from '@ember/runloop';
+import Controller from '@ember/controller';
+import { alias } from '@ember/object/computed';
+import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 
-var InvoicesNewController = Ember.ObjectController.extend(ExchangeRateMixin, {
-    needs: ["application"],
+export default Controller.extend(ExchangeRateMixin, {
+  form: alias("content"),
 
-    form: Ember.computed.alias("content"),
+  settings: null,
+  currencies: null,
+  taxRates: null,
+  languages: null,
+  units: null,
+  clients: null,
+  invoices: null,
+  accounts: null,
 
-    settings: null,
-    currencies: null,
-    taxRates: null,
-    languages: null,
-    units: null,
-    clients: null,
-    invoices: null,
-    accounts: null,
+  isRemoveItemDisabled: function () {
+    return this.get("items.length") <= 1;
+  }.property("items.@each"),
 
-    isRemoveItemDisabled: function () {
-        return this.get("items.length") <= 1;
-    }.property("items.@each"),
+  contentDidChange: function () {
+    let periodNumber, lastNumber, properties = {};
 
-    contentDidChange: function () {
-        var periodNumber, lastNumber, invoices,
-            properties = {},
-            controller = this;
-
-        if (this.get("settings.numerationTypeCode") === "year") {
-            periodNumber = new Date().getFullYear().toString();
-        }
-
-        if (this.get("settings.numerationTypeCode") === "month") {
-            periodNumber = (new Date().getMonth() + 1).toString() + "/" + new Date().getFullYear().toString();
-        }
-
-        if (periodNumber) {
-            lastNumber = this.get("invoices").filterBy("periodNumber", periodNumber).sortBy("periodicalNumber").get("lastObject.periodicalNumber") || 0;
-            properties.number = (lastNumber + 1) + "/" + periodNumber;
-        }
-
-        properties.seller = this.get("settings.seller");
-        properties.sellerSignature = this.get("settings.contactName");
-        properties.dueDays = this.getWithDefault("settings.dueDays", 14);
-
-        this.setProperties(properties);
-
-        // bindings somehow don't work in minified version without Ember.run.next
-        Ember.run.next(function () {
-            controller.get("content").addItem();
-        });
-    }.observes("content"),
-
-    actions: {
-        saveRecord: function () {
-            var controller = this;
-
-            this.set("isSubmitted", true);
-
-            this.get("content").save().then(function () {
-                controller.transitionToRoute("invoice.show", controller.get("form.model"));
-            });
-        },
-
-        addItem: function () {
-            this.get("content").addItem();
-        },
-
-        removeItem: function (item) {
-            this.get("items").removeObject(item);
-        },
-
-        chooseClient: function (client) {
-            this.setProperties({ buyer: client.get("buyer"), buyerSignature: client.get("contactName") });
-        },
-
-        chooseAccount: function (account) {
-            this.setProperties({
-                accountBankName: account.get("bankName"),
-                accountSwift: account.get("swift"),
-                accountNumber: account.get("number")
-            });
-        }
+    if (this.get("settings.numerationTypeCode") === "year") {
+      periodNumber = new Date().getFullYear().toString();
     }
-});
 
-export default InvoicesNewController;
+    if (this.get("settings.numerationTypeCode") === "month") {
+      periodNumber = (new Date().getMonth() + 1).toString() + "/" + new Date().getFullYear().toString();
+    }
+
+    if (periodNumber) {
+      lastNumber = this.get("invoices").filterBy("periodNumber", periodNumber).sortBy("periodicalNumber").get("lastObject.periodicalNumber") || 0;
+      properties.number = (lastNumber + 1) + "/" + periodNumber;
+    }
+
+    properties.seller = this.get("settings.seller");
+    properties.sellerSignature = this.get("settings.contactName");
+    properties.dueDays = this.getWithDefault("settings.dueDays", 14);
+
+    this.setProperties(properties);
+
+    // bindings somehow don't work in minified version without Ember.run.next
+    next(() => {
+      let content = this.get("content");
+      if (content) content.addItem();
+    });
+  }.observes("content"),
+
+  actions: {
+    saveRecord: function () {
+      this.set("isSubmitted", true);
+      this.get("model").save().then(() => this.transitionToRoute("invoices"));
+    },
+
+    addItem() {
+      this.get("model").addItem();
+    },
+
+    removeItem(item) {
+      this.get("model.items").removeObject(item);
+    },
+
+    chooseClient: function (client) {
+      this.setProperties({
+        buyer: client.get("buyer"),
+        buyerSignature: client.get("contactName")
+      });
+    },
+
+    chooseAccount: function (account) {
+      this.setProperties({
+        accountBankName: account.get("bankName"),
+        accountSwift: account.get("swift"),
+        accountNumber: account.get("number")
+      });
+    }
+  }
+});

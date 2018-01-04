@@ -1,27 +1,33 @@
 <fieldset>
   <legend>Faktura</legend>
 
-  <div {{bind-attr class=":form-group errors.number.firstObject:has-error"}}>
+  <div class="form-group {{if errors.number.firstObject "has-error"}}">
     <label for="invoice-number" class="col-sm-3 control-label">
       Numer
     </label>
     <div class="col-sm-3">
-      {{input valueBinding="number" class="form-control" id="invoice-number"}}
+      {{input id="invoice-number" class="form-control"
+        value=(mut (get model 'number'))}}
     </div>
     <div class="col-sm-6">
-      <span class="help-block">{{errors.number.firstObject}}</span>
+      <span class="help-block">
+        {{errors.number.firstObject}}
+      </span>
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.issueDate.firstObject:has-error"}}>
+  <div class="form-group {{if errors.issueDate.firstObject "has-error"}}">
     <label for="invoice-issue-date" class="col-sm-3 control-label">
       Data wystawienia
     </label>
     <div class="col-sm-3">
-      {{input type="date" valueBinding="issueDate" class="form-control" id="invoice-issue-date"}}
+      {{input id="invoice-issue-date" class="form-control" type="date"
+        value=(mut (get model 'issueDate'))}}
     </div>
     <div class="col-sm-6">
-      <span class="help-block">{{errors.issueDate.firstObject}}</span>
+      <span class="help-block">
+        {{errors.issueDate.firstObject}}
+      </span>
     </div>
   </div>
 
@@ -29,62 +35,71 @@
     <div class="col-sm-9 col-sm-offset-3">
       <div class="checkbox">
         <label>
-          {{input type="checkbox" checkedBinding="isIssueDelivery"}}
+          {{input type="checkbox" checked=isIssueDelivery}}
           Data dostawy towarów lub wykonania usługi jest taka sama jak data wystawienia
         </label>
       </div>
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.deliveryDate.firstObject:has-error isIssueDelivery:hide"}}>
+  <div class="form-group {{if errors.deliveryDate.firstObject "has-error"}} {{if isIssueDelivery "hide"}}">
     <label for="invoice-delivery-date" class="col-sm-3 control-label">
       Data dostawy towarów lub wykonania usługi
     </label>
     <div class="col-sm-3">
-      {{input type="date" valueBinding="deliveryDate" class="form-control" id="invoice-delivery-date"}}
+      {{input id="invoice-delivery-date" class="form-control" type="date"
+        value=(mut (get model 'deliveryDate'))}}
     </div>
     <div class="col-sm-6">
-      <span class="help-block">{{errors.deliveryDate.firstObject}}</span>
+      <span class="help-block">
+        {{errors.deliveryDate.firstObject}}
+      </span>
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.dueDays.firstObject:has-error"}}>
+  <div class="form-group {{if errors.dueDays.firstObject "has-error"}}">
     <label class="control-label col-sm-3" for="invoice-due-days">
       Termin płatności
     </label>
     <div class="col-sm-3">
       <div class="input-group">
-        {{input type="number" class="form-control text-right" valueBinding="dueDays" id="invoice-due-days" min="0"}}
+        {{input id="invoice-due-days" class="form-control" type="number" min="0"
+          value=(mut (get model 'dueDays'))}}
         <span class="input-group-addon">dni</span>
       </div>
     </div>
     <div class="col-sm-6">
-      <span class="help-block">{{errors.dueDays.firstObject}}</span>
+      <span class="help-block">
+        {{errors.dueDays.firstObject}}
+      </span>
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.currency.firstObject:has-error"}}>
+  <div class="form-group {{if errors.currency.firstObject 'has-error'}}">
     <label class="control-label col-sm-3" for="invoice-currency">
       Waluta
     </label>
     <div class="col-sm-3">
-      {{view Ember.Select class="form-control" contentBinding="currencies.content" optionValuePath="content.code" optionLabelPath="content.nameWithCode" valueBinding="currencyCode" id="invoice-currency"}}
+      {{drop-down model=currencies value=model.currencyCode
+        labelKey='nameWithCode' valueKey='code'
+        onSelect=(action (mut (get model 'currencyCode')))}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">{{errors.currency.firstObject}}</span>
     </div>
   </div>
 
-  {{#if isExchanging}}
-    <div {{bind-attr class=":form-group errors.exchangeDate.firstObject:has-error"}}>
+  {{#if model.isExchanging}}
+    <div class="form-group {{if errors.exchangeRate.firstObject 'has-error'}}">
       <label for="invoice-exchange-date" class="col-sm-3 control-label">
         Data publikacji tabeli kursów walut obcych
       </label>
       <div class="col-sm-3">
-        {{input type="date" valueBinding="exchangeDate" class="form-control" id="invoice-exchange-date" disabled="disabled"}}
+        {{input id="invoice-exchange-date" class="form-control" type="date"
+          value=(mut (get model 'exchangeDate'))}}
       </div>
       <div class="col-sm-6">
-        {{#if exchangeRate.isLoading}}
+        {{#if model.exchangeRate.isLoading}}
           <span class="help-block text-muted">
             Trwa ładowanie tabeli kursów walut obcych, proszę czekać…
           </span>
@@ -93,36 +108,45 @@
     </div>
   {{/if}}
 
-  <div {{bind-attr class=":form-group errors.language.firstObject:has-error"}}>
+  <div class="form-group {{if errors.language.firstObject "has-error"}}">
     <label class="control-label col-sm-3" for="invoice-language">
       Wersja językowa
     </label>
     <div class="col-sm-3">
-      {{view Ember.Select class="form-control" contentBinding="languages.content" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="languageCode" id="invoice-language"}}
+      {{drop-down model=languages value=model.languageCode
+        labelKey='name' valueKey='code'
+        onSelect=(action (mut (get model 'languageCode')))}}
     </div>
     <div class="col-sm-6">
-      <span class="help-block">{{errors.language.firstObject}}</span>
+      <span class="help-block">
+        {{errors.language.firstObject}}
+      </span>
     </div>
   </div>
 
   <div class="row">
-    <div {{bind-attr class=":col-sm-6 errors.seller.firstObject:has-error"}}>
+    <div class="col-sm-6 {{if errors.seller.firstObject "has-error"}}">
       <label class="control-label" for="invoice-seller">
         Sprzedawca
       </label>
-      <span class="help-block" style="display: inline;">{{errors.seller.firstObject}}</span>
-      {{textarea class="form-control" rows="5" valueBinding="seller" id="invoice-seller"}}
+      <span class="help-block" style="display: inline;">
+        {{errors.seller.firstObject}}
+      </span>
+      {{textarea id="invoice-sellet" class="form-control" rows="5"
+        value=(mut (get model 'seller'))}}
     </div>
 
-    <div {{bind-attr class=":col-sm-6 errors.buyer.firstObject:has-error"}}>
+    <div class="col-sm-6 {{if errors.buyer.firstObject "has-error"}}">
       <div class="dropdown" style="display: inline;">
         <label data-toggle="dropdown" class="control-label" for="invoice-buyer">
           Nabywca <span class="caret"></span>
         </label>
         <ul class="dropdown-menu" role="menu">
-          {{#if clients.firstObject}}
-            {{#each client in clients}}
-              <li><a href="javascript:;" {{action "chooseClient" client}}>{{client.companyName}}</a></li>
+          {{#if clients}}
+            {{#each clients as |client|}}
+              <li>
+                <a href="javascript:;" {{action "chooseClient" client}}>{{client.companyName}}</a>
+              </li>
             {{/each}}
           {{else}}
             <li class="text-center text-muted">
@@ -135,10 +159,10 @@
         </ul>
       </div>
       <span class="help-block" style="display: inline;">{{errors.buyer.firstObject}}</span>
-      {{textarea class="form-control" rows="5" valueBinding="buyer" id="invoice-buyer"}}
+      {{textarea id="invoice-buyer" class="form-control" rows="5"
+        value=(mut (get model 'buyer'))}}
     </div>
   </div>
-
 
   <br>
 
@@ -170,34 +194,45 @@
       </th>
       <th></th>
     </tr>
-    {{#each item in items}}
+    {{#each model.items as |item|}}
       <tr>
-        <td {{bind-attr class=":form-group item.errors.description.firstObject:has-error"}}>
-          {{input class="form-control" valueBinding="item.description"}}
+        <td class="form-group {{if item.errors.description 'has-error'}}">
+          {{input class="form-control" value=(mut (get item 'description'))}}
         </td>
-        <td {{bind-attr class=":form-group :text-right item.errors.quantity.firstObject:has-error"}}>
-          {{view "number-field" numberBinding="item.quantity" class="form-control text-right"}}
+        <td class="form-group {{if item.errors.quantity 'has-error'}}">
+          {{input class="form-control text-right" type="number"
+            value=(mut (get item 'quantity'))}}
         </td>
-        <td {{bind-attr class=":form-group :text-right item.errors.unit.firstObject:has-error"}}>
-          {{view Ember.Select class="form-control" contentBinding="units" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.unitCode"}}
+        <td class="form-group text-right {{if item.errors.unit 'has-error'}}">
+          {{drop-down model=units value=item.unitCode
+            labelKey='name' valueKey='code'
+            onSelect=(action (mut (get item 'unitCode')))}}
         </td>
-        <td {{bind-attr class=":form-group :text-right item.errors.netPrice.firstObject:has-error"}}>
-          {{view "cents-field" centsBinding="item.netPrice" class="form-control text-right" precisionBinding="currency.precision"}}
+        <td class="form-group text-right {{if item.errors.netPrice 'has-error'}}">
+          {{cents-field class="form-control text-right" cents=(mut (get item 'netPrice'))
+            precision=(get model.currency 'precision')}}
         </td>
-        <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.netAmount.firstObject:has-error"}}>
-          {{view "cents-field" centsBinding="item.netAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+        <td class="form-group text-right hidden-xs {{if item.errors.netAmount 'has-error'}}">
+          {{cents-field class="form-control text-right" cents=(mut (get item 'netAmount'))
+            disabled="disabled" precision=(get model.currency 'precision')}}
         </td>
-        <td {{bind-attr class=":form-group :text-right item.errors.taxRateCode.firstObject:has-error"}}>
-          {{view Ember.Select class="form-control" contentBinding="taxRates" optionValuePath="content.code" optionLabelPath="content.name" valueBinding="item.taxRateCode"}}
+        <td class="form-group text-right {{if item.errors.taxRateCode 'has-error'}}">
+          {{drop-down model=taxRates value=item.taxRateCode
+            labelKey='name' valueKey='code'
+            onSelect=(action (mut (get item 'taxRateCode')))}}
         </td>
-        <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.taxAmount.firstObject:has-error"}}>
-          {{view "cents-field" centsBinding="item.taxAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+        <td class="form-group text-right hidden-xs {{if item.errors.taxAmount 'has-error'}}">
+          {{cents-field class="form-control text-right" cents=(mut (get item 'taxAmount'))
+            disabled="disabled" precision=(get model.currency 'precision')}}
         </td>
-        <td {{bind-attr class=":form-group :text-right :hidden-xs item.errors.grossAmount.firstObject:has-error"}}>
-          {{view "cents-field" centsBinding="item.grossAmount" class="form-control text-right" disabled="disabled" precisionBinding="currency.precision"}}
+        <td class="form-group text-right hidden-xs {{if item.errors.grossAmount 'has-error'}}">
+          {{cents-field class="form-control text-right" cents=(mut (get item 'grossAmount'))
+            disabled="disabled" precision=(get model.currency 'precision')}}
         </td>
         <td>
-          <button class="btn btn-remove" {{action "removeItem" item}} {{bind-attr disabled="isRemoveItemDisabled"}}><strong>×</strong></button>
+          <button class="btn btn-remove" {{action "removeItem" item}} disabled={{isRemoveItemDisabled}}>
+            <strong>×</strong>
+          </button>
         </td>
       </tr>
     {{/each}}
@@ -209,33 +244,41 @@
         Razem
       </th>
       <td class="text-right">
-        {{format-cents totalNetAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>
+        {{format-cents model.totalNetAmount precision=currency.precision}}
+        <small>{{currency.code}}</small>
       </td>
       <td></td>
       <td class="text-right">
-        {{format-cents totalTaxAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+        {{format-cents model.totalTaxAmount precision=currency.precision}}
+        <small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
       </td>
       <td class="text-right">
-        {{format-cents totalGrossAmount precisionBinding="currency.precision"}}&nbsp;<small>{{currency.code}}</small>
+        {{format-cents model.totalGrossAmount precision=currency.precision}}
+        <small>{{currency.code}}</small>
       </td>
       <td></td>
     </tr>
-    {{#each subTotal in subTotals}}
+    {{#each model.subTotals as |subTotal|}}
       <tr class="subtotal hidden-xs">
         <th class="text-right" colspan="4">
           W tym
         </th>
         <td class="text-right">
-          {{format-cents subTotal.netAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>
+          {{format-cents subTotal.netAmount precision=currency.precision}}
         </td>
         <td class="text-right">
           {{subTotal.taxRate.name}}
         </td>
         <td class="text-right">
-          {{format-cents subTotal.taxAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>{{#if isExchanging}}<br>{{format-cents subTotal.taxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+          {{format-cents subTotal.taxAmount precision=currency.precision}}
+          {{#if isExchanging}}
+            <br>
+            {{format-cents subTotal.taxAmountPLN}}
+            <small>PLN</small>
+          {{/if}}
         </td>
         <td class="text-right">
-          {{format-cents subTotal.grossAmount precisionBinding="currency.precision"}}&nbsp;<small>{{../currency.code}}</small>
+          {{format-cents subTotal.grossAmount precision=currency.precision}}
         </td>
         <td></td>
       </tr>
@@ -245,11 +288,11 @@
   <div class="row">
     <div class="col-sm-12">
       <p>
-        Słownie: {{totalGrossAmountInWords}}
+        Słownie:
+        {{model.totalGrossAmountInWords}}
       </p>
     </div>
   </div>
-
 
   <div class="form-group">
     <div class="col-sm-12">
@@ -259,8 +302,10 @@
         </label>
         <ul class="dropdown-menu" role="menu">
           {{#if accounts.firstObject}}
-            {{#each account in accounts}}
-              <li><a href="javascript:;" {{action "chooseAccount" account}}>{{account.name}}</a></li>
+            {{#each accounts as |account|}}
+              <li>
+                <a href="javascript:;" {{action "chooseAccount" account}}>{{account.name}}</a>
+              </li>
             {{/each}}
           {{else}}
             <li class="text-center text-muted">
@@ -275,39 +320,48 @@
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.accountBankName.firstObject:has-error"}}>
+  <div class="form-group {{if errors.accountBankName.firstObject 'has-error'}}">
     <label for="invoice-account-bank-name" class="col-sm-3 control-label">
       Nazwa banku
     </label>
     <div class="col-sm-3">
-      {{input class="form-control" valueBinding="accountBankName" id="invoice-account-bank-name"}}
+      {{input id="invoice-account-bank-name" class="form-control"
+        value=(mut accountBankName)}}
     </div>
     <div class="col-sm-6">
-      <span class="help-block">{{errors.accountBankName.firstObject}}</span>
+      <span class="help-block">
+        {{errors.accountBankName.firstObject}}
+      </span>
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.accountSwift.firstObject:has-error"}}>
+  <div class="form-group {{if errors.accountSwift.firstObject 'has-error'}}">
     <label for="invoice-account-swift" class="col-sm-3 control-label">
       SWIFT
     </label>
     <div class="col-sm-3">
-      {{input class="form-control" valueBinding="accountSwift" id="invoice-account-swift"}}
+      {{input id="invoice-account-swift" class="form-control"
+        value=(mut accountSwift)}}
     </div>
     <div class="col-sm-6">
-      <span class="help-block">{{errors.accountSwift.firstObject}}</span>
+      <span class="help-block">
+        {{errors.accountSwift.firstObject}}
+      </span>
     </div>
   </div>
 
-  <div {{bind-attr class=":form-group errors.accountNumber.firstObject:has-error"}}>
+  <div class="form-group {{if errors.accountNumber.firstObject 'has-error'}}">
     <label for="invoice-account-number" class="col-sm-3 control-label">
       Numer rachunku
     </label>
     <div class="col-sm-3">
-      {{input class="form-control" valueBinding="accountNumber" id="invoice-account-number"}}
+      {{input id="invoice-account-number" class="form-control"
+        value=(mut accountNumber)}}
     </div>
     <div class="col-sm-6">
-      <span class="help-block">{{errors.accountNumber.firstObject}}</span>
+      <span class="help-block">
+        {{errors.accountNumber.firstObject}}
+      </span>
     </div>
   </div>
 
@@ -316,17 +370,17 @@
       <label for="invoice-comment">
         Uwagi
       </label>
-      {{textarea class="form-control" rows="4" valueBinding="comment" id="invoice-comment"}}
+      {{textarea id="invoice-commment" class="form-control" rows="4" value=(mut comment)}}
     </div>
   </div>
 
   <div class="row">
     <div class="col-sm-6">
-      {{input class="form-control text-center" valueBinding="sellerSignature" id="sellerSignature"}}
+      {{input class="form-control text-center" value=sellerSignature id="sellerSignature"}}
       <label for="sellerSignature">Podpis wystawiającego</label>
     </div>
     <div class="col-sm-6">
-      {{input class="form-control text-center" valueBinding="buyerSignature" id="buyerSignature"}}
+      {{input class="form-control text-center" value=buyerSignature id="buyerSignature"}}
       <label for="buyerSignature">Podpis nabywcy</label>
     </div>
   </div>

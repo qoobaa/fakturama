@@ -1,3 +1,67 @@
-window.ENV = {
-    FIREBASE_URL: "https://fakturama.firebaseio.com/"
+/* eslint-env node */
+'use strict';
+
+module.exports = function(environment) {
+  let ENV = {
+    modulePrefix: 'fakturama',
+    environment,
+    rootURL: '/',
+    locationType: 'auto',
+    EmberENV: {
+      FEATURES: {
+        // Here you can enable experimental features on an ember canary build
+        // e.g. 'with-controller': true
+      },
+      EXTEND_PROTOTYPES: {
+        // Prevent Ember Data from overriding Date.parse.
+        Date: false
+      }
+    },
+
+    APP: {
+      // Here you can pass flags/options to your application instance
+      // when it is created
+    }
+  };
+
+  if (environment === 'development') {
+    ENV.APP.FIREBASE = {
+      apiKey: "AIzaSyCoxVMOvGe1l07rMvsAZNPg0Kqt8kV5zd8",
+      authDomain: "fakturama-e87a7.firebaseapp.com",
+      databaseURL: "https://fakturama-e87a7.firebaseio.com",
+      projectId: "fakturama-e87a7",
+      storageBucket: "fakturama-e87a7.appspot.com",
+      messagingSenderId: "690318607516"
+    }
+    // ENV.APP.LOG_RESOLVER = true;
+    // ENV.APP.LOG_ACTIVE_GENERATION = true;
+    // ENV.APP.LOG_TRANSITIONS = true;
+    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+  }
+
+  if (environment === 'test') {
+    ENV.APP.FIREBASE = {
+      apiKey: "AIzaSyA4RCBawIoEoNs2W9oI7WY2S8OMwJra7xg",
+      authDomain: "fakturama-test.firebaseapp.com",
+      databaseURL: "https://fakturama-test.firebaseio.com",
+      projectId: "fakturama-test",
+      storageBucket: "fakturama-test.appspot.com",
+      messagingSenderId: "690318607516"
+    }
+    // Testem prefers this...
+    ENV.locationType = 'none';
+
+    // keep test console output quieter
+    ENV.APP.LOG_ACTIVE_GENERATION = false;
+    ENV.APP.LOG_VIEW_LOOKUPS = false;
+
+    ENV.APP.rootElement = '#ember-testing';
+  }
+
+  if (environment === 'production') {
+    ENV.APP.FIREBASE_URL = "https://fakturama.firebaseio.com";
+  }
+
+  return ENV;
 };

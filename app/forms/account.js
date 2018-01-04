@@ -1,20 +1,21 @@
-import FormMixin from "fakturama/mixins/form";
+import ObjectProxy from '@ember/object/proxy';
+import { oneWay } from '@ember/object/computed';
+import EmberValidations from 'ember-validations';
+import FormMixin from 'fakturama/mixins/form';
 
-var AccountForm = Ember.ObjectProxy.extend(Ember.Validations.Mixin, FormMixin, {
-    validations: {
-        number: {
-            presence: {
-                if: "isSubmitted",
-                message: "nie może być pusty"
-            }
-        }
-    },
+export default ObjectProxy.extend(EmberValidations, FormMixin, {
+  validations: {
+    number: {
+      presence: {
+        if: 'isSubmitted',
+        message: 'nie może być pusty'
+      }
+    }
+  },
 
-    id: Ember.computed.oneWay("model.id"),
-    bankName: Ember.computed.oneWay("model.bankName"),
-    swift: Ember.computed.oneWay("model.swift"),
-    number: Ember.computed.oneWay("model.number"),
-    description: Ember.computed.oneWay("model.description")
+  id: oneWay('model.id'),
+  bankName: oneWay('model.bankName'),
+  swift: oneWay('model.swift'),
+  number: oneWay('model.number'),
+  description: oneWay('model.description')
 });
-
-export default AccountForm;

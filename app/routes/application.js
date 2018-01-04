@@ -1,9 +1,13 @@
+import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import User from "fakturama/models/user";
 
-var ApplicationRoute = Ember.Route.extend({
-    model: function () {
-        return User.fetch().finally(window.Firebase.goOffline);
-    }
-});
+export default Route.extend({
+  showLayout: true,
+  firebase: service("firebase"),
 
-export default ApplicationRoute;
+  model: function () {
+    return User.fetch(this.get('firebase'));
+               // .finally(window.Firebase.goOffline);
+  }
+});

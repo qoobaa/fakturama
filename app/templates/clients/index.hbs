@@ -1,9 +1,9 @@
-{{#if firstObject}}
+{{#if content}}
   <ul class="media-list">
-    {{#each client in controller}}
+    {{#each clients as |client|}}
       <li class="media">
         {{#link-to "client.edit" client class="pull-left"}}
-        <img height="36" width="36" class="img-circle pull-left" {{bind-attr src="client.gravatarURL"}}>
+          <img height="36" width="36" class="img-circle pull-left" src={{client.gravatarURL}}>
         {{/link-to}}
         <div class="media-body">
           <h4 class="media-heading">

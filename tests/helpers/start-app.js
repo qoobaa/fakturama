@@ -1,29 +1,16 @@
-import Application from "fakturama/app";
-import Router from "fakturama/router";
+import { run } from '@ember/runloop';
+import { merge } from '@ember/polyfills';
+import Application from '../../app';
+import config from '../../config/environment';
 
-function startApp(attrs) {
-    var App;
+export default function startApp(attrs) {
+  let attributes = merge({}, config.APP);
+  attributes = merge(attributes, attrs); // use defaults, but you can override;
 
-    var attributes = Ember.merge({
-        // useful Test defaults
-        rootElement: "#ember-testing",
-        LOG_ACTIVE_GENERATION:false,
-        LOG_VIEW_LOOKUPS: false
-    }, attrs); // but you can override;
-
-    Router.reopen({
-        location: "none"
-    });
-
-    Ember.run(function(){
-        App = Application.create(attributes);
-        App.setupForTesting();
-        App.injectTestHelpers();
-    });
-
-    App.reset(); // this shouldn't be needed, i want to be able to "start an app at a specific URL"
-
-    return App;
+  return run(() => {
+    let application = Application.create(attributes);
+    application.setupForTesting();
+    application.injectTestHelpers();
+    return application;
+  });
 }
-
-export default startApp;

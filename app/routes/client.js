@@ -1,9 +1,7 @@
-import Client from "fakturama/models/client";
+import Route from '@ember/routing/route';
 
-var ClientRoute = Ember.Route.extend({
-    model: function (params) {
-        return Client.fetch(params.client_id);
-    }
+export default Route.extend({
+  model: function (params) {
+    return this.store.findRecord('client', params.client_id);
+  }
 });
-
-export default ClientRoute;

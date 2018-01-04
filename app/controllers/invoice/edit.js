@@ -1,63 +1,60 @@
-import ItemForm from "fakturama/forms/item";
-import ExchangeRateMixin from "fakturama/mixins/exchange_rate";
+import Controller from '@ember/controller';
+import { alias } from '@ember/object/computed';
+import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 
-var InvoiceEditController = Ember.ObjectController.extend(ExchangeRateMixin, {
-    needs: ["application"],
+export default Controller.extend(ExchangeRateMixin, {
+  form: alias("content"),
 
-    form: Ember.computed.alias("content"),
+  settings: null,
+  currencies: null,
+  taxRates: null,
+  languages: null,
+  units: null,
+  clients: null,
+  accounts: null,
 
-    settings: null,
-    currencies: null,
-    taxRates: null,
-    languages: null,
-    units: null,
-    clients: null,
-    accounts: null,
+  isRemoveItemDisabled: function () {
+    return this.get("items.length") <= 1;
+  }.property("items.@each"),
 
-    isRemoveItemDisabled: function () {
-        return this.get("items.length") <= 1;
-    }.property("items.@each"),
+  actions: {
+    saveRecord: function () {
+      var controller = this;
 
-    actions: {
-        saveRecord: function () {
-            var controller = this;
+      this.set("isSubmitted", true);
 
-            this.set("isSubmitted", true);
+      this.get("content").save().then(function () {
+        controller.transitionToRoute("invoice.show", controller.get("form.model"));
+      });
+    },
 
-            this.get("content").save().then(function () {
-                controller.transitionToRoute("invoice.show", controller.get("form.model"));
-            });
-        },
+    deleteRecord: function () {
+      var controller = this,
+        model = this.get("content.model");
 
-        deleteRecord: function () {
-            var controller = this,
-                model = this.get("content.model");
+      model.deleteRecord().then(function () {
+        controller.transitionToRoute("invoices");
+      });
+    },
 
-            model.deleteRecord().then(function () {
-                controller.transitionToRoute("invoices");
-            });
-        },
+    addItem: function () {
+      this.get("content").addItem();
+    },
 
-        addItem: function () {
-            this.get("content").addItem();
-        },
+    removeItem: function (item) {
+      this.get("items").removeObject(item);
+    },
 
-        removeItem: function (item) {
-            this.get("items").removeObject(item);
-        },
+    chooseClient: function (client) {
+      this.setProperties({ buyer: client.get("buyer"), buyerSignature: client.get("contactName") });
+    },
 
-        chooseClient: function (client) {
-            this.setProperties({ buyer: client.get("buyer"), buyerSignature: client.get("contactName") });
-        },
-
-        chooseAccount: function (account) {
-            this.setProperties({
-                accountBankName: account.get("bankName"),
-                accountSwift: account.get("swift"),
-                accountNumber: account.get("number")
-            });
-        }
+    chooseAccount: function (account) {
+      this.setProperties({
+        accountBankName: account.get("bankName"),
+        accountSwift: account.get("swift"),
+        accountNumber: account.get("number")
+      });
     }
+  }
 });
-
-export default InvoiceEditController;

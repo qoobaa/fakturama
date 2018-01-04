@@ -1,48 +1,25 @@
-import FirebaseAdapter from "fakturama/adapters/firebase";
+import { computed } from '@ember/object';
+import DS from "ember-data";
 
-var Settings = Ember.Model.extend({
-    id: Ember.attr(),
-    companyName: Ember.attr(),
-    address: Ember.attr(),
-    vatin: Ember.attr(),
-    contactName: Ember.attr(),
-    numerationTypeCode: Ember.attr(),
-    dueDays: Ember.attr(),
+const { Model, attr } = DS;
 
-    seller: function () {
-        var parts = [this.get("companyName"), this.get("address")];
+let Settings = Model.extend({
+  companyName: attr(),
+  address: attr(),
+  vatin: attr(),
+  contactName: attr(),
+  numerationTypeCode: attr(),
+  dueDays: attr(),
 
-        if (this.get("vatin")) {
-            parts.push("NIP / VATIN: " + this.get("vatin"));
-        }
+  seller: computed("address", "companyName", "vatin", function () {
+    var parts = [this.get("companyName"), this.get("address")];
 
-        return parts.join("\n").trim();
-    }.property("companyName", "address", "vatin")
-});
-
-Settings.reopenClass({
-    url: "settings",
-    adapter: FirebaseAdapter.create(),
-
-    fetch: function (id) {
-        if (!id) {
-            id = "default";
-        }
-        return this._super.call(this, id);
-    },
-
-    find: function (id) {
-        if (!id) {
-            id = "default";
-        }
-
-        return this._super.call(this, id);
-    },
-
-    clearCache: function () {
-        this._super.apply(this, arguments);
-        this._findAllRecordArray = undefined;
+    if (this.get("vatin")) {
+      parts.push("NIP / VATIN: " + this.get("vatin"));
     }
+
+    return parts.join("\n").trim();
+  })
 });
 
 export default Settings;

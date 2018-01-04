@@ -1,10 +1,7 @@
-import Invoice from "fakturama/models/invoice";
-import InvoiceForm from "fakturama/forms/invoice";
+import Route from '@ember/routing/route';
 
-var InvoiceRoute = Ember.Route.extend({
-    model: function (params) {
-        return Invoice.fetch(params.invoice_id);
-    }
+export default Route.extend({
+  model(params) {
+    return this.get('store').findRecord('invoice', params.invoice_id);
+  }
 });
-
-export default InvoiceRoute;
