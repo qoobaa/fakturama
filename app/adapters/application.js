@@ -4,9 +4,7 @@ import DS from "ember-data";
 import Ember from "ember";
 
 const { RESTAdapter } = DS;
-const {
-  Inflector
-} = Ember;
+const { Inflector } = Ember;
 
 const inflector = new Inflector(Inflector.defaultRules);
 
@@ -14,6 +12,7 @@ export default RESTAdapter.extend({
   firebase: service("firebase"),
   host: readOnly("firebase.url"),
   namespace: readOnly("firebase.userId"),
+  defaultSerializer: "firebase",
 
   buildURL() {
     const url = this._super(...arguments);

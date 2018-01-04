@@ -43,6 +43,7 @@
     "ember-truth-helpers": "^2.0.0",
     "ember-validations": "github:CassioFelippe/ember-validations",
     "ember-welcome-page": "^3.0.0",
+    "firebase-tools": "^3.16.0",
     "loader.js": "^4.2.3",
     "polish-to-words": "github:qoobaa/polish-to-words"
   },

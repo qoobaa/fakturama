@@ -32,7 +32,7 @@ module.exports = function(environment) {
       projectId: "fakturama-e87a7",
       storageBucket: "fakturama-e87a7.appspot.com",
       messagingSenderId: "690318607516"
-    }
+    };
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -48,7 +48,7 @@ module.exports = function(environment) {
       projectId: "fakturama-test",
       storageBucket: "fakturama-test.appspot.com",
       messagingSenderId: "690318607516"
-    }
+    };
     // Testem prefers this...
     ENV.locationType = 'none';
 
@@ -57,6 +57,17 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+  }
+
+  if (environment === 'staging') {
+    ENV.APP.FIREBASE = {
+      apiKey: "AIzaSyDP6rWEbwd3F8Kd-2q97a24Nqm6DmQbuLQ",
+      authDomain: "fakturama-staging.firebaseapp.com",
+      databaseURL: "https://fakturama-staging.firebaseio.com",
+      projectId: "fakturama-staging",
+      storageBucket: "fakturama-staging.appspot.com",
+      messagingSenderId: "230102749631"
+    };
   }
 
   if (environment === 'production') {
