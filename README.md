@@ -4,18 +4,17 @@ Fakturama to prosta aplikacja do fakturowania, napisana w całości w języku Ja
 
 ## Uruchamianie środowiska programistycznego
 
-Aby uruchomić aplikację lokalnie, musisz posiadać node.js (wersja w okolicy 0.10.26) i npm (okolice 1.4.3). Wszelkie zależności aplikacji instalowane są po wywołaniu `npm install`. Aby uruchomić lokalną wersję serwera w środowisku `development`, należy uruchomić polecenie `grunt server` i otworzyć w przeglądarce adres [http://localhost:8000/](http://localhost:8000/).
+Aby uruchomić aplikację lokalnie, musisz posiadać node.js (wersja w okolicy 8.9.0) i yarn (okolice 1.3.2). Wszelkie zależności aplikacji instalowane są po wywołaniu `yarn install`. Aby uruchomić lokalną wersję serwera w środowisku `development`, należy uruchomić polecenie `ember server` i otworzyć w przeglądarce adres [http://localhost:8000/](http://localhost:8000/).
 
 ## Budowanie wersji produkcyjnej
 
-Do budowania wersji produkcyjnej aplikacji służy polecenie `grunt dist`. Po wykonaniu polecenia w katalogu `dist` powinno znajdować się kilka plików, wśród których najważniejsze to:
+Do budowania wersji produkcyjnej aplikacji służy polecenie `ember build --environment production`. Po wykonaniu polecenia w katalogu `dist` powinno znajdować się kilka plików, wśród których najważniejsze to:
 
-* `index.html` - strona powitalna (tzw. „landing page”)
-* `app.html` - strona startowa
-* `assets/xxxxxxxx.app.min.css` - arkusz styli
-* `assets/xxxxxxxx.app.min.js` - kod źródłowy aplikacji
-* `assets/xxxxxxxx.vendor.min.js` - kod źródłowy zależności (zewnętrznych bibliotek)
-* `assets/xxxxxxxx.config.min.js` - konfiguracja aplikacji (definicja obiektu `window.ENV`)
+* `index.html` - strona startowa
+* `assets/fakturama.xxxxxxxx.css` - arkusz styli
+* `assets/fakturama.xxxxxxxx.js` - kod źródłowy aplikacji
+* `assets/vendor.xxxxxxxx.js` - kod źródłowy zależności (zewnętrznych bibliotek)
+* `assets/vendor.xxxxxxxx.css` - arkusz styli zależności
 
 ## Publikowanie
 
