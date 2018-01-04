@@ -20,7 +20,7 @@ export default Controller.extend({
     save: function () {
       let model = this.get('model');
       model.set('isSubmitted', true);
-      model.save().then(() => this.transitionToRoute('index'));
+      model.save().then(() => this.transitionToRoute('invoices.index'));
     },
 
     showDeleteModal: function () {
