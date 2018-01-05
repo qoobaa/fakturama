@@ -5,37 +5,47 @@ import md5 from 'md5';
 
 const { firebase } = window;
 const firebaseApp = firebase.initializeApp(config.APP.FIREBASE);
+const auth = firebaseApp.auth(config.APP.FIREBASE['projectId']);
 
 let User = EmberObject.extend({
-  isAnonymous: computed("provider", function () {
-    return this.get("provider") === "anonymous";
+  isAnonymous: computed('provider', function () {
+    return this.get('provider') === 'anonymous';
   }),
 
-  emailMD5: computed("email", function () {
+  emailMD5: computed('email', function () {
     return md5(this.getWithDefault('email', ''));
   }),
 
-  gravatarURL: computed("emailMD5", function () {
-    return `//www.gravatar.com/avatar/${this.get("emailMD5")}?d=mm`;
+  gravatarURL: computed('emailMD5', function () {
+    return `//www.gravatar.com/avatar/${this.get('emailMD5')}?d=mm`;
   }),
 
-  name: computed("displayName", "email", function () {
-    return this.get("displayName") || this.get("email") || "Gość";
+  name: computed('displayName', 'email', function () {
+    return this.get('displayName') || this.get('email') || 'Gość';
   }),
 
-  firebaseAuthTokenDidChange: observer("firebaseAuthToken", function () {
-    this.get("firebase").set("token", this.get("firebaseAuthToken"));
-  }).on("init"),
+  firebaseAuthTokenDidChange: observer('firebaseAuthToken', function () {
+    this.get('firebase').set('token', this.get('firebaseAuthToken'));
+  }).on('init'),
 
-  uidDidChange: observer("uid", function () {
-    this.get('firebase').set("userId", this.get("uid"));
-  }).on("init"),
+  uidDidChange: observer('uid', function () {
+    this.get('firebase').set('userId', this.get('uid'));
+  }).on('init'),
+
+  auth(firebaseUser) {
+    return firebaseUser.getIdToken().then((token) => {
+      this.setProperties(Object.assign({}, this.constructor.blankProperties, {
+        uid: firebaseUser.uid,
+        displayName: firebaseUser.displayName,
+        email: firebaseUser.email,
+        firebaseAuthToken: token,
+        provider: firebaseUser.isAnonymous ? 'anonymous' : firebaseUser.providerId
+      }));
+    });
+  },
 
   login(method) {
-    var model = this;
-
-    return new EmberPromise(function (resolve, reject) {
-      const auth = firebaseApp.auth(config.APP.FIREBASE['projectId']);
+    return new EmberPromise((resolve, reject) => {
       if(method === 'anonymous') {
         auth.signInAnonymously().then((user) => resolve(user),
                                       (error) => reject(error));
@@ -45,17 +55,8 @@ let User = EmberObject.extend({
         auth.signInWithPopup(provider).then((result) => resolve(result.user),
                                             (error) => reject(error));
       }
-    }).then(function (user) {
-      return user.getIdToken().then((token) => {
-        model.setProperties(Object.assign({}, model.constructor.blankProperties, {
-          uid: user.uid,
-          displayName: user.displayName,
-          email: user.email,
-          firebaseAuthToken: token,
-          provider: user.isAnonymous ? 'anonymous' : user.providerId
-        }));
-        return model;
-      });
+    }).then((user) => {
+      return this.auth(user).then(() => this);
     });
   },
 
@@ -63,11 +64,10 @@ let User = EmberObject.extend({
     var model = this;
 
     return new EmberPromise(function (resolve, reject) {
-      const auth = firebaseApp.auth(config.APP.FIREBASE['projectId']);
       auth.signOut().then(() => resolve(),
                           (error) => reject(error));
     }).then(function() {
-      return model.login("anonymous");
+      return model.login('anonymous');
     });
   }
 });
@@ -85,15 +85,15 @@ User.reopenClass({
   fetch: function (firebaseService) {
     var model = this.create({ firebase: firebaseService });
 
-    return new EmberPromise(function (resolve) {
-      const auth = firebaseApp.auth(config.APP.FIREBASE['projectId']);
-      resolve(auth.currentUser);
-    }).then(function (user) {
+    return new EmberPromise((resolve) => {
+      auth.onAuthStateChanged(function(user) {
+        resolve(user);
+      });
+    }).then((user) => {
       if (user) {
-        model.setProperties(user);
-        return model;
+        return model.auth(user).then(() => model);
       } else {
-        return model.login("anonymous");
+        return model.login('anonymous');
       }
     });
   }
