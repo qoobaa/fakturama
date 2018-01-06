@@ -29,7 +29,7 @@ export default RESTAdapter.extend({
   findAll(store, model) {
     return this._super(...arguments).then((payload) => {
       const records = Object.keys(payload || {}).map((id) => {
-        return Object.assign({}, payload[id][model.modelName], { id });
+        return Object.assign({}, payload[id], { id });
       });
       return { [inflector.pluralize(model.modelName)]: records };
     });
@@ -37,7 +37,7 @@ export default RESTAdapter.extend({
 
   findRecord(store, model, id) {
     return this._super(...arguments).then((payload) => {
-      const record = Object.assign({}, (payload || {})[model.modelName], { id });
+      const record = Object.assign({}, payload, { id });
       return { [inflector.pluralize(model.modelName)]: record };
     });
   },
