@@ -1,48 +1,52 @@
 {{#if content}}
   <table class="table table-striped">
-    <tr>
-      <th>Numer</th>
-      <th class="text-center">Data wystawienia</th>
-      <th class="text-center">Termin płatności</th>
-      <th>Nabywca</th>
-      <th class="text-right">Kwota brutto</th>
-      <th class="text-center">Opłacona?</th>
-      <th></th>
-    </tr>
-    {{#each invoices as |invoice|}}
-      <tr class={{if invoice.isOverdue "danger"}}>
-        <td>
-          {{invoice.number}}
-        </td>
-        <td class="text-center">
-          {{invoice.issueDate}}
-        </td>
-        <td class="text-center">
-          {{invoice.dueDate}}
-        </td>
-        <td>
-          {{invoice.buyerFirstLine}}
-        </td>
-        <td class="text-right">
-          {{format-cents invoice.totalGrossAmount}}
-          <small>{{invoice.currencyCode}}</small>
-          {{#if invoice.isForeignCurrency}}
-            <br>{{format-cents invoice.totalGrossAmountPLN}}
-            <small>PLN</small>
-          {{/if}}
-        </td>
-        <td class="text-center">
-          {{#if invoice.isPaid}}
-            <a href="javascript:;" class="text-success" {{action "markAsUnpaidInvoice" invoice}}>tak</a>
-          {{else}}
-            <a href="javascript:;" class="text-danger" {{action "markAsPaidInvoice" invoice}}>nie</a>
-          {{/if}}
-        </td>
-        <td class="text-right">
-          {{link-to "Zobacz podgląd" "invoice.show" invoice}}
-        </td>
+    <thead>
+      <tr>
+        <th>Numer</th>
+        <th class="text-center">Data wystawienia</th>
+        <th class="text-center">Termin płatności</th>
+        <th>Nabywca</th>
+        <th class="text-right">Kwota brutto</th>
+        <th class="text-center">Opłacona?</th>
+        <th></th>
       </tr>
-    {{/each}}
+    </thead>
+    <tbody>
+      {{#each invoices as |invoice|}}
+        <tr class={{if invoice.isOverdue "danger"}}>
+          <td>
+            {{invoice.number}}
+          </td>
+          <td class="text-center">
+            {{invoice.issueDate}}
+          </td>
+          <td class="text-center">
+            {{invoice.dueDate}}
+          </td>
+          <td>
+            {{invoice.buyerFirstLine}}
+          </td>
+          <td class="text-right">
+            {{format-cents invoice.totalGrossAmount}}
+            <small>{{invoice.currencyCode}}</small>
+            {{#if invoice.isForeignCurrency}}
+              <br>{{format-cents invoice.totalGrossAmountPLN}}
+              <small>PLN</small>
+            {{/if}}
+          </td>
+          <td class="text-center">
+            {{#if invoice.isPaid}}
+              <a href="javascript:;" class="text-success" {{action "markAsUnpaidInvoice" invoice}}>tak</a>
+            {{else}}
+              <a href="javascript:;" class="text-danger" {{action "markAsPaidInvoice" invoice}}>nie</a>
+            {{/if}}
+          </td>
+          <td class="text-right">
+            {{link-to "Zobacz podgląd" "invoice.show" invoice}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
   </table>
 {{else}}
   <p>Nie utworzono jeszcze żadnej faktury.</p>
