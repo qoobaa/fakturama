@@ -18,38 +18,33 @@ export default Controller.extend(ExchangeRateMixin, {
   }.property("items.@each"),
 
   actions: {
-    saveRecord: function () {
-      var controller = this;
-
+    saveRecord() {
       this.set("isSubmitted", true);
 
-      this.get("content").save().then(function () {
-        controller.transitionToRoute("invoice.show", controller.get("form.model"));
+      this.get("content").save().then(() => {
+        this.transitionToRoute("invoice.show", this.get("form.model"));
       });
     },
 
-    deleteRecord: function () {
-      var controller = this,
-        model = this.get("content.model");
+    deleteRecord() {
+      const model = this.get('content.model');
 
-      model.deleteRecord().then(function () {
-        controller.transitionToRoute("invoices");
-      });
+      model.destroyRecord().then(() => this.transitionToRoute("invoices"));
     },
 
-    addItem: function () {
+    addItem() {
       this.get("content").addItem();
     },
 
-    removeItem: function (item) {
+    removeItem(item) {
       this.get("items").removeObject(item);
     },
 
-    chooseClient: function (client) {
+    chooseClient(client) {
       this.setProperties({ buyer: client.get("buyer"), buyerSignature: client.get("contactName") });
     },
 
-    chooseAccount: function (account) {
+    chooseAccount(account) {
       this.setProperties({
         accountBankName: account.get("bankName"),
         accountSwift: account.get("swift"),

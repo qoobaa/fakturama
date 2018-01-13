@@ -31,7 +31,8 @@ export default Mixin.create({
   }),
 
   periodNumber: computed("number", function () {
-    return this.getWithDefault("number", "").match(/([^/]+)\/(.+)/)[2];
+    const number = this.getWithDefault("number", "").match(/([^/]+)\/(.+)/);
+    return number ? number[2] : 1;
   }),
 
   periodicalNumber: computed("number", function () {
