@@ -22,7 +22,7 @@ export default Controller.extend(ExchangeRateMixin, {
       this.set("isSubmitted", true);
 
       this.get("content").save().then(() => {
-        this.transitionToRoute("invoice.show", this.get("form.model"));
+        this.transitionToRoute("invoice.show", this.get("content.model"));
       });
     },
 
