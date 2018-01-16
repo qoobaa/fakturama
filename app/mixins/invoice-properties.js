@@ -5,7 +5,6 @@ import { getOwner } from '@ember/application';
 import Mixin from '@ember/object/mixin';
 import EmberObject, { computed } from '@ember/object';
 import Item from "fakturama/models/item";
-import Language from "fakturama/models/language";
 
 import polishToWords from 'polish-to-words';
 
