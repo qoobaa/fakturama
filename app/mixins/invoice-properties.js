@@ -54,7 +54,9 @@ export default Mixin.create({
 
   language: computed("languageCode", function () {
     var code = this.get("languageCode");
-    return code && Language.find(code);
+    if(code) {
+      return this.get('store').queryRecord('language', { code });
+    }
   }),
 
   subTotals: computed("items", "items.@each.netAmount", "items.@each.taxAmount",

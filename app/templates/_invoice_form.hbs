@@ -326,7 +326,7 @@
     </label>
     <div class="col-sm-3">
       {{input id="invoice-account-bank-name" class="form-control"
-        value=(mut accountBankName)}}
+        value=(mut (get model 'accountBankName'))}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">
@@ -341,7 +341,7 @@
     </label>
     <div class="col-sm-3">
       {{input id="invoice-account-swift" class="form-control"
-        value=(mut accountSwift)}}
+        value=(mut (get model 'accountSwift'))}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">
@@ -356,7 +356,7 @@
     </label>
     <div class="col-sm-3">
       {{input id="invoice-account-number" class="form-control"
-        value=(mut accountNumber)}}
+        value=(mut (get model 'accountNumber'))}}
     </div>
     <div class="col-sm-6">
       <span class="help-block">
@@ -376,11 +376,13 @@
 
   <div class="row">
     <div class="col-sm-6">
-      {{input class="form-control text-center" value=sellerSignature id="sellerSignature"}}
+      {{input id="sellerSignature" class="form-control text-center"
+        value=(mut (get model 'sellerSignature'))}}
       <label for="sellerSignature">Podpis wystawiającego</label>
     </div>
     <div class="col-sm-6">
-      {{input class="form-control text-center" value=buyerSignature id="buyerSignature"}}
+      {{input id="buyerSignature" class="form-control text-center"
+        value=(mut (get model 'buyerSignature'))}}
       <label for="buyerSignature">Podpis nabywcy</label>
     </div>
   </div>
