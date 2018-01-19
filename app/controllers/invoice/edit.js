@@ -3,8 +3,6 @@ import { alias } from '@ember/object/computed';
 import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 
 export default Controller.extend(ExchangeRateMixin, {
-  form: alias("content"),
-
   settings: null,
   currencies: null,
   taxRates: null,
@@ -41,11 +39,14 @@ export default Controller.extend(ExchangeRateMixin, {
     },
 
     chooseClient(client) {
-      this.setProperties({ buyer: client.get("buyer"), buyerSignature: client.get("contactName") });
+      this.get('model').setProperties({
+        buyer: client.get("buyer"),
+        buyerSignature: client.get("contactName")
+      });
     },
 
     chooseAccount(account) {
-      this.setProperties({
+      this.get('model').setProperties({
         accountBankName: account.get("bankName"),
         accountSwift: account.get("swift"),
         accountNumber: account.get("number")

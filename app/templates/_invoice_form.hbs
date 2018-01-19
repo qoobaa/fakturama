@@ -167,130 +167,129 @@
   <br>
 
   <table class="table table-striped table-condensed">
-    <tr>
-      <th class="col-sm-4">
-        Nazwa
-      </th>
-      <th class="text-right">
-        Liczba
-      </th>
-      <th class="text-right col-sm-1">
-        J.m.
-      </th>
-      <th class="text-right">
-        Cena netto
-      </th>
-      <th class="text-right hidden-xs">
-        Wartość netto
-      </th>
-      <th class="text-right col-sm-1">
-        Stawka VAT
-      </th>
-      <th class="text-right hidden-xs">
-        Wartość VAT
-      </th>
-      <th class="text-right hidden-xs">
-        Wartość brutto
-      </th>
-      <th></th>
-    </tr>
-    {{#each model.items as |item|}}
+    <tbody>
       <tr>
-        <td class="form-group {{if item.errors.description 'has-error'}}">
-          {{input class="form-control" value=(mut (get item 'description'))}}
-        </td>
-        <td class="form-group {{if item.errors.quantity 'has-error'}}">
-          {{input class="form-control text-right" type="number"
-            value=(mut (get item 'quantity'))}}
-        </td>
-        <td class="form-group text-right {{if item.errors.unit 'has-error'}}">
-          {{drop-down model=units value=item.unitCode
-            labelKey='name' valueKey='code'
-            onSelect=(action (mut (get item 'unitCode')))}}
-        </td>
-        <td class="form-group text-right {{if item.errors.netPrice 'has-error'}}">
-          {{cents-field class="form-control text-right" cents=(mut (get item 'netPrice'))
-            precision=(get model.currency 'precision')}}
-        </td>
-        <td class="form-group text-right hidden-xs {{if item.errors.netAmount 'has-error'}}">
-          {{cents-field class="form-control text-right" cents=(mut (get item 'netAmount'))
-            disabled="disabled" precision=(get model.currency 'precision')}}
-        </td>
-        <td class="form-group text-right {{if item.errors.taxRateCode 'has-error'}}">
-          {{drop-down model=taxRates value=item.taxRateCode
-            labelKey='name' valueKey='code'
-            onSelect=(action (mut (get item 'taxRateCode')))}}
-        </td>
-        <td class="form-group text-right hidden-xs {{if item.errors.taxAmount 'has-error'}}">
-          {{cents-field class="form-control text-right" cents=(mut (get item 'taxAmount'))
-            disabled="disabled" precision=(get model.currency 'precision')}}
-        </td>
-        <td class="form-group text-right hidden-xs {{if item.errors.grossAmount 'has-error'}}">
-          {{cents-field class="form-control text-right" cents=(mut (get item 'grossAmount'))
-            disabled="disabled" precision=(get model.currency 'precision')}}
-        </td>
-        <td>
-          <button class="btn btn-remove" {{action "removeItem" item}} disabled={{isRemoveItemDisabled}}>
-            <strong>×</strong>
-          </button>
-        </td>
+        <th class="col-sm-4">
+          Nazwa
+        </th>
+        <th class="text-right">
+          Liczba
+        </th>
+        <th class="text-right col-sm-1">
+          J.m.
+        </th>
+        <th class="text-right">
+          Cena netto
+        </th>
+        <th class="text-right hidden-xs">
+          Wartość netto
+        </th>
+        <th class="text-right col-sm-1">
+          Stawka VAT
+        </th>
+        <th class="text-right hidden-xs">
+          Wartość VAT
+        </th>
+        <th class="text-right hidden-xs">
+          Wartość brutto
+        </th>
+        <th></th>
       </tr>
-    {{/each}}
-    <tr>
-      <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
-    </tr>
-    <tr class="hidden-xs">
-      <th class="text-right" colspan="4">
-        Razem
-      </th>
-      <td class="text-right">
-        {{format-cents model.totalNetAmount precision=currency.precision}}
-        <small>{{currency.code}}</small>
-      </td>
-      <td></td>
-      <td class="text-right">
-        {{format-cents model.totalTaxAmount precision=currency.precision}}
-        <small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
-      </td>
-      <td class="text-right">
-        {{format-cents model.totalGrossAmount precision=currency.precision}}
-        <small>{{currency.code}}</small>
-      </td>
-      <td></td>
-    </tr>
-    {{#each model.subTotals as |subTotal|}}
-      <tr class="subtotal hidden-xs">
+      {{#each model.items as |item|}}
+        <tr>
+          <td class="form-group {{if item.errors.description 'has-error'}}">
+            {{input class="form-control" value=(mut (get item 'description'))}}
+          </td>
+          <td class="form-group {{if item.errors.quantity 'has-error'}}">
+            {{input class="form-control text-right" type="number"
+              value=(mut (get item 'quantity'))}}
+          </td>
+          <td class="form-group text-right {{if item.errors.unit 'has-error'}}">
+            {{drop-down model=units value=item.unitCode
+              labelKey='name' valueKey='code'
+              onSelect=(action (mut (get item 'unitCode')))}}
+          </td>
+          <td class="form-group text-right {{if item.errors.netPrice 'has-error'}}">
+            {{cents-field class="form-control text-right" cents=(mut (get item 'netPrice'))
+              precision=(get model.currency 'precision')}}
+          </td>
+          <td class="form-group text-right hidden-xs {{if item.errors.netAmount 'has-error'}}">
+            {{cents-field class="form-control text-right" cents=(mut (get item 'netAmount'))
+              disabled="disabled" precision=(get model.currency 'precision')}}
+          </td>
+          <td class="form-group text-right {{if item.errors.taxRateCode 'has-error'}}">
+            {{drop-down model=taxRates value=item.taxRateCode
+              labelKey='name' valueKey='code'
+              onSelect=(action (mut (get item 'taxRateCode')))}}
+          </td>
+          <td class="form-group text-right hidden-xs {{if item.errors.taxAmount 'has-error'}}">
+            {{cents-field class="form-control text-right" cents=(mut (get item 'taxAmount'))
+              disabled="disabled" precision=(get model.currency 'precision')}}
+          </td>
+          <td class="form-group text-right hidden-xs {{if item.errors.grossAmount 'has-error'}}">
+            {{cents-field class="form-control text-right" cents=(mut (get item 'grossAmount'))
+              disabled="disabled" precision=(get model.currency 'precision')}}
+          </td>
+          <td>
+            <button class="btn btn-remove" {{action "removeItem" item}} disabled={{isRemoveItemDisabled}}>
+              <strong>×</strong>
+            </button>
+          </td>
+        </tr>
+      {{/each}}
+      <tr>
+        <td colspan="9" class="text-center"><button class="btn btn-add btn-block" {{action "addItem"}}><strong>+</strong></button></td>
+      </tr>
+      <tr class="hidden-xs">
         <th class="text-right" colspan="4">
-          W tym
+          Razem
         </th>
         <td class="text-right">
-          {{format-cents subTotal.netAmount precision=currency.precision}}
+          {{format-cents model.totalNetAmount precision=currency.precision}}
+          <small>{{currency.code}}</small>
+        </td>
+        <td></td>
+        <td class="text-right">
+          {{format-cents model.totalTaxAmount precision=currency.precision}}
+          <small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
         </td>
         <td class="text-right">
-          {{subTotal.taxRate.name}}
-        </td>
-        <td class="text-right">
-          {{format-cents subTotal.taxAmount precision=currency.precision}}
-          {{#if isExchanging}}
-            <br>
-            {{format-cents subTotal.taxAmountPLN}}
-            <small>PLN</small>
-          {{/if}}
-        </td>
-        <td class="text-right">
-          {{format-cents subTotal.grossAmount precision=currency.precision}}
+          {{format-cents model.totalGrossAmount precision=currency.precision}}
+          <small>{{currency.code}}</small>
         </td>
         <td></td>
       </tr>
-    {{/each}}
+      {{#each model.subTotals as |subTotal|}}
+        <tr class="subtotal hidden-xs">
+          <th class="text-right" colspan="4">
+            W tym
+          </th>
+          <td class="text-right">
+            {{format-cents subTotal.netAmount precision=currency.precision}}
+          </td>
+          <td class="text-right">
+            {{subTotal.taxRate.name}}
+          </td>
+          <td class="text-right">
+            {{format-cents subTotal.taxAmount precision=currency.precision}}
+            {{#if isExchanging}}
+              <br>
+              {{format-cents subTotal.taxAmountPLN}}
+              <small>PLN</small>
+            {{/if}}
+          </td>
+          <td class="text-right">
+            {{format-cents subTotal.grossAmount precision=currency.precision}}
+          </td>
+          <td></td>
+        </tr>
+      {{/each}}
+    </tbody>
   </table>
 
   <div class="row">
     <div class="col-sm-12">
-      <p>
-        Słownie:
-        {{model.totalGrossAmountInWords}}
-      </p>
+      <p>Słownie: {{model.totalGrossAmountInWords}}</p>
     </div>
   </div>
 

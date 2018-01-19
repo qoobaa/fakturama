@@ -1,21 +1,25 @@
 {{#if accounts}}
   <table class="table table-striped">
-    <tr>
-      <th>Opis</th>
-      <th class="text-center">Nazwa banku</th>
-      <th class="text-center">Numer rachunku</th>
-      <th class="text-center">SWIFT</th>
-      <th></th>
-    </tr>
-    {{#each accounts as |account|}}
+    <thead>
       <tr>
-        <td>{{account.description}}</td>
-        <td class="text-center">{{account.bankName}}</td>
-        <td class="text-center">{{account.number}}</td>
-        <td class="text-center">{{account.swift}}</td>
-        <td class="text-right">{{link-to "Edytuj" "account.edit" account}}</td>
+        <th>Opis</th>
+        <th class="text-center">Nazwa banku</th>
+        <th class="text-center">Numer rachunku</th>
+        <th class="text-center">SWIFT</th>
+        <th></th>
       </tr>
-    {{/each}}
+    </thead>
+    <tbody>
+      {{#each accounts as |account|}}
+        <tr>
+          <td>{{account.description}}</td>
+          <td class="text-center">{{account.bankName}}</td>
+          <td class="text-center">{{account.number}}</td>
+          <td class="text-center">{{account.swift}}</td>
+          <td class="text-right">{{link-to "Edytuj" "account.edit" account}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
   </table>
 {{else}}
   <p>Nie dodano jeszcze żadnego rachunku bankowego.</p>
