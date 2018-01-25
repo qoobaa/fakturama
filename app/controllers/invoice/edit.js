@@ -1,5 +1,4 @@
 import Controller from '@ember/controller';
-import { alias } from '@ember/object/computed';
 import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 
 export default Controller.extend(ExchangeRateMixin, {
