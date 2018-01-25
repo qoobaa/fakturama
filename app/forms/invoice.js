@@ -101,7 +101,7 @@ export default ObjectProxy.extend(EmberValidations, FormMixin, InvoiceProperties
     });
   }),
 
-  itemsAttributes: oneWay('items', 'items.@each', function () {
+  itemsAttributes: computed('items', 'items.@each', function () {
     return this.get("items").invoke("toJSON");
   }),
 

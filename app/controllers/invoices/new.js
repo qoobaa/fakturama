@@ -1,11 +1,8 @@
 import { next } from '@ember/runloop';
 import Controller from '@ember/controller';
-import { alias } from '@ember/object/computed';
 import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 
 export default Controller.extend(ExchangeRateMixin, {
-  form: alias("content"),
-
   settings: null,
   currencies: null,
   taxRates: null,
@@ -39,7 +36,8 @@ export default Controller.extend(ExchangeRateMixin, {
     properties.sellerSignature = this.get("settings.contactName");
     properties.dueDays = this.getWithDefault("settings.dueDays", 14);
 
-    this.setProperties(properties);
+    let model = this.get('model');
+    if (model) model.setProperties(properties);
 
     // bindings somehow don't work in minified version without Ember.run.next
     next(() => {
@@ -63,14 +61,14 @@ export default Controller.extend(ExchangeRateMixin, {
     },
 
     chooseClient: function (client) {
-      this.setProperties({
+      this.get('model').setProperties({
         buyer: client.get("buyer"),
         buyerSignature: client.get("contactName")
       });
     },
 
     chooseAccount: function (account) {
-      this.setProperties({
+      this.get('model').setProperties({
         accountBankName: account.get("bankName"),
         accountSwift: account.get("swift"),
         accountNumber: account.get("number")

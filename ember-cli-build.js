@@ -13,6 +13,7 @@ module.exports = function(defaults) {
   });
 
   app.import("vendor/firebase.js");
+  app.import("vendor/toword.js");
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
