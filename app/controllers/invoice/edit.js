@@ -1,7 +1,16 @@
 import Controller from '@ember/controller';
+import EditController from 'fakturama/mixins/edit-controller';
 import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 
-export default Controller.extend(ExchangeRateMixin, {
+export default Controller.extend(EditController, ExchangeRateMixin, {
+  transitionTo() {
+    const model = this.get('content.model');
+    if(model.get('isDeleted')) {
+      this.transitionToRoute('invoices');
+    } else {
+      this.transitionToRoute('invoice.show', model);
+    }
+  },
   settings: null,
   currencies: null,
   taxRates: null,
@@ -15,20 +24,6 @@ export default Controller.extend(ExchangeRateMixin, {
   }.property("items.@each"),
 
   actions: {
-    saveRecord() {
-      this.set("isSubmitted", true);
-
-      this.get("content").save().then(() => {
-        this.transitionToRoute("invoice.show", this.get("content.model"));
-      });
-    },
-
-    deleteRecord() {
-      const model = this.get('content.model');
-
-      model.destroyRecord().then(() => this.transitionToRoute("invoices"));
-    },
-
     addItem() {
       this.get("content").addItem();
     },

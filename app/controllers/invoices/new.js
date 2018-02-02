@@ -1,8 +1,12 @@
 import { next } from '@ember/runloop';
 import Controller from '@ember/controller';
 import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
+import NewController from 'fakturama/mixins/new-controller';
 
-export default Controller.extend(ExchangeRateMixin, {
+export default Controller.extend(NewController, ExchangeRateMixin, {
+  transitionTo() {
+    this.transitionToRoute('invoice.show', this.get('content.model'));
+  },
   settings: null,
   currencies: null,
   taxRates: null,
@@ -47,11 +51,6 @@ export default Controller.extend(ExchangeRateMixin, {
   }.observes("content"),
 
   actions: {
-    saveRecord: function () {
-      this.set("isSubmitted", true);
-      this.get("model").save().then(() => this.transitionToRoute("invoices"));
-    },
-
     addItem() {
       this.get("model").addItem();
     },
