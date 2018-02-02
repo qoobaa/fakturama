@@ -158,8 +158,8 @@ export default ObjectProxy.extend(EmberValidations, FormMixin, InvoiceProperties
     this.get("items").pushObject(item);
   },
 
-  validate: function () {
-    return EmberPromise.all([this._super.apply(this, arguments)].concat(this.get("items").invoke("validate")));
+  validate() {
+    return EmberPromise.all([this._super()].concat(this.get("items").invoke("validate")));
   },
 
   currency: computed('currencyCode', function () {
