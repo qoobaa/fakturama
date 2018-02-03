@@ -63,7 +63,7 @@
     </h4>
     <p>
       <strong>{{model.sellerFirstLine}}</strong><br>
-      {{#each sellerRest as |line|}}
+      {{#each model.sellerRest as |line|}}
         {{line}}<br>
       {{/each}}
     </p>
@@ -79,8 +79,10 @@
       </strong>
     </h4>
     <p>
-      <strong>{{buyerFirstLine}}</strong><br>
-      {{#each line in buyerRest}}{{line}}<br>{{/each}}
+      <strong>{{model.buyerFirstLine}}</strong><br>
+      {{#each model.buyerRest as |line|}}
+        {{line}}<br>
+      {{/each}}
     </p>
   </div>
 </div>
