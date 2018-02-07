@@ -95,8 +95,8 @@
         Data publikacji tabeli kursów walut obcych
       </label>
       <div class="col-sm-3">
-        {{input id="invoice-exchange-date" class="form-control" type="date"
-          value=(mut (get model 'exchangeDate'))}}
+        {{input id="invoice-exchange-date" class="form-control" type="date" disabled="true"
+          value=(get model 'exchangeDate')}}
       </div>
       <div class="col-sm-6">
         {{#if model.exchangeRate.isLoading}}
@@ -251,7 +251,12 @@
         <td></td>
         <td class="text-right">
           {{format-cents model.totalTaxAmount precision=currency.precision}}
-          <small>{{currency.code}}</small>{{#if isExchanging}}<br>{{format-cents totalTaxAmountPLN}}&nbsp;<small>PLN</small>{{/if}}
+          <small>{{currency.code}}</small>
+          {{#if model.isExchanging}}
+            <br>
+            {{format-cents model.totalTaxAmountPLN}}
+            <small>PLN</small>
+          {{/if}}
         </td>
         <td class="text-right">
           {{format-cents model.totalGrossAmount precision=currency.precision}}
@@ -272,7 +277,7 @@
           </td>
           <td class="text-right">
             {{format-cents subTotal.taxAmount precision=currency.precision}}
-            {{#if isExchanging}}
+            {{#if model.isExchanging}}
               <br>
               {{format-cents subTotal.taxAmountPLN}}
               <small>PLN</small>

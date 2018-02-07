@@ -1,9 +1,8 @@
 import { next } from '@ember/runloop';
 import Controller from '@ember/controller';
-import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 import NewController from 'fakturama/mixins/new-controller';
 
-export default Controller.extend(NewController, ExchangeRateMixin, {
+export default Controller.extend(NewController, {
   transitionTo() {
     this.transitionToRoute('invoice.show', this.get('content.model'));
   },

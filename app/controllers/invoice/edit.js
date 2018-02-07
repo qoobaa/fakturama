@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
 import EditController from 'fakturama/mixins/edit-controller';
-import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 
-export default Controller.extend(EditController, ExchangeRateMixin, {
+export default Controller.extend(EditController, {
   transitionTo() {
     const model = this.get('content.model');
     if(model.get('isDeleted')) {

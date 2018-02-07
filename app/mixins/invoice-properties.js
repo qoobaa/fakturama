@@ -3,7 +3,7 @@ import { A } from '@ember/array';
 import ArrayProxy from '@ember/array/proxy';
 import { getOwner } from '@ember/application';
 import Mixin from '@ember/object/mixin';
-import EmberObject, { computed } from '@ember/object';
+import EmberObject, { computed, observer } from '@ember/object';
 import Item from "fakturama/models/item";
 
 import polishToWords from 'polish-to-words';
@@ -147,7 +147,7 @@ export default Mixin.create({
     return this.get("currencyCode") !== "PLN";
   }),
 
-  isExchanging: computed("isForeignCurrency", "issueDate", "totalTaxAmount", function () {
+  isExchanging: computed('currencyCode', 'issueDate', 'totalTaxAmount', 'isForeignCurrency', function () {
     return !!this.get("currencyCode") &&
       !!this.get("issueDate") &&
       !!this.get("totalTaxAmount") &&
