@@ -4,6 +4,7 @@ import ObjectProxy from '@ember/object/proxy';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import EmberValidations from 'ember-validations';
+import ExchangeRateMixin from 'fakturama/mixins/exchange-rate';
 import FormMixin from 'fakturama/mixins/form';
 import InvoicePropertiesMixin from 'fakturama/mixins/invoice-properties';
 import Item from 'fakturama/models/item';
@@ -11,7 +12,7 @@ import ItemForm from 'fakturama/forms/item';
 
 const { oneWay } = computed;
 
-export default ObjectProxy.extend(EmberValidations, FormMixin, InvoicePropertiesMixin, {
+export default ObjectProxy.extend(EmberValidations, FormMixin, ExchangeRateMixin, InvoicePropertiesMixin, {
   store: service('store'),
   validations: {
     number: {
