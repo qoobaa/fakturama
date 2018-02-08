@@ -3,8 +3,15 @@ import { observer } from '@ember/object';
 import ExchangeRatesTable from 'fakturama/models/exchange-rates-table';
 
 export default Mixin.create({
+  prevIssueDate: null,
+
   issueDateDidChange: observer('issueDate', function () {
-    if (this.get('issueDate')) {
+    const issueDate = this.get('issueDate');
+    const prevIssueDate = this.get('prevIssueDate');
+
+    // Hack to avoid re-assigning issueDate and exchange attributes if not needed
+    if (issueDate && prevIssueDate !== issueDate) {
+      this.set('prevIssueDate', issueDate);
       this.set('exchangeRateTable', ExchangeRatesTable.find(this.get('issueDate')));
     }
   }),
