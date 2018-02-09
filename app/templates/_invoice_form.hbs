@@ -214,7 +214,7 @@
               precision=(get model.currency 'precision')}}
           </td>
           <td class="form-group text-right hidden-xs {{if item.errors.netAmount 'has-error'}}">
-            {{cents-field class="form-control text-right" cents=(mut (get item 'netAmount'))
+            {{cents-field class="form-control text-right" cents=(get item 'netAmount')
               disabled="disabled" precision=(get model.currency 'precision')}}
           </td>
           <td class="form-group text-right {{if item.errors.taxRateCode 'has-error'}}">
@@ -223,11 +223,11 @@
               onSelect=(action (mut (get item 'taxRateCode')))}}
           </td>
           <td class="form-group text-right hidden-xs {{if item.errors.taxAmount 'has-error'}}">
-            {{cents-field class="form-control text-right" cents=(mut (get item 'taxAmount'))
+            {{cents-field class="form-control text-right" cents=(get item 'taxAmount')
               disabled="disabled" precision=(get model.currency 'precision')}}
           </td>
           <td class="form-group text-right hidden-xs {{if item.errors.grossAmount 'has-error'}}">
-            {{cents-field class="form-control text-right" cents=(mut (get item 'grossAmount'))
+            {{cents-field class="form-control text-right" cents=(get item 'grossAmount')
               disabled="disabled" precision=(get model.currency 'precision')}}
           </td>
           <td>

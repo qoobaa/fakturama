@@ -16,9 +16,12 @@ export default Component.extend({
 
   init() {
     this._super(...arguments);
-    const cents = this.get('cents');
-    const precision = this.get('precision');
-    this.set('value', formatCents(cents, precision));
+    this.assignValue();
+  },
+
+  didReceiveAttrs() {
+    this._super(...arguments);
+    this.assignValue();
   },
 
   change(event) {
@@ -32,5 +35,11 @@ export default Component.extend({
     const precision = parseInt(this.get('precision') || defaultPrecision, 10);
 
     return String(1 / Math.pow(10, precision));
-  })
+  }),
+
+  assignValue() {
+    const cents = this.get('cents');
+    const precision = this.get('precision');
+    this.set('value', formatCents(cents, precision));
+  }
 });
