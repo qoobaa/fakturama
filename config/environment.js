@@ -71,7 +71,14 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.APP.FIREBASE_URL = "https://fakturama.firebaseio.com";
+    ENV.APP.FIREBASE = {
+      apiKey: "AIzaSyD85qng9z1z7e2SvGGmvdHbrdsR9t1NCz0",
+      authDomain: "fakturama.firebaseapp.com",
+      databaseURL: "https://fakturama.firebaseio.com",
+      projectId: "firebase-fakturama",
+      storageBucket: "firebase-fakturama.appspot.com",
+      messagingSenderId: "709741585144"
+    };
   }
 
   return ENV;
