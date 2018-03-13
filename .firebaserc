@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "fakturama-staging"
+    "staging": "fakturama-staging",
+    "production": "firebase-fakturama"
   }
 }
