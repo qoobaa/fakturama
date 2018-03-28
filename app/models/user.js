@@ -36,10 +36,10 @@ let User = EmberObject.extend({
     return firebaseUser.getIdToken().then((token) => {
       this.setProperties(Object.assign({}, this.constructor.blankProperties, {
         uid: firebaseUser.uid,
-        displayName: firebaseUser.displayName,
-        email: firebaseUser.email,
+        displayName: firebaseUser.displayName || (firebaseUser.providerData[0] && firebaseUser.providerData[0].displayName),
+        email: firebaseUser.email || (firebaseUser.providerData[0] && firebaseUser.providerData[0].email),
         firebaseAuthToken: token,
-        provider: firebaseUser.isAnonymous ? 'anonymous' : firebaseUser.providerId
+        provider: firebaseUser.isAnonymous ? 'anonymous' : (firebaseUser.providerData[0] && firebaseUser.providerData[0].providerId)
       }));
     });
   },
