@@ -26,6 +26,6 @@ export default Route.extend({
     let controller = this.controllerFor(this.routeName);
     let model = controller.get('model');
     controller.set('model', null);
-    model.rollback();
+    // model.rollback();
   }
 });

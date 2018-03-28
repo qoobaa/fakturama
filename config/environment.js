@@ -1,16 +1,16 @@
 /* eslint-env node */
-'use strict';
+"use strict";
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'fakturama',
+    modulePrefix: "fakturama",
     environment,
-    rootURL: '/',
-    locationType: 'auto',
+    rootURL: "/",
+    locationType: "auto",
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
+        // e.g. "with-controller": true
       },
       EXTEND_PROTOTYPES: {
         // Prevent Ember Data from overriding Date.parse.
@@ -24,15 +24,16 @@ module.exports = function(environment) {
     }
   };
 
-  if (environment === 'development') {
+  if (environment === "development") {
     ENV.APP.FIREBASE = {
-      apiKey: "AIzaSyCoxVMOvGe1l07rMvsAZNPg0Kqt8kV5zd8",
-      authDomain: "fakturama-e87a7.firebaseapp.com",
-      databaseURL: "https://fakturama-e87a7.firebaseio.com",
-      projectId: "fakturama-e87a7",
-      storageBucket: "fakturama-e87a7.appspot.com",
-      messagingSenderId: "690318607516"
+      apiKey: "AIzaSyCsqfzOAhMod8CgmLQofz24JHk8lSgpZwo",
+      authDomain: "fakturama-development.firebaseapp.com",
+      databaseURL: "https://fakturama-development.firebaseio.com",
+      projectId: "fakturama-development",
+      storageBucket: "",
+      messagingSenderId: "1068753197003"
     };
+
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -40,7 +41,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
-  if (environment === 'test') {
+  if (environment === "test") {
     ENV.APP.FIREBASE = {
       apiKey: "AIzaSyA4RCBawIoEoNs2W9oI7WY2S8OMwJra7xg",
       authDomain: "fakturama-test.firebaseapp.com",
@@ -50,16 +51,16 @@ module.exports = function(environment) {
       messagingSenderId: "690318607516"
     };
     // Testem prefers this...
-    ENV.locationType = 'none';
+    ENV.locationType = "none";
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
-    ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.rootElement = "#ember-testing";
   }
 
-  if (environment === 'staging') {
+  if (environment === "staging") {
     ENV.APP.FIREBASE = {
       apiKey: "AIzaSyDP6rWEbwd3F8Kd-2q97a24Nqm6DmQbuLQ",
       authDomain: "fakturama-staging.firebaseapp.com",
@@ -70,7 +71,7 @@ module.exports = function(environment) {
     };
   }
 
-  if (environment === 'production') {
+  if (environment === "production") {
     ENV.APP.FIREBASE = {
       apiKey: "AIzaSyD85qng9z1z7e2SvGGmvdHbrdsR9t1NCz0",
       authDomain: "fakturama.pl",
