@@ -1,6 +1,6 @@
 {
   "projects": {
     "staging": "fakturama-staging",
-    "production": "firebase-fakturama"
+    "production": "fakturama-production-61b9a"
   }
 }

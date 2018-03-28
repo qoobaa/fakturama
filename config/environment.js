@@ -73,12 +73,12 @@ module.exports = function(environment) {
 
   if (environment === "production") {
     ENV.APP.FIREBASE = {
-      apiKey: "AIzaSyD85qng9z1z7e2SvGGmvdHbrdsR9t1NCz0",
-      authDomain: "fakturama.pl",
-      databaseURL: "https://fakturama.firebaseio.com",
-      projectId: "firebase-fakturama",
-      storageBucket: "firebase-fakturama.appspot.com",
-      messagingSenderId: "709741585144"
+      apiKey: "AIzaSyDYHmwCeXtn6Nlj51XqUwR6KbJmw97Wo3A",
+      authDomain: "fakturama-production-61b9a.firebaseapp.com",
+      databaseURL: "https://fakturama-production-61b9a.firebaseio.com",
+      projectId: "fakturama-production-61b9a",
+      storageBucket: "fakturama-production-61b9a.appspot.com",
+      messagingSenderId: "54449445025"
     };
   }
 
