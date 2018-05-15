@@ -90,171 +90,175 @@
 <br>
 
 <table class="table table-condensed">
-  <tr>
-    <th class="col-xs-4">
-      Nazwa
-    </th>
-    <th class="text-right">
-      Liczba
-    </th>
-    <th class="text-right col-xs-1">
-      J.m.
-    </th>
-    <th class="text-right">
-      Cena netto
-    </th>
-    <th class="text-right">
-      Wartość netto
-    </th>
-    <th class="text-right col-xs-1">
-      Stawka VAT
-    </th>
-    <th class="text-right">
-      Wartość VAT
-    </th>
-    <th class="text-right">
-      Wartość brutto
-    </th>
-  </tr>
-
-  {{#if model.isEnglish}}
+  <thead>
     <tr>
       <th class="col-xs-4">
-        Name
+        Nazwa
       </th>
       <th class="text-right">
-        Quantity
+        Liczba
       </th>
       <th class="text-right col-xs-1">
-        Unit
+        J.m.
       </th>
       <th class="text-right">
-        Net price
+        Cena netto
       </th>
       <th class="text-right">
-        Net amount
+        Wartość netto
       </th>
       <th class="text-right col-xs-1">
-        VAT rate
+        Stawka VAT
       </th>
       <th class="text-right">
-        VAT amount
+        Wartość VAT
       </th>
       <th class="text-right">
-        Gross amount
+        Wartość brutto
       </th>
     </tr>
-  {{/if}}
 
-  {{#each model.items as |item|}}
+    {{#if model.isEnglish}}
+      <tr>
+        <th class="col-xs-4">
+          Name
+        </th>
+        <th class="text-right">
+          Quantity
+        </th>
+        <th class="text-right col-xs-1">
+          Unit
+        </th>
+        <th class="text-right">
+          Net price
+        </th>
+        <th class="text-right">
+          Net amount
+        </th>
+        <th class="text-right col-xs-1">
+          VAT rate
+        </th>
+        <th class="text-right">
+          VAT amount
+        </th>
+        <th class="text-right">
+          Gross amount
+        </th>
+      </tr>
+    {{/if}}
+  </thead>
+
+  <tbody>
+    {{#each model.items as |item|}}
+      <tr>
+        <td>
+          <p>
+            <small>{{item.description}}</small>
+          </p>
+        </td>
+        <td class="text-right">
+          <p>{{item.quantity}}</p>
+        </td>
+        <td class="text-right">
+          <p>
+            {{item.unit.name}}
+            {{#if model.isEnglish}}
+              <br>{{item.unit.nameEN}}
+            {{/if}}
+          </p>
+        </td>
+        <td class="text-right">
+          <p>
+            {{format-cents item.netPrice}}
+            <small>{{model.currency.code}}</small>
+          </p>
+        </td>
+        <td class="text-right">
+          <p>
+            {{format-cents item.netAmount}}
+            <small>{{model.currency.code}}</small>
+          </p>
+        </td>
+        <td class="text-right">
+          <p>
+            {{item.taxRate.name}}
+            {{#if model.isEnglish}}
+              <br>{{item.taxRate.nameEN}}
+            {{/if}}
+          </p>
+        </td>
+        <td class="text-right">
+          <p>
+            {{format-cents item.taxAmount}}
+            <small>{{model.currency.code}}</small>
+          </p>
+        </td>
+        <td class="text-right">
+          <p>
+            {{format-cents item.grossAmount}}
+            <small>{{model.currency.code}}</small>
+          </p>
+        </td>
+      </tr>
+    {{/each}}
     <tr>
-      <td>
-        <p>
-          <small>{{item.description}}</small>
-        </p>
-      </td>
-      <td class="text-right">
-        <p>{{item.quantity}}</p>
-      </td>
-      <td class="text-right">
-        <p>
-          {{item.unit.name}}
-          {{#if model.isEnglish}}
-            <br>{{item.unit.nameEN}}
-          {{/if}}
-        </p>
-      </td>
-      <td class="text-right">
-        <p>
-          {{format-cents item.netPrice}}
-          <small>{{model.currency.code}}</small>
-        </p>
-      </td>
-      <td class="text-right">
-        <p>
-          {{format-cents item.netAmount}}
-          <small>{{model.currency.code}}</small>
-        </p>
-      </td>
-      <td class="text-right">
-        <p>
-          {{item.taxRate.name}}
-          {{#if model.isEnglish}}
-            <br>{{item.taxRate.nameEN}}
-          {{/if}}
-        </p>
-      </td>
-      <td class="text-right">
-        <p>
-          {{format-cents item.taxAmount}}
-          <small>{{model.currency.code}}</small>
-        </p>
-      </td>
-      <td class="text-right">
-        <p>
-          {{format-cents item.grossAmount}}
-          <small>{{model.currency.code}}</small>
-        </p>
-      </td>
-    </tr>
-  {{/each}}
-  <tr>
-    <th class="text-right" colspan="4">
-      Razem
-      {{#if model.isEnglish}}
-        / Total
-      {{/if}}
-    </th>
-    <td class="text-right">
-      {{format-cents model.totalNetAmount}}
-      <small>{{model.currency.code}}</small>
-    </td>
-    <td></td>
-    <td class="text-right">
-      {{format-cents model.totalTaxAmount}}
-      <small>{{model.currency.code}}</small>
-      {{#if model.isExchanging}}
-        <br>{{format-cents model.totalTaxAmountPLN}}
-        <small>PLN</small>
-      {{/if}}
-    </td>
-    <td class="text-right">
-      {{format-cents model.totalGrossAmount}}
-      <small>{{model.currency.code}}</small>
-    </td>
-  </tr>
-  {{#each subTotals as |subTotal|}}
-    <tr class="subtotal">
       <th class="text-right" colspan="4">
-        W tym
+        Razem
         {{#if model.isEnglish}}
-          / Including
+          / Total
         {{/if}}
       </th>
       <td class="text-right">
-        {{format-cents subTotal.netAmount}}
+        {{format-cents model.totalNetAmount}}
         <small>{{model.currency.code}}</small>
       </td>
+      <td></td>
       <td class="text-right">
-        {{subTotal.taxRate.name}}
-        {{#if isEnglish}}
-          <br>{{subTotal.taxRate.nameEN}}
-        {{/if}}
-      </td>
-      <td class="text-right">
-        {{format-cents subTotal.taxAmount}}
-        <small>{{currency.code}}</small>
+        {{format-cents model.totalTaxAmount}}
+        <small>{{model.currency.code}}</small>
         {{#if model.isExchanging}}
-          <br>{{format-cents subTotal.taxAmountPLN}}
+          <br>{{format-cents model.totalTaxAmountPLN}}
           <small>PLN</small>
         {{/if}}
       </td>
       <td class="text-right">
-        {{format-cents subTotal.grossAmount}}
-        <small>{{currency.code}}</small>
+        {{format-cents model.totalGrossAmount}}
+        <small>{{model.currency.code}}</small>
       </td>
     </tr>
-  {{/each}}
+    {{#each subTotals as |subTotal|}}
+      <tr class="subtotal">
+        <th class="text-right" colspan="4">
+          W tym
+          {{#if model.isEnglish}}
+            / Including
+          {{/if}}
+        </th>
+        <td class="text-right">
+          {{format-cents subTotal.netAmount}}
+          <small>{{model.currency.code}}</small>
+        </td>
+        <td class="text-right">
+          {{subTotal.taxRate.name}}
+          {{#if isEnglish}}
+            <br>{{subTotal.taxRate.nameEN}}
+          {{/if}}
+        </td>
+        <td class="text-right">
+          {{format-cents subTotal.taxAmount}}
+          <small>{{currency.code}}</small>
+          {{#if model.isExchanging}}
+            <br>{{format-cents subTotal.taxAmountPLN}}
+            <small>PLN</small>
+          {{/if}}
+        </td>
+        <td class="text-right">
+          {{format-cents subTotal.grossAmount}}
+          <small>{{currency.code}}</small>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
 </table>
 
 <div class="row">
