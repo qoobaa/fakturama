@@ -7,7 +7,7 @@ import { authenticate } from "fakturama/tests/helpers/auth";
 moduleForAcceptance("Acceptance | clients", {
   beforeEach() {
     const user = server.create("user");
-    authenticate(this, user, "token");
+    authenticate(user, "token");
   }
 });
 
@@ -31,7 +31,7 @@ test("creating a new client", function(assert) {
 });
 
 test("editing a client", function(assert) {
-  const client = server.create('client');
+  const client = server.create("client");
   clientsPage.visit();
 
   andThen(function() {
@@ -55,7 +55,7 @@ test("editing a client", function(assert) {
 });
 
 test("removing a client", function(assert) {
-  const client = server.create('client');
+  const client = server.create("client");
   clientsPage.visit();
 
   andThen(function() {
@@ -69,6 +69,5 @@ test("removing a client", function(assert) {
         assert.equal(clients.length, 0);
       });
     });
-  })
+  });
 });
-
