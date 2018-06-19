@@ -18,7 +18,7 @@ Do budowania wersji produkcyjnej aplikacji służy polecenie `ember build --envi
 
 ## Publikowanie
 
-Ogólnodostępna wersja hostowana jest przy pomocy [GitHub Pages](https://pages.github.com/) i [Cloudflare](https://www.cloudflare.com/). Do publikowania aplikacji służy polecenie `grunt deploy`.
+Ogólnodostępna wersja hostowana jest przy pomocy [Firebase Hosting](https://firebase.google.com/) i [Cloudflare](https://www.cloudflare.com/). Do publikowania aplikacji służy polecenie `ember build --environment production && firebase use production && firebase deploy`.
 
 ## Licencja
 
