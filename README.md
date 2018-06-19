@@ -1,4 +1,4 @@
-# Fakturama
+# Fakturama ![build](https://travis-ci.org/lowski/fakturama.svg?branch=master)
 
 Fakturama to prosta aplikacja do fakturowania, napisana w całości w języku JavaScript, z wykorzystaniem frameworka [Ember](http://emberjs.com/). Dane składowane są w bazie danych [Firebase](https://www.firebase.com/), kursy walut ściąganę są za pośrednictwem [YQL](http://developer.yahoo.com/yql/) z serwerów [Narodowego Banku Polskiego](http://www.nbp.pl/kursy/xml/). Ogólnodostępna wersja aplikacji znajduje się pod adresem [https://fakturama.pl/](https://fakturama.pl/), ale nic nie stoi na przeszkodzie, aby uruchomić własną.
 
