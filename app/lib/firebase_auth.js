@@ -2,7 +2,12 @@ import EmberObject from "@ember/object";
 
 import config from "fakturama/config/environment";
 
-const { APP: { FIREBASE, FIREBASE: { projectId } } } = config;
+const {
+  APP: {
+    FIREBASE,
+    FIREBASE: { projectId }
+  }
+} = config;
 const { firebase } = window;
 const app = firebase.initializeApp(FIREBASE);
 
@@ -22,10 +27,11 @@ export default EmberObject.extend({
   onAuthStateChanged: delegateMethod("onAuthStateChanged"),
   signInAnonymously: delegateMethod("signInAnonymously"),
   signInWithGoogle() {
-    const content = this.get("content")
-    const provider = this.get("googleProvider")
+    const content = this.get("content");
+    const provider = this.get("googleProvider");
     provider.addScope("email");
-    return content.signInWithPopup(provider)
+    provider.addScope("profile");
+    return content.signInWithPopup(provider);
   },
   signOut: delegateMethod("signOut")
 });
