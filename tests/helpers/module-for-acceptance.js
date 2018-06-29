@@ -1,12 +1,14 @@
-import { resolve } from 'rsvp';
-import { module } from 'qunit';
-import startApp from '../helpers/start-app';
-import destroyApp from '../helpers/destroy-app';
+import { module } from "qunit";
+
+import startApp from "./start-app";
+import destroyApp from "./destroy-app";
+import { setup as setupAuth, reset as resetAuth } from "./auth";
 
 export default function(name, options = {}) {
   module(name, {
     beforeEach() {
       this.application = startApp();
+      setupAuth(this.application);
 
       if (options.beforeEach) {
         return options.beforeEach.apply(this, arguments);
@@ -14,8 +16,14 @@ export default function(name, options = {}) {
     },
 
     afterEach() {
-      let afterEach = options.afterEach && options.afterEach.apply(this, arguments);
-      return resolve(afterEach).then(() => destroyApp(this.application));
+      resetAuth();
+
+      if(options.afterEach) {
+        return options.afterEach.apply(this, arguments)
+                      .then(() => destroyApp(this.application));
+      } else {
+        destroyApp(this.application);
+      }
     }
   });
 }

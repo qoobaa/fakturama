@@ -7,7 +7,7 @@
     </label>
     <div class="col-sm-5">
       {{input id="client-company-name" class="form-control"
-        value=(mut (get model 'companyName'))}}
+        data-test-client-company-name=true value=(mut (get model 'companyName'))}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">
@@ -22,7 +22,7 @@
     </label>
     <div class="col-sm-5">
       {{textarea id="client-address" class="form-control"
-        value=(mut (get model 'address'))}}
+        data-test-client-address=true value=(mut (get model 'address'))}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">
@@ -37,7 +37,7 @@
     </label>
     <div class="col-sm-5">
       {{input id="client-vatin" class="form-control"
-        value=(mut (get model 'vatin'))}}
+        data-test-client-vatin=true value=(mut (get model 'vatin'))}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">
@@ -56,7 +56,7 @@
     </label>
     <div class="col-sm-5">
       {{input id="client-contact-name" class="form-control"
-        value=(mut (get model 'contactName'))}}
+        data-test-client-contact-name=true value=(mut (get model 'contactName'))}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">
@@ -71,7 +71,7 @@
     </label>
     <div class="col-sm-5">
       {{input id="client-contact-email" class="form-control" type="email"
-        value=(mut (get model 'contactEmail'))}}
+        data-test-client-contact-email=true value=(mut (get model 'contactEmail'))}}
     </div>
     <div class="col-sm-5">
       <span class="help-block">

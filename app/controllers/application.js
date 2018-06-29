@@ -1,53 +1,37 @@
-import { alias } from '@ember/object/computed';
-import Controller from '@ember/controller';
-import Account from "fakturama/models/account";
-import Client from "fakturama/models/client";
-import Invoice from "fakturama/models/invoice";
-import Settings from "fakturama/models/settings";
+import Controller from "@ember/controller";
+import { inject as service } from "@ember/service";
+import { readOnly } from "@ember/object/computed";
 
 export default Controller.extend({
-  user: alias("model"),
+  session: service(),
+
+  user: readOnly("session.currentUser"),
+
   isAlertDismissed: false,
 
-  clearCache: function () {
-    [Account, Client, Invoice, Settings].invoke("clearCache");
-  },
-
-  goOnline: function () {
-    try {
-      // window.Firebase.goOnline();
-    } catch (error) {
-      // do nothing
-    }
-  },
-
   actions: {
-    signIn: function (method) {
-      var controller = this;
-
-      controller.goOnline();
-
-      this.get("user").login(method).then(function () {
-        controller.clearCache();
-        controller.transitionToRoute("invoices");
-      })
-        // .finally(window.Firebase.goOffline);
+    signIn: function(method) {
+      const session = this.get("session");
+      session.create(method).then(() => {
+        this.clearCache();
+        this.send("refresh");
+      }, error => alert(error.message));
     },
 
-    signOut: function () {
-      var controller = this;
-
-      controller.goOnline();
-
-      this.get("user").logout().then(function () {
-        controller.clearCache();
-        controller.transitionToRoute("home");
-      })
-        // .finally(window.Firebase.goOffline);
+    signOut: function() {
+      const session = this.get("session");
+      session.remove().then(() => {
+        this.clearCache();
+        this.transitionToRoute("home");
+      });
     },
 
-    dismissAlert: function () {
+    dismissAlert: function() {
       this.set("isAlertDismissed", true);
     }
+  },
+
+  clearCache: function() {
+    this.get("store").unloadAll();
   }
 });

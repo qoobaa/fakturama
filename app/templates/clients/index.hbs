@@ -1,15 +1,15 @@
 {{#if content}}
   <ul class="media-list">
     {{#each clients as |client|}}
-      <li class="media">
+      <li data-test-clients="true" class="media">
         {{#link-to "client.edit" client class="pull-left"}}
           <img height="36" width="36" class="img-circle pull-left" src={{client.gravatarURL}}>
         {{/link-to}}
-        <div class="media-body">
-          <h4 class="media-heading">
-            {{link-to client.contactName "client.edit" client}}
+        <div data-test-client-id={{client.id}} class="media-body">
+          <h4 data-test-client-contact-name="true" class="media-heading">
+            {{link-to client.contactName "client.edit" client data-test-client-visit}}
           </h4>
-          <p>{{client.companyName}}</p>
+          <p data-test-client-company-name="true">{{client.companyName}}</p>
         </div>
       </li>
     {{/each}}
@@ -19,4 +19,4 @@
   <p>Nie dodano jeszcze żadnego klienta.</p>
 {{/if}}
 
-{{link-to "Dodaj nowego klienta" "clients.new" class="btn btn-success" active=null}}
+{{link-to "Dodaj nowego klienta" "clients.new" data-test-new-client class="btn btn-success" active=null}}

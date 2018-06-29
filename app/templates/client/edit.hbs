@@ -3,8 +3,14 @@
 
   <div class="form-group">
     <div class="col-sm-10 col-sm-offset-2">
-      <button type="submit" class="btn btn-primary" {{action "saveRecord"}} disabled={{model.isSaving}}>Zapisz klienta</button>
-      <button type="button" class="btn btn-danger" {{action "deleteRecord"}} disabled={{model.isSaving}}>Usuń klienta</button>
+      <button type="submit" class="btn btn-primary" {{action "saveRecord"}}
+        disabled={{model.isSaving}} data-test-client-save="true">
+        Zapisz klienta
+      </button>
+      <button type="button" class="btn btn-danger" {{action "deleteRecord"}}
+        disabled={{model.isSaving}} data-test-client-delete="true">
+        Usuń klienta
+      </button>
       {{link-to "Anuluj" "clients" class="btn btn-default" activeClass=null}}
     </div>
   </div>

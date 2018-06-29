@@ -25,6 +25,9 @@ module.exports = function(environment) {
   };
 
   if (environment === "development") {
+    ENV["ember-cli-mirage"] = {
+      enabled: false
+    };
     ENV.APP.FIREBASE = {
       apiKey: "AIzaSyCsqfzOAhMod8CgmLQofz24JHk8lSgpZwo",
       authDomain: "fakturama-development.firebaseapp.com",
@@ -42,14 +45,7 @@ module.exports = function(environment) {
   }
 
   if (environment === "test") {
-    ENV.APP.FIREBASE = {
-      apiKey: "AIzaSyA4RCBawIoEoNs2W9oI7WY2S8OMwJra7xg",
-      authDomain: "fakturama-test.firebaseapp.com",
-      databaseURL: "https://fakturama-test.firebaseio.com",
-      projectId: "fakturama-test",
-      storageBucket: "fakturama-test.appspot.com",
-      messagingSenderId: "690318607516"
-    };
+    ENV.APP.FIREBASE = {};
     // Testem prefers this...
     ENV.locationType = "none";
 
