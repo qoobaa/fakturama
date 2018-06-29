@@ -1,6 +1,6 @@
-const idWithoutJSONSuffix = (request) => {
+const idWithoutJSONSuffix = request => {
   return request.params.id.split('.')[0];
-}
+};
 
 export default function() {
   // These comments are here to help you get started. Feel free to delete them.
@@ -26,14 +26,14 @@ export default function() {
 
     http://www.ember-cli-mirage.com/docs/v0.3.x/shorthands/
   */
-  this.get("/clients.json", "clients");
-  this.post("/clients.json", "clients");
-  this.put("/clients/:id", function({ clients }, request) {
+  this.get('/clients.json', 'clients');
+  this.post('/clients.json', 'clients');
+  this.put('/clients/:id', function({ clients }, request) {
     const id = idWithoutJSONSuffix(request);
     const attrs = this.normalizedRequestAttrs();
     return clients.find(id).update(attrs.payload);
   });
-  this.del("/clients/:id", function({ clients }, request) {
+  this.del('/clients/:id', function({ clients }, request) {
     const id = idWithoutJSONSuffix(request);
     return clients.find(id).destroy();
   });

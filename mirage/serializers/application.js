@@ -1,5 +1,5 @@
-import { assert } from "@ember/debug";
-import { RestSerializer } from "ember-cli-mirage";
+import { assert } from '@ember/debug';
+import { RestSerializer } from 'ember-cli-mirage';
 
 export default RestSerializer.extend({
   embed: true,
@@ -7,7 +7,7 @@ export default RestSerializer.extend({
 
   normalize(payload) {
     const type = this.type;
-    assert(type, "type must be provided in the serializer");
+    assert(type, 'type must be provided in the serializer');
     return RestSerializer.prototype.normalize.call(this, {
       [type]: {
         payload

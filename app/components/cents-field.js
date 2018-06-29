@@ -25,7 +25,9 @@ export default Component.extend({
   },
 
   change(event) {
-    const { target: { value }} = event;
+    const {
+      target: { value }
+    } = event;
     const precision = this.get('precision');
     const cents = parseCents(value, precision);
     this.attrs.cents.update(cents);

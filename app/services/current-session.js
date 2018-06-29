@@ -1,9 +1,9 @@
-import Service from "@ember/service";
-import { computed } from "@ember/object";
-import { resolve, Promise as EmberPromise } from "rsvp";
+import Service from '@ember/service';
+import { computed } from '@ember/object';
+import { resolve, Promise as EmberPromise } from 'rsvp';
 
-import FirebaseAuth from "fakturama/lib/firebase_auth";
-import User from "fakturama/models/user";
+import FirebaseAuth from 'fakturama/lib/firebase_auth';
+import User from 'fakturama/models/user';
 
 // This service needs to be injected via app initializer under 'session' name.
 // This allow us to stub ad-hoc injection in in the acceptance tests.
@@ -11,17 +11,17 @@ export default Service.extend({
   init() {
     this._super(...arguments);
 
-    const authClass = this.getWithDefault("authClass", FirebaseAuth);
-    this.set("_auth", authClass.create());
+    const authClass = this.getWithDefault('authClass', FirebaseAuth);
+    this.set('_auth', authClass.create());
   },
 
   setup() {
-    if(this.getWithDefault('_setup', false)) {
-      return resolve()
+    if (this.getWithDefault('_setup', false)) {
+      return resolve();
     }
 
     return new EmberPromise(resolve => {
-      const auth = this.get("_auth");
+      const auth = this.get('_auth');
       auth.onAuthStateChanged(user => {
         if (user) {
           return this._setUser(user).then(resolve);
@@ -33,8 +33,8 @@ export default Service.extend({
     });
   },
 
-  currentUser: computed("userData.{user,token}", function() {
-    const { user, token } = this.get("userData");
+  currentUser: computed('userData.{user,token}', function() {
+    const { user, token } = this.get('userData');
     return User.create({
       uid: user.uid,
       authToken: token,
@@ -44,10 +44,10 @@ export default Service.extend({
     });
   }),
 
-  create(method = "anonymous") {
-    const auth = this.get("_auth");
+  create(method = 'anonymous') {
+    const auth = this.get('_auth');
     return new EmberPromise((resolve, reject) => {
-      switch(method) {
+      switch (method) {
         case 'anonymous':
           auth.signInAnonymously().then(resolve, reject);
           break;
@@ -61,13 +61,13 @@ export default Service.extend({
   },
 
   remove() {
-    const auth = this.get("_auth");
+    const auth = this.get('_auth');
     return auth.signOut().then(() => this.create());
   },
 
   _setUser(user) {
     return user.getIdToken().then(token => {
-      this.set("userData", { user, token });
+      this.set('userData', { user, token });
     });
   }
 });

@@ -1,4 +1,4 @@
-import DS from "ember-data";
+import DS from 'ember-data';
 
 export default DS.RESTSerializer.extend({
   serializeIntoHash(data, type, record, options) {

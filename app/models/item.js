@@ -1,6 +1,6 @@
 import EmberObject from '@ember/object';
 import { inject as service } from '@ember/service';
-import ItemPropertiesMixin from "fakturama/mixins/item-properties";
+import ItemPropertiesMixin from 'fakturama/mixins/item-properties';
 
 const attributes = [
   'description',

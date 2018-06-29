@@ -7,12 +7,12 @@ export default Controller.extend({
   }),
 
   actions: {
-    markAsPaidInvoice: function (invoice) {
+    markAsPaidInvoice: function(invoice) {
       invoice.set('isPaid', true);
       invoice.save();
     },
 
-    markAsUnpaidInvoice: function (invoice) {
+    markAsUnpaidInvoice: function(invoice) {
       invoice.set('isPaid', false);
       invoice.save();
     }
