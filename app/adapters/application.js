@@ -17,8 +17,10 @@ export default RESTAdapter.extend({
   firebase: service("firebase"),
 
   buildURL() {
-    const url = this._super(...arguments);
-    return `${url}.json?auth=${this.get("firebase.token")}`;
+    const url = `${this._super(...arguments)}.json?auth=${this.get(
+      "firebase.token"
+    )}`;
+    return url.startsWith("http") ? url : `/${url}`;
   },
 
   createRecord(store, model) {
