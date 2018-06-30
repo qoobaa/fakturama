@@ -6,7 +6,10 @@ export function initialize() {
     showLayout: true,
     setupController() {
       this._super(...arguments);
-      this.controllerFor('application').set('showLayout', this.get('showLayout'));
+      this.controllerFor('application').set(
+        'showLayout',
+        this.get('showLayout')
+      );
     }
   });
 }

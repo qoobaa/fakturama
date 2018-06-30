@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
-  sortProperties: ["companyName"],
+  sortProperties: ['companyName'],
   sortAscending: true
 });

@@ -1,7 +1,7 @@
 // import { test } from "qunit";
-import moduleForAcceptance from "fakturama/tests/helpers/module-for-acceptance";
+import moduleForAcceptance from 'fakturama/tests/helpers/module-for-acceptance';
 
-moduleForAcceptance("Acceptance | Invoices");
+moduleForAcceptance('Acceptance | Invoices');
 
 // test("invoices renders", function() {
 // visit('/invoices');

@@ -3,8 +3,8 @@
     'use strict';
 
     return {
-      'default': self['md5'],
-      __esModule: true,
+      default: self['md5'],
+      __esModule: true
     };
   }
 

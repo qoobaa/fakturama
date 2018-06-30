@@ -6,14 +6,14 @@ import {
   text,
   visitable
 } from 'ember-cli-page-object';
-import { reject } from "rsvp";
+import { reject } from 'rsvp';
 
 export default create({
   visit: visitable('/clients'),
   newClient: clickable('[data-test-new-client]'),
   showClient(id) {
     const client = this.client(id);
-    if(client) {
+    if (client) {
       return client.visit();
     } else {
       reject(`Client ${id} not found`);
@@ -27,8 +27,8 @@ export default create({
   }),
   client(id = null) {
     const clients = this.clients;
-    if(id) {
-      return clients.filter((c) => c.id === id).objectAt(0);
+    if (id) {
+      return clients.filter(c => c.id === id).objectAt(0);
     } else {
       return clients.objectAt(clients.length - 1);
     }

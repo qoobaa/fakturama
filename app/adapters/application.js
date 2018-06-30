@@ -1,26 +1,26 @@
-import DS from "ember-data";
-import Ember from "ember";
-import Inflector from "ember-inflector";
-import { readOnly } from "@ember/object/computed";
-import { inject as service } from "@ember/service";
+import DS from 'ember-data';
+import Ember from 'ember';
+import Inflector from 'ember-inflector';
+import { readOnly } from '@ember/object/computed';
+import { inject as service } from '@ember/service';
 
 const { RESTAdapter } = DS;
 
-const host = Ember.testing ? "/" : readOnly("firebase.url");
+const host = Ember.testing ? '/' : readOnly('firebase.url');
 const inflector = new Inflector(Inflector.defaultRules);
-const namespace = Ember.testing ? "" : readOnly("firebase.userId");
+const namespace = Ember.testing ? '' : readOnly('firebase.userId');
 
 export default RESTAdapter.extend({
   host,
   namespace,
-  defaultSerializer: "firebase",
-  firebase: service("firebase"),
+  defaultSerializer: 'firebase',
+  firebase: service('firebase'),
 
   buildURL() {
     const url = `${this._super(...arguments)}.json?auth=${this.get(
-      "firebase.token"
+      'firebase.token'
     )}`;
-    return url.startsWith("http") ? url : `/${url}`;
+    return url.startsWith('http') ? url : `/${url}`;
   },
 
   createRecord(store, model) {

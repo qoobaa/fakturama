@@ -1,12 +1,12 @@
 /* eslint-env node */
-"use strict";
+'use strict';
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: "fakturama",
+    modulePrefix: 'fakturama',
     environment,
-    rootURL: "/",
-    locationType: "auto",
+    rootURL: '/',
+    locationType: 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -24,17 +24,17 @@ module.exports = function(environment) {
     }
   };
 
-  if (environment === "development") {
-    ENV["ember-cli-mirage"] = {
+  if (environment === 'development') {
+    ENV['ember-cli-mirage'] = {
       enabled: false
     };
     ENV.APP.FIREBASE = {
-      apiKey: "AIzaSyCsqfzOAhMod8CgmLQofz24JHk8lSgpZwo",
-      authDomain: "fakturama-development.firebaseapp.com",
-      databaseURL: "https://fakturama-development.firebaseio.com",
-      projectId: "fakturama-development",
-      storageBucket: "",
-      messagingSenderId: "1068753197003"
+      apiKey: 'AIzaSyCsqfzOAhMod8CgmLQofz24JHk8lSgpZwo',
+      authDomain: 'fakturama-development.firebaseapp.com',
+      databaseURL: 'https://fakturama-development.firebaseio.com',
+      projectId: 'fakturama-development',
+      storageBucket: '',
+      messagingSenderId: '1068753197003'
     };
 
     // ENV.APP.LOG_RESOLVER = true;
@@ -44,37 +44,37 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
   }
 
-  if (environment === "test") {
+  if (environment === 'test') {
     ENV.APP.FIREBASE = {};
     // Testem prefers this...
-    ENV.locationType = "none";
+    ENV.locationType = 'none';
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
-    ENV.APP.rootElement = "#ember-testing";
+    ENV.APP.rootElement = '#ember-testing';
   }
 
-  if (environment === "staging") {
+  if (environment === 'staging') {
     ENV.APP.FIREBASE = {
-      apiKey: "AIzaSyDP6rWEbwd3F8Kd-2q97a24Nqm6DmQbuLQ",
-      authDomain: "fakturama-staging.firebaseapp.com",
-      databaseURL: "https://fakturama-staging.firebaseio.com",
-      projectId: "fakturama-staging",
-      storageBucket: "fakturama-staging.appspot.com",
-      messagingSenderId: "230102749631"
+      apiKey: 'AIzaSyDP6rWEbwd3F8Kd-2q97a24Nqm6DmQbuLQ',
+      authDomain: 'fakturama-staging.firebaseapp.com',
+      databaseURL: 'https://fakturama-staging.firebaseio.com',
+      projectId: 'fakturama-staging',
+      storageBucket: 'fakturama-staging.appspot.com',
+      messagingSenderId: '230102749631'
     };
   }
 
-  if (environment === "production") {
+  if (environment === 'production') {
     ENV.APP.FIREBASE = {
-      apiKey: "AIzaSyDYHmwCeXtn6Nlj51XqUwR6KbJmw97Wo3A",
-      authDomain: "fakturama-production-61b9a.firebaseapp.com",
-      databaseURL: "https://fakturama-production-61b9a.firebaseio.com",
-      projectId: "fakturama-production-61b9a",
-      storageBucket: "fakturama-production-61b9a.appspot.com",
-      messagingSenderId: "54449445025"
+      apiKey: 'AIzaSyDYHmwCeXtn6Nlj51XqUwR6KbJmw97Wo3A',
+      authDomain: 'fakturama-production-61b9a.firebaseapp.com',
+      databaseURL: 'https://fakturama-production-61b9a.firebaseio.com',
+      projectId: 'fakturama-production-61b9a',
+      storageBucket: 'fakturama-production-61b9a.appspot.com',
+      messagingSenderId: '54449445025'
     };
   }
 

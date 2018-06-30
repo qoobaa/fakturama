@@ -6,7 +6,9 @@ export default Route.extend({
   },
   activate() {
     const invoice = this.modelFor('invoice');
-    document.title = `${invoice.get('number')} ${invoice.get('buyerFirstLine')} - Fakturama`;
+    document.title = `${invoice.get('number')} ${invoice.get(
+      'buyerFirstLine'
+    )} - Fakturama`;
   },
   deactivate() {
     document.title = 'Fakturama';

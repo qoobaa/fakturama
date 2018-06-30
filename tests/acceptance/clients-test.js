@@ -1,24 +1,24 @@
-import { test } from "qunit";
-import moduleForAcceptance from "fakturama/tests/helpers/module-for-acceptance";
-import clientsPage from "fakturama/tests/pages/clients";
-import newClientPage from "fakturama/tests/pages/new-client";
-import { authenticate } from "fakturama/tests/helpers/auth";
+import { test } from 'qunit';
+import moduleForAcceptance from 'fakturama/tests/helpers/module-for-acceptance';
+import clientsPage from 'fakturama/tests/pages/clients';
+import newClientPage from 'fakturama/tests/pages/new-client';
+import { authenticate } from 'fakturama/tests/helpers/auth';
 
-moduleForAcceptance("Acceptance | clients", {
+moduleForAcceptance('Acceptance | clients', {
   beforeEach() {
-    const user = server.create("user");
-    authenticate(user, "token");
+    const user = server.create('user');
+    authenticate(user, 'token');
   }
 });
 
-test("creating a new client", function(assert) {
+test('creating a new client', function(assert) {
   clientsPage.visit().newClient();
 
   andThen(function() {
     const attrs = {
-      companyName: "Simpsons LLC",
-      address: "Springfield",
-      contactName: "Bart Simpson"
+      companyName: 'Simpsons LLC',
+      address: 'Springfield',
+      contactName: 'Bart Simpson'
     };
     newClientPage.saveWith(attrs);
 
@@ -30,8 +30,8 @@ test("creating a new client", function(assert) {
   });
 });
 
-test("editing a client", function(assert) {
-  const client = server.create("client");
+test('editing a client', function(assert) {
+  const client = server.create('client');
   clientsPage.visit();
 
   andThen(function() {
@@ -39,9 +39,9 @@ test("editing a client", function(assert) {
 
     andThen(function() {
       const attrs = Object.assign({}, client, {
-        companyName: "Simpsons LLC",
-        address: "Springfield",
-        contactName: "Bart Simpson"
+        companyName: 'Simpsons LLC',
+        address: 'Springfield',
+        contactName: 'Bart Simpson'
       });
       newClientPage.saveWith(attrs);
 
@@ -54,8 +54,8 @@ test("editing a client", function(assert) {
   });
 });
 
-test("removing a client", function(assert) {
-  const client = server.create("client");
+test('removing a client', function(assert) {
+  const client = server.create('client');
   clientsPage.visit();
 
   andThen(function() {

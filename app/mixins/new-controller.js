@@ -7,7 +7,7 @@ export default Mixin.create({
 
   makeTransition() {
     let transitionTo = this.get('transitionTo');
-    if(typeOf(transitionTo) == 'function') {
+    if (typeOf(transitionTo) == 'function') {
       transitionTo.call(this);
     } else {
       this.transitionToRoute(transitionTo);
@@ -15,13 +15,11 @@ export default Mixin.create({
   },
 
   actions: {
-    saveRecord: function () {
+    saveRecord: function() {
       let model = this.get('model');
 
       model.set('isSubmitted', true);
-      model.save()
-           .then(() => this.makeTransition(),
-                 () => null);
+      model.save().then(() => this.makeTransition(), () => null);
     }
   }
 });

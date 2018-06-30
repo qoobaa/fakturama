@@ -1,6 +1,6 @@
 import Ember from 'ember';
-import CurrentSession from "fakturama/services/current-session";
-import DummySession from "fakturama/services/dummy-session";
+import CurrentSession from 'fakturama/services/current-session';
+import DummySession from 'fakturama/services/dummy-session';
 
 export function initialize(application) {
   const sessionService = Ember.testing ? DummySession : CurrentSession;
@@ -10,4 +10,4 @@ export function initialize(application) {
 export default {
   name: 'session',
   initialize
-}
+};

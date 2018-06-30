@@ -3,8 +3,8 @@
     'use strict';
 
     return {
-      'default': self['polishToWords'],
-      __esModule: true,
+      default: self['polishToWords'],
+      __esModule: true
     };
   }
 

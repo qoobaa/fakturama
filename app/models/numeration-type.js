@@ -1,4 +1,4 @@
-import DS from "ember-data";
+import DS from 'ember-data';
 
 const { Model, attr } = DS;
 
@@ -8,10 +8,10 @@ let NumerationType = Model.extend({
 });
 
 NumerationType.reopenClass({
-  primaryKey: "code",
+  primaryKey: 'code',
   FIXTURES: [
-    { id: 1, code: "month", name: "miesięczny" },
-    { id: 2, code: "year", name: "roczny" }
+    { id: 1, code: 'month', name: 'miesięczny' },
+    { id: 2, code: 'year', name: 'roczny' }
   ]
 });
 

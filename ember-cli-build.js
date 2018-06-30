@@ -6,14 +6,12 @@ const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     lessOptions: {
-      paths: [
-        'node_modules'
-      ]
+      paths: ['node_modules']
     }
   });
 
-  app.import("vendor/firebase.js");
-  app.import("vendor/toword.js");
+  app.import('vendor/firebase.js');
+  app.import('vendor/toword.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

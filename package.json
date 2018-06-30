@@ -11,8 +11,15 @@
   "repository": "",
   "scripts": {
     "build": "ember build",
+    "precommit": "lint-staged",
     "start": "ember server",
     "test": "ember test"
+  },
+  "lint-staged": {
+    "*.{js,json,css}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "devDependencies": {
     "blueimp-md5": "^2.10.0",
@@ -45,10 +52,14 @@
     "ember-test-selectors": "^0.3.8",
     "ember-truth-helpers": "^2.0.0",
     "ember-validations": "github:CassioFelippe/ember-validations",
-    "ember-welcome-page": "^3.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "firebase-tools": "^3.16.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.0",
     "loader.js": "^4.2.3",
-    "polish-to-words": "github:qoobaa/polish-to-words"
+    "polish-to-words": "github:qoobaa/polish-to-words",
+    "prettier": "^1.13.5"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"

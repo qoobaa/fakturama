@@ -4,161 +4,248 @@ import ArrayProxy from '@ember/array/proxy';
 import { getOwner } from '@ember/application';
 import Mixin from '@ember/object/mixin';
 import EmberObject, { computed } from '@ember/object';
-import Item from "fakturama/models/item";
+import Item from 'fakturama/models/item';
 
 import polishToWords from 'polish-to-words';
 
 export default Mixin.create({
-  sellerFirstLine: computed("seller", function () {
-    return this.getWithDefault("seller", "").split("\n")[0];
+  sellerFirstLine: computed('seller', function() {
+    return this.getWithDefault('seller', '').split('\n')[0];
   }),
 
-  sellerRest: computed("seller", function () {
-    return this.getWithDefault("seller", "").split("\n").slice(1);
+  sellerRest: computed('seller', function() {
+    return this.getWithDefault('seller', '')
+      .split('\n')
+      .slice(1);
   }),
 
-  buyerFirstLine: computed("buyer", function () {
-    return this.getWithDefault("buyer", "").split("\n")[0];
+  buyerFirstLine: computed('buyer', function() {
+    return this.getWithDefault('buyer', '').split('\n')[0];
   }),
 
-  buyerRest: computed("buyer", function () {
-    return this.getWithDefault("buyer", "").split("\n").slice(1);
+  buyerRest: computed('buyer', function() {
+    return this.getWithDefault('buyer', '')
+      .split('\n')
+      .slice(1);
   }),
 
-  commentLines: computed("comment", function () {
-    return this.getWithDefault("comment", "").split("\n");
+  commentLines: computed('comment', function() {
+    return this.getWithDefault('comment', '').split('\n');
   }),
 
-  periodNumber: computed("number", function () {
-    const number = this.getWithDefault("number", "").match(/([^/]+)\/(.+)/);
+  periodNumber: computed('number', function() {
+    const number = this.getWithDefault('number', '').match(/([^/]+)\/(.+)/);
     return number ? number[2] : 1;
   }),
 
-  periodicalNumber: computed("number", function () {
-    const number = this.getWithDefault("number", "").match(/([^/]+)\/(.+)/);
+  periodicalNumber: computed('number', function() {
+    const number = this.getWithDefault('number', '').match(/([^/]+)\/(.+)/);
     return number ? parseInt(number[1], 10) : 0;
   }),
 
-  items: computed("itemsAttributes", "itemsAttributes.@each", function () {
-    return this.getWithDefault("itemsAttributes", []).map((itemAttributes) => {
-      return Item.create(Object.assign({}, itemAttributes, { container: getOwner(this) }));
+  items: computed('itemsAttributes', 'itemsAttributes.@each', function() {
+    return this.getWithDefault('itemsAttributes', []).map(itemAttributes => {
+      return Item.create(
+        Object.assign({}, itemAttributes, { container: getOwner(this) })
+      );
     });
   }),
 
-  currency: computed("currencyCode", function () {
-    var code = this.get("currencyCode");
-    if(code) {
+  currency: computed('currencyCode', function() {
+    var code = this.get('currencyCode');
+    if (code) {
       return this.get('store').queryRecord('currency', { code });
     }
   }),
 
-  language: computed("languageCode", function () {
-    var code = this.get("languageCode");
-    if(code) {
+  language: computed('languageCode', function() {
+    var code = this.get('languageCode');
+    if (code) {
       return this.get('store').queryRecord('language', { code });
     }
   }),
 
-  subTotals: computed("items", "items.@each.netAmount", "items.@each.taxAmount",
-                      "items.@each.grossAmount", "items.@each.taxRate",
-                      "exchangeRate", "exchangeDivisor", function () {
-    let results = ArrayProxy.create({ content: A([]) });
+  subTotals: computed(
+    'items',
+    'items.@each.netAmount',
+    'items.@each.taxAmount',
+    'items.@each.grossAmount',
+    'items.@each.taxRate',
+    'exchangeRate',
+    'exchangeDivisor',
+    function() {
+      let results = ArrayProxy.create({ content: A([]) });
 
-    all(this.get('items').map((item) => item.get('taxRate'))).then(() => {
-      this.get('items').mapBy('taxRate').uniq().map((taxRate) => {
-        const items = this.get('items').filterBy('taxRate', taxRate);
-        let result = EmberObject.create({ taxRate: taxRate });
+      all(this.get('items').map(item => item.get('taxRate'))).then(() => {
+        this.get('items')
+          .mapBy('taxRate')
+          .uniq()
+          .map(taxRate => {
+            const items = this.get('items').filterBy('taxRate', taxRate);
+            let result = EmberObject.create({ taxRate: taxRate });
 
-        result.set('netAmount', items.reduce(function(previousValue, item) {
-          return previousValue + item.getWithDefault('netAmount', 0);
-        }, 0));
+            result.set(
+              'netAmount',
+              items.reduce(function(previousValue, item) {
+                return previousValue + item.getWithDefault('netAmount', 0);
+              }, 0)
+            );
 
-        result.set('taxAmount', Math.round(result.get('netAmount') * result.get('taxRate.value') / 100));
-        result.set('grossAmount', result.get('netAmount') + result.get('taxAmount'));
+            result.set(
+              'taxAmount',
+              Math.round(
+                (result.get('netAmount') * result.get('taxRate.value')) / 100
+              )
+            );
+            result.set(
+              'grossAmount',
+              result.get('netAmount') + result.get('taxAmount')
+            );
 
-        if (this.get('exchangeRate')) {
-          result.set('taxAmountPLN', Math.round(result.get('taxAmount') * this.get('exchangeRate') / (this.get('exchangeDivisor') * 10000)));
-        }
+            if (this.get('exchangeRate')) {
+              result.set(
+                'taxAmountPLN',
+                Math.round(
+                  (result.get('taxAmount') * this.get('exchangeRate')) /
+                    (this.get('exchangeDivisor') * 10000)
+                )
+              );
+            }
 
-        results.pushObject(result);
-      })
-    });
+            results.pushObject(result);
+          });
+      });
 
-    return results;
-  }),
-
-  totalNetAmount: computed("subTotals", "subTotals.@each.netAmount", function () {
-    return this.get("subTotals").reduce(function (previousValue, item) {
-      return previousValue + item.get("netAmount");
-    }, 0);
-  }),
-
-  totalTaxAmount: computed("subTotals", "subTotals.@each.taxAmount", function () {
-    return this.get("subTotals").reduce(function (previousValue, item) {
-      return previousValue + item.getWithDefault("taxAmount", 0);
-    }, 0);
-  }),
-
-  totalGrossAmount: computed("subTotals", "subTotals.@each.grossAmount", function () {
-    return this.get("subTotals").reduce(function (previousValue, item) {
-      return previousValue + item.get("grossAmount");
-    }, 0);
-  }),
-
-  totalTaxAmountPLN: computed("totalTaxAmount", "exchangeRate",
-                              "exchangeDivisor", "isExchanging", function () {
-    if (this.get("isExchanging")) {
-      return Math.round(this.get("totalTaxAmount") * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000));
+      return results;
     }
-  }),
+  ),
 
-  totalGrossAmountPLN: computed("totalGrossAmount", "exchangeRate",
-                                "exchangeDivisor", "isForeignCurrency", function () {
-    if (this.get("isForeignCurrency")) {
-      return Math.round(this.get("totalGrossAmount") * this.get("exchangeRate") / (this.get("exchangeDivisor") * 10000));
-    } else {
-      return this.get("totalGrossAmount");
+  totalNetAmount: computed(
+    'subTotals',
+    'subTotals.@each.netAmount',
+    function() {
+      return this.get('subTotals').reduce(function(previousValue, item) {
+        return previousValue + item.get('netAmount');
+      }, 0);
     }
+  ),
+
+  totalTaxAmount: computed(
+    'subTotals',
+    'subTotals.@each.taxAmount',
+    function() {
+      return this.get('subTotals').reduce(function(previousValue, item) {
+        return previousValue + item.getWithDefault('taxAmount', 0);
+      }, 0);
+    }
+  ),
+
+  totalGrossAmount: computed(
+    'subTotals',
+    'subTotals.@each.grossAmount',
+    function() {
+      return this.get('subTotals').reduce(function(previousValue, item) {
+        return previousValue + item.get('grossAmount');
+      }, 0);
+    }
+  ),
+
+  totalTaxAmountPLN: computed(
+    'totalTaxAmount',
+    'exchangeRate',
+    'exchangeDivisor',
+    'isExchanging',
+    function() {
+      if (this.get('isExchanging')) {
+        return Math.round(
+          (this.get('totalTaxAmount') * this.get('exchangeRate')) /
+            (this.get('exchangeDivisor') * 10000)
+        );
+      }
+    }
+  ),
+
+  totalGrossAmountPLN: computed(
+    'totalGrossAmount',
+    'exchangeRate',
+    'exchangeDivisor',
+    'isForeignCurrency',
+    function() {
+      if (this.get('isForeignCurrency')) {
+        return Math.round(
+          (this.get('totalGrossAmount') * this.get('exchangeRate')) /
+            (this.get('exchangeDivisor') * 10000)
+        );
+      } else {
+        return this.get('totalGrossAmount');
+      }
+    }
+  ),
+
+  totalGrossAmountInWords: computed(
+    'totalGrossAmount',
+    'currency.code',
+    function() {
+      const amount = String(this.get('totalGrossAmount'));
+      const dollars = amount.substr(0, amount.length - 2) || '0';
+      const cents = amount.substr(amount.length - 2, amount.length) || '0';
+
+      return `${polishToWords(dollars)} ${this.get(
+        'currency.code'
+      )} ${cents}/100`;
+    }
+  ),
+
+  englishTotalGrossAmountInWords: computed(
+    'totalGrossAmount',
+    'currency.code',
+    function() {
+      var dollars,
+        cents,
+        amount = String(this.get('totalGrossAmount'));
+
+      dollars = amount.substr(0, amount.length - 2) || '0';
+      cents = amount.substr(amount.length - 2, amount.length) || '0';
+
+      return (
+        window.toWords(dollars) +
+        ' ' +
+        this.get('currency.code') +
+        ' ' +
+        cents +
+        '/100'
+      );
+    }
+  ),
+
+  isEnglish: computed('languageCode', function() {
+    return this.get('languageCode') === 'plen';
   }),
 
-  totalGrossAmountInWords: computed('totalGrossAmount', 'currency.code', function () {
-    const amount = String(this.get('totalGrossAmount'));
-    const dollars = amount.substr(0, amount.length - 2) || '0';
-    const cents = amount.substr(amount.length - 2, amount.length) || '0';
-
-    return `${polishToWords(dollars)} ${this.get('currency.code')} ${cents}/100`;
+  isForeignCurrency: computed('currencyCode', function() {
+    return this.get('currencyCode') !== 'PLN';
   }),
 
-  englishTotalGrossAmountInWords: computed("totalGrossAmount", "currency.code", function () {
-    var dollars, cents,
-      amount = String(this.get("totalGrossAmount"));
+  isExchanging: computed(
+    'currencyCode',
+    'issueDate',
+    'totalTaxAmount',
+    'isForeignCurrency',
+    function() {
+      return (
+        !!this.get('currencyCode') &&
+        !!this.get('issueDate') &&
+        !!this.get('totalTaxAmount') &&
+        this.get('isForeignCurrency')
+      );
+    }
+  ),
 
-    dollars = amount.substr(0, amount.length - 2) || "0";
-    cents = amount.substr(amount.length - 2, amount.length) || "0";
-
-    return window.toWords(dollars) + " " + this.get("currency.code") + " " + cents + "/100";
+  isExpired: computed('dueDate', function() {
+    return Date.parse(this.get('dueDate')) < new Date().getTime();
   }),
 
-  isEnglish: computed("languageCode", function () {
-    return this.get("languageCode") === "plen";
-  }),
-
-  isForeignCurrency: computed("currencyCode", function () {
-    return this.get("currencyCode") !== "PLN";
-  }),
-
-  isExchanging: computed('currencyCode', 'issueDate', 'totalTaxAmount', 'isForeignCurrency', function () {
-    return !!this.get("currencyCode") &&
-      !!this.get("issueDate") &&
-      !!this.get("totalTaxAmount") &&
-      this.get("isForeignCurrency");
-  }),
-
-  isExpired: computed("dueDate", function () {
-    return Date.parse(this.get("dueDate")) < new Date().getTime();
-  }),
-
-  isOverdue: computed("isExpired", "isPaid", function () {
-    return this.get("isExpired") && !this.get("isPaid");
+  isOverdue: computed('isExpired', 'isPaid', function() {
+    return this.get('isExpired') && !this.get('isPaid');
   })
 });
